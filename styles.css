@@ -241,6 +241,7 @@ body {
 /* PRICING */
 .pricing { padding: 96px 0; }
 .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 800px; margin: 0 auto; }
+.pricing-grid--single { grid-template-columns: 1fr; max-width: 480px; }
 .pricing-card {
   background: var(--surface);
   border: 1px solid var(--border);
