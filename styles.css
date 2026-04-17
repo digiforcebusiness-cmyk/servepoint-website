@@ -63,17 +63,25 @@ body {
   font-weight: 600 !important;
 }
 .nav-cta:hover { background: var(--accent-light) !important; color: #0C1E28 !important; }
-.lang-switch {
-  font-size: 12px !important;
+.lang-picker {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.lang-picker a {
+  font-size: 11px !important;
   font-weight: 700 !important;
   color: var(--text-muted) !important;
-  border: 1px solid var(--border);
-  padding: 4px 10px;
-  border-radius: 6px;
-  letter-spacing: .5px;
-  transition: border-color .2s, color .2s !important;
+  padding: 5px 9px !important;
+  text-decoration: none;
+  letter-spacing: .4px;
+  transition: background .15s, color .15s !important;
+  border-right: 1px solid var(--border);
 }
-.lang-switch:hover { border-color: var(--accent) !important; color: var(--accent-light) !important; }
+.lang-picker a:last-child { border-right: none; }
+.lang-picker a:hover { background: rgba(255,255,255,.08); color: var(--text) !important; }
+.lang-picker a.lang-active { background: var(--accent); color: white !important; }
 
 /* HERO */
 .hero {
