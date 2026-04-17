@@ -365,6 +365,27 @@
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">FAQ</div>
+        <h2 class="section-title">Questions fréquentes</h2>
+        <p class="section-subtitle">Tout ce que vous devez savoir avant de commencer.</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">Le serveur et le chef peuvent-ils utiliser des appareils séparés en même temps ?<span class="faq-icon">+</span></button><div class="faq-a"><p>Oui — c'est le cœur du fonctionnement de ServePoint. Le serveur prend la commande sur son téléphone ou sa tablette, et elle apparaît instantanément sur l'écran cuisine du chef. Tous les appareils sont synchronisés en temps réel via Firebase.</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">Combien d'appareils puis-je connecter ?<span class="faq-icon">+</span></button><div class="faq-a"><p>Avec ServePoint Pro (5 $/mois), vous pouvez connecter un nombre illimité d'appareils simultanément — téléphones, tablettes, peu importe. Aucun surcoût par appareil.</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">ServePoint fonctionne-t-il avec les imprimantes thermiques Bluetooth ?<span class="faq-icon">+</span></button><div class="faq-a"><p>Oui. ServePoint prend en charge les imprimantes thermiques Bluetooth 58mm et 80mm. Le serveur imprime les tickets directement depuis son appareil, sans câble USB ni comptoir fixe.</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">Quelles langues l'application prend-elle en charge ?<span class="faq-icon">+</span></button><div class="faq-a"><p>ServePoint est disponible en français, anglais, espagnol et arabe — avec support complet de l'arabe de droite à gauche (RTL). La langue se change instantanément depuis les paramètres.</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">Quel est le tarif de ServePoint ?<span class="faq-icon">+</span></button><div class="faq-a"><p>ServePoint Pro coûte 5 $/mois et inclut toutes les fonctionnalités sans limitation — appareils illimités, sync temps réel, affichage cuisine, gestion des stocks, rapports, impression thermique et plus. Aucuns frais cachés.</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">Pour quels types d'établissements ServePoint est-il conçu ?<span class="faq-icon">+</span></button><div class="faq-a"><p>ServePoint est conçu pour les restaurants, cafés, snack-bars, comptoirs de restauration rapide, boulangeries et tout commerce de restauration gérant des commandes sur plusieurs appareils.</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">Mes données sont-elles en sécurité ?<span class="faq-icon">+</span></button><div class="faq-a"><p>Oui. Toutes les données sont stockées en sécurité sur Firebase (infrastructure cloud de Google), protégées par des règles d'authentification et sauvegardées automatiquement.</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">Puis-je essayer ServePoint avant de souscrire ?<span class="faq-icon">+</span></button><div class="faq-a"><p>Oui — téléchargez ServePoint sur Google Play et testez l'application avant de démarrer votre abonnement. Aucune carte bancaire requise pour l'installation.</p></div></div>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="cta">
     <div class="container cta-inner">
@@ -428,6 +449,14 @@
     lbClose.addEventListener('click', closeLightbox);
     lbBackdrop.addEventListener('click', closeLightbox);
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
+
+    document.querySelectorAll('.faq-q').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = btn.parentElement, isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); i.querySelector('.faq-q').setAttribute('aria-expanded','false'); });
+        if (!isOpen) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+      });
+    });
   </script>
 </body>
 </html>

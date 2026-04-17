@@ -254,6 +254,26 @@
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">FAQ</div>
+        <h2 class="section-title">الأسئلة الشائعة</h2>
+        <p class="section-subtitle">كل ما تحتاج معرفته قبل البدء.</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">هل يمكن للنادل والطاهي استخدام أجهزة منفصلة في نفس الوقت؟<span class="faq-icon">+</span></button><div class="faq-a"><p>نعم — هذا هو جوهر عمل ServePoint. يأخذ النادل الطلب على هاتفه أو جهازه اللوحي، ويظهر فوراً على شاشة المطبخ الخاصة بالطاهي. جميع الأجهزة تتزامن في الوقت الحقيقي عبر Firebase.</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">كم عدد الأجهزة التي يمكنني توصيلها؟<span class="faq-icon">+</span></button><div class="faq-a"><p>مع ServePoint Pro (5 $/شهر)، يمكنك توصيل عدد غير محدود من الأجهزة في وقت واحد — هواتف، أجهزة لوحية، أياً كان ما يحتاجه فريقك. بدون رسوم إضافية لكل جهاز.</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">هل ServePoint يعمل مع الطابعات الحرارية بلوتوث؟<span class="faq-icon">+</span></button><div class="faq-a"><p>نعم. ServePoint يدعم الطابعات الحرارية البلوتوث 58mm و80mm. يمكن للنادل طباعة الإيصالات مباشرة من جهازه بدون كابلات USB.</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">ما هي اللغات التي يدعمها التطبيق؟<span class="faq-icon">+</span></button><div class="faq-a"><p>ServePoint متاح بالعربية والفرنسية والإنجليزية والإسبانية — مع دعم كامل للكتابة من اليمين إلى اليسار (RTL) للغة العربية. يمكن تغيير اللغة فوراً من الإعدادات.</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">كم يكلف ServePoint؟<span class="faq-icon">+</span></button><div class="faq-a"><p>ServePoint Pro يكلف 5 $/شهر ويشمل جميع الميزات بدون قيود — أجهزة غير محدودة، مزامنة فورية، شاشة مطبخ، إدارة مخزون، تقارير، طباعة حرارية والمزيد. بدون رسوم خفية.</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">هل بياناتي في أمان؟<span class="faq-icon">+</span></button><div class="faq-a"><p>نعم. جميع البيانات مخزنة بأمان على Firebase (البنية السحابية من Google)، محمية بقواعد المصادقة ومحفوظة تلقائياً.</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">هل يمكنني تجربة ServePoint قبل الاشتراك؟<span class="faq-icon">+</span></button><div class="faq-a"><p>نعم — قم بتنزيل ServePoint من Google Play واستكشف التطبيق قبل بدء اشتراكك. لا يلزم بطاقة ائتمان للتثبيت.</p></div></div>
+      </div>
+    </div>
+  </section>
+
   <section class="cta">
     <div class="container cta-inner">
       <h2>هل أنت مستعد لتحديث مطعمك؟</h2>
@@ -292,6 +312,7 @@
     document.querySelectorAll('.phone-wrap img').forEach(i=>i.addEventListener('click',()=>open(i.src,i.alt)));
     lbC.addEventListener('click',close);lbB.addEventListener('click',close);
     document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+    document.querySelectorAll('.faq-q').forEach(function(btn){var item=btn.parentElement;btn.addEventListener('click',function(){var isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');i.querySelector('.faq-q').setAttribute('aria-expanded','false');});if(!isOpen){item.classList.add('open');btn.setAttribute('aria-expanded','true');}});});
   </script>
 </body>
 </html>

@@ -41,6 +41,22 @@
   }
   </script>
 
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Can the waiter and chef use separate devices at the same time?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — the waiter takes the order on their phone or tablet, and it appears instantly on the chef's Kitchen Display screen. All devices sync in real time via Firebase." } },
+      { "@type": "Question", "name": "How many devices can I connect?", "acceptedAnswer": { "@type": "Answer", "text": "With ServePoint Pro ($5/month) you can connect unlimited devices simultaneously. No extra charge per device." } },
+      { "@type": "Question", "name": "Does ServePoint work with Bluetooth thermal printers?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. ServePoint supports 58mm and 80mm Bluetooth thermal printers without USB cables." } },
+      { "@type": "Question", "name": "What languages does the app support?", "acceptedAnswer": { "@type": "Answer", "text": "ServePoint is available in French, English, Spanish and Arabic including full RTL support for Arabic." } },
+      { "@type": "Question", "name": "How much does ServePoint cost?", "acceptedAnswer": { "@type": "Answer", "text": "ServePoint Pro costs $5 per month and includes every feature with no limitations — unlimited devices, real-time sync, kitchen display, inventory, reports and more. No setup fees." } },
+      { "@type": "Question", "name": "Is my business data safe?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. All data is stored securely in Firebase (Google's cloud), protected by authentication rules and backed up automatically." } }
+    ]
+  }
+  </script>
+
   <!-- Hreflang -->
   <link rel="alternate" hreflang="en"        href="https://www.servepointpos.com/" />
   <link rel="alternate" hreflang="fr"        href="https://www.servepointpos.com/fr/" />
@@ -368,6 +384,51 @@
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">FAQ</div>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Everything you need to know before getting started.</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Can the waiter and chef use separate devices at the same time?<span class="faq-icon">+</span></button>
+          <div class="faq-a"><p>Yes — this is ServePoint's core workflow. The waiter takes the order on their phone or tablet, and it appears instantly on the chef's Kitchen Display screen. All devices sync in real time via Firebase.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">How many devices can I connect?<span class="faq-icon">+</span></button>
+          <div class="faq-a"><p>With ServePoint Pro ($5/month) you can connect unlimited devices simultaneously — phones, tablets, whatever your team needs. No extra charge per device.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Does ServePoint work with Bluetooth thermal printers?<span class="faq-icon">+</span></button>
+          <div class="faq-a"><p>Yes. ServePoint supports 58mm and 80mm Bluetooth thermal printers. Waiters can print receipts directly from their device without USB cables or a fixed counter setup.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">What languages does the app support?<span class="faq-icon">+</span></button>
+          <div class="faq-a"><p>ServePoint is available in French, English, Spanish and Arabic — including full right-to-left (RTL) support for Arabic. You can switch language instantly from the settings screen.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">How much does ServePoint cost?<span class="faq-icon">+</span></button>
+          <div class="faq-a"><p>ServePoint Pro costs $5 per month and includes every feature with no limitations — unlimited devices, real-time sync, kitchen display, inventory management, sales reports, thermal printing and more. No setup fees, no hidden charges.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">What types of businesses is ServePoint designed for?<span class="faq-icon">+</span></button>
+          <div class="faq-a"><p>ServePoint is built for restaurants, cafés, snack bars, fast food counters, bakeries and any food service business that needs to manage orders across multiple staff members and devices.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Is my business data safe?<span class="faq-icon">+</span></button>
+          <div class="faq-a"><p>Yes. All data is stored securely in Firebase (Google's cloud infrastructure), protected by authentication rules. Your data is backed up automatically and accessible from any authorised device at any time.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Can I try ServePoint before subscribing?<span class="faq-icon">+</span></button>
+          <div class="faq-a"><p>Yes — download ServePoint from Google Play and explore the app before starting your subscription. No credit card required to install.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="cta">
     <div class="container cta-inner">
@@ -408,6 +469,20 @@
     </div>
   </footer>
 
+  <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-q').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = btn.parentElement;
+        var isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(function(i) {
+          i.classList.remove('open');
+          i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) { item.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+      });
+    });
+  </script>
   <script>
     const lightbox  = document.getElementById('lightbox');
     const lbImg     = document.getElementById('lightbox-img');

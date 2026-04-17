@@ -247,6 +247,26 @@
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">FAQ</div>
+        <h2 class="section-title">Preguntas frecuentes</h2>
+        <p class="section-subtitle">Todo lo que necesita saber antes de empezar.</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">¿El camarero y el chef pueden usar dispositivos separados al mismo tiempo?<span class="faq-icon">+</span></button><div class="faq-a"><p>Sí — este es el flujo central de ServePoint. El camarero toma el pedido en su móvil o tablet, y aparece al instante en la pantalla de cocina del chef. Todos los dispositivos se sincronizan en tiempo real vía Firebase.</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cuántos dispositivos puedo conectar?<span class="faq-icon">+</span></button><div class="faq-a"><p>Con ServePoint Pro (5 $/mes) puede conectar dispositivos ilimitados simultáneamente — móviles, tablets, lo que su equipo necesite. Sin coste adicional por dispositivo.</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">¿ServePoint funciona con impresoras térmicas Bluetooth?<span class="faq-icon">+</span></button><div class="faq-a"><p>Sí. ServePoint es compatible con impresoras térmicas Bluetooth de 58mm y 80mm. Los camareros pueden imprimir tickets directamente desde su dispositivo sin cables USB.</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Qué idiomas soporta la aplicación?<span class="faq-icon">+</span></button><div class="faq-a"><p>ServePoint está disponible en español, francés, inglés y árabe — incluyendo soporte completo RTL para árabe. El idioma se cambia al instante desde los ajustes.</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cuánto cuesta ServePoint?<span class="faq-icon">+</span></button><div class="faq-a"><p>ServePoint Pro cuesta 5 $/mes e incluye todas las funcionalidades sin limitaciones — dispositivos ilimitados, sincronización en tiempo real, pantalla de cocina, inventario, informes y más. Sin cargos ocultos.</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Están seguros mis datos?<span class="faq-icon">+</span></button><div class="faq-a"><p>Sí. Todos los datos se almacenan de forma segura en Firebase (infraestructura cloud de Google), protegidos por reglas de autenticación y con copia de seguridad automática.</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo probar ServePoint antes de suscribirme?<span class="faq-icon">+</span></button><div class="faq-a"><p>Sí — descargue ServePoint desde Google Play y pruebe la aplicación antes de iniciar su suscripción. No se requiere tarjeta de crédito para instalar.</p></div></div>
+      </div>
+    </div>
+  </section>
+
   <section class="cta">
     <div class="container cta-inner">
       <h2>¿Listo para modernizar su restaurante?</h2>
@@ -285,6 +305,7 @@
     document.querySelectorAll('.phone-wrap img').forEach(i=>i.addEventListener('click',()=>open(i.src,i.alt)));
     lbC.addEventListener('click',close);lbB.addEventListener('click',close);
     document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+    document.querySelectorAll('.faq-q').forEach(function(btn){var item=btn.parentElement;btn.addEventListener('click',function(){var isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');i.querySelector('.faq-q').setAttribute('aria-expanded','false');});if(!isOpen){item.classList.add('open');btn.setAttribute('aria-expanded','true');}});});
   </script>
 </body>
 </html>
