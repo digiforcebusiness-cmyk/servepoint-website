@@ -46,10 +46,10 @@ body {
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .logo-icon {
   width: 36px; height: 36px;
-  background: var(--accent);
   border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
+  overflow: hidden;
 }
 .logo-text { font-size: 18px; font-weight: 800; color: var(--text); }
 .nav-links { display: flex; align-items: center; gap: 28px; }
