@@ -228,13 +228,71 @@ body {
 }
 .phone-wrap img {
   width: 100%;
-  max-width: 300px;
-  border-radius: 28px;
+  max-width: 480px;
+  border-radius: 20px;
   border: 1px solid rgba(255,255,255,.08);
   box-shadow: 0 40px 100px rgba(0,0,0,.6), 0 0 0 1px var(--border);
   display: block;
   position: relative;
+  cursor: zoom-in;
+  transition: transform .25s, box-shadow .25s;
 }
+.phone-wrap img:hover {
+  transform: scale(1.025);
+  box-shadow: 0 50px 120px rgba(0,0,0,.7), 0 0 0 1px var(--accent);
+}
+
+/* LIGHTBOX */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.lightbox.active { display: flex; }
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.88);
+  backdrop-filter: blur(6px);
+  cursor: zoom-out;
+}
+.lightbox-img {
+  position: relative;
+  max-width: 92vw;
+  max-height: 90vh;
+  border-radius: 16px;
+  box-shadow: 0 40px 120px rgba(0,0,0,.9);
+  object-fit: contain;
+  animation: lb-in .2s ease;
+}
+@keyframes lb-in {
+  from { opacity: 0; transform: scale(.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.2);
+  color: white;
+  font-size: 18px;
+  line-height: 1;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s;
+  z-index: 1;
+}
+.lightbox-close:hover { background: rgba(255,255,255,.25); }
 
 /* Showcase text side */
 .showcase-chip {
@@ -442,7 +500,7 @@ body {
   }
   .showcase-row--reverse .showcase-media { order: 0; }
   .showcase-row--reverse .showcase-text { order: 0; }
-  .phone-wrap img { max-width: 260px; }
+  .phone-wrap img { max-width: 420px; }
   .extra-features-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
@@ -459,5 +517,5 @@ body {
 @media (max-width: 480px) {
   .extra-features-grid { grid-template-columns: 1fr; }
   .showcase-row { margin-bottom: 60px; }
-  .phone-wrap img { max-width: 220px; }
+  .phone-wrap img { max-width: 100%; }
 }

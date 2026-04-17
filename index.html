@@ -363,6 +363,13 @@
     </div>
   </section>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot preview">
+    <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">✕</button>
+  </div>
+
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container footer-inner">
@@ -384,5 +391,32 @@
     </div>
   </footer>
 
+  <script>
+    const lightbox  = document.getElementById('lightbox');
+    const lbImg     = document.getElementById('lightbox-img');
+    const lbClose   = document.getElementById('lightbox-close');
+    const lbBackdrop = document.getElementById('lightbox-backdrop');
+
+    function openLightbox(src, alt) {
+      lbImg.src = src;
+      lbImg.alt = alt;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+      lbImg.src = '';
+    }
+
+    document.querySelectorAll('.phone-wrap img').forEach(function(img) {
+      img.addEventListener('click', function() { openLightbox(img.src, img.alt); });
+    });
+
+    lbClose.addEventListener('click', closeLightbox);
+    lbBackdrop.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
+  </script>
 </body>
 </html>
