@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact ServePoint — Get in Touch</title>
+  <meta name="description" content="Contact the ServePoint team. We're happy to help with questions about our POS system for restaurants and cafés." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.servepointpos.com/contact.html" />
+  <link rel="icon" href="icon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="/" class="logo">
+        <div class="logo-icon">
+          <img src="/app_icon.png" alt="ServePoint" width="36" height="36" style="border-radius:10px;display:block;">
+        </div>
+        <span class="logo-text">ServePoint</span>
+      </a>
+      <div class="nav-links">
+        <a href="/#features">Features</a>
+        <a href="/#how-it-works">How it works</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/contact.html" style="color:var(--text);">Contact</a>
+        <div class="lang-picker">
+          <a href="/contact.html" class="lang-active">EN</a>
+          <a href="/fr/contact.html">FR</a>
+          <a href="/es/contact.html">ES</a>
+          <a href="/ar/contact.html">AR</a>
+        </div>
+        <a href="https://play.google.com/store/apps/details?id=com.app.servepoint" class="nav-cta" target="_blank" rel="noopener">Get the app</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="contact-hero">
+    <div class="container">
+      <h1>Get in Touch</h1>
+      <p>Have a question or need help? Send us a message — we typically reply within 24 hours.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT LAYOUT -->
+  <div class="contact-layout">
+
+    <!-- INFO CARD -->
+    <div class="contact-info-card">
+      <h2>Contact Info</h2>
+
+      <div class="contact-info-item">
+        <div class="contact-info-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+        </div>
+        <div class="contact-info-text">
+          <strong>Email</strong>
+          <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a>
+        </div>
+      </div>
+
+      <div class="contact-info-item">
+        <div class="contact-info-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="contact-info-text">
+          <strong>Response Time</strong>
+          <span>Within 24 hours</span>
+        </div>
+      </div>
+
+      <div class="contact-info-item">
+        <div class="contact-info-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="contact-info-text">
+          <strong>Available on</strong>
+          <span>Android · iOS coming soon</span>
+        </div>
+      </div>
+
+      <div class="contact-langs">
+        <span class="contact-lang-badge">English</span>
+        <span class="contact-lang-badge">Français</span>
+        <span class="contact-lang-badge">Español</span>
+        <span class="contact-lang-badge">العربية</span>
+      </div>
+    </div>
+
+    <!-- FORM CARD -->
+    <div class="contact-form-card">
+      <h2>Send a Message</h2>
+
+      <form id="contact-form" action="https://formspree.io/f/digiforcebusiness@gmail.com" method="POST">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <select id="subject" name="subject" required>
+            <option value="" disabled selected>Select a topic…</option>
+            <option value="General Question">General Question</option>
+            <option value="Technical Support">Technical Support</option>
+            <option value="Billing & Subscription">Billing &amp; Subscription</option>
+            <option value="Feature Request">Feature Request</option>
+            <option value="Partnership">Partnership</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Describe your question or issue…" required></textarea>
+        </div>
+
+        <input type="hidden" name="_subject" value="New contact from ServePoint website" />
+        <input type="text" name="_gotcha" style="display:none" />
+
+        <button type="submit" class="form-submit">Send Message →</button>
+      </form>
+
+      <div class="form-success" id="form-success">
+        <div class="form-success-icon">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>Message Sent!</h3>
+        <p>Thanks for reaching out. We'll get back to you within 24 hours.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon">
+            <img src="/app_icon.png" alt="ServePoint" width="36" height="36" style="border-radius:10px;display:block;">
+          </div>
+          <span class="logo-text">ServePoint</span>
+        </div>
+        <p>Professional POS for restaurants &amp; cafés.</p>
+      </div>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://play.google.com/store/apps/details?id=com.app.servepoint" target="_blank" rel="noopener">Google Play</a>
+      </div>
+      <div class="footer-copy">© 2026 ServePoint. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById('contact-form');
+    const success = document.getElementById('form-success');
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = form.querySelector('.form-submit');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          success.style.display = 'block';
+        } else {
+          btn.textContent = 'Send Message →';
+          btn.disabled = false;
+          alert('Something went wrong. Please email us directly at digiforcebusiness@gmail.com');
+        }
+      } catch(err) {
+        btn.textContent = 'Send Message →';
+        btn.disabled = false;
+        alert('Something went wrong. Please email us directly at digiforcebusiness@gmail.com');
+      }
+    });
+  </script>
+
+</body>
+</html>
