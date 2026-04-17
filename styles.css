@@ -1,15 +1,15 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --primary: #0D2137;
-  --accent: #2563EB;
-  --accent-light: #3B82F6;
-  --surface: #0F2D4A;
-  --surface2: #142840;
-  --text: #F0F6FF;
-  --text-muted: #8BAAC7;
-  --border: #1E3A55;
-  --radius: 16px;
+  --primary:      #0C1E28;   /* deep teal — matches icon background */
+  --accent:       #D97706;   /* warm amber — matches icon glow */
+  --accent-light: #F59E0B;   /* bright amber */
+  --surface:      #102838;   /* teal surface */
+  --surface2:     #142E3C;   /* slightly lighter teal */
+  --text:         #F0F6FF;
+  --text-muted:   #8AAFC0;
+  --border:       #1C3848;
+  --radius:       16px;
 }
 
 html { scroll-behavior: smooth; }
@@ -33,7 +33,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(13, 33, 55, 0.9);
+  background: rgba(12, 30, 40, 0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
@@ -62,21 +62,21 @@ body {
   border-radius: 8px;
   font-weight: 600 !important;
 }
-.nav-cta:hover { background: var(--accent-light) !important; }
+.nav-cta:hover { background: var(--accent-light) !important; color: #0C1E28 !important; }
 
 /* HERO */
 .hero {
   padding: 96px 0 80px;
   text-align: center;
-  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(37,99,235,.18) 0%, transparent 70%);
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(217,119,6,.2) 0%, transparent 70%);
 }
 .hero-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(37,99,235,.15);
-  border: 1px solid rgba(37,99,235,.35);
-  color: #60A5FA;
+  background: rgba(217,119,6,.15);
+  border: 1px solid rgba(217,119,6,.4);
+  color: #FCD34D;
   font-size: 13px;
   font-weight: 600;
   padding: 6px 14px;
@@ -91,7 +91,7 @@ body {
   margin-bottom: 24px;
 }
 .gradient-text {
-  background: linear-gradient(135deg, #60A5FA 0%, #34D399 100%);
+  background: linear-gradient(135deg, #F59E0B 0%, #F97316 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -117,7 +117,7 @@ body {
   text-decoration: none;
   transition: background .2s, transform .15s;
 }
-.btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); }
+.btn-primary:hover { background: var(--accent-light); color: #0C1E28; transform: translateY(-2px); }
 .btn-secondary {
   display: inline-flex;
   align-items: center;
@@ -151,7 +151,7 @@ body {
   height: 96px;
   border-radius: 22px;
   margin-bottom: 20px;
-  box-shadow: 0 8px 32px rgba(0,0,0,.4);
+  box-shadow: 0 8px 40px rgba(217,119,6,.35);
 }
 
 /* STATS */
@@ -174,9 +174,9 @@ body {
 .section-header { text-align: center; margin-bottom: 72px; }
 .section-badge {
   display: inline-block;
-  background: rgba(37,99,235,.15);
-  border: 1px solid rgba(37,99,235,.3);
-  color: #60A5FA;
+  background: rgba(217,119,6,.15);
+  border: 1px solid rgba(217,119,6,.35);
+  color: #FCD34D;
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
@@ -222,7 +222,7 @@ body {
   content: '';
   position: absolute;
   inset: -40px;
-  background: radial-gradient(ellipse at center, rgba(37,99,235,.18) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(217,119,6,.2) 0%, transparent 70%);
   pointer-events: none;
   border-radius: 50%;
 }
@@ -239,7 +239,7 @@ body {
 }
 .phone-wrap img:hover {
   transform: scale(1.025);
-  box-shadow: 0 50px 120px rgba(0,0,0,.7), 0 0 0 1px var(--accent);
+  box-shadow: 0 50px 120px rgba(0,0,0,.7), 0 0 0 2px var(--accent);
 }
 
 /* LIGHTBOX */
@@ -299,9 +299,9 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(37,99,235,.12);
-  border: 1px solid rgba(37,99,235,.25);
-  color: #60A5FA;
+  background: rgba(217,119,6,.15);
+  border: 1px solid rgba(217,119,6,.3);
+  color: #FCD34D;
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
@@ -310,10 +310,10 @@ body {
   border-radius: 100px;
   margin-bottom: 20px;
 }
-.showcase-chip--orange { background: rgba(249,115,22,.12); border-color: rgba(249,115,22,.25); color: #FB923C; }
-.showcase-chip--green  { background: rgba(52,211,153,.12); border-color: rgba(52,211,153,.25); color: #34D399; }
-.showcase-chip--purple { background: rgba(168,85,247,.12); border-color: rgba(168,85,247,.25); color: #C084FC; }
-.showcase-chip--yellow { background: rgba(234,179,8,.12);  border-color: rgba(234,179,8,.25);  color: #FACC15; }
+.showcase-chip--orange { background: rgba(249,115,22,.12); border-color: rgba(249,115,22,.3); color: #FB923C; }
+.showcase-chip--green  { background: rgba(52,211,153,.12); border-color: rgba(52,211,153,.3); color: #34D399; }
+.showcase-chip--purple { background: rgba(168,85,247,.12); border-color: rgba(168,85,247,.3); color: #C084FC; }
+.showcase-chip--yellow { background: rgba(234,179,8,.12);  border-color: rgba(234,179,8,.3);  color: #FACC15; }
 
 .chip-icon {
   width: 20px; height: 20px;
@@ -408,6 +408,7 @@ body {
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   font-size: 22px; font-weight: 800;
+  color: white;
   margin: 0 auto 18px;
 }
 .step h3 { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
@@ -427,7 +428,7 @@ body {
 }
 .pricing-card--pro {
   border-color: var(--accent);
-  background: linear-gradient(135deg, rgba(37,99,235,.1) 0%, var(--surface) 60%);
+  background: linear-gradient(135deg, rgba(217,119,6,.12) 0%, var(--surface) 60%);
 }
 .plan-badge {
   position: absolute;
@@ -466,12 +467,12 @@ body {
 }
 .plan-btn--outline:hover { background: rgba(255,255,255,.07); }
 .plan-btn--primary { background: var(--accent); color: white; }
-.plan-btn--primary:hover { background: var(--accent-light); }
+.plan-btn--primary:hover { background: var(--accent-light); color: #0C1E28; }
 
 /* CTA */
 .cta {
   padding: 96px 0;
-  background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(37,99,235,.2) 0%, transparent 70%);
+  background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(217,119,6,.22) 0%, transparent 70%);
   border-top: 1px solid var(--border);
   text-align: center;
 }
