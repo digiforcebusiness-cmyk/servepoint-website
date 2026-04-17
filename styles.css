@@ -63,6 +63,17 @@ body {
   font-weight: 600 !important;
 }
 .nav-cta:hover { background: var(--accent-light) !important; color: #0C1E28 !important; }
+.lang-switch {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: var(--text-muted) !important;
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: .5px;
+  transition: border-color .2s, color .2s !important;
+}
+.lang-switch:hover { border-color: var(--accent) !important; color: var(--accent-light) !important; }
 
 /* HERO */
 .hero {
