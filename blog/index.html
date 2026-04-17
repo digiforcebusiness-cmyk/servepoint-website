@@ -1,15 +1,34 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blog ServePoint — Conseils pour restaurants & cafés</title>
-  <meta name="description" content="Conseils, guides et ressources pour les gérants de restaurants, cafés et snack-bars. Choisir un logiciel de caisse, gérer une équipe, optimiser ses ventes." />
+  <title>ServePoint Blog — Restaurant & Café POS Guides</title>
+  <meta name="description" content="Practical guides, comparisons and tips for restaurant, café and snack-bar owners. POS software, inventory, kitchen display systems and more — in 4 languages." />
   <link rel="canonical" href="https://www.servepointpos.com/blog/" />
   <link rel="icon" href="../icon.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .blog-filters { display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:2rem; }
+    .blog-filter-btn { padding:.4rem 1rem; border-radius:999px; border:1.5px solid var(--border); background:transparent; color:var(--text-muted); font-size:.85rem; font-weight:600; cursor:pointer; transition:all .18s; font-family:inherit; }
+    .blog-filter-btn:hover, .blog-filter-btn.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+    .blog-card[data-lang].hidden { display:none; }
+    .blog-month-group { margin-bottom:3rem; }
+    .blog-month-label { font-size:.8rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text-muted); margin-bottom:1.2rem; padding-bottom:.5rem; border-bottom:1px solid var(--border); }
+    .blog-card { display:flex; flex-direction:column; background:var(--surface); border:1.5px solid var(--border); border-radius:12px; padding:1.4rem; text-decoration:none; color:inherit; transition:border-color .18s, transform .18s; }
+    .blog-card:hover { border-color:var(--accent); transform:translateY(-2px); }
+    .blog-card-top { display:flex; gap:.5rem; align-items:center; margin-bottom:.8rem; flex-wrap:wrap; }
+    .blog-card h2 { font-size:1rem; font-weight:700; line-height:1.4; margin:0 0 .5rem; color:var(--text); }
+    .blog-card p { font-size:.875rem; color:var(--text-muted); line-height:1.6; margin:0 0 1rem; flex:1; }
+    .blog-card-footer { display:flex; justify-content:space-between; font-size:.78rem; color:var(--text-muted); margin-top:auto; padding-top:.8rem; border-top:1px solid var(--border); }
+    .lang-badge { font-size:.72rem; font-weight:700; padding:.15rem .55rem; border-radius:999px; text-transform:uppercase; }
+    .lang-badge-en { background:#1e3a5f; color:#60a5fa; }
+    .lang-badge-fr { background:#1a3a1a; color:#4ade80; }
+    .lang-badge-es { background:#3d2800; color:#fb923c; }
+    .lang-badge-ar { background:#2d1a3d; color:#c084fc; }
+  </style>
 </head>
 <body>
 
@@ -22,9 +41,8 @@
         <span class="logo-text">ServePoint</span>
       </a>
       <div class="nav-links">
-        <a href="../#features">Fonctionnalités</a>
-        <a href="../fr/#tarifs">Tarifs</a>
-        <a href="https://play.google.com/store/apps/details?id=com.app.servepoint" class="nav-cta" target="_blank" rel="noopener">Télécharger</a>
+        <a href="../">Home</a>
+        <a href="https://play.google.com/store/apps/details?id=com.app.servepoint" class="nav-cta" target="_blank" rel="noopener">Download</a>
       </div>
     </div>
   </nav>
@@ -32,27 +50,405 @@
   <section class="blog-hero">
     <div class="container">
       <div class="section-badge">Blog</div>
-      <h1>Conseils pour votre restaurant</h1>
-      <p>Guides pratiques pour les gérants de restaurants, cafés et snack-bars.</p>
+      <h1>Restaurant &amp; Café POS Guides</h1>
+      <p>Practical articles for restaurant owners — in English, French, Spanish and Arabic.</p>
     </div>
   </section>
 
   <div class="container">
-    <div class="blog-grid">
 
-      <a href="logiciel-caisse-restaurant-2026.html" class="blog-card">
-        <div class="blog-card-body">
-          <div class="blog-tag">Logiciel de caisse</div>
+    <div class="blog-filters">
+      <button class="blog-filter-btn active" data-filter="all">All</button>
+      <button class="blog-filter-btn" data-filter="en">English</button>
+      <button class="blog-filter-btn" data-filter="fr">Français</button>
+      <button class="blog-filter-btn" data-filter="es">Español</button>
+      <button class="blog-filter-btn" data-filter="ar">العربية</button>
+    </div>
+
+    <!-- MONTH 1 — APRIL 2026 -->
+    <div class="blog-month-group">
+      <div class="blog-month-label">April 2026</div>
+      <div class="blog-grid">
+
+        <a href="logiciel-caisse-restaurant-2026.html" class="blog-card" data-lang="fr">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-fr">FR</span><div class="blog-tag">Logiciel de caisse</div></div>
           <h2>Quel logiciel de caisse choisir pour votre restaurant en 2026 ?</h2>
           <p>Critères essentiels, erreurs à éviter et guide complet pour trouver le système POS adapté à votre établissement.</p>
-        </div>
-        <div class="blog-card-footer">
-          <span>17 avril 2026</span>
-          <span>5 min de lecture</span>
-        </div>
-      </a>
+          <div class="blog-card-footer"><span>17 avril 2026</span><span>5 min</span></div>
+        </a>
 
+        <a href="best-pos-app-small-restaurant.html" class="blog-card" data-lang="en">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-en">EN</span><div class="blog-tag">POS Software</div></div>
+          <h2>Best POS App for Small Restaurants on Android in 2026</h2>
+          <p>What small restaurants actually need from a POS — and why most enterprise systems are overkill.</p>
+          <div class="blog-card-footer"><span>April 18, 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="ar-pos-restaurant-guide.html" class="blog-card" data-lang="ar">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-ar">AR</span><div class="blog-tag">برامج الكاشير</div></div>
+          <h2>دليل اختيار برنامج الكاشير للمطعم 2026</h2>
+          <p>كيف تختار أفضل برنامج نقاط بيع لمطعمك أو مقهاك — المعايير الأساسية والأخطاء الشائعة.</p>
+          <div class="blog-card-footer"><span>١٩ أبريل ٢٠٢٦</span><span>4 min</span></div>
+        </a>
+
+        <a href="software-punto-venta-restaurante.html" class="blog-card" data-lang="es">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-es">ES</span><div class="blog-tag">Software TPV</div></div>
+          <h2>Mejor software de punto de venta para restaurante en 2026</h2>
+          <p>Guía completa para elegir el sistema POS ideal para su restaurante, cafetería o snack-bar.</p>
+          <div class="blog-card-footer"><span>20 abril 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="affichage-cuisine-restaurant.html" class="blog-card" data-lang="fr">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-fr">FR</span><div class="blog-tag">KDS Cuisine</div></div>
+          <h2>Affichage cuisine pour restaurant : comment ça marche et pourquoi l'adopter ?</h2>
+          <p>Le KDS (Kitchen Display System) remplace les tickets papier. Voici comment il fonctionne et ce qu'il change dans votre service.</p>
+          <div class="blog-card-footer"><span>22 avril 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="kitchen-display-system-app.html" class="blog-card" data-lang="en">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-en">EN</span><div class="blog-tag">Kitchen Display</div></div>
+          <h2>What Is a Kitchen Display System and Do You Need One?</h2>
+          <p>How KDS apps replace paper tickets, speed up service and eliminate communication errors between kitchen and floor.</p>
+          <div class="blog-card-footer"><span>April 24, 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="ar-kitchen-display-restaurant.html" class="blog-card" data-lang="ar">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-ar">AR</span><div class="blog-tag">شاشة المطبخ</div></div>
+          <h2>شاشة المطبخ للمطاعم : كيف تعمل ولماذا تحتاجها</h2>
+          <p>كيف تحل شاشة المطبخ الرقمية محل ورق الطلبات وتسرّع الخدمة وتقلل الأخطاء بين القاعة والمطبخ.</p>
+          <div class="blog-card-footer"><span>٢٦ أبريل ٢٠٢٦</span><span>4 min</span></div>
+        </a>
+
+        <a href="pantalla-cocina-restaurante.html" class="blog-card" data-lang="es">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-es">ES</span><div class="blog-tag">Pantalla Cocina</div></div>
+          <h2>Pantalla de cocina para restaurante : qué es y cómo mejora tu servicio</h2>
+          <p>El KDS digital reemplaza los tickets de papel y sincroniza sala y cocina en tiempo real. Así funciona.</p>
+          <div class="blog-card-footer"><span>28 abril 2026</span><span>4 min</span></div>
+        </a>
+
+      </div>
     </div>
+
+    <!-- MONTH 2 — MAY 2026 -->
+    <div class="blog-month-group">
+      <div class="blog-month-label">May 2026</div>
+      <div class="blog-grid">
+
+        <a href="application-caisse-cafe-android.html" class="blog-card" data-lang="fr">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-fr">FR</span><div class="blog-tag">Application caisse</div></div>
+          <h2>Quelle application de caisse pour café sur Android en 2026 ?</h2>
+          <p>Cafés et coffee shops : quelles fonctionnalités sont vraiment utiles et lesquelles sont superflues ? Guide pratique.</p>
+          <div class="blog-card-footer"><span>5 mai 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="restaurant-inventory-management-app.html" class="blog-card" data-lang="en">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-en">EN</span><div class="blog-tag">Inventory</div></div>
+          <h2>How to Manage Restaurant Inventory with an App</h2>
+          <p>Stop running out of ingredients mid-service. Here's how app-based inventory management works and what to look for.</p>
+          <div class="blog-card-footer"><span>May 7, 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="ar-free-pos-app.html" class="blog-card" data-lang="ar">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-ar">AR</span><div class="blog-tag">تطبيق مجاني</div></div>
+          <h2>أفضل تطبيق نقاط بيع للمطاعم : مجاني أم مدفوع ؟</h2>
+          <p>هل يكفي تطبيق مجاني لإدارة مطعمك؟ مقارنة صريحة بين الخيارات المتاحة ومتى يستحق الدفع.</p>
+          <div class="blog-card-footer"><span>٩ مايو ٢٠٢٦</span><span>4 min</span></div>
+        </a>
+
+        <a href="gestion-inventario-restaurante.html" class="blog-card" data-lang="es">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-es">ES</span><div class="blog-tag">Inventario</div></div>
+          <h2>Cómo gestionar el inventario de un restaurante con una app</h2>
+          <p>Evite quedarse sin ingredientes en pleno servicio. Así funciona la gestión de stock automática en el sector hostelero.</p>
+          <div class="blog-card-footer"><span>11 mayo 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="gestion-stock-restaurant.html" class="blog-card" data-lang="fr">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-fr">FR</span><div class="blog-tag">Gestion des stocks</div></div>
+          <h2>Comment gérer le stock de son restaurant efficacement en 2026 ?</h2>
+          <p>Les ruptures de stock en plein service sont évitables. Voici comment un logiciel de caisse moderne automatise la gestion des stocks.</p>
+          <div class="blog-card-footer"><span>14 mai 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="pos-cafe-android-2026.html" class="blog-card" data-lang="en">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-en">EN</span><div class="blog-tag">POS Software</div></div>
+          <h2>Best POS System for a Café on Android in 2026</h2>
+          <p>Coffee shops have different needs than restaurants. Here's what a café POS must do — and what to avoid paying for.</p>
+          <div class="blog-card-footer"><span>May 16, 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="ar-restaurant-management-software.html" class="blog-card" data-lang="ar">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-ar">AR</span><div class="blog-tag">إدارة المطعم</div></div>
+          <h2>برنامج إدارة المطعم : دليل شامل للاختيار في 2026</h2>
+          <p>ما الفرق بين برنامج الكاشير وبرنامج إدارة المطعم؟ ما الذي تحتاجه فعلاً لتشغيل مطعمك بكفاءة؟</p>
+          <div class="blog-card-footer"><span>١٨ مايو ٢٠٢٦</span><span>4 min</span></div>
+        </a>
+
+        <a href="app-caja-registradora-cafeteria.html" class="blog-card" data-lang="es">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-es">ES</span><div class="blog-tag">Caja Registradora</div></div>
+          <h2>La mejor app de caja registradora para cafetería en 2026</h2>
+          <p>Las cafeterías no necesitan un ERP. Necesitan una app simple, rápida y fiable. Aquí está lo que importa.</p>
+          <div class="blog-card-footer"><span>20 mayo 2026</span><span>4 min</span></div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- MONTH 3 — JUNE 2026 -->
+    <div class="blog-month-group">
+      <div class="blog-month-label">June 2026</div>
+      <div class="blog-grid">
+
+        <a href="logiciel-caisse-snack-bar.html" class="blog-card" data-lang="fr">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-fr">FR</span><div class="blog-tag">Logiciel de caisse</div></div>
+          <h2>Logiciel de caisse pour snack-bar : guide complet 2026</h2>
+          <p>Les snack-bars ont des contraintes spécifiques : rapidité, rotation élevée, petit personnel. Quel logiciel de caisse s'y adapte vraiment ?</p>
+          <div class="blog-card-footer"><span>4 juin 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="free-restaurant-pos-android.html" class="blog-card" data-lang="en">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-en">EN</span><div class="blog-tag">POS Software</div></div>
+          <h2>Best Free Restaurant POS for Android in 2026</h2>
+          <p>What free POS apps actually give you — and where the real costs hide. An honest review of free vs paid options.</p>
+          <div class="blog-card-footer"><span>June 6, 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="ar-inventory-management.html" class="blog-card" data-lang="ar">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-ar">AR</span><div class="blog-tag">إدارة المخزون</div></div>
+          <h2>إدارة مخزون المطعم بالتطبيق : الدليل العملي</h2>
+          <p>كيف تتجنب نفاد المواد في وقت الذروة؟ كيف تتبع المخزون تلقائياً مع كل عملية بيع؟</p>
+          <div class="blog-card-footer"><span>٨ يونيو ٢٠٢٦</span><span>4 min</span></div>
+        </a>
+
+        <a href="sistema-pos-cafeteria.html" class="blog-card" data-lang="es">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-es">ES</span><div class="blog-tag">Sistema POS</div></div>
+          <h2>Sistema POS para cafetería en Android : guía completa 2026</h2>
+          <p>Qué necesita realmente una cafetería de su sistema POS — y cómo elegir sin pagar de más.</p>
+          <div class="blog-card-footer"><span>10 junio 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="application-prise-commande-serveur.html" class="blog-card" data-lang="fr">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-fr">FR</span><div class="blog-tag">Prise de commande</div></div>
+          <h2>Application prise de commande : comment le serveur envoie les commandes en cuisine ?</h2>
+          <p>De la commande du client à l'écran du chef en une seconde. Voici comment fonctionne la prise de commande mobile moderne.</p>
+          <div class="blog-card-footer"><span>13 juin 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="waiter-ordering-app-restaurant.html" class="blog-card" data-lang="en">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-en">EN</span><div class="blog-tag">Order Management</div></div>
+          <h2>Best Waiter Ordering App for Restaurants in 2026</h2>
+          <p>How mobile ordering apps eliminate mistakes, speed up service and free waiters from running back to the kitchen.</p>
+          <div class="blog-card-footer"><span>June 15, 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="ar-waiter-ordering-app.html" class="blog-card" data-lang="ar">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-ar">AR</span><div class="blog-tag">أخذ الطلبات</div></div>
+          <h2>تطبيق أخذ الطلبات للنادل في المطعم : كيف يعمل ؟</h2>
+          <p>كيف يأخذ النادل الطلب على هاتفه ويرسله مباشرة للمطبخ؟ هذا هو مستقبل الخدمة في المطاعم.</p>
+          <div class="blog-card-footer"><span>١٧ يونيو ٢٠٢٦</span><span>4 min</span></div>
+        </a>
+
+        <a href="app-tomar-pedidos-camarero.html" class="blog-card" data-lang="es">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-es">ES</span><div class="blog-tag">Pedidos</div></div>
+          <h2>Mejor app para tomar pedidos en restaurante en 2026</h2>
+          <p>Cómo las apps de pedido móvil eliminan errores, aceleran el servicio y liberan a los camareros de ir a la cocina.</p>
+          <div class="blog-card-footer"><span>19 junio 2026</span><span>4 min</span></div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- MONTH 4 — JULY 2026 -->
+    <div class="blog-month-group">
+      <div class="blog-month-label">July 2026</div>
+      <div class="blog-grid">
+
+        <a href="imprimante-thermique-bluetooth-restaurant.html" class="blog-card" data-lang="fr">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-fr">FR</span><div class="blog-tag">Matériel</div></div>
+          <h2>Imprimante thermique Bluetooth pour restaurant : guide d'achat 2026</h2>
+          <p>Quelle imprimante thermique Bluetooth choisir pour votre restaurant ou café ? Compatibilité, formats et conseils d'installation.</p>
+          <div class="blog-card-footer"><span>3 juillet 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="bluetooth-thermal-printer-pos.html" class="blog-card" data-lang="en">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-en">EN</span><div class="blog-tag">Hardware</div></div>
+          <h2>Bluetooth Thermal Printer for Restaurant POS : Complete Buying Guide</h2>
+          <p>58mm or 80mm? What to check for Android compatibility, battery life and receipt quality before you buy.</p>
+          <div class="blog-card-footer"><span>July 5, 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="ar-thermal-printer-restaurant.html" class="blog-card" data-lang="ar">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-ar">AR</span><div class="blog-tag">الطابعة الحرارية</div></div>
+          <h2>الطابعة الحرارية البلوتوث للمطاعم : دليل الاختيار</h2>
+          <p>كيف تختار الطابعة الحرارية المناسبة لمطعمك؟ مقارنة بين 58mm و80mm وما يجب التحقق منه قبل الشراء.</p>
+          <div class="blog-card-footer"><span>٧ يوليو ٢٠٢٦</span><span>4 min</span></div>
+        </a>
+
+        <a href="impresora-termica-bluetooth-restaurante.html" class="blog-card" data-lang="es">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-es">ES</span><div class="blog-tag">Hardware</div></div>
+          <h2>Impresora térmica Bluetooth para restaurante : guía de compra</h2>
+          <p>Todo lo que necesita saber antes de comprar una impresora térmica Bluetooth para su restaurante o cafetería.</p>
+          <div class="blog-card-footer"><span>9 julio 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="synchronisation-temps-reel-pos.html" class="blog-card" data-lang="fr">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-fr">FR</span><div class="blog-tag">Technologie</div></div>
+          <h2>Synchronisation en temps réel : pourquoi c'est essentiel pour votre restaurant</h2>
+          <p>Quand un serveur envoie une commande, le chef doit la voir à l'instant. Voici pourquoi la sync temps réel est la colonne vertébrale d'un bon service.</p>
+          <div class="blog-card-footer"><span>14 juillet 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="real-time-sync-restaurant-pos.html" class="blog-card" data-lang="en">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-en">EN</span><div class="blog-tag">Technology</div></div>
+          <h2>Why Real-Time Sync Is Essential for Your Restaurant POS</h2>
+          <p>When a waiter sends an order, the chef must see it instantly. Here's why real-time sync is non-negotiable for modern restaurants.</p>
+          <div class="blog-card-footer"><span>July 16, 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="ar-real-time-sync-pos.html" class="blog-card" data-lang="ar">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-ar">AR</span><div class="blog-tag">التزامن الفوري</div></div>
+          <h2>المزامنة الفورية في نقاط البيع : لماذا هي ضرورية لمطعمك ؟</h2>
+          <p>عندما يرسل النادل طلباً، يجب أن يراه الطاهي فوراً. إليك لماذا المزامنة اللحظية هي أساس الخدمة الحديثة.</p>
+          <div class="blog-card-footer"><span>١٨ يوليو ٢٠٢٦</span><span>4 min</span></div>
+        </a>
+
+        <a href="sincronizacion-tiempo-real-restaurante.html" class="blog-card" data-lang="es">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-es">ES</span><div class="blog-tag">Tecnología</div></div>
+          <h2>Por qué la sincronización en tiempo real es clave en un restaurante</h2>
+          <p>Cuando el camarero envía un pedido, el chef debe verlo al instante. Así funciona la sincronización en tiempo real en los mejores POS.</p>
+          <div class="blog-card-footer"><span>20 julio 2026</span><span>4 min</span></div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- MONTH 5 — AUGUST 2026 -->
+    <div class="blog-month-group">
+      <div class="blog-month-label">August 2026</div>
+      <div class="blog-grid">
+
+        <a href="servepoint-vs-square-pos.html" class="blog-card" data-lang="fr">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-fr">FR</span><div class="blog-tag">Comparatif</div></div>
+          <h2>ServePoint vs Square : quel système POS choisir pour votre restaurant ?</h2>
+          <p>Comparatif honnête entre ServePoint et Square POS pour les restaurants indépendants, cafés et snack-bars.</p>
+          <div class="blog-card-footer"><span>6 août 2026</span><span>5 min</span></div>
+        </a>
+
+        <a href="servepoint-vs-square-comparison.html" class="blog-card" data-lang="en">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-en">EN</span><div class="blog-tag">Comparison</div></div>
+          <h2>ServePoint vs Square POS : Which Is Better for Restaurants?</h2>
+          <p>An honest side-by-side comparison of ServePoint and Square for independent restaurants and cafés.</p>
+          <div class="blog-card-footer"><span>August 8, 2026</span><span>5 min</span></div>
+        </a>
+
+        <a href="ar-pos-apps-comparison.html" class="blog-card" data-lang="ar">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-ar">AR</span><div class="blog-tag">مقارنة</div></div>
+          <h2>مقارنة تطبيقات نقاط البيع للمطاعم 2026</h2>
+          <p>مقارنة صريحة بين أبرز تطبيقات نقاط البيع المتاحة للمطاعم والمقاهي — بما فيها ServePoint.</p>
+          <div class="blog-card-footer"><span>١٠ أغسطس ٢٠٢٦</span><span>5 min</span></div>
+        </a>
+
+        <a href="comparativa-pos-restaurante.html" class="blog-card" data-lang="es">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-es">ES</span><div class="blog-tag">Comparativa</div></div>
+          <h2>Comparativa de sistemas POS para restaurante en 2026</h2>
+          <p>Análisis objetivo de los principales sistemas POS disponibles para restaurantes y cafeterías independientes.</p>
+          <div class="blog-card-footer"><span>12 agosto 2026</span><span>5 min</span></div>
+        </a>
+
+        <a href="rapports-ventes-restaurant.html" class="blog-card" data-lang="fr">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-fr">FR</span><div class="blog-tag">Rapports</div></div>
+          <h2>Comment analyser les rapports de ventes de votre restaurant pour mieux décider ?</h2>
+          <p>Les données de vente sont là — mais les utilisez-vous vraiment ? Voici comment lire vos rapports et en tirer des décisions concrètes.</p>
+          <div class="blog-card-footer"><span>18 août 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="restaurant-sales-reports-pos.html" class="blog-card" data-lang="en">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-en">EN</span><div class="blog-tag">Analytics</div></div>
+          <h2>How to Use Sales Reports to Run a Better Restaurant</h2>
+          <p>Your POS generates data every shift. Here's how to actually read it and turn it into decisions that grow your business.</p>
+          <div class="blog-card-footer"><span>August 20, 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="ar-sales-reports-restaurant.html" class="blog-card" data-lang="ar">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-ar">AR</span><div class="blog-tag">تقارير المبيعات</div></div>
+          <h2>كيف تستخدم تقارير المبيعات لتطوير مطعمك ؟</h2>
+          <p>تطبيق الكاشير يجمع بيانات كل يوم. إليك كيف تقرأها وتحوّلها إلى قرارات تنمّي مطعمك.</p>
+          <div class="blog-card-footer"><span>٢٢ أغسطس ٢٠٢٦</span><span>4 min</span></div>
+        </a>
+
+        <a href="informes-ventas-restaurante.html" class="blog-card" data-lang="es">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-es">ES</span><div class="blog-tag">Análisis</div></div>
+          <h2>Cómo usar los informes de ventas para mejorar tu restaurante</h2>
+          <p>Tu TPV genera datos en cada turno. Así se leen los informes y se convierten en decisiones que hacen crecer el negocio.</p>
+          <div class="blog-card-footer"><span>24 agosto 2026</span><span>4 min</span></div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- MONTH 6 — SEPTEMBER 2026 -->
+    <div class="blog-month-group">
+      <div class="blog-month-label">September 2026</div>
+      <div class="blog-grid">
+
+        <a href="ouvrir-restaurant-logiciel-caisse.html" class="blog-card" data-lang="fr">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-fr">FR</span><div class="blog-tag">Démarrage</div></div>
+          <h2>Ouvrir un restaurant : comment choisir son logiciel de caisse dès le départ ?</h2>
+          <p>Quand on ouvre un restaurant, le logiciel de caisse est souvent le dernier choix qu'on fait — alors que c'est l'un des plus importants.</p>
+          <div class="blog-card-footer"><span>5 septembre 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="restaurant-pos-setup-guide.html" class="blog-card" data-lang="en">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-en">EN</span><div class="blog-tag">Getting Started</div></div>
+          <h2>How to Set Up a POS System for Your Restaurant</h2>
+          <p>Step-by-step guide to choosing, setting up and going live with a restaurant POS — without the enterprise price tag.</p>
+          <div class="blog-card-footer"><span>September 7, 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="ar-restaurant-pos-complete-guide.html" class="blog-card" data-lang="ar">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-ar">AR</span><div class="blog-tag">دليل شامل</div></div>
+          <h2>الدليل الكامل لإعداد نظام نقاط البيع في مطعمك</h2>
+          <p>خطوة بخطوة : كيف تختار نظام نقاط البيع المناسب وتثبّته وتبدأ العمل به في مطعمك أو مقهاك.</p>
+          <div class="blog-card-footer"><span>٩ سبتمبر ٢٠٢٦</span><span>4 min</span></div>
+        </a>
+
+        <a href="como-elegir-pos-restaurante.html" class="blog-card" data-lang="es">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-es">ES</span><div class="blog-tag">Guía</div></div>
+          <h2>Cómo elegir el sistema POS ideal para tu restaurante en 2026</h2>
+          <p>Guía paso a paso para elegir, configurar y poner en marcha un sistema POS en tu restaurante o cafetería.</p>
+          <div class="blog-card-footer"><span>11 septiembre 2026</span><span>4 min</span></div>
+        </a>
+
+        <a href="meilleur-pos-restaurant-2026.html" class="blog-card" data-lang="fr">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-fr">FR</span><div class="blog-tag">Comparatif</div></div>
+          <h2>Meilleur logiciel POS pour restaurant en 2026 : comparatif complet</h2>
+          <p>Tour d'horizon des meilleures solutions POS pour les restaurants, cafés et snack-bars indépendants en 2026.</p>
+          <div class="blog-card-footer"><span>16 septembre 2026</span><span>5 min</span></div>
+        </a>
+
+        <a href="best-pos-system-restaurant-2026.html" class="blog-card" data-lang="en">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-en">EN</span><div class="blog-tag">Comparison</div></div>
+          <h2>Best POS System for Restaurants in 2026 : Complete Review</h2>
+          <p>A practical review of the top POS systems for independent restaurants, cafés and food counters in 2026.</p>
+          <div class="blog-card-footer"><span>September 18, 2026</span><span>5 min</span></div>
+        </a>
+
+        <a href="ar-best-pos-2026.html" class="blog-card" data-lang="ar">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-ar">AR</span><div class="blog-tag">أفضل تطبيق</div></div>
+          <h2>أفضل نظام نقاط بيع للمطاعم في 2026 : مراجعة شاملة</h2>
+          <p>مراجعة عملية لأبرز أنظمة نقاط البيع المتاحة للمطاعم والمقاهي المستقلة في 2026.</p>
+          <div class="blog-card-footer"><span>٢٠ سبتمبر ٢٠٢٦</span><span>5 min</span></div>
+        </a>
+
+        <a href="mejor-sistema-pos-restaurante-2026.html" class="blog-card" data-lang="es">
+          <div class="blog-card-top"><span class="lang-badge lang-badge-es">ES</span><div class="blog-tag">Comparativa</div></div>
+          <h2>Mejor sistema POS para restaurante en 2026 : análisis completo</h2>
+          <p>Revisión práctica de los mejores sistemas POS disponibles para restaurantes y cafeterías independientes en 2026.</p>
+          <div class="blog-card-footer"><span>22 septiembre 2026</span><span>5 min</span></div>
+        </a>
+
+      </div>
+    </div>
+
   </div>
 
   <footer class="footer">
@@ -62,16 +458,37 @@
           <div class="logo-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
           <span class="logo-text">ServePoint</span>
         </div>
-        <p>Logiciel de caisse pour restaurants & cafés.</p>
+        <p>POS software for restaurants &amp; cafés.</p>
       </div>
       <div class="footer-links">
-        <a href="../privacy.html">Confidentialité</a>
+        <a href="../privacy.html">Privacy</a>
         <a href="mailto:digiforcebusiness@gmail.com">Contact</a>
         <a href="https://play.google.com/store/apps/details?id=com.app.servepoint" target="_blank" rel="noopener">Google Play</a>
       </div>
-      <div class="footer-copy">© 2026 ServePoint. Tous droits réservés.</div>
+      <div class="footer-copy">© 2026 ServePoint. All rights reserved.</div>
     </div>
   </footer>
+
+  <script>
+    document.querySelectorAll('.blog-filter-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.blog-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        var filter = btn.dataset.filter;
+        document.querySelectorAll('.blog-card[data-lang]').forEach(function(card) {
+          if (filter === 'all' || card.dataset.lang === filter) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+        document.querySelectorAll('.blog-month-group').forEach(function(group) {
+          var visible = group.querySelectorAll('.blog-card[data-lang]:not(.hidden)').length > 0;
+          group.style.display = visible ? '' : 'none';
+        });
+      });
+    });
+  </script>
 
 </body>
 </html>
