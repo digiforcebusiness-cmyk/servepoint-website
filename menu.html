@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu Digital — ServePoint</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="/icon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0D2137;
+      --card: #132A45;
+      --card2: #0F2236;
+      --accent: #E94560;
+      --green: #22C55E;
+      --text: #F0F4F8;
+      --muted: #7A8FA6;
+      --border: rgba(255,255,255,0.07);
+      --radius: 14px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+    }
+
+    body.rtl { direction: rtl; font-family: 'Cairo', sans-serif; }
+
+    /* ─── Header ─────────────────────────────────────────── */
+    .header {
+      background: linear-gradient(135deg, #132A45 0%, #0D2137 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 16px 24px;
+      text-align: center;
+    }
+    .store-name {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+    .powered {
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .powered span { color: var(--accent); font-weight: 600; }
+
+    /* ─── Content ────────────────────────────────────────── */
+    .content { max-width: 640px; margin: 0 auto; padding: 20px 12px 60px; }
+
+    /* ─── Category ───────────────────────────────────────── */
+    .category { margin-bottom: 28px; }
+    .category-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--accent);
+      padding: 0 4px 10px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 10px;
+    }
+    body.rtl .category-title { letter-spacing: 0; }
+
+    /* ─── Product card ────────────────────────────────────── */
+    .product {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 8px;
+      gap: 12px;
+    }
+    .product-name {
+      font-size: 15px;
+      font-weight: 600;
+      flex: 1;
+      min-width: 0;
+    }
+    .product-price {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--green);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ─── States ──────────────────────────────────────────── */
+    .loading, .error, .empty {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--muted);
+    }
+    .loading-spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid rgba(233,69,96,0.2);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .error-icon { font-size: 40px; margin-bottom: 12px; }
+    .error h2 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .error p { font-size: 13px; line-height: 1.6; }
+
+    /* ─── Footer ──────────────────────────────────────────── */
+    .footer {
+      text-align: center;
+      padding: 24px 16px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <div class="loading">
+      <div class="loading-spinner"></div>
+      <p>Chargement du menu...</p>
+    </div>
+  </div>
+  <div class="footer">
+    Powered by <a href="https://www.servepointpos.com" target="_blank">ServePoint</a>
+  </div>
+
+  <!-- Firebase JS SDK -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+    import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAAIJ8bI66QDixcj5-f4CnuGvosu_R6Mz0",
+      authDomain: "servepoint-16302.firebaseapp.com",
+      projectId: "servepoint-16302",
+      storageBucket: "servepoint-16302.firebasestorage.app",
+      messagingSenderId: "984531213248",
+      appId: "1:984531213248:web:3487ca37bd57cddd568625"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const params = new URLSearchParams(window.location.search);
+    const uid = params.get('uid');
+    const root = document.getElementById('root');
+
+    function isArabic(text) {
+      return /[؀-ۿ]/.test(text);
+    }
+
+    function formatPrice(price, currency) {
+      return `${price % 1 === 0 ? price.toFixed(0) : price.toFixed(2)} ${currency}`;
+    }
+
+    function renderError(title, msg) {
+      root.innerHTML = `
+        <div class="error">
+          <div class="error-icon">🍽️</div>
+          <h2>${title}</h2>
+          <p>${msg}</p>
+        </div>`;
+    }
+
+    async function loadMenu() {
+      if (!uid) {
+        renderError('Menu introuvable', 'Aucun identifiant fourni. Scannez le QR code depuis l\'application ServePoint.');
+        return;
+      }
+
+      try {
+        const docRef = doc(db, 'public_menus', uid);
+        const snap = await getDoc(docRef);
+
+        if (!snap.exists()) {
+          renderError('Menu non publié', 'Ce restaurant n\'a pas encore publié son menu digital. Réessayez plus tard.');
+          return;
+        }
+
+        const data = snap.data();
+        const storeName = data.storeName || 'Notre Menu';
+        const currency = data.currency || '';
+        const categories = data.categories || [];
+
+        // Detect language from first product
+        let isRtl = false;
+        outer: for (const cat of categories) {
+          if (isArabic(cat.nameAr)) { isRtl = true; break; }
+          for (const p of (cat.products || [])) {
+            if (isArabic(p.nameAr)) { isRtl = true; break outer; }
+          }
+        }
+
+        if (isRtl) document.body.classList.add('rtl');
+
+        // Build HTML
+        let html = `
+          <div class="header">
+            <div class="store-name">${escHtml(storeName)}</div>
+            <div class="powered">Powered by <span>ServePoint</span></div>
+          </div>
+          <div class="content">`;
+
+        if (categories.length === 0) {
+          html += `<div class="empty"><p>${isRtl ? 'لا توجد منتجات في هذه القائمة حالياً.' : 'Aucun produit disponible pour le moment.'}</p></div>`;
+        } else {
+          for (const cat of categories) {
+            const catName = (isRtl && cat.nameAr) ? cat.nameAr : cat.nameFr;
+            html += `<div class="category"><div class="category-title">${escHtml(catName)}</div>`;
+            for (const p of (cat.products || [])) {
+              const name = (isRtl && p.nameAr) ? p.nameAr : p.nameFr;
+              html += `
+                <div class="product">
+                  <div class="product-name">${escHtml(name)}</div>
+                  <div class="product-price">${escHtml(formatPrice(p.price, currency))}</div>
+                </div>`;
+            }
+            html += `</div>`;
+          }
+        }
+
+        html += `</div>`;
+        root.innerHTML = html;
+
+        // Update page title
+        document.title = `${storeName} — Menu Digital`;
+
+      } catch (err) {
+        console.error(err);
+        renderError('Erreur de chargement', 'Impossible de charger le menu. Vérifiez votre connexion et réessayez.');
+      }
+    }
+
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    loadMenu();
+  </script>
+</body>
+</html>
