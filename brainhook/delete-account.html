@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delete Your Account – BrainHook</title>
+  <meta name="description" content="How to delete your BrainHook account and all associated data." />
+  <link rel="canonical" href="https://www.servepointpos.com/brainhook/delete-account.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0f14;
+      --surface: #1a1a26;
+      --border: rgba(255,255,255,0.08);
+      --text: #f1f1f5;
+      --text-muted: #9090aa;
+      --purple: #9B6DFF;
+      --purple-dark: #6C3DE8;
+      --red: #FF6B6B;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+      padding: 56px 24px 48px;
+      text-align: center;
+    }
+
+    header h1 { font-size: 2rem; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
+    header p { margin-top: 10px; color: rgba(255,255,255,0.8); font-size: 0.95rem; }
+
+    main {
+      max-width: 720px;
+      margin: 48px auto 80px;
+      padding: 0 24px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 36px;
+      margin-bottom: 20px;
+    }
+
+    h2 { font-size: 1.05rem; font-weight: 700; color: var(--purple); margin-bottom: 14px; }
+
+    p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 12px; }
+    p:last-child { margin-bottom: 0; }
+    p strong { color: var(--text); }
+
+    ol, ul { padding-left: 22px; margin-bottom: 12px; }
+    ol li, ul li { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 8px; }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--purple);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      margin-bottom: 16px;
+    }
+
+    .step-text { font-size: 0.95rem; color: var(--text-muted); padding-top: 4px; }
+    .step-text strong { color: var(--text); }
+
+    .warning {
+      background: rgba(255, 107, 107, 0.08);
+      border: 1px solid rgba(255, 107, 107, 0.25);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+      color: var(--red);
+    }
+
+    a { color: var(--purple); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    footer {
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      padding-bottom: 48px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Delete Your BrainHook Account</h1>
+  <p>You can permanently delete your account and all associated data at any time.</p>
+</header>
+
+<main>
+
+  <div class="card">
+    <h2>How to Delete Your Account In-App</h2>
+    <p>The easiest way to delete your account is directly inside the BrainHook app:</p>
+
+    <div class="step">
+      <span class="step-num">1</span>
+      <span class="step-text">Open the <strong>BrainHook</strong> app and sign in.</span>
+    </div>
+    <div class="step">
+      <span class="step-num">2</span>
+      <span class="step-text">Tap the <strong>Settings</strong> tab at the bottom of the screen.</span>
+    </div>
+    <div class="step">
+      <span class="step-num">3</span>
+      <span class="step-text">Scroll down and tap <strong>Delete Account</strong> (shown in red).</span>
+    </div>
+    <div class="step">
+      <span class="step-num">4</span>
+      <span class="step-text">Confirm the deletion in the dialog that appears.</span>
+    </div>
+
+    <div class="warning">
+      ⚠️ This action is permanent and cannot be undone.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>What Gets Deleted</h2>
+    <ul>
+      <li>Your account profile (display name, email, subscription status)</li>
+      <li>All mnemonics saved in your library</li>
+      <li>Your Firebase Authentication account</li>
+    </ul>
+    <p>Deletion is immediate and permanent. We do not retain any personal data after your account is deleted.</p>
+  </div>
+
+  <div class="card">
+    <h2>What Is Not Deleted</h2>
+    <ul>
+      <li>Anonymous feedback submissions that are not linked to a deletable identifier (retained for product improvement)</li>
+      <li>Transaction records held by Google Play or Apple App Store (managed by the respective platform)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Request Deletion by Email</h2>
+    <p>If you are unable to access the app, you can request account deletion by emailing us at:</p>
+    <p><a href="mailto:mobilestudio66@gmail.com">mobilestudio66@gmail.com</a></p>
+    <p>Please include the email address associated with your BrainHook account. We will process your request within <strong>7 business days</strong>.</p>
+  </div>
+
+</main>
+
+<footer>
+  &copy; 2026 BrainHook. All rights reserved. &nbsp;·&nbsp;
+  <a href="privacy.html">Privacy Policy</a>
+</footer>
+
+</body>
+</html>
