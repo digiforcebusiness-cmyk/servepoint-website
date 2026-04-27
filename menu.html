@@ -62,6 +62,15 @@
       padding: 32px 20px 28px;
       text-align: center;
     }
+    .store-logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(200,151,58,0.6);
+      margin-bottom: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
     .store-badge {
       display: inline-flex;
       align-items: center;
@@ -446,9 +455,11 @@
         document.title = `${storeName} — Menu`;
 
         // ── Header ──────────────────────────────────────────────────────────
+        const logoUrl  = data.logoUrl || '';
         const headerHtml = `
           <div class="header">
             <div class="header-inner">
+              ${logoUrl ? `<img class="store-logo" src="${esc(logoUrl)}" alt="${esc(storeName)} logo" onerror="this.style.display='none'" />` : ''}
               <div class="store-badge">🍴 Menu Digital</div>
               <div class="store-name">${esc(storeName)}</div>
               <div class="header-divider">
