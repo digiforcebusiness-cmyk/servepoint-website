@@ -13,19 +13,18 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #FAFAF8;
+      --bg: #F8F6F2;
       --surface: #FFFFFF;
       --primary: #1A1A2E;
-      --accent: #E94560;
-      --gold: #D4A853;
-      --text: #1A1A2E;
-      --text2: #555566;
-      --muted: #9A9AAF;
-      --border: #EDECEC;
-      --tab-bg: #F3F2F0;
-      --radius: 16px;
-      --shadow: 0 2px 16px rgba(0,0,0,0.07);
-      --shadow-hover: 0 6px 24px rgba(0,0,0,0.12);
+      --accent: #C8973A;
+      --accent2: #E94560;
+      --text: #1A1A1A;
+      --text2: #555;
+      --muted: #999;
+      --border: #E8E4DC;
+      --radius: 12px;
+      --shadow: 0 2px 12px rgba(0,0,0,0.08);
+      --shadow-hover: 0 8px 28px rgba(0,0,0,0.14);
     }
 
     html { scroll-behavior: smooth; }
@@ -39,16 +38,12 @@
     }
     body.rtl { direction: rtl; font-family: 'Cairo', sans-serif; }
 
-    /* ─── Sticky top container ───────────────────────────────── */
-    .sticky-top {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+    /* ─── Sticky top ─────────────────────────────────────────── */
+    .sticky-top { position: sticky; top: 0; z-index: 100; }
 
     /* ─── Hero Header ────────────────────────────────────────── */
     .header {
-      background: linear-gradient(160deg, #1A1A2E 0%, #2D1B4E 100%);
+      background: linear-gradient(160deg, #0D0D1A 0%, #1A1228 60%, #2A1A0A 100%);
       padding: env(safe-area-inset-top, 0px) 0 0;
       position: relative;
       overflow: hidden;
@@ -58,44 +53,57 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 70% 60% at 20% 50%, rgba(233,69,96,0.18) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 80% at 80% 30%, rgba(212,168,83,0.12) 0%, transparent 60%);
+        radial-gradient(ellipse 60% 80% at 15% 60%, rgba(200,151,58,0.2) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 60% at 85% 20%, rgba(233,69,96,0.12) 0%, transparent 55%);
       pointer-events: none;
     }
     .header-inner {
       position: relative;
-      padding: 28px 20px 24px;
+      padding: 32px 20px 28px;
       text-align: center;
     }
     .store-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: rgba(233,69,96,0.18);
-      border: 1px solid rgba(233,69,96,0.35);
+      gap: 7px;
+      background: rgba(200,151,58,0.15);
+      border: 1px solid rgba(200,151,58,0.4);
       border-radius: 20px;
-      padding: 4px 12px;
-      font-size: 11px;
-      font-weight: 600;
-      color: #FF8DA1;
-      letter-spacing: 0.5px;
+      padding: 5px 14px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #D4A85A;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
     .store-name {
       font-family: 'Playfair Display', 'Cairo', serif;
-      font-size: clamp(26px, 7vw, 38px);
+      font-size: clamp(28px, 8vw, 42px);
       font-weight: 800;
       color: #FFFFFF;
       letter-spacing: -0.5px;
       line-height: 1.1;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
     body.rtl .store-name { font-family: 'Cairo', serif; }
+    .header-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .header-divider-line {
+      width: 40px;
+      height: 1px;
+      background: rgba(200,151,58,0.4);
+    }
+    .header-divider-icon { color: var(--accent); font-size: 14px; }
     .header-sub {
-      font-size: 12px;
-      color: rgba(255,255,255,0.45);
-      letter-spacing: 0.3px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.5px;
     }
     .header-sub span { color: var(--accent); font-weight: 600; }
 
@@ -103,7 +111,7 @@
     .tabs-bar {
       background: #FFFFFF;
       border-bottom: 1px solid var(--border);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
     }
     .tabs {
       display: flex;
@@ -116,11 +124,11 @@
     .tabs::-webkit-scrollbar { display: none; }
     .tab-btn {
       flex-shrink: 0;
-      background: var(--tab-bg);
-      border: 1.5px solid transparent;
+      background: transparent;
+      border: 1.5px solid var(--border);
       border-radius: 20px;
-      padding: 7px 16px;
-      font-size: 13px;
+      padding: 7px 18px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--text2);
       cursor: pointer;
@@ -128,79 +136,92 @@
       transition: all 0.2s ease;
       outline: none;
       font-family: inherit;
+      letter-spacing: 0.2px;
     }
     body.rtl .tab-btn { font-family: 'Cairo', sans-serif; }
     .tab-btn.active {
-      background: var(--accent);
-      border-color: var(--accent);
+      background: var(--primary);
+      border-color: var(--primary);
       color: #fff;
-      box-shadow: 0 3px 10px rgba(233,69,96,0.35);
     }
     .tab-btn:not(.active):hover {
-      border-color: var(--accent);
-      color: var(--accent);
+      border-color: var(--primary);
+      color: var(--primary);
     }
 
     /* ─── Main Content ───────────────────────────────────────── */
     .content {
-      max-width: 680px;
+      max-width: 700px;
       margin: 0 auto;
-      padding: 20px 14px 80px;
+      padding: 24px 14px 80px;
     }
 
     /* ─── Category Section ───────────────────────────────────── */
-    .category-section { margin-bottom: 36px; }
+    .category-section { margin-bottom: 40px; }
     .category-header {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
     }
+    .category-header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--accent);
+    }
+    body.rtl .category-header::after { left: auto; right: 0; }
     .category-label {
       font-family: 'Playfair Display', serif;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 700;
       color: var(--text);
       letter-spacing: -0.3px;
+      flex: 1;
     }
     body.rtl .category-label { font-family: 'Cairo', serif; }
-    .category-line {
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
     .category-count {
       font-size: 11px;
       color: var(--muted);
-      background: var(--tab-bg);
+      background: #F0EDE8;
       border-radius: 10px;
-      padding: 2px 8px;
+      padding: 3px 9px;
       font-weight: 600;
+    }
+
+    /* ─── Product Grid ───────────────────────────────────────── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
     }
 
     /* ─── Product Card ───────────────────────────────────────── */
     .product-card {
-      display: flex;
-      align-items: stretch;
       background: var(--surface);
-      border: 1px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
-      margin-bottom: 10px;
       box-shadow: var(--shadow);
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      border: 1px solid var(--border);
+      transition: box-shadow 0.25s ease, transform 0.25s ease;
       animation: fadeUp 0.4s ease both;
+      display: flex;
+      flex-direction: column;
     }
     .product-card:hover {
       box-shadow: var(--shadow-hover);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
     }
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(12px); }
+      from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
-    /* stagger animation for each card */
     .product-card:nth-child(1) { animation-delay: 0.04s; }
     .product-card:nth-child(2) { animation-delay: 0.08s; }
     .product-card:nth-child(3) { animation-delay: 0.12s; }
@@ -208,90 +229,66 @@
     .product-card:nth-child(5) { animation-delay: 0.20s; }
     .product-card:nth-child(n+6) { animation-delay: 0.24s; }
 
+    /* Square image */
     .product-img-wrap {
-      width: 110px;
-      min-height: 100px;
-      flex-shrink: 0;
+      width: 100%;
+      padding-top: 100%;
       position: relative;
       overflow: hidden;
-      background: #F0EEE9;
+      background: #EDE9E1;
+      flex-shrink: 0;
     }
-    body.rtl .product-img-wrap { order: 1; }
     .product-img {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.35s ease;
+      transition: transform 0.4s ease;
     }
-    .product-card:hover .product-img { transform: scale(1.06); }
+    .product-card:hover .product-img { transform: scale(1.07); }
     .product-img-placeholder {
-      width: 100%;
-      height: 100%;
+      position: absolute;
+      inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 36px;
-      background: linear-gradient(135deg, #F5F0E8 0%, #EDE7D9 100%);
+      font-size: 42px;
+      background: linear-gradient(135deg, #F2EDE3 0%, #E8E0D0 100%);
     }
 
     .product-body {
-      flex: 1;
-      padding: 14px 16px;
+      padding: 11px 12px 13px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      gap: 6px;
-      min-width: 0;
+      gap: 5px;
+      flex: 1;
     }
     .product-name {
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--text);
-      line-height: 1.3;
-      letter-spacing: -0.2px;
-    }
-    .product-price-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
+      line-height: 1.35;
+      letter-spacing: -0.1px;
     }
     .product-price {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 800;
       color: var(--accent);
-      letter-spacing: -0.3px;
-    }
-    .add-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: var(--accent);
-      border: none;
-      color: white;
-      font-size: 18px;
-      font-weight: 400;
-      line-height: 1;
-      cursor: default;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 8px rgba(233,69,96,0.35);
-      flex-shrink: 0;
+      letter-spacing: -0.2px;
+      margin-top: auto;
+      padding-top: 4px;
     }
 
     /* ─── States ──────────────────────────────────────────────── */
-    .state-box {
-      text-align: center;
-      padding: 80px 20px;
-    }
+    .state-box { text-align: center; padding: 80px 20px; }
     .state-icon { font-size: 52px; margin-bottom: 16px; }
     .state-title { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
     .state-msg { font-size: 14px; color: var(--muted); line-height: 1.6; max-width: 280px; margin: 0 auto; }
     .loading-spinner {
       width: 40px; height: 40px;
-      border: 3px solid rgba(233,69,96,0.15);
+      border: 3px solid rgba(200,151,58,0.2);
       border-top-color: var(--accent);
       border-radius: 50%;
       animation: spin 0.75s linear infinite;
@@ -302,17 +299,17 @@
     /* ─── Footer ──────────────────────────────────────────────── */
     .footer {
       text-align: center;
-      padding: 28px 20px calc(28px + env(safe-area-inset-bottom, 0px));
+      padding: 24px 20px calc(24px + env(safe-area-inset-bottom, 0px));
       color: var(--muted);
       font-size: 12px;
       border-top: 1px solid var(--border);
+      background: var(--bg);
     }
     .footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
   </style>
 </head>
 
 <body>
-  <!-- Loading state -->
   <div id="root">
     <div class="state-box">
       <div class="loading-spinner"></div>
@@ -338,11 +335,11 @@
     };
 
     const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+    const db  = getFirestore(app);
 
-    // ── Image keyword map (curated Unsplash CDN — no API key needed) ──────────
-    const IMG_BASE = 'https://images.unsplash.com/';
-    const IMG_PARAMS = '?w=220&h=220&fit=crop&q=80&auto=format';
+    // ── Unsplash fallback image map ──────────────────────────────────────────
+    const IMG_BASE   = 'https://images.unsplash.com/';
+    const IMG_PARAMS = '?w=400&h=400&fit=crop&q=80&auto=format';
     const DEFAULT_IMG = `${IMG_BASE}photo-1546069901-ba9599a7e63c${IMG_PARAMS}`;
 
     const imageMap = [
@@ -362,7 +359,7 @@
       { kw: ['chicken','poulet','grilled','rôti','دجاج','فروج'],                   id: 'photo-1598103442097-8b74394b95c3' },
       { kw: ['lamb','mutton','chop','كباب','خروف','لحم غنم'],                      id: 'photo-1544025162-d76538015f78' },
       { kw: ['fish','salmon','tuna','sea bass','سمك','سلمون'],                     id: 'photo-1476224203421-9ac39bcb3327' },
-      { kw: ['shrimp','prawn','seafood','crevette','seafood','جمبري','روبيان'],     id: 'photo-1534482421-64566f976cfa' },
+      { kw: ['shrimp','prawn','seafood','crevette','جمبري','روبيان'],               id: 'photo-1534482421-64566f976cfa' },
       { kw: ['sushi','maki','nigiri','sashimi','سوشي'],                            id: 'photo-1579871494447-9811cf80d66c' },
       { kw: ['salad','caesar','nicoise','roquette','سلطة'],                        id: 'photo-1512621776951-a57141f2eefd' },
       { kw: ['soup','velouté','bisque','broth','شوربة','حساء'],                    id: 'photo-1547592166-23ac45744acd' },
@@ -375,7 +372,7 @@
       { kw: ['drink','cocktail','mocktail','soda','boisson','مشروب'],              id: 'photo-1544145945-f90425340c7e' },
       { kw: ['water','mineral','sparkling','ماء'],                                 id: 'photo-1548839140-29a749e1cf4d' },
       { kw: ['lemonade','limonade','limon','ليمون'],                               id: 'photo-1621263764928-df1444c5e859' },
-      { kw: ['cheese','fromage','جبن','جبنة'],                                    id: 'photo-1452195100486-9cc805987862' },
+      { kw: ['cheese','fromage','جبن','جبنة'],                                     id: 'photo-1452195100486-9cc805987862' },
       { kw: ['bread','baguette','croissant','خبز','كرواسان'],                      id: 'photo-1509440159596-0249088772ff' },
       { kw: ['fries','chips','wedges','بطاطس'],                                    id: 'photo-1573080496219-bb080dd4f877' },
     ];
@@ -390,7 +387,7 @@
       return DEFAULT_IMG;
     }
 
-    // ── Helpers ─────────────────────────────────────────────────────────────
+    // ── Helpers ──────────────────────────────────────────────────────────────
     function esc(s) {
       return String(s ?? '')
         .replace(/&/g,'&amp;').replace(/</g,'&lt;')
@@ -401,12 +398,12 @@
       const n = Number(price);
       return `${n % 1 === 0 ? n.toFixed(0) : n.toFixed(2)} ${esc(cur)}`;
     }
-    function slugify(s) { return s.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, ''); }
+    function slugify(s) { return s.toLowerCase().replace(/\s+/g,'-').replace(/[^\w-]/g,''); }
 
     // ── Main ─────────────────────────────────────────────────────────────────
     const params = new URLSearchParams(window.location.search);
-    const uid = params.get('uid');
-    const root = document.getElementById('root');
+    const uid    = params.get('uid');
+    const root   = document.getElementById('root');
 
     function renderError(icon, title, msg) {
       root.innerHTML = `
@@ -433,7 +430,7 @@
           return;
         }
 
-        const data = snap.data();
+        const data      = snap.data();
         const storeName = data.storeName || 'Notre Menu';
         const currency  = data.currency  || '';
         const cats      = (data.categories || []).filter(c => (c.products || []).length > 0);
@@ -456,6 +453,11 @@
             <div class="header-inner">
               <div class="store-badge">🍴 Menu Digital</div>
               <div class="store-name">${esc(storeName)}</div>
+              <div class="header-divider">
+                <div class="header-divider-line"></div>
+                <div class="header-divider-icon">✦</div>
+                <div class="header-divider-line"></div>
+              </div>
               <div class="header-sub">Powered by <span>ServePoint</span></div>
             </div>
           </div>`;
@@ -469,22 +471,23 @@
         });
         tabsHtml += '</div></div>';
 
-        // ── Product Sections ─────────────────────────────────────────────────
+        // ── Product Grid Sections ────────────────────────────────────────────
         let sectionsHtml = '<div class="content">';
         cats.forEach((cat, ci) => {
           const catName = (isRtl && cat.nameAr) ? cat.nameAr : cat.nameFr;
-          const slug = slugify(cat.nameFr || `cat${ci}`);
-          const prods = cat.products || [];
+          const slug    = slugify(cat.nameFr || `cat${ci}`);
+          const prods   = cat.products || [];
+
           sectionsHtml += `
             <div class="category-section" id="section-${slug}" data-slug="${slug}">
               <div class="category-header">
                 <div class="category-label">${esc(catName)}</div>
-                <div class="category-line"></div>
                 <div class="category-count">${prods.length}</div>
-              </div>`;
+              </div>
+              <div class="product-grid">`;
 
           prods.forEach(p => {
-            const name  = (isRtl && p.nameAr) ? p.nameAr : p.nameFr;
+            const name   = (isRtl && p.nameAr) ? p.nameAr : p.nameFr;
             const imgUrl = (p.imageUrl && p.imageUrl.trim()) ? p.imageUrl : getImageUrl(p.nameFr, p.nameAr);
             sectionsHtml += `
               <div class="product-card">
@@ -497,15 +500,12 @@
                 </div>
                 <div class="product-body">
                   <div class="product-name">${esc(name)}</div>
-                  <div class="product-price-row">
-                    <div class="product-price">${fmt(p.price, currency)}</div>
-                    <div class="add-btn" aria-hidden="true">+</div>
-                  </div>
+                  <div class="product-price">${fmt(p.price, currency)}</div>
                 </div>
               </div>`;
           });
 
-          sectionsHtml += '</div>';
+          sectionsHtml += '</div></div>';
         });
         sectionsHtml += '</div>';
 
@@ -543,11 +543,9 @@
       }
     }
 
-    // ── Tab scroll-to ─────────────────────────────────────────────────────────
     window.scrollToSection = function(slug, btn) {
       const el = document.getElementById(`section-${slug}`);
       if (!el) return;
-      // Offset for sticky header (~140px)
       const y = el.getBoundingClientRect().top + window.scrollY - 140;
       window.scrollTo({ top: y, behavior: 'smooth' });
     };
