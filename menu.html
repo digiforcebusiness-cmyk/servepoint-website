@@ -2,141 +2,328 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Menu Digital — ServePoint</title>
   <meta name="robots" content="noindex" />
   <link rel="icon" href="/icon.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Inter:wght@400;500;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0D2137;
-      --card: #132A45;
-      --card2: #0F2236;
+      --bg: #FAFAF8;
+      --surface: #FFFFFF;
+      --primary: #1A1A2E;
       --accent: #E94560;
-      --green: #22C55E;
-      --text: #F0F4F8;
-      --muted: #7A8FA6;
-      --border: rgba(255,255,255,0.07);
-      --radius: 14px;
+      --gold: #D4A853;
+      --text: #1A1A2E;
+      --text2: #555566;
+      --muted: #9A9AAF;
+      --border: #EDECEC;
+      --tab-bg: #F3F2F0;
+      --radius: 16px;
+      --shadow: 0 2px 16px rgba(0,0,0,0.07);
+      --shadow-hover: 0 6px 24px rgba(0,0,0,0.12);
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
       color: var(--text);
       font-family: 'Inter', sans-serif;
       min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
     }
-
     body.rtl { direction: rtl; font-family: 'Cairo', sans-serif; }
 
-    /* ─── Header ─────────────────────────────────────────── */
+    /* ─── Sticky top container ───────────────────────────────── */
+    .sticky-top {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    /* ─── Hero Header ────────────────────────────────────────── */
     .header {
-      background: linear-gradient(135deg, #132A45 0%, #0D2137 100%);
-      border-bottom: 1px solid var(--border);
-      padding: 20px 16px 24px;
+      background: linear-gradient(160deg, #1A1A2E 0%, #2D1B4E 100%);
+      padding: env(safe-area-inset-top, 0px) 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 20% 50%, rgba(233,69,96,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 80% at 80% 30%, rgba(212,168,83,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .header-inner {
+      position: relative;
+      padding: 28px 20px 24px;
       text-align: center;
     }
-    .store-name {
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      margin-bottom: 4px;
-    }
-    .powered {
+    .store-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(233,69,96,0.18);
+      border: 1px solid rgba(233,69,96,0.35);
+      border-radius: 20px;
+      padding: 4px 12px;
       font-size: 11px;
-      color: var(--muted);
-    }
-    .powered span { color: var(--accent); font-weight: 600; }
-
-    /* ─── Content ────────────────────────────────────────── */
-    .content { max-width: 640px; margin: 0 auto; padding: 20px 12px 60px; }
-
-    /* ─── Category ───────────────────────────────────────── */
-    .category { margin-bottom: 28px; }
-    .category-title {
-      font-size: 13px;
-      font-weight: 700;
+      font-weight: 600;
+      color: #FF8DA1;
+      letter-spacing: 0.5px;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: var(--accent);
-      padding: 0 4px 10px;
-      border-bottom: 1px solid var(--border);
       margin-bottom: 10px;
     }
-    body.rtl .category-title { letter-spacing: 0; }
+    .store-name {
+      font-family: 'Playfair Display', 'Cairo', serif;
+      font-size: clamp(26px, 7vw, 38px);
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    body.rtl .store-name { font-family: 'Cairo', serif; }
+    .header-sub {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.3px;
+    }
+    .header-sub span { color: var(--accent); font-weight: 600; }
 
-    /* ─── Product card ────────────────────────────────────── */
-    .product {
+    /* ─── Category Tabs ──────────────────────────────────────── */
+    .tabs-bar {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .tabs {
+      display: flex;
+      gap: 6px;
+      padding: 10px 14px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      flex-shrink: 0;
+      background: var(--tab-bg);
+      border: 1.5px solid transparent;
+      border-radius: 20px;
+      padding: 7px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text2);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      outline: none;
+      font-family: inherit;
+    }
+    body.rtl .tab-btn { font-family: 'Cairo', sans-serif; }
+    .tab-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(233,69,96,0.35);
+    }
+    .tab-btn:not(.active):hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ─── Main Content ───────────────────────────────────────── */
+    .content {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 20px 14px 80px;
+    }
+
+    /* ─── Category Section ───────────────────────────────────── */
+    .category-section { margin-bottom: 36px; }
+    .category-header {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      background: var(--card);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .category-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.3px;
+    }
+    body.rtl .category-label { font-family: 'Cairo', serif; }
+    .category-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .category-count {
+      font-size: 11px;
+      color: var(--muted);
+      background: var(--tab-bg);
+      border-radius: 10px;
+      padding: 2px 8px;
+      font-weight: 600;
+    }
+
+    /* ─── Product Card ───────────────────────────────────────── */
+    .product-card {
+      display: flex;
+      align-items: stretch;
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 10px;
+      box-shadow: var(--shadow);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      animation: fadeUp 0.4s ease both;
+    }
+    .product-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* stagger animation for each card */
+    .product-card:nth-child(1) { animation-delay: 0.04s; }
+    .product-card:nth-child(2) { animation-delay: 0.08s; }
+    .product-card:nth-child(3) { animation-delay: 0.12s; }
+    .product-card:nth-child(4) { animation-delay: 0.16s; }
+    .product-card:nth-child(5) { animation-delay: 0.20s; }
+    .product-card:nth-child(n+6) { animation-delay: 0.24s; }
+
+    .product-img-wrap {
+      width: 110px;
+      min-height: 100px;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+      background: #F0EEE9;
+    }
+    body.rtl .product-img-wrap { order: 1; }
+    .product-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+    .product-card:hover .product-img { transform: scale(1.06); }
+    .product-img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      background: linear-gradient(135deg, #F5F0E8 0%, #EDE7D9 100%);
+    }
+
+    .product-body {
+      flex: 1;
       padding: 14px 16px;
-      margin-bottom: 8px;
-      gap: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      min-width: 0;
     }
     .product-name {
       font-size: 15px;
-      font-weight: 600;
-      flex: 1;
-      min-width: 0;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+      letter-spacing: -0.2px;
+    }
+    .product-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
     }
     .product-price {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 800;
-      color: var(--green);
-      white-space: nowrap;
+      color: var(--accent);
+      letter-spacing: -0.3px;
+    }
+    .add-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: none;
+      color: white;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1;
+      cursor: default;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(233,69,96,0.35);
       flex-shrink: 0;
     }
 
-    /* ─── States ──────────────────────────────────────────── */
-    .loading, .error, .empty {
+    /* ─── States ──────────────────────────────────────────────── */
+    .state-box {
       text-align: center;
       padding: 80px 20px;
-      color: var(--muted);
     }
+    .state-icon { font-size: 52px; margin-bottom: 16px; }
+    .state-title { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .state-msg { font-size: 14px; color: var(--muted); line-height: 1.6; max-width: 280px; margin: 0 auto; }
     .loading-spinner {
-      width: 36px;
-      height: 36px;
-      border: 3px solid rgba(233,69,96,0.2);
+      width: 40px; height: 40px;
+      border: 3px solid rgba(233,69,96,0.15);
       border-top-color: var(--accent);
       border-radius: 50%;
-      animation: spin 0.8s linear infinite;
+      animation: spin 0.75s linear infinite;
       margin: 0 auto 16px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .error-icon { font-size: 40px; margin-bottom: 12px; }
-    .error h2 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
-    .error p { font-size: 13px; line-height: 1.6; }
 
-    /* ─── Footer ──────────────────────────────────────────── */
+    /* ─── Footer ──────────────────────────────────────────────── */
     .footer {
       text-align: center;
-      padding: 24px 16px;
-      border-top: 1px solid var(--border);
+      padding: 28px 20px calc(28px + env(safe-area-inset-bottom, 0px));
       color: var(--muted);
-      font-size: 11px;
+      font-size: 12px;
+      border-top: 1px solid var(--border);
     }
-    .footer a { color: var(--accent); text-decoration: none; }
+    .footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
   </style>
 </head>
+
 <body>
+  <!-- Loading state -->
   <div id="root">
-    <div class="loading">
+    <div class="state-box">
       <div class="loading-spinner"></div>
-      <p>Chargement du menu...</p>
+      <p class="state-msg">Chargement du menu…</p>
     </div>
   </div>
-  <div class="footer">
+
+  <div class="footer" id="footer">
     Powered by <a href="https://www.servepointpos.com" target="_blank">ServePoint</a>
   </div>
 
-  <!-- Firebase JS SDK -->
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
     import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
@@ -153,103 +340,217 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
+    // ── Image keyword map (curated Unsplash CDN — no API key needed) ──────────
+    const IMG_BASE = 'https://images.unsplash.com/';
+    const IMG_PARAMS = '?w=220&h=220&fit=crop&q=80&auto=format';
+    const DEFAULT_IMG = `${IMG_BASE}photo-1546069901-ba9599a7e63c${IMG_PARAMS}`;
+
+    const imageMap = [
+      { kw: ['pancake','waffle','french toast','crêpe','crepe','وافل','بانكيك'],   id: 'photo-1567620905732-2d1ec7ab7445' },
+      { kw: ['breakfast','egg','omelette','scrambled','benedict','فطور','بيض'],    id: 'photo-1533089860892-a7c6f0a88666' },
+      { kw: ['coffee','espresso','latte','cappuccino','mocha','قهوة','كافيه'],      id: 'photo-1495474472287-4d71bcdd2085' },
+      { kw: ['tea','chai','matcha','شاي','ماتشا'],                                 id: 'photo-1556679343-c7306c1976bc' },
+      { kw: ['smoothie','milkshake','shake','عصير','سموذي'],                       id: 'photo-1553530666-ba11a90a3abe' },
+      { kw: ['juice','fresh','citrus','orange','عصير برتقال'],                     id: 'photo-1600271886742-f049cd451bba' },
+      { kw: ['burger','hamburger','cheeseburger','double','برجر','هامبرغر'],        id: 'photo-1568901346375-23c9450c58cd' },
+      { kw: ['sandwich','club','blt','sub','سندويش','شطيرة'],                      id: 'photo-1481070414801-51fd732d7184' },
+      { kw: ['wrap','burrito','tortilla','ورق عنب'],                               id: 'photo-1626700051175-6818013e1d4f' },
+      { kw: ['pizza','margherita','pepperoni','بيتزا'],                            id: 'photo-1513104890138-7c749659a591' },
+      { kw: ['pasta','spaghetti','fettuccine','linguine','معكرونة','باستا'],        id: 'photo-1621996346565-e3dbc646d9a9' },
+      { kw: ['risotto','rice','pilaf','أرز','رز'],                                 id: 'photo-1516684732162-798a0062be99' },
+      { kw: ['steak','ribeye','sirloin','tenderloin','لحم','ستيك'],                id: 'photo-1546833999-b9f581a1996d' },
+      { kw: ['chicken','poulet','grilled','rôti','دجاج','فروج'],                   id: 'photo-1598103442097-8b74394b95c3' },
+      { kw: ['lamb','mutton','chop','كباب','خروف','لحم غنم'],                      id: 'photo-1544025162-d76538015f78' },
+      { kw: ['fish','salmon','tuna','sea bass','سمك','سلمون'],                     id: 'photo-1476224203421-9ac39bcb3327' },
+      { kw: ['shrimp','prawn','seafood','crevette','seafood','جمبري','روبيان'],     id: 'photo-1534482421-64566f976cfa' },
+      { kw: ['sushi','maki','nigiri','sashimi','سوشي'],                            id: 'photo-1579871494447-9811cf80d66c' },
+      { kw: ['salad','caesar','nicoise','roquette','سلطة'],                        id: 'photo-1512621776951-a57141f2eefd' },
+      { kw: ['soup','velouté','bisque','broth','شوربة','حساء'],                    id: 'photo-1547592166-23ac45744acd' },
+      { kw: ['tacos','nachos','quesadilla','mexican','تاكو'],                      id: 'photo-1565299585323-38d6b0865b47' },
+      { kw: ['noodles','ramen','udon','pho','نودلز'],                              id: 'photo-1569718212165-3a8278d5f624' },
+      { kw: ['cake','gâteau','cheesecake','tart','كيك','تورتة'],                   id: 'photo-1578985545062-69928b1d9587' },
+      { kw: ['chocolate','brownie','fondant','شوكولاتة'],                          id: 'photo-1511381939415-e44015466834' },
+      { kw: ['ice cream','gelato','sorbet','sundae','آيس كريم','بوظة'],            id: 'photo-1563805042-7684c019e1cb' },
+      { kw: ['dessert','sweet','pastry','حلوى','حلويات'],                          id: 'photo-1551024506-0bccd828d307' },
+      { kw: ['drink','cocktail','mocktail','soda','boisson','مشروب'],              id: 'photo-1544145945-f90425340c7e' },
+      { kw: ['water','mineral','sparkling','ماء'],                                 id: 'photo-1548839140-29a749e1cf4d' },
+      { kw: ['lemonade','limonade','limon','ليمون'],                               id: 'photo-1621263764928-df1444c5e859' },
+      { kw: ['cheese','fromage','جبن','جبنة'],                                    id: 'photo-1452195100486-9cc805987862' },
+      { kw: ['bread','baguette','croissant','خبز','كرواسان'],                      id: 'photo-1509440159596-0249088772ff' },
+      { kw: ['fries','chips','wedges','بطاطس'],                                    id: 'photo-1573080496219-bb080dd4f877' },
+    ];
+
+    function getImageUrl(nameFr, nameAr) {
+      const combined = `${(nameFr || '').toLowerCase()} ${(nameAr || '').toLowerCase()}`;
+      for (const entry of imageMap) {
+        if (entry.kw.some(k => combined.includes(k))) {
+          return `${IMG_BASE}${entry.id}${IMG_PARAMS}`;
+        }
+      }
+      return DEFAULT_IMG;
+    }
+
+    // ── Helpers ─────────────────────────────────────────────────────────────
+    function esc(s) {
+      return String(s ?? '')
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+    function isArabic(t) { return /[؀-ۿ]/.test(t ?? ''); }
+    function fmt(price, cur) {
+      const n = Number(price);
+      return `${n % 1 === 0 ? n.toFixed(0) : n.toFixed(2)} ${esc(cur)}`;
+    }
+    function slugify(s) { return s.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, ''); }
+
+    // ── Main ─────────────────────────────────────────────────────────────────
     const params = new URLSearchParams(window.location.search);
     const uid = params.get('uid');
     const root = document.getElementById('root');
 
-    function isArabic(text) {
-      return /[؀-ۿ]/.test(text);
-    }
-
-    function formatPrice(price, currency) {
-      return `${price % 1 === 0 ? price.toFixed(0) : price.toFixed(2)} ${currency}`;
-    }
-
-    function renderError(title, msg) {
+    function renderError(icon, title, msg) {
       root.innerHTML = `
-        <div class="error">
-          <div class="error-icon">🍽️</div>
-          <h2>${title}</h2>
-          <p>${msg}</p>
+        <div class="state-box">
+          <div class="state-icon">${icon}</div>
+          <div class="state-title">${title}</div>
+          <p class="state-msg">${msg}</p>
         </div>`;
     }
 
     async function loadMenu() {
       if (!uid) {
-        renderError('Menu introuvable', 'Aucun identifiant fourni. Scannez le QR code depuis l\'application ServePoint.');
+        renderError('📷', 'Menu introuvable',
+          'Scannez le QR code depuis l\'application ServePoint pour accéder au menu.');
         return;
       }
 
       try {
-        const docRef = doc(db, 'public_menus', uid);
-        const snap = await getDoc(docRef);
+        const snap = await getDoc(doc(db, 'public_menus', uid));
 
         if (!snap.exists()) {
-          renderError('Menu non publié', 'Ce restaurant n\'a pas encore publié son menu digital. Réessayez plus tard.');
+          renderError('🍽️', 'Menu non publié',
+            'Ce restaurant n\'a pas encore publié son menu digital. Réessayez dans quelques instants.');
           return;
         }
 
         const data = snap.data();
         const storeName = data.storeName || 'Notre Menu';
-        const currency = data.currency || '';
-        const categories = data.categories || [];
+        const currency  = data.currency  || '';
+        const cats      = (data.categories || []).filter(c => (c.products || []).length > 0);
 
-        // Detect language from first product
+        // RTL detection
         let isRtl = false;
-        outer: for (const cat of categories) {
+        outer: for (const cat of cats) {
           if (isArabic(cat.nameAr)) { isRtl = true; break; }
           for (const p of (cat.products || [])) {
             if (isArabic(p.nameAr)) { isRtl = true; break outer; }
           }
         }
-
         if (isRtl) document.body.classList.add('rtl');
 
-        // Build HTML
-        let html = `
+        document.title = `${storeName} — Menu`;
+
+        // ── Header ──────────────────────────────────────────────────────────
+        const headerHtml = `
           <div class="header">
-            <div class="store-name">${escHtml(storeName)}</div>
-            <div class="powered">Powered by <span>ServePoint</span></div>
+            <div class="header-inner">
+              <div class="store-badge">🍴 Menu Digital</div>
+              <div class="store-name">${esc(storeName)}</div>
+              <div class="header-sub">Powered by <span>ServePoint</span></div>
+            </div>
+          </div>`;
+
+        // ── Category Tabs ────────────────────────────────────────────────────
+        let tabsHtml = '<div class="tabs-bar"><div class="tabs" id="tabs">';
+        cats.forEach((cat, i) => {
+          const name = (isRtl && cat.nameAr) ? cat.nameAr : cat.nameFr;
+          const slug = slugify(cat.nameFr || `cat${i}`);
+          tabsHtml += `<button class="tab-btn${i === 0 ? ' active' : ''}" onclick="scrollToSection('${slug}', this)">${esc(name)}</button>`;
+        });
+        tabsHtml += '</div></div>';
+
+        // ── Product Sections ─────────────────────────────────────────────────
+        let sectionsHtml = '<div class="content">';
+        cats.forEach((cat, ci) => {
+          const catName = (isRtl && cat.nameAr) ? cat.nameAr : cat.nameFr;
+          const slug = slugify(cat.nameFr || `cat${ci}`);
+          const prods = cat.products || [];
+          sectionsHtml += `
+            <div class="category-section" id="section-${slug}" data-slug="${slug}">
+              <div class="category-header">
+                <div class="category-label">${esc(catName)}</div>
+                <div class="category-line"></div>
+                <div class="category-count">${prods.length}</div>
+              </div>`;
+
+          prods.forEach(p => {
+            const name  = (isRtl && p.nameAr) ? p.nameAr : p.nameFr;
+            const imgUrl = (p.imageUrl && p.imageUrl.trim()) ? p.imageUrl : getImageUrl(p.nameFr, p.nameAr);
+            sectionsHtml += `
+              <div class="product-card">
+                <div class="product-img-wrap">
+                  <img class="product-img"
+                       src="${esc(imgUrl)}"
+                       alt="${esc(name)}"
+                       loading="lazy"
+                       onerror="this.parentElement.innerHTML='<div class=\\'product-img-placeholder\\'>🍽️</div>'" />
+                </div>
+                <div class="product-body">
+                  <div class="product-name">${esc(name)}</div>
+                  <div class="product-price-row">
+                    <div class="product-price">${fmt(p.price, currency)}</div>
+                    <div class="add-btn" aria-hidden="true">+</div>
+                  </div>
+                </div>
+              </div>`;
+          });
+
+          sectionsHtml += '</div>';
+        });
+        sectionsHtml += '</div>';
+
+        // ── Render ───────────────────────────────────────────────────────────
+        root.innerHTML = `
+          <div class="sticky-top">
+            ${headerHtml}
+            ${tabsHtml}
           </div>
-          <div class="content">`;
+          ${sectionsHtml}`;
 
-        if (categories.length === 0) {
-          html += `<div class="empty"><p>${isRtl ? 'لا توجد منتجات في هذه القائمة حالياً.' : 'Aucun produit disponible pour le moment.'}</p></div>`;
-        } else {
-          for (const cat of categories) {
-            const catName = (isRtl && cat.nameAr) ? cat.nameAr : cat.nameFr;
-            html += `<div class="category"><div class="category-title">${escHtml(catName)}</div>`;
-            for (const p of (cat.products || [])) {
-              const name = (isRtl && p.nameAr) ? p.nameAr : p.nameFr;
-              html += `
-                <div class="product">
-                  <div class="product-name">${escHtml(name)}</div>
-                  <div class="product-price">${escHtml(formatPrice(p.price, currency))}</div>
-                </div>`;
+        // ── Intersection observer for active tab ─────────────────────────────
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const sections   = document.querySelectorAll('.category-section');
+
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const slug = entry.target.dataset.slug;
+              tabButtons.forEach(btn => {
+                const active = btn.getAttribute('onclick').includes(`'${slug}'`);
+                btn.classList.toggle('active', active);
+                if (active) btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+              });
             }
-            html += `</div>`;
-          }
-        }
+          });
+        }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
 
-        html += `</div>`;
-        root.innerHTML = html;
-
-        // Update page title
-        document.title = `${storeName} — Menu Digital`;
+        sections.forEach(s => io.observe(s));
 
       } catch (err) {
         console.error(err);
-        renderError('Erreur de chargement', 'Impossible de charger le menu. Vérifiez votre connexion et réessayez.');
+        renderError('⚠️', 'Erreur de chargement',
+          'Impossible de charger le menu. Vérifiez votre connexion et réessayez.');
       }
     }
 
-    function escHtml(str) {
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
-    }
+    // ── Tab scroll-to ─────────────────────────────────────────────────────────
+    window.scrollToSection = function(slug, btn) {
+      const el = document.getElementById(`section-${slug}`);
+      if (!el) return;
+      // Offset for sticky header (~140px)
+      const y = el.getBoundingClientRect().top + window.scrollY - 140;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    };
 
     loadMenu();
   </script>
