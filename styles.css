@@ -162,7 +162,7 @@ body {
   font-size: 15px;
   font-weight: 700;
   padding: 14px 28px;
-  min-width: 160px;
+  min-width: 185px;
   border-radius: 12px;
   text-decoration: none;
   transition: background .2s, transform .15s;
@@ -178,7 +178,7 @@ body {
   font-size: 15px;
   font-weight: 700;
   padding: 14px 28px;
-  min-width: 160px;
+  min-width: 185px;
   border-radius: 12px;
   text-decoration: none;
   border: 1px solid #333;
