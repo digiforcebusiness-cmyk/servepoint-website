@@ -166,6 +166,21 @@ body {
   transition: background .2s, transform .15s;
 }
 .btn-playstore:hover { background: #019e6f; transform: translateY(-2px); }
+.btn-appstore {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #000;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 14px 28px;
+  border-radius: 12px;
+  text-decoration: none;
+  border: 1px solid #333;
+  transition: background .2s, transform .15s;
+}
+.btn-appstore:hover { background: #222; transform: translateY(-2px); }
 .btn-amazon {
   display: inline-flex;
   align-items: center;
