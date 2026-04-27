@@ -155,12 +155,14 @@ body {
 .btn-playstore {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   background: #01875f;
   color: white;
   font-size: 15px;
   font-weight: 700;
   padding: 14px 28px;
+  min-width: 160px;
   border-radius: 12px;
   text-decoration: none;
   transition: background .2s, transform .15s;
@@ -169,12 +171,14 @@ body {
 .btn-appstore {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   background: #000;
   color: white;
   font-size: 15px;
   font-weight: 700;
   padding: 14px 28px;
+  min-width: 160px;
   border-radius: 12px;
   text-decoration: none;
   border: 1px solid #333;
