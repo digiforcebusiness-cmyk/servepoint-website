@@ -57,6 +57,26 @@
     <priority>0.3</priority>
   </url>
 
+  <!-- App privacy policies -->
+  <url>
+    <loc>https://www.servepointpos.com/elastic-face/privacy.html</loc>
+    <lastmod>2026-05-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.servepointpos.com/mental-maths/privacy.html</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.servepointpos.com/brainhook/privacy.html</loc>
+    <lastmod>2026-05-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
   <!-- Blog index -->
   <url>
     <loc>https://www.servepointpos.com/blog/</loc>
