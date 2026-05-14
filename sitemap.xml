@@ -57,6 +57,14 @@
     <priority>0.3</priority>
   </url>
 
+  <!-- App landing pages -->
+  <url>
+    <loc>https://www.servepointpos.com/mental-maths/</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- App privacy policies -->
   <url>
     <loc>https://www.servepointpos.com/elastic-face/privacy.html</loc>
