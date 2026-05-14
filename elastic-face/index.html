@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elastic Face — Stretch, Pull &amp; Squish a 3D Face | iOS</title>
+  <meta name="description" content="Elastic Face is a satisfying 3D physics toy. Pull, stretch, and squish a springy toon head. 100 unlockable faces. Free on iOS." />
+  <meta name="keywords" content="elastic face, face stretch game, 3D physics, squish game, fidget app, anti-stress, satisfying game, elastic man, jelly face" />
+  <meta name="author" content="YOUNESS HARNAFI" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.servepointpos.com/elastic-face/" />
+  <link rel="icon" type="image/png" href="/elastic-face/icon.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.servepointpos.com/elastic-face/" />
+  <meta property="og:title" content="Elastic Face — Stretch, Pull &amp; Squish a 3D Face" />
+  <meta property="og:description" content="Pull, stretch, and squish a springy toon head. 100 unlockable faces. Free on iOS." />
+  <meta property="og:image" content="https://www.servepointpos.com/elastic-face/icon.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Elastic Face — Stretch, Pull &amp; Squish a 3D Face" />
+  <meta name="twitter:description" content="Satisfying 3D physics toy with springy mesh deformation and 100 unlockable faces." />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    "name": "Elastic Face",
+    "operatingSystem": "iOS",
+    "applicationCategory": "GameApplication",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Elastic Face is a satisfying 3D physics toy. Pull, stretch, and squish a springy toon head. 100 unlockable faces.",
+    "url": "https://www.servepointpos.com/elastic-face/",
+    "downloadUrl": ["https://apps.apple.com/us/app/elastic-face/id6767703279"],
+    "publisher": { "@type": "Person", "name": "YOUNESS HARNAFI" }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #1d0a2e;
+      --surface: #2c1247;
+      --surface-2: #3a1a5e;
+      --border: rgba(255,255,255,0.08);
+      --text: #fefefe;
+      --text-muted: #c8b4e0;
+      --pink: #ff8fcd;
+      --purple: #7e47e0;
+      --yellow: #ffc93b;
+      --orange: #ff7e47;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .hero {
+      background:
+        radial-gradient(ellipse at top right, rgba(255,143,205,0.25), transparent 60%),
+        radial-gradient(ellipse at bottom left, rgba(126,71,224,0.25), transparent 60%),
+        var(--bg);
+      padding: 56px 24px 80px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-inner { max-width: 900px; margin: 0 auto; }
+
+    .app-icon {
+      width: 120px; height: 120px; border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(255,143,205,0.35), 0 8px 20px rgba(0,0,0,0.3);
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: 3rem; font-weight: 900; letter-spacing: -1.5px; line-height: 1.1;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff, var(--text-muted));
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .tagline {
+      font-size: 1.25rem; color: var(--text-muted); margin-bottom: 36px;
+      max-width: 600px; margin-left: auto; margin-right: auto;
+    }
+
+    .store-buttons {
+      display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px;
+    }
+
+    .store-button {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      color: #fff; padding: 14px 28px; border-radius: 14px;
+      text-decoration: none; font-weight: 600; font-size: 0.95rem;
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 16px rgba(255,143,205,0.35);
+    }
+
+    .store-button:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,143,205,0.55); }
+    .store-button.android { background: var(--surface-2); color: var(--text-muted); box-shadow: none; border: 1px solid var(--border); }
+    .store-button svg { width: 22px; height: 22px; }
+
+    .store-meta { color: var(--text-muted); font-size: 0.85rem; margin-top: 8px; }
+
+    section.content { max-width: 1000px; margin: 0 auto; padding: 80px 24px; }
+
+    h2 {
+      font-size: 2rem; font-weight: 800; text-align: center;
+      letter-spacing: -0.5px; margin-bottom: 12px;
+    }
+
+    .section-sub {
+      text-align: center; color: var(--text-muted); font-size: 1.05rem;
+      margin-bottom: 48px; max-width: 600px; margin-left: auto; margin-right: auto;
+    }
+
+    .features {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+
+    .feature {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 18px; padding: 28px;
+      transition: transform 0.15s ease, border-color 0.2s ease;
+    }
+
+    .feature:hover { transform: translateY(-3px); border-color: rgba(255,143,205,0.4); }
+
+    .feature-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 16px;
+    }
+
+    .feature h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .feature p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; }
+
+    /* How it works */
+    .steps {
+      background: var(--surface); border-radius: 24px; padding: 48px;
+      border: 1px solid var(--border);
+    }
+    .step-list {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 32px;
+    }
+    .step {
+      text-align: center;
+    }
+    .step-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      color: #fff; font-weight: 800; font-size: 1.2rem;
+      margin-bottom: 16px;
+    }
+    .step h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .step p { color: var(--text-muted); font-size: 0.92rem; }
+
+    /* CTA */
+    .cta {
+      text-align: center; padding: 80px 24px;
+      background: radial-gradient(ellipse at center, rgba(255,143,205,0.15), transparent 70%);
+    }
+    .cta h2 { margin-bottom: 16px; }
+    .cta p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 32px; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border); padding: 32px 24px;
+      text-align: center; color: var(--text-muted); font-size: 0.85rem;
+    }
+    footer a { color: var(--yellow); text-decoration: none; margin: 0 10px; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 760px) {
+      h1 { font-size: 2.2rem; }
+      .tagline { font-size: 1.05rem; }
+      .app-icon { width: 100px; height: 100px; }
+      section.content { padding: 56px 20px; }
+      h2 { font-size: 1.6rem; }
+      .features { grid-template-columns: 1fr; }
+      .steps { padding: 28px 22px; }
+      .step-list { grid-template-columns: 1fr; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <img src="icon.png" alt="Elastic Face app icon" class="app-icon" />
+    <h1>Stretch. Pull. Squish.</h1>
+    <p class="tagline">Elastic Face is a satisfying 3D physics toy. Drag the face, watch it stretch like jelly, let go and feel it spring back. Pure tactile fun, zero pressure.</p>
+    <div class="store-buttons">
+      <a class="store-button" href="https://apps.apple.com/us/app/elastic-face/id6767703279" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+        Download on App Store
+      </a>
+      <a class="store-button android" href="#" onclick="alert('Android version coming soon!'); return false;">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5V3.5c0-.7.5-1.2 1.1-1.4l11.2 9.4-11.2 9.4c-.6-.2-1.1-.7-1.1-1.4zm14.7-7.1l-2.4-1.4-2.6 2.2 2.6 2.2 2.4-1.4c.8-.5.8-1.1 0-1.6zM5.5 2.5l10 8.4 2.2-1.9-12.2-6.5zm0 19l12.2-6.5-2.2-1.9-10 8.4z"/></svg>
+        Google Play (Soon)
+      </a>
+    </div>
+    <p class="store-meta">Free · No accounts · Works offline · Family-safe</p>
+  </div>
+</header>
+
+<section class="content">
+  <h2>Why people keep coming back</h2>
+  <p class="section-sub">Real-time GPU physics, eye tracking that follows your finger, and a wobble that just feels right.</p>
+
+  <div class="features">
+    <div class="feature">
+      <div class="feature-icon" style="background: linear-gradient(135deg, #ff8fcd, #7e47e0);">🤏</div>
+      <h3>Real elastic physics</h3>
+      <p>The mesh actually stretches on the GPU — pull a cheek and ~80% of the head responds, not just a local dent. Springy, responsive, addictive.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background: linear-gradient(135deg, #ffc93b, #ff7e47);">👀</div>
+      <h3>Eyes that follow you</h3>
+      <p>Both eyes track your finger continuously. Tap anywhere, drag, release — the face is alive and watching.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background: linear-gradient(135deg, #7e47e0, #ff8fcd);">🎭</div>
+      <h3>100 faces to unlock</h3>
+      <p>Discover new toon faces by playing. Each one has its own personality. No microtransactions — everything unlocks through play.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background: linear-gradient(135deg, #ff7e47, #ffc93b);">⚡</div>
+      <h3>60 FPS smooth</h3>
+      <p>Built on Flutter's Impeller renderer with custom GLSL shaders. Buttery smooth on iPhone 12 and newer. No lag, no jitter.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background: linear-gradient(135deg, #ff8fcd, #ffc93b);">📳</div>
+      <h3>Haptic feedback</h3>
+      <p>Subtle vibrations make every pull and snap feel physical. Turn off in Settings if you prefer silent squishing.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background: linear-gradient(135deg, #7e47e0, #ffc93b);">🧘</div>
+      <h3>Zero pressure</h3>
+      <p>No timers, no scores, no goals. Just open the app, breathe, squish. Perfect for a 30-second break or a 30-minute zone-out.</p>
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="steps">
+    <h2>How to play</h2>
+    <p class="section-sub">It's a toy, not a game. There's nothing to learn.</p>
+    <div class="step-list">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Touch the face</h4>
+        <p>Tap and hold anywhere on the head. The mesh starts deforming under your finger.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Drag in any direction</h4>
+        <p>Stretch a cheek. Pull the nose. Squish the forehead. Eyes follow your finger the whole time.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Release and watch it bounce</h4>
+        <p>Let go and the face springs back with a few satisfying oscillations. Then do it again.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>One tap. Instant satisfaction.</h2>
+  <p>Free download. No accounts. Works in airplane mode.</p>
+  <a class="store-button" href="https://apps.apple.com/us/app/elastic-face/id6767703279" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+    Download on App Store
+  </a>
+</section>
+
+<footer>
+  <a href="/">Home</a> ·
+  <a href="/elastic-face/contact">Contact</a> ·
+  <a href="/elastic-face/privacy.html">Privacy</a> ·
+  <a href="mailto:digiforcebusiness@gmail.com">Email</a>
+  <p style="margin-top:12px">© 2026 YOUNESS HARNAFI. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

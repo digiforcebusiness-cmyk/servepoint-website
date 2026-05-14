@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact &amp; Support – Elastic Face</title>
+  <meta name="description" content="Contact the Elastic Face team for support, bug reports, and feature requests. We reply within 7 business days." />
+  <link rel="canonical" href="https://www.servepointpos.com/elastic-face/contact" />
+  <link rel="icon" type="image/png" href="/elastic-face/icon.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.servepointpos.com/elastic-face/contact" />
+  <meta property="og:title" content="Contact &amp; Support – Elastic Face" />
+  <meta property="og:description" content="Reach the Elastic Face team for support, bug reports, and feature requests." />
+  <meta property="og:image" content="https://www.servepointpos.com/elastic-face/icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #1d0a2e;
+      --surface: #2c1247;
+      --surface-2: #3a1a5e;
+      --border: rgba(255,255,255,0.08);
+      --text: #fefefe;
+      --text-muted: #c8b4e0;
+      --pink: #ff8fcd;
+      --purple: #7e47e0;
+      --yellow: #ffc93b;
+      --orange: #ff7e47;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    .topnav {
+      background: rgba(29,10,46,0.85); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border); padding: 14px 24px;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .topnav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; color: var(--text); text-decoration: none; font-weight: 700; }
+    .brand img { width: 32px; height: 32px; border-radius: 8px; }
+    .nav-links { display: flex; gap: 20px; font-size: 0.92rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; transition: color 0.15s ease; }
+    .nav-links a:hover { color: var(--text); }
+
+    header.hero {
+      background: radial-gradient(ellipse at top, rgba(255,143,205,0.25), transparent 60%), var(--bg);
+      padding: 64px 24px 40px; text-align: center;
+    }
+    .hero h1 {
+      font-size: 2.6rem; font-weight: 900; letter-spacing: -1px; line-height: 1.1; margin-bottom: 14px;
+      background: linear-gradient(135deg, #fff, var(--text-muted));
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+    main { max-width: 920px; margin: 0 auto; padding: 48px 24px 80px; }
+    h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; }
+    .lead { color: var(--text-muted); margin-bottom: 28px; }
+
+    .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 56px; }
+    .contact-card {
+      display: flex; align-items: flex-start; gap: 16px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 22px;
+      text-decoration: none; color: inherit;
+      transition: transform 0.15s ease, border-color 0.2s ease;
+    }
+    .contact-card:hover { transform: translateY(-3px); border-color: rgba(255,143,205,0.5); }
+    .contact-icon {
+      flex: 0 0 auto; width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; color: #fff;
+    }
+    .contact-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .contact-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 4px; word-break: break-word; }
+    .contact-meta { display: block; color: rgba(255,255,255,0.45); font-size: 0.78rem; }
+
+    .contact-form-section {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 36px; margin-bottom: 56px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .form-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .form-field label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+    .form-field input, .form-field select, .form-field textarea {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+      color: var(--text); font-family: inherit; font-size: 0.95rem;
+      padding: 12px 14px; transition: border-color 0.15s ease;
+    }
+    .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
+      outline: none; border-color: var(--pink);
+    }
+    .form-field textarea { min-height: 140px; resize: vertical; font-family: inherit; }
+
+    .form-submit {
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      color: #fff; border: none; border-radius: 12px;
+      padding: 14px 28px; font-size: 0.95rem; font-weight: 600; cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.2s ease; font-family: inherit;
+    }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,143,205,0.35); }
+    .form-note { color: rgba(255,255,255,0.5); font-size: 0.82rem; margin-top: 12px; }
+
+    .faq-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 4px 20px; margin-bottom: 10px;
+      transition: border-color 0.2s ease;
+    }
+    .faq-item[open] { border-color: rgba(255,143,205,0.4); }
+    .faq-item summary {
+      cursor: pointer; font-weight: 600; font-size: 0.98rem;
+      padding: 16px 0; list-style: none; position: relative; padding-right: 28px;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: '+'; position: absolute; right: 0; top: 50%;
+      transform: translateY(-50%); font-size: 1.4rem; color: var(--yellow);
+    }
+    .faq-item[open] summary::after { content: '−'; }
+    .faq-item p { color: var(--text-muted); font-size: 0.92rem; padding-bottom: 16px; line-height: 1.7; }
+    .faq-item p a { color: var(--yellow); text-decoration: none; }
+    .faq-item p a:hover { text-decoration: underline; }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 32px 24px;
+      text-align: center; color: var(--text-muted); font-size: 0.85rem;
+    }
+    footer a { color: var(--yellow); text-decoration: none; margin: 0 10px; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 760px) {
+      .hero h1 { font-size: 1.9rem; }
+      .hero p { font-size: 1rem; }
+      header.hero { padding: 44px 20px 32px; }
+      main { padding: 36px 20px 56px; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form-section { padding: 24px; }
+      .nav-links { gap: 14px; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="brand" href="/elastic-face/">
+      <img src="icon.png" alt="Elastic Face icon" />
+      <span>Elastic Face</span>
+    </a>
+    <div class="nav-links">
+      <a href="/elastic-face/">Home</a>
+      <a href="/elastic-face/privacy.html">Privacy</a>
+      <a href="https://apps.apple.com/us/app/elastic-face/id6767703279" target="_blank" rel="noopener">App Store</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <h1>How can we help?</h1>
+  <p>Bug reports, feature requests, partnership ideas — we read every message and reply within 7 business days.</p>
+</header>
+
+<main>
+  <h2>Reach us directly</h2>
+  <p class="lead">Quick links for the most common asks.</p>
+
+  <div class="contact-grid">
+    <a class="contact-card" href="mailto:digiforcebusiness@gmail.com?subject=Elastic%20Face%20%E2%80%94%20Support%20Request">
+      <div class="contact-icon" style="background: linear-gradient(135deg, #ff8fcd, #7e47e0);">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </div>
+      <div>
+        <h3>Email support</h3>
+        <p>digiforcebusiness@gmail.com</p>
+        <span class="contact-meta">Reply within 7 business days</span>
+      </div>
+    </a>
+
+    <a class="contact-card" href="https://apps.apple.com/us/app/elastic-face/id6767703279?action=write-review" target="_blank" rel="noopener">
+      <div class="contact-icon" style="background: linear-gradient(135deg, #ffc93b, #ff7e47);">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+      </div>
+      <div>
+        <h3>Leave a review</h3>
+        <p>Rate Elastic Face on the App Store</p>
+        <span class="contact-meta">Reviews help others find it</span>
+      </div>
+    </a>
+
+    <a class="contact-card" href="/elastic-face/privacy.html">
+      <div class="contact-icon" style="background: linear-gradient(135deg, #7e47e0, #ff8fcd);">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 6c1.4 0 2.5 1.1 2.5 2.5S13.4 12 12 12s-2.5-1.1-2.5-2.5S10.6 7 12 7zm0 12c-1.86 0-3.5-.97-4.5-2.42 0-1.49 3-2.31 4.5-2.31s4.5.82 4.5 2.31C15.5 18.03 13.86 19 12 19z"/></svg>
+      </div>
+      <div>
+        <h3>Privacy policy</h3>
+        <p>What we collect (spoiler: nothing)</p>
+        <span class="contact-meta">COPPA + GDPR compliant</span>
+      </div>
+    </a>
+  </div>
+
+  <h2>Send a message</h2>
+  <p class="lead">Prefer to type? Fill the form and we'll route it to the right inbox.</p>
+
+  <section class="contact-form-section">
+    <form action="https://formsubmit.co/digiforcebusiness@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Elastic Face — Website Contact" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_captcha" value="true" />
+      <input type="hidden" name="_next" value="https://www.servepointpos.com/elastic-face/contact?sent=1" />
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="name">Your name</label>
+          <input type="text" id="name" name="name" required placeholder="Jane Doe" />
+        </div>
+        <div class="form-field">
+          <label for="email">Your email</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com" />
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="topic">Topic</label>
+        <select id="topic" name="topic" required>
+          <option value="">Pick one…</option>
+          <option value="Bug report">Bug report</option>
+          <option value="Feature request">Feature request</option>
+          <option value="Performance / lag">Performance / lag</option>
+          <option value="Partnership / press">Partnership / press</option>
+          <option value="Privacy / data request">Privacy / data request</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required placeholder="What can we help with? If it's a bug, include the device model, iOS version, and what you were doing."></textarea>
+      </div>
+
+      <button type="submit" class="form-submit">Send message</button>
+      <p class="form-note">By submitting you agree we may reply to the email you provided. We won't share it or add you to any list.</p>
+    </form>
+  </section>
+
+  <h2>Frequently asked</h2>
+  <p class="lead">If your question is here, you'll get an instant answer.</p>
+
+  <details class="faq-item">
+    <summary>Is Elastic Face really free?</summary>
+    <p>Yes. The whole app, including all 100 unlockable faces, is free with no time limits and no required login. The app shows occasional ads from Google AdMob (family-safe, non-personalized) to keep development going.</p>
+  </details>
+
+  <details class="faq-item">
+    <summary>Does it work offline?</summary>
+    <p>Yes. All gameplay works fully offline. Internet is only needed for ads to load.</p>
+  </details>
+
+  <details class="faq-item">
+    <summary>Is my data shared with anyone?</summary>
+    <p>No. We don't run servers — your unlocked faces and settings live on your device only. AdMob collects anonymous device signals for ads (configured non-personalized + family-safe). Full details on the <a href="/elastic-face/privacy.html">privacy policy</a>.</p>
+  </details>
+
+  <details class="faq-item">
+    <summary>The face looks laggy on my device</summary>
+    <p>Elastic Face uses GPU shaders for the elastic deformation. On older iPhones (iPhone X and earlier) you may see lower frame rates. Try closing other apps, restarting the device, or letting the app run for ~10 seconds — performance improves after the shader cache warms up.</p>
+  </details>
+
+  <details class="faq-item">
+    <summary>When will the Android version launch?</summary>
+    <p>Android is in development. Email digiforcebusiness@gmail.com if you'd like to be notified at launch.</p>
+  </details>
+
+  <details class="faq-item">
+    <summary>How do I unlock more faces?</summary>
+    <p>Faces unlock through play. Keep interacting with the current face — new ones become available as you reach milestones. There are no in-app purchases.</p>
+  </details>
+
+  <details class="faq-item">
+    <summary>How do I reset progress?</summary>
+    <p>In the app: Settings → Reset Progress. This wipes all unlocked faces and resets to the default. Uninstalling the app does the same thing.</p>
+  </details>
+
+  <details class="faq-item">
+    <summary>Found a bug — what info should I include?</summary>
+    <p>Send a quick email with: your device model (e.g., iPhone 13), iOS version (Settings → General → About), what you were doing when it happened, and a screenshot or screen recording if possible.</p>
+  </details>
+</main>
+
+<footer>
+  <a href="/">Home</a> ·
+  <a href="/elastic-face/">Elastic Face</a> ·
+  <a href="/elastic-face/privacy.html">Privacy</a> ·
+  <a href="mailto:digiforcebusiness@gmail.com">Email</a>
+  <p style="margin-top:12px">© 2026 YOUNESS HARNAFI. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
