@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teleprompter for Video – Read naturally, record confidently</title>
+  <meta name="description" content="Teleprompter for Video syncs your script to your voice in real time so you can read naturally on camera. Voice sync, video recording, and a floating window — all on your iPhone." />
+  <link rel="canonical" href="https://www.servepointpos.com/teleprompter-for-video/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #08080a;
+      --surface: #16161a;
+      --border: rgba(255, 209, 0, 0.08);
+      --text: #fefefe;
+      --text-muted: #b9bcd0;
+      --amber: #FFD100;
+      --amber-deep: #c19500;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* Hero */
+    .hero {
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(255, 209, 0, 0.22), transparent 65%),
+        linear-gradient(135deg, #1a1a1f 0%, #08080a 100%);
+      padding: 80px 24px 72px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #fff;
+      max-width: 720px;
+      margin: 0 auto;
+      line-height: 1.15;
+    }
+
+    .hero h1 .accent { color: var(--amber); }
+
+    .hero p {
+      margin: 20px auto 0;
+      max-width: 560px;
+      color: rgba(255,255,255,0.85);
+      font-size: 1.05rem;
+    }
+
+    .cta {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 15px 32px;
+      background: var(--amber);
+      color: #08080a;
+      font-weight: 800;
+      font-size: 1rem;
+      border-radius: 999px;
+      letter-spacing: 0.2px;
+    }
+
+    .cta:hover { opacity: 0.9; }
+
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 64px 24px 40px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 1.7rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      font-size: 0.98rem;
+    }
+
+    /* Feature grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 26px;
+    }
+
+    .card .icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255, 209, 0, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 14px;
+    }
+
+    .card h3 {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.93rem;
+    }
+
+    /* Steps */
+    .steps {
+      margin-top: 64px;
+    }
+
+    .step {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 26px;
+      margin-bottom: 14px;
+    }
+
+    .step .num {
+      flex-shrink: 0;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: var(--amber);
+      color: #08080a;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+    }
+
+    .step h3 {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .step p {
+      color: var(--text-muted);
+      font-size: 0.93rem;
+    }
+
+    /* Pricing note */
+    .pricing {
+      margin-top: 64px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 34px 32px;
+      text-align: center;
+    }
+
+    .pricing h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .pricing p {
+      color: var(--text-muted);
+      font-size: 0.96rem;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .closing {
+      text-align: center;
+      margin-top: 64px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 40px 24px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      margin-top: 64px;
+    }
+
+    .footer a {
+      color: var(--text-muted);
+      margin: 0 10px;
+      text-decoration: none;
+    }
+
+    .footer a:hover { color: var(--amber); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 60px 20px 56px; }
+      .hero h1 { font-size: 2rem; }
+      main { padding: 48px 16px 32px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <span class="badge">iPhone Teleprompter</span>
+    <h1>Read naturally. <span class="accent">Record confidently.</span></h1>
+    <p>Teleprompter for Video syncs your script to your voice in real time — so your eyes stay on the camera and your delivery stays natural.</p>
+    <a class="cta" href="https://apps.apple.com/app/id6768492797">Download on the App Store</a>
+  </div>
+
+  <main>
+    <h2 class="section-title">Everything you need to film a clean take</h2>
+    <p class="section-sub">No earpiece, no memorizing, no awkward pauses.</p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="icon">🎙️</div>
+        <h3>Voice sync</h3>
+        <p>The script highlights and scrolls to follow your speech as you talk. Pause to think and it waits for you. Speech recognition runs entirely on your device.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🎬</div>
+        <h3>Built-in recording</h3>
+        <p>Film straight from the app with the front or back camera while the teleprompter scrolls. Your clip saves right to your photo library.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🪟</div>
+        <h3>Floating window</h3>
+        <p>Pop the script into a movable Picture-in-Picture panel that stays on top while you record in another camera app.</p>
+      </div>
+      <div class="card">
+        <div class="icon">⏱️</div>
+        <h3>Manual auto-scroll</h3>
+        <p>Prefer a steady pace? Manual mode scrolls at a speed you set, with a countdown so you have time to get into position.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🎨</div>
+        <h3>Made to read</h3>
+        <p>Adjust text size, font, line spacing, and mirror mode for beam-splitter rigs. Bold your key words so you never miss an emphasis.</p>
+      </div>
+      <div class="card">
+        <div class="icon">☁️</div>
+        <h3>Optional cloud sync</h3>
+        <p>Back up your scripts to your own Google Drive. It's opt-in, limited to a hidden app folder, and off by default.</p>
+      </div>
+    </div>
+
+    <div class="steps">
+      <h2 class="section-title">How it works</h2>
+      <p class="section-sub">Three steps from blank page to finished take.</p>
+
+      <div class="step">
+        <div class="num">1</div>
+        <div>
+          <h3>Add your script</h3>
+          <p>Paste or type your script and give it a title. Highlight the words you want to emphasize.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <div>
+          <h3>Start a session</h3>
+          <p>Pick Voice Sync or Manual mode, turn on the camera, and position your phone.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <div>
+          <h3>Hit record and talk</h3>
+          <p>The teleprompter follows you while you record. Stop when you're done — the video is in your library.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pricing">
+      <h2>Free to use</h2>
+      <p>Every feature is free. Free recordings include a small corner badge — an optional Pro upgrade (Monthly, Annual, or Lifetime) removes it so your videos export completely clean.</p>
+    </div>
+
+    <div class="closing">
+      <a class="cta" href="https://apps.apple.com/app/id6768492797">Get Teleprompter for Video</a>
+    </div>
+  </main>
+
+  <div class="footer">
+    <a href="/teleprompter-for-video/">Home</a> ·
+    <a href="/teleprompter-for-video/support.html">Support</a> ·
+    <a href="/teleprompter-for-video/privacy.html">Privacy</a> ·
+    <a href="mailto:digiforcebusiness@gmail.com">Contact</a>
+    <p style="margin-top:10px">© 2026 DigiForce Business. All rights reserved.</p>
+  </div>
+</body>
+</html>
