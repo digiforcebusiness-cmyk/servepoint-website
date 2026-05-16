@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SuperRev – Turn any engine into a supercar</title>
+  <meta name="description" content="SuperRev turns your phone into a real-time engine-sound simulator. GPS speed and motion sensors drive a layered engine note with a live tachometer — it revs as you drive." />
+  <link rel="canonical" href="https://www.servepointpos.com/superrev/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #08080a;
+      --surface: #161618;
+      --border: rgba(255, 59, 48, 0.10);
+      --text: #fefefe;
+      --text-muted: #b9bcd0;
+      --red: #FF3B30;
+      --red-deep: #b9281f;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* Hero */
+    .hero {
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(255, 59, 48, 0.24), transparent 65%),
+        linear-gradient(135deg, #1a1a1f 0%, #08080a 100%);
+      padding: 80px 24px 72px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #fff;
+      max-width: 720px;
+      margin: 0 auto;
+      line-height: 1.15;
+    }
+
+    .hero h1 .accent { color: var(--red); }
+
+    .hero p {
+      margin: 20px auto 0;
+      max-width: 560px;
+      color: rgba(255,255,255,0.85);
+      font-size: 1.05rem;
+    }
+
+    .cta {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 15px 32px;
+      background: var(--red);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1rem;
+      border-radius: 999px;
+      letter-spacing: 0.2px;
+      text-decoration: none;
+    }
+
+    .cta:hover { opacity: 0.9; }
+
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 64px 24px 40px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 1.7rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      font-size: 0.98rem;
+    }
+
+    /* Feature grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 26px;
+    }
+
+    .card .icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255, 59, 48, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 14px;
+    }
+
+    .card h3 {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.93rem;
+    }
+
+    /* Steps */
+    .steps { margin-top: 64px; }
+
+    .step {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 26px;
+      margin-bottom: 14px;
+    }
+
+    .step .num {
+      flex-shrink: 0;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: var(--red);
+      color: #fff;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+    }
+
+    .step h3 {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .step p {
+      color: var(--text-muted);
+      font-size: 0.93rem;
+    }
+
+    /* Pricing note */
+    .pricing {
+      margin-top: 64px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 34px 32px;
+      text-align: center;
+    }
+
+    .pricing h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .pricing p {
+      color: var(--text-muted);
+      font-size: 0.96rem;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .closing {
+      text-align: center;
+      margin-top: 64px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 40px 24px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      margin-top: 64px;
+    }
+
+    .footer a {
+      color: var(--text-muted);
+      margin: 0 10px;
+      text-decoration: none;
+    }
+
+    .footer a:hover { color: var(--red); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 60px 20px 56px; }
+      .hero h1 { font-size: 2rem; }
+      main { padding: 48px 16px 32px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <span class="badge">Engine Sound Simulator</span>
+    <h1>Turn any engine into a <span class="accent">supercar.</span></h1>
+    <p>SuperRev reads your phone's GPS speed and motion sensors and plays a layered, real-time engine note — mount it in any car and it revs as you drive.</p>
+    <a class="cta" href="https://play.google.com/store/apps/details?id=com.tuning3d.engine.sounds">Get it on Google Play</a>
+  </div>
+
+  <main>
+    <h2 class="section-title">A real engine, simulated on your phone</h2>
+    <p class="section-sub">Not a single looping clip — layered recordings that move with you.</p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="icon">🏎️</div>
+        <h3>Layered engine audio</h3>
+        <p>Real recorded engine layers — idle, low, mid, high and redline — crossfade by RPM and blend on/off throttle, so the note is alive across the whole rev range.</p>
+      </div>
+      <div class="card">
+        <div class="icon">📡</div>
+        <h3>Driven by your sensors</h3>
+        <p>GPS speed and the accelerometer feed a real-time RPM model. Accelerate, cruise, or lift off — the engine responds the way a real one would.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🎚️</div>
+        <h3>Live dashboard</h3>
+        <p>A full instrument cluster — tachometer, speedometer and gear indicator — that sweeps in sync with the sound. Portrait or landscape.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔊</div>
+        <h3>Hold to rev</h3>
+        <p>Parked? Hold the throttle pedal and blip the engine on demand — the layers climb to redline and settle back to idle.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🚗</div>
+        <h3>Swap engines</h3>
+        <p>Flip through the car carousel to change engines — a high-revving rotary, a torquey inline-six, and more — each with its own character.</p>
+      </div>
+      <div class="card">
+        <div class="icon">📴</div>
+        <h3>On-device &amp; offline</h3>
+        <p>No account, no sign-up, no internet required. Location and motion stay on your phone and are never collected or shared.</p>
+      </div>
+    </div>
+
+    <div class="steps">
+      <h2 class="section-title">How it works</h2>
+      <p class="section-sub">Three steps from your pocket to a soundtrack for the drive.</p>
+
+      <div class="step">
+        <div class="num">1</div>
+        <div>
+          <h3>Pick your engine</h3>
+          <p>Choose an engine pack from the carousel — each one is a different recorded powertrain.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <div>
+          <h3>Mount &amp; calibrate</h3>
+          <p>Set your phone in its mount and tap the axis that points forward, so motion sensing matches the car.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <div>
+          <h3>Drive</h3>
+          <p>Pull away and the engine note rises with your speed and throttle. Lift off and it settles. That's it.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pricing">
+      <h2>Free to download</h2>
+      <p>SuperRev is free on Google Play. No sign-up, no account — install it, pick an engine, and drive.</p>
+    </div>
+
+    <div class="closing">
+      <a class="cta" href="https://play.google.com/store/apps/details?id=com.tuning3d.engine.sounds">Get SuperRev</a>
+    </div>
+  </main>
+
+  <div class="footer">
+    <a href="/superrev/">Home</a> ·
+    <a href="/superrev/privacy">Privacy</a> ·
+    <a href="mailto:digiforcebusiness@gmail.com">Contact</a>
+    <p style="margin-top:10px">© 2026 YOUNESS HARNAFI. All rights reserved.</p>
+  </div>
+</body>
+</html>
