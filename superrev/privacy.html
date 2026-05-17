@@ -6,6 +6,17 @@
   <title>Privacy Policy – SuperRev Engine Sounds</title>
   <meta name="description" content="SuperRev privacy policy. Location and motion sensors are read on-device to simulate engine RPM. The app shows banner ads via Google AdMob; no accounts, no analytics." />
   <link rel="canonical" href="https://www.servepointpos.com/superrev/privacy.html" />
+  <link rel="alternate" hreflang="en" href="https://www.servepointpos.com/superrev/privacy.html" />
+  <link rel="alternate" hreflang="fr" href="https://www.servepointpos.com/superrev/privacy-fr.html" />
+  <link rel="alternate" hreflang="es" href="https://www.servepointpos.com/superrev/privacy-es.html" />
+  <link rel="alternate" hreflang="ar" href="https://www.servepointpos.com/superrev/privacy-ar.html" />
+  <link rel="alternate" hreflang="de" href="https://www.servepointpos.com/superrev/privacy-de.html" />
+  <link rel="alternate" hreflang="it" href="https://www.servepointpos.com/superrev/privacy-it.html" />
+  <link rel="alternate" hreflang="ja" href="https://www.servepointpos.com/superrev/privacy-ja.html" />
+  <link rel="alternate" hreflang="ko" href="https://www.servepointpos.com/superrev/privacy-ko.html" />
+  <link rel="alternate" hreflang="pt-BR" href="https://www.servepointpos.com/superrev/privacy-pt.html" />
+  <link rel="alternate" hreflang="zh-Hant" href="https://www.servepointpos.com/superrev/privacy-zh.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.servepointpos.com/superrev/privacy.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
@@ -117,6 +128,39 @@
       color: rgba(255,255,255,0.7);
     }
 
+    /* Language switcher */
+    .lang-switch {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4px;
+      margin: 22px auto 0;
+      max-width: max-content;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 5px;
+    }
+
+    .lang-switch a {
+      padding: 6px 13px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .lang-switch a:hover {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .lang-switch a.active {
+      background: var(--red);
+      color: #fff;
+    }
+
     @media (max-width: 600px) {
       header { padding: 40px 20px 36px; }
       header h1 { font-size: 1.6rem; }
@@ -130,6 +174,18 @@
     <h1>Privacy Policy</h1>
     <p>SuperRev — Engine Sounds</p>
     <span class="updated">Last updated: May 16, 2026</span>
+    <nav class="lang-switch" aria-label="Language">
+      <a href="/superrev/privacy.html" class="active">EN</a>
+      <a href="/superrev/privacy-fr.html">FR</a>
+      <a href="/superrev/privacy-es.html">ES</a>
+      <a href="/superrev/privacy-ar.html">AR</a>
+      <a href="/superrev/privacy-de.html">DE</a>
+      <a href="/superrev/privacy-it.html">IT</a>
+      <a href="/superrev/privacy-ja.html">日本語</a>
+      <a href="/superrev/privacy-ko.html">한국어</a>
+      <a href="/superrev/privacy-pt.html">PT</a>
+      <a href="/superrev/privacy-zh.html">繁中</a>
+    </nav>
   </header>
 
   <main>
@@ -148,7 +204,7 @@
       <p>SuperRev requests location access because the simulated engine RPM is driven partly by how fast you are moving. The phone's GPS speed is read continuously while the app is running and is used, in real time, to calculate the engine sound you hear.</p>
       <ul>
         <li><strong>Location used for the engine simulation is processed entirely on your device.</strong> It is read by the operating system's location service, used immediately to compute speed and RPM, and then discarded. It is never written to disk as a history, and SuperRev never transmits it to us or stores it on any server.</li>
-        <li>Separately, the Google AdMob advertising SDK (Section 7) may infer your <strong>approximate location</strong> — for example from your IP address — to help select relevant ads. That advertising-related processing is carried out by Google, not by SuperRev.</li>
+        <li>Separately, the Google AdMob advertising SDK (Section 6) may infer your <strong>approximate location</strong> — for example from your IP address — to help select relevant ads. That advertising-related processing is carried out by Google, not by SuperRev.</li>
       </ul>
       <p>If you deny or revoke location permission, the app still works — the engine simulation then relies on the motion sensors and the in-app throttle control.</p>
     </section>
@@ -161,7 +217,7 @@
 
     <section>
       <h2>4. Engine Audio</h2>
-      <p>SuperRev plays engine sound through FMOD, an audio engine by Firelight Technologies Pty Ltd, embedded in the app. Audio is rendered entirely on-device from sound files bundled inside the app and played through your phone's speaker or any connected Bluetooth / wired output you choose. The audio engine processes no personal data and makes no network connections.</p>
+      <p>SuperRev plays engine sound through an audio engine embedded in the app. Audio is rendered entirely on-device from sound files bundled inside the app and played through your phone's speaker or any connected Bluetooth / wired output you choose. The audio engine processes no personal data and makes no network connections.</p>
     </section>
 
     <section>
