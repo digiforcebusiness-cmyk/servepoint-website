@@ -7,7 +7,7 @@
   <meta name="description" content="Teleprompter for Video privacy policy. Voice runs on-device, scripts stay on your phone, no analytics. Optional Google Drive sync is opt-in and limited to a hidden app folder." />
   <link rel="canonical" href="https://www.servepointpos.com/teleprompter-for-video/privacy.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@400;600;700&family=Noto+Sans+SC:wght@400;600;700&family=Noto+Sans+TC:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -29,11 +29,16 @@
       min-height: 100vh;
     }
 
+    [lang="ar"] body, body[lang="ar"], html[lang="ar"] body { font-family: 'Noto Sans Arabic', 'Inter', sans-serif; line-height: 1.9; }
+    html[lang="zh"] body { font-family: 'Noto Sans TC', 'Inter', sans-serif; }
+    html[lang="ja"] body { font-family: 'Noto Sans JP', 'Inter', sans-serif; }
+    html[lang="ko"] body { font-family: 'Noto Sans KR', 'Inter', sans-serif; }
+
     header {
       background:
         radial-gradient(ellipse at 30% 0%, rgba(255, 209, 0, 0.18), transparent 60%),
         linear-gradient(135deg, #1a1a1f 0%, #08080a 100%);
-      padding: 56px 24px 48px;
+      padding: 56px 24px 32px;
       text-align: center;
       border-bottom: 1px solid var(--border);
     }
@@ -51,10 +56,58 @@
       font-size: 0.95rem;
     }
 
+    .updated {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* Language switcher */
+    .lang-switcher-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 22px 16px 0;
+      background: #08080a;
+    }
+
+    .lang-switcher {
+      display: inline-flex;
+      background: #16161a;
+      border: 1px solid rgba(255, 209, 0, 0.14);
+      border-radius: 999px;
+      padding: 4px;
+      gap: 2px;
+      max-width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .lang-switcher::-webkit-scrollbar { display: none; }
+
+    .lang-switcher button {
+      background: transparent;
+      border: 0;
+      color: var(--text-muted);
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.6px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: color 0.15s ease, background 0.15s ease;
+      white-space: nowrap;
+    }
+    .lang-switcher button:hover:not(.active) { color: var(--text); }
+    .lang-switcher button.active {
+      background: var(--amber);
+      color: #08080a;
+    }
+
     main {
       max-width: 760px;
       margin: 0 auto;
-      padding: 48px 24px 80px;
+      padding: 40px 24px 80px;
     }
 
     section {
@@ -79,23 +132,13 @@
       margin-bottom: 10px;
     }
 
-    p strong, li strong {
-      color: var(--text);
-    }
+    p strong, li strong { color: var(--text); }
 
-    ul {
-      padding-left: 20px;
-      margin-top: 4px;
-    }
+    ul { padding-left: 20px; margin-top: 4px; }
+    [dir="rtl"] ul { padding-left: 0; padding-right: 20px; }
 
-    a {
-      color: var(--amber);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
+    a { color: var(--amber); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
     .footer {
       text-align: center;
@@ -104,166 +147,1451 @@
       font-size: 0.85rem;
       border-top: 1px solid var(--border);
     }
+    .footer a { color: var(--text-muted); margin: 0 10px; }
 
-    .footer a {
-      color: var(--text-muted);
-      margin: 0 10px;
-    }
+    .lang-content { display: none; }
+    .lang-content.active { display: block; }
 
-    .updated {
-      display: inline-block;
-      margin-top: 6px;
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.7);
-    }
+    .header-block { display: none; }
+    .header-block.active { display: block; }
 
     @media (max-width: 600px) {
-      header { padding: 40px 20px 36px; }
+      header { padding: 40px 20px 24px; }
       header h1 { font-size: 1.6rem; }
-      main { padding: 32px 16px 60px; }
+      main { padding: 28px 16px 60px; }
       section { padding: 22px 22px; }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Privacy Policy</h1>
-    <p>Teleprompter for Video</p>
-    <span class="updated">Last updated: May 14, 2026</span>
+    <!-- ENGLISH -->
+    <div class="header-block active" data-lang="en">
+      <h1>Privacy Policy</h1>
+      <p>Teleprompter for Video</p>
+      <span class="updated">Last updated: May 14, 2026</span>
+    </div>
+    <!-- ARABIC -->
+    <div class="header-block" data-lang="ar" dir="rtl">
+      <h1>سياسة الخصوصية</h1>
+      <p>Teleprompter for Video</p>
+      <span class="updated">آخر تحديث: 14 مايو 2026</span>
+    </div>
+    <!-- CHINESE TRADITIONAL -->
+    <div class="header-block" data-lang="zh">
+      <h1>隱私政策</h1>
+      <p>Teleprompter for Video</p>
+      <span class="updated">最後更新：2026 年 5 月 14 日</span>
+    </div>
+    <!-- FRENCH -->
+    <div class="header-block" data-lang="fr">
+      <h1>Politique de confidentialité</h1>
+      <p>Teleprompter for Video</p>
+      <span class="updated">Dernière mise à jour : 14 mai 2026</span>
+    </div>
+    <!-- GERMAN -->
+    <div class="header-block" data-lang="de">
+      <h1>Datenschutzerklärung</h1>
+      <p>Teleprompter for Video</p>
+      <span class="updated">Zuletzt aktualisiert: 14. Mai 2026</span>
+    </div>
+    <!-- ITALIAN -->
+    <div class="header-block" data-lang="it">
+      <h1>Informativa sulla privacy</h1>
+      <p>Teleprompter for Video</p>
+      <span class="updated">Ultimo aggiornamento: 14 maggio 2026</span>
+    </div>
+    <!-- JAPANESE -->
+    <div class="header-block" data-lang="ja">
+      <h1>プライバシーポリシー</h1>
+      <p>Teleprompter for Video</p>
+      <span class="updated">最終更新：2026 年 5 月 14 日</span>
+    </div>
+    <!-- KOREAN -->
+    <div class="header-block" data-lang="ko">
+      <h1>개인정보 처리방침</h1>
+      <p>Teleprompter for Video</p>
+      <span class="updated">최종 업데이트: 2026년 5월 14일</span>
+    </div>
+    <!-- PORTUGUESE BRAZIL -->
+    <div class="header-block" data-lang="pt">
+      <h1>Política de Privacidade</h1>
+      <p>Teleprompter for Video</p>
+      <span class="updated">Última atualização: 14 de maio de 2026</span>
+    </div>
+    <!-- SPANISH -->
+    <div class="header-block" data-lang="es">
+      <h1>Política de privacidad</h1>
+      <p>Teleprompter for Video</p>
+      <span class="updated">Última actualización: 14 de mayo de 2026</span>
+    </div>
   </header>
 
+  <div class="lang-switcher-wrap">
+    <div class="lang-switcher" role="tablist" aria-label="Language">
+      <button data-lang="en" class="active" aria-label="English">EN</button>
+      <button data-lang="ar" aria-label="Arabic">AR</button>
+      <button data-lang="zh" aria-label="Chinese (Traditional)">ZH</button>
+      <button data-lang="fr" aria-label="French">FR</button>
+      <button data-lang="de" aria-label="German">DE</button>
+      <button data-lang="it" aria-label="Italian">IT</button>
+      <button data-lang="ja" aria-label="Japanese">JA</button>
+      <button data-lang="ko" aria-label="Korean">KO</button>
+      <button data-lang="pt" aria-label="Portuguese (Brazil)">PT</button>
+      <button data-lang="es" aria-label="Spanish">ES</button>
+    </div>
+  </div>
+
   <main>
-    <section>
-      <h2>The Short Version</h2>
-      <p>Teleprompter for Video does not collect personal data or track usage. Your scripts stay on your phone. Voice sync runs on-device. The camera and microphone are used only while a recording is active, and recordings save straight to your Photos library — not to any server. Cloud sync is opt-in and limited to a hidden Google Drive folder only this app can read. Subscriptions are processed by Apple and Google; receipts are validated by RevenueCat. No advertising, no analytics, no third-party tracking.</p>
-    </section>
+    <!-- ============ ENGLISH ============ -->
+    <div class="lang-content active" data-lang="en">
+      <section>
+        <h2>The Short Version</h2>
+        <p>Teleprompter for Video does not collect personal data or track usage. Your scripts stay on your phone. Voice sync runs on-device. The camera and microphone are used only while a recording is active, and recordings save straight to your Photos library — not to any server. Cloud sync is opt-in and limited to a hidden Google Drive folder only this app can read. Subscriptions are processed by Apple and Google; receipts are validated by RevenueCat. No advertising, no analytics, no third-party tracking.</p>
+      </section>
 
-    <section>
-      <h2>1. Who We Are</h2>
-      <p>Teleprompter for Video ("the app", "we", "our") is a mobile teleprompter and video recording app published by YOUNESS HARNAFI. This Privacy Policy explains what data the app does and does not handle when you use it on iOS or Android.</p>
-    </section>
+      <section>
+        <h2>1. Who We Are</h2>
+        <p>Teleprompter for Video ("the app", "we", "our") is a mobile teleprompter and video recording app published by YOUNESS HARNAFI. This Privacy Policy explains what data the app does and does not handle when you use it on iOS or Android.</p>
+      </section>
 
-    <section>
-      <h2>2. Data We Do Not Collect</h2>
-      <p>We do not operate any servers that store user data. We do not collect, store, or transmit any of the following:</p>
-      <ul>
-        <li>Names, email addresses, or phone numbers (the app has no sign-up)</li>
-        <li>Voice recordings or transcripts beyond on-device speech recognition (see Section 4)</li>
-        <li>Recorded videos (they save to your Photos library only)</li>
-        <li>Location data</li>
-        <li>App usage analytics, telemetry, or crash reports</li>
-        <li>Behavioral or interest profiles</li>
-        <li>Advertising identifiers</li>
-      </ul>
-      <p>The app contains no third-party advertising, no analytics SDKs, and no tracking pixels.</p>
-    </section>
+      <section>
+        <h2>2. Data We Do Not Collect</h2>
+        <p>We do not operate any servers that store user data. We do not collect, store, or transmit any of the following:</p>
+        <ul>
+          <li>Names, email addresses, or phone numbers (the app has no sign-up)</li>
+          <li>Voice recordings or transcripts beyond on-device speech recognition (see Section 4)</li>
+          <li>Recorded videos (they save to your Photos library only)</li>
+          <li>Location data</li>
+          <li>App usage analytics, telemetry, or crash reports</li>
+          <li>Behavioral or interest profiles</li>
+          <li>Advertising identifiers</li>
+        </ul>
+        <p>The app contains no third-party advertising, no analytics SDKs, and no tracking pixels.</p>
+      </section>
 
-    <section>
-      <h2>3. Data Stored Only on Your Device</h2>
-      <p>The app saves the following information locally so your work persists between sessions. None of it is transmitted off your device by us:</p>
-      <ul>
-        <li><strong>Scripts</strong> — title, body text, folder, timestamps</li>
-        <li><strong>Recording sessions</strong> — duration, pace, session date (for the Analytics screen)</li>
-        <li><strong>Preferences</strong> — selected font, text size, line spacing, scroll speed, countdown duration, keep-screen-on toggle, theme</li>
-        <li><strong>Bookmarks</strong> — sections you mark with [INTRO], [BREAK], [Q&amp;A]</li>
-      </ul>
-      <p>This data is stored using the device's local storage (Hive). You can clear it at any time by deleting scripts and sessions individually inside the app, or by uninstalling the app entirely.</p>
-    </section>
+      <section>
+        <h2>3. Data Stored Only on Your Device</h2>
+        <p>The app saves the following information locally so your work persists between sessions. None of it is transmitted off your device by us:</p>
+        <ul>
+          <li><strong>Scripts</strong> — title, body text, folder, timestamps</li>
+          <li><strong>Recording sessions</strong> — duration, pace, session date (for the Analytics screen)</li>
+          <li><strong>Preferences</strong> — selected font, text size, line spacing, scroll speed, countdown duration, keep-screen-on toggle, theme</li>
+          <li><strong>Bookmarks</strong> — sections you mark with [INTRO], [BREAK], [Q&amp;A]</li>
+        </ul>
+        <p>This data is stored using the device's local storage (Hive). You can clear it at any time by deleting scripts and sessions individually inside the app, or by uninstalling the app entirely.</p>
+      </section>
 
-    <section>
-      <h2>4. Microphone &amp; Voice Sync</h2>
-      <p>The app requests microphone access so the teleprompter can scroll in sync with your speech. The recognition uses the platform's built-in speech APIs:</p>
-      <ul>
-        <li><strong>iOS:</strong> Apple's <em>Speech</em> framework (<code>SFSpeechRecognizer</code>). On modern iPhones this runs entirely on-device. On older devices Apple may transmit short audio segments to its servers for transcription — this is governed by Apple's own privacy policy and is not something the app can intercept or store.</li>
-        <li><strong>Android:</strong> Android's <em>SpeechRecognizer</em> service. Depending on the device manufacturer and OS version, this may use Google's cloud speech service. The app sends nothing additional alongside the audio.</li>
-      </ul>
-      <p>The app does not store audio recordings, does not log transcriptions, and does not send your voice anywhere of our choosing. The transcription is read and immediately used to advance the script highlight; the underlying audio buffer is discarded once recognition completes.</p>
-      <p>Voice sync is optional. The teleprompter works fully without microphone access — Manual mode auto-scrolls at a fixed speed you control.</p>
-    </section>
+      <section>
+        <h2>4. Microphone &amp; Voice Sync</h2>
+        <p>The app requests microphone access so the teleprompter can scroll in sync with your speech. The recognition uses the platform's built-in speech APIs:</p>
+        <ul>
+          <li><strong>iOS:</strong> Apple's <em>Speech</em> framework (<code>SFSpeechRecognizer</code>). On modern iPhones this runs entirely on-device. On older devices Apple may transmit short audio segments to its servers for transcription — this is governed by Apple's own privacy policy and is not something the app can intercept or store.</li>
+          <li><strong>Android:</strong> Android's <em>SpeechRecognizer</em> service. Depending on the device manufacturer and OS version, this may use Google's cloud speech service. The app sends nothing additional alongside the audio.</li>
+        </ul>
+        <p>The app does not store audio recordings, does not log transcriptions, and does not send your voice anywhere of our choosing. The transcription is read and immediately used to advance the script highlight; the underlying audio buffer is discarded once recognition completes.</p>
+        <p>Voice sync is optional. The teleprompter works fully without microphone access — Manual mode auto-scrolls at a fixed speed you control.</p>
+      </section>
 
-    <section>
-      <h2>5. Camera &amp; Recordings</h2>
-      <p>The app requests camera (and optionally microphone) access when you start a video recording session. The camera feed is captured only while the recording is active. Stopping the recording produces an MP4 file that is saved to your device's Photos library at your discretion.</p>
-      <p>Recorded videos are never uploaded to any server by this app. Sharing a recording (via the system share sheet, AirDrop, social apps, etc.) is initiated by you and governed by the destination service's own privacy policy.</p>
-      <p>Free users see a small "Teleprompter for Video" watermark composited into the bottom-right of recorded videos. Pro subscribers do not. The watermark compositing happens entirely on-device during the recording-finalize step — no video data is sent off-device for this.</p>
-    </section>
+      <section>
+        <h2>5. Camera &amp; Recordings</h2>
+        <p>The app requests camera (and optionally microphone) access when you start a video recording session. The camera feed is captured only while the recording is active. Stopping the recording produces an MP4 file that is saved to your device's Photos library at your discretion.</p>
+        <p>Recorded videos are never uploaded to any server by this app. Sharing a recording (via the system share sheet, AirDrop, social apps, etc.) is initiated by you and governed by the destination service's own privacy policy.</p>
+        <p>Free users see a small "Teleprompter for Video" watermark composited into the bottom-right of recorded videos. Pro subscribers do not. The watermark compositing happens entirely on-device during the recording-finalize step — no video data is sent off-device for this.</p>
+      </section>
 
-    <section>
-      <h2>6. Optional: Google Drive Sync</h2>
-      <p>If you tap "Connect Google Drive" in Settings, the app uses Google Sign-In with the <code>drive.appdata</code> OAuth scope. This is the most restrictive Drive scope Google offers:</p>
-      <ul>
-        <li>The app can read and write a single file <code>scripts.json</code> inside a hidden per-app folder that Google calls the "AppData folder"</li>
-        <li>The app cannot read, write, or even see any of your other Drive files</li>
-        <li>You can revoke access at any time via your Google Account's permissions page</li>
-      </ul>
-      <p>Only the scripts you've saved in the app are synced. Recordings, audio, settings, and analytics are never uploaded. The sync file lives in your own Drive account, not on any server we control.</p>
-      <p>If you sign out of Google Drive in Settings, the local copy of your scripts remains untouched and future edits stop syncing until you reconnect.</p>
-    </section>
+      <section>
+        <h2>6. Optional: Google Drive Sync</h2>
+        <p>If you tap "Connect Google Drive" in Settings, the app uses Google Sign-In with the <code>drive.appdata</code> OAuth scope. This is the most restrictive Drive scope Google offers:</p>
+        <ul>
+          <li>The app can read and write a single file <code>scripts.json</code> inside a hidden per-app folder that Google calls the "AppData folder"</li>
+          <li>The app cannot read, write, or even see any of your other Drive files</li>
+          <li>You can revoke access at any time via your Google Account's permissions page</li>
+        </ul>
+        <p>Only the scripts you've saved in the app are synced. Recordings, audio, settings, and analytics are never uploaded. The sync file lives in your own Drive account, not on any server we control.</p>
+        <p>If you sign out of Google Drive in Settings, the local copy of your scripts remains untouched and future edits stop syncing until you reconnect.</p>
+      </section>
 
-    <section>
-      <h2>7. Subscriptions &amp; In-App Purchases</h2>
-      <p>The optional Pro subscription (Monthly, Annual, or Lifetime) is processed by the platform's standard in-app purchase system:</p>
-      <ul>
-        <li><strong>iOS:</strong> Apple's StoreKit / App Store. Apple receives your payment information; we do not see your card details.</li>
-        <li><strong>Android:</strong> Google Play Billing. Google receives your payment information; we do not see your card details.</li>
-      </ul>
-      <p>To verify your subscription status and unlock the watermark-free recording benefit, the app uses <strong>RevenueCat</strong>, a subscription-management service. RevenueCat receives a randomly generated anonymous user ID, your purchase receipt from Apple or Google, and basic device information (device model, OS version, locale, app version). RevenueCat does not receive your name, email address, payment details, or any of your scripts / recordings.</p>
-      <p>RevenueCat's own privacy policy is available at <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">revenuecat.com/privacy</a>.</p>
-    </section>
+      <section>
+        <h2>7. Subscriptions &amp; In-App Purchases</h2>
+        <p>The optional Pro subscription (Monthly, Annual, or Lifetime) is processed by the platform's standard in-app purchase system:</p>
+        <ul>
+          <li><strong>iOS:</strong> Apple's StoreKit / App Store. Apple receives your payment information; we do not see your card details.</li>
+          <li><strong>Android:</strong> Google Play Billing. Google receives your payment information; we do not see your card details.</li>
+        </ul>
+        <p>To verify your subscription status and unlock the watermark-free recording benefit, the app uses <strong>RevenueCat</strong>, a subscription-management service. RevenueCat receives a randomly generated anonymous user ID, your purchase receipt from Apple or Google, and basic device information (device model, OS version, locale, app version). RevenueCat does not receive your name, email address, payment details, or any of your scripts / recordings.</p>
+        <p>RevenueCat's own privacy policy is available at <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">revenuecat.com/privacy</a>.</p>
+      </section>
 
-    <section>
-      <h2>8. Permissions the App Requests</h2>
-      <p>The app requests only the permissions needed for the features you actually use:</p>
-      <ul>
-        <li><strong>Microphone</strong> — when you enable Voice Sync or record a video with audio</li>
-        <li><strong>Camera</strong> — when you start a video recording session</li>
-        <li><strong>Speech Recognition (iOS)</strong> — to transcribe spoken words to the teleprompter highlight</li>
-        <li><strong>Photos library / Add to library</strong> — to save recorded videos</li>
-        <li><strong>Internet</strong> — required only for optional Google Drive Sync and RevenueCat receipt validation. Voice sync and recording work fully offline.</li>
-        <li><strong>Documents folder</strong> — to import .txt or .md scripts you've saved in Files</li>
-        <li><strong>Display over other apps (Android only)</strong> — for Floating Mode, which puts a small teleprompter window on top of other apps</li>
-      </ul>
-      <p>The app does not request access to your location, contacts, calendar, or any other sensitive data.</p>
-    </section>
+      <section>
+        <h2>8. Permissions the App Requests</h2>
+        <p>The app requests only the permissions needed for the features you actually use:</p>
+        <ul>
+          <li><strong>Microphone</strong> — when you enable Voice Sync or record a video with audio</li>
+          <li><strong>Camera</strong> — when you start a video recording session</li>
+          <li><strong>Speech Recognition (iOS)</strong> — to transcribe spoken words to the teleprompter highlight</li>
+          <li><strong>Photos library / Add to library</strong> — to save recorded videos</li>
+          <li><strong>Internet</strong> — required only for optional Google Drive Sync and RevenueCat receipt validation. Voice sync and recording work fully offline.</li>
+          <li><strong>Documents folder</strong> — to import .txt or .md scripts you've saved in Files</li>
+          <li><strong>Display over other apps (Android only)</strong> — for Floating Mode, which puts a small teleprompter window on top of other apps</li>
+        </ul>
+        <p>The app does not request access to your location, contacts, calendar, or any other sensitive data.</p>
+      </section>
 
-    <section>
-      <h2>9. Children's Privacy</h2>
-      <p>Teleprompter for Video is not directed to children under 13. The app does not collect personal information from any user, but the camera-recording, microphone, and subscription features are not intended for children's use without adult supervision. Parents and guardians who believe their child has used the app and wish to ask any questions can contact us at the email below.</p>
-    </section>
+      <section>
+        <h2>9. Children's Privacy</h2>
+        <p>Teleprompter for Video is not directed to children under 13. The app does not collect personal information from any user, but the camera-recording, microphone, and subscription features are not intended for children's use without adult supervision. Parents and guardians who believe their child has used the app and wish to ask any questions can contact us at the email below.</p>
+      </section>
 
-    <section>
-      <h2>10. Your Rights</h2>
-      <p>Because we do not collect personal information on our servers, there is nothing about you for us to access, correct, or delete remotely. You retain full control over:</p>
-      <ul>
-        <li><strong>On-device scripts and sessions</strong> — delete individually inside the app, or uninstall to wipe everything</li>
-        <li><strong>Google Drive Sync</strong> — disconnect in Settings, or revoke at <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a></li>
-        <li><strong>Subscription</strong> — manage or cancel via Settings → Subscriptions on iOS, or Google Play → Subscriptions on Android</li>
-        <li><strong>Microphone or camera access</strong> — toggle in iOS Settings → Teleprompter for Video, or Android Settings → Apps → Teleprompter for Video → Permissions</li>
-      </ul>
-      <p>Users in the European Economic Area, the United Kingdom, California, and other jurisdictions with privacy laws granting rights of access, correction, deletion, and objection may exercise those rights at any time by contacting us. Because we hold no personal data, most requests will be answered confirming that no data exists.</p>
-    </section>
+      <section>
+        <h2>10. Your Rights</h2>
+        <p>Because we do not collect personal information on our servers, there is nothing about you for us to access, correct, or delete remotely. You retain full control over:</p>
+        <ul>
+          <li><strong>On-device scripts and sessions</strong> — delete individually inside the app, or uninstall to wipe everything</li>
+          <li><strong>Google Drive Sync</strong> — disconnect in Settings, or revoke at <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a></li>
+          <li><strong>Subscription</strong> — manage or cancel via Settings → Subscriptions on iOS, or Google Play → Subscriptions on Android</li>
+          <li><strong>Microphone or camera access</strong> — toggle in iOS Settings → Teleprompter for Video, or Android Settings → Apps → Teleprompter for Video → Permissions</li>
+        </ul>
+        <p>Users in the European Economic Area, the United Kingdom, California, and other jurisdictions with privacy laws granting rights of access, correction, deletion, and objection may exercise those rights at any time by contacting us. Because we hold no personal data, most requests will be answered confirming that no data exists.</p>
+      </section>
 
-    <section>
-      <h2>11. Data Retention</h2>
-      <p>We do not retain any user data because we do not collect any. On-device data persists only as long as the app remains installed. RevenueCat retains anonymous subscription records for as long as your subscription is active plus a retention window defined by their own policy.</p>
-    </section>
+      <section>
+        <h2>11. Data Retention</h2>
+        <p>We do not retain any user data because we do not collect any. On-device data persists only as long as the app remains installed. RevenueCat retains anonymous subscription records for as long as your subscription is active plus a retention window defined by their own policy.</p>
+      </section>
 
-    <section>
-      <h2>12. International Users</h2>
-      <p>Teleprompter for Video is available worldwide. The app does not transfer personal data across borders because it does not collect personal data. Cloud requests you initiate (Google Drive Sync, RevenueCat receipt validation, in-app purchase processing) may be served by Google's, Apple's, or RevenueCat's global infrastructure, subject to those providers' own privacy policies.</p>
-    </section>
+      <section>
+        <h2>12. International Users</h2>
+        <p>Teleprompter for Video is available worldwide. The app does not transfer personal data across borders because it does not collect personal data. Cloud requests you initiate (Google Drive Sync, RevenueCat receipt validation, in-app purchase processing) may be served by Google's, Apple's, or RevenueCat's global infrastructure, subject to those providers' own privacy policies.</p>
+      </section>
 
-    <section>
-      <h2>13. Changes to This Policy</h2>
-      <p>If we make changes to this Privacy Policy, the updated version will be posted at this URL with a new "Last updated" date at the top. Material changes affecting how data is handled will be highlighted. Continued use of the app after a change indicates acceptance of the revised policy.</p>
-    </section>
+      <section>
+        <h2>13. Changes to This Policy</h2>
+        <p>If we make changes to this Privacy Policy, the updated version will be posted at this URL with a new "Last updated" date at the top. Material changes affecting how data is handled will be highlighted. Continued use of the app after a change indicates acceptance of the revised policy.</p>
+      </section>
 
-    <section>
-      <h2>14. Contact</h2>
-      <p>Questions, concerns, or rights requests can be sent to:</p>
-      <p><strong>Email:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
-      <p>We respond within 7 business days.</p>
-    </section>
+      <section>
+        <h2>14. Contact</h2>
+        <p>Questions, concerns, or rights requests can be sent to:</p>
+        <p><strong>Email:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
+        <p>We respond within 7 business days.</p>
+      </section>
+    </div>
+
+    <!-- ============ ARABIC ============ -->
+    <div class="lang-content" data-lang="ar" dir="rtl">
+      <section>
+        <h2>الملخص</h2>
+        <p>لا يقوم Teleprompter for Video بجمع أي بيانات شخصية أو تتبّع الاستخدام. تبقى نصوصك على هاتفك. تعمل المزامنة الصوتية على الجهاز نفسه. لا تُستخدم الكاميرا والميكروفون إلا أثناء تسجيل نشط، وتُحفظ التسجيلات مباشرة في مكتبة الصور لديك — وليس على أي خادم. المزامنة السحابية اختيارية وتقتصر على مجلد Google Drive مخفي لا يستطيع قراءته سوى هذا التطبيق. تتم معالجة الاشتراكات بواسطة Apple وGoogle، ويتم التحقق من الإيصالات عبر RevenueCat. لا إعلانات، ولا تحليلات، ولا تتبع من أطراف خارجية.</p>
+      </section>
+
+      <section>
+        <h2>1. من نحن</h2>
+        <p>‏Teleprompter for Video ("التطبيق"، "نحن"، "خاصتنا") هو تطبيق للهاتف المحمول لقراءة النصوص وتسجيل الفيديو، يصدره يونس حرنافي (YOUNESS HARNAFI). توضح سياسة الخصوصية هذه ما يتعامل معه التطبيق من بيانات وما لا يتعامل معه عند استخدامه على iOS أو Android.</p>
+      </section>
+
+      <section>
+        <h2>2. البيانات التي لا نجمعها</h2>
+        <p>نحن لا نشغّل أي خوادم تخزّن بيانات المستخدم. لا نجمع أو نخزّن أو ننقل أيًا مما يلي:</p>
+        <ul>
+          <li>الأسماء أو عناوين البريد الإلكتروني أو أرقام الهواتف (لا يوجد تسجيل في التطبيق)</li>
+          <li>التسجيلات الصوتية أو النصوص المنسوخة فيما يتجاوز التعرّف على الصوت داخل الجهاز (انظر القسم 4)</li>
+          <li>مقاطع الفيديو المسجّلة (تُحفظ في مكتبة الصور فقط)</li>
+          <li>بيانات الموقع الجغرافي</li>
+          <li>تحليلات استخدام التطبيق أو القياسات أو تقارير الأعطال</li>
+          <li>ملفات تعريف سلوكية أو اهتمامات</li>
+          <li>معرّفات الإعلانات</li>
+        </ul>
+        <p>لا يحتوي التطبيق على أي إعلانات من أطراف خارجية، ولا على حزم تحليلات SDK، ولا على وحدات تتبع.</p>
+      </section>
+
+      <section>
+        <h2>3. البيانات المخزّنة على جهازك فقط</h2>
+        <p>يحفظ التطبيق المعلومات التالية محليًا حتى تستمر بياناتك بين الجلسات. لا يُرسل أي منها خارج جهازك من قِبَلنا:</p>
+        <ul>
+          <li><strong>النصوص</strong> — العنوان، المحتوى، المجلد، الطوابع الزمنية</li>
+          <li><strong>جلسات التسجيل</strong> — المدة، الإيقاع، تاريخ الجلسة (لشاشة التحليلات)</li>
+          <li><strong>التفضيلات</strong> — الخط المختار، حجم النص، تباعد الأسطر، سرعة التمرير، مدة العد التنازلي، الإبقاء على الشاشة مضيئة، المظهر</li>
+          <li><strong>العلامات المرجعية</strong> — الأقسام المعلّمة بـ [INTRO] و[BREAK] و[Q&amp;A]</li>
+        </ul>
+        <p>تُخزَّن هذه البيانات في وحدة التخزين المحلية للجهاز (Hive). يمكنك مسحها في أي وقت بحذف النصوص والجلسات داخل التطبيق، أو بإزالة تثبيت التطبيق بالكامل.</p>
+      </section>
+
+      <section>
+        <h2>4. الميكروفون والمزامنة الصوتية</h2>
+        <p>يطلب التطبيق الوصول إلى الميكروفون ليتمكن من تمرير النص بالتزامن مع كلامك. يستخدم التعرّف واجهات الكلام المضمّنة في النظام:</p>
+        <ul>
+          <li><strong>iOS:</strong> إطار <em>Speech</em> من Apple (<code>SFSpeechRecognizer</code>). على أجهزة iPhone الحديثة يعمل بالكامل داخل الجهاز. على الأجهزة الأقدم قد ترسل Apple مقاطع صوتية قصيرة إلى خوادمها للنسخ — وهذا يخضع لسياسة خصوصية Apple ولا يمكن للتطبيق اعتراضه أو تخزينه.</li>
+          <li><strong>Android:</strong> خدمة <em>SpeechRecognizer</em>. وبحسب الشركة المصنّعة وإصدار النظام، قد تستخدم خدمة الكلام السحابية من Google. لا يرسل التطبيق أي شيء إضافي مع الصوت.</li>
+        </ul>
+        <p>لا يخزّن التطبيق أي تسجيلات صوتية، ولا يسجّل النصوص المنسوخة، ولا يرسل صوتك إلى أي جهة من اختيارنا. يُقرأ النص المنسوخ ويُستخدم فورًا لتحريك تمييز السكربت، ثم يُتلف المؤقت الصوتي الكامن بعد انتهاء التعرّف.</p>
+        <p>المزامنة الصوتية اختيارية. يعمل التطبيق بالكامل بدون الميكروفون — يقوم الوضع اليدوي بتمرير النص تلقائيًا بسرعة ثابتة تتحكم بها.</p>
+      </section>
+
+      <section>
+        <h2>5. الكاميرا والتسجيلات</h2>
+        <p>يطلب التطبيق الوصول إلى الكاميرا (والميكروفون اختياريًا) عند بدء جلسة تسجيل فيديو. لا تُلتقط بيانات الكاميرا إلا أثناء التسجيل النشط. عند إيقاف التسجيل يُنتَج ملف MP4 يُحفظ في مكتبة الصور بجهازك حسب اختيارك.</p>
+        <p>لا يقوم هذا التطبيق أبدًا برفع مقاطع الفيديو المسجّلة إلى أي خادم. أي مشاركة لمقطع (عبر ورقة المشاركة، أو AirDrop، أو تطبيقات التواصل) يبدأها المستخدم وتخضع لسياسة الخصوصية الخاصة بالخدمة المقصودة.</p>
+        <p>يرى المستخدمون المجانيون علامة مائية صغيرة "Teleprompter for Video" أسفل يمين الفيديو المسجّل. لا تظهر لمشتركي Pro. تتم إضافة العلامة المائية بالكامل داخل الجهاز عند إنهاء التسجيل — لا يُرسَل أي بيان فيديو خارج الجهاز لذلك.</p>
+      </section>
+
+      <section>
+        <h2>6. اختياري: مزامنة Google Drive</h2>
+        <p>إذا قمت بالنقر على "ربط Google Drive" في الإعدادات، يستخدم التطبيق Google Sign-In ضمن نطاق OAuth المسمى <code>drive.appdata</code>، وهو أكثر النطاقات تقييدًا في Drive:</p>
+        <ul>
+          <li>يستطيع التطبيق قراءة وكتابة ملف واحد فقط هو <code>scripts.json</code> داخل مجلد مخفي خاص بالتطبيق تُسمّيه Google "AppData folder"</li>
+          <li>لا يستطيع التطبيق قراءة أو كتابة أو حتى رؤية أي من ملفات Drive الأخرى</li>
+          <li>يمكنك إلغاء الوصول في أي وقت من صفحة أذونات حسابك في Google</li>
+        </ul>
+        <p>تُزامن فقط النصوص المحفوظة داخل التطبيق. لا تُرفع التسجيلات أو الصوت أو الإعدادات أو التحليلات. يوجد ملف المزامنة داخل حساب Drive الخاص بك، لا على أي خادم نتحكم به.</p>
+        <p>إذا قمت بتسجيل الخروج من Google Drive في الإعدادات، تبقى النسخة المحلية من نصوصك دون مساس وتتوقف التعديلات اللاحقة عن المزامنة حتى تعيد الاتصال.</p>
+      </section>
+
+      <section>
+        <h2>7. الاشتراكات والمشتريات داخل التطبيق</h2>
+        <p>تُعالَج اشتراكات Pro الاختيارية (شهري، سنوي، أو مدى الحياة) عبر نظام المشتريات داخل التطبيق القياسي للنظام:</p>
+        <ul>
+          <li><strong>iOS:</strong> StoreKit / App Store من Apple. تتلقى Apple معلومات الدفع؛ نحن لا نرى تفاصيل بطاقتك.</li>
+          <li><strong>Android:</strong> Google Play Billing. تتلقى Google معلومات الدفع؛ نحن لا نرى تفاصيل بطاقتك.</li>
+        </ul>
+        <p>للتحقق من حالة اشتراكك وفتح ميزة التسجيل بدون علامة مائية، يستخدم التطبيق <strong>RevenueCat</strong>، وهي خدمة إدارة اشتراكات. يتلقى RevenueCat معرّف مستخدم مجهولًا يُولَّد عشوائيًا، وإيصال الشراء من Apple أو Google، ومعلومات أساسية عن الجهاز (طراز الجهاز، إصدار النظام، اللغة، إصدار التطبيق). لا يتلقى RevenueCat اسمك أو بريدك أو تفاصيل الدفع أو أيًا من نصوصك أو تسجيلاتك.</p>
+        <p>سياسة خصوصية RevenueCat متاحة على <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">revenuecat.com/privacy</a>.</p>
+      </section>
+
+      <section>
+        <h2>8. الأذونات التي يطلبها التطبيق</h2>
+        <p>يطلب التطبيق فقط الأذونات اللازمة للميزات التي تستخدمها فعلًا:</p>
+        <ul>
+          <li><strong>الميكروفون</strong> — عند تفعيل المزامنة الصوتية أو تسجيل فيديو بصوت</li>
+          <li><strong>الكاميرا</strong> — عند بدء جلسة تسجيل فيديو</li>
+          <li><strong>التعرّف على الكلام (iOS)</strong> — لتحويل الكلام إلى نص يحرّك تمييز السكربت</li>
+          <li><strong>مكتبة الصور / الإضافة إلى المكتبة</strong> — لحفظ الفيديوهات المسجّلة</li>
+          <li><strong>الإنترنت</strong> — مطلوب فقط لمزامنة Google Drive الاختيارية وللتحقق من إيصالات RevenueCat. تعمل المزامنة الصوتية والتسجيل دون اتصال بالكامل.</li>
+          <li><strong>مجلد المستندات</strong> — لاستيراد ملفات .txt أو .md من Files</li>
+          <li><strong>العرض فوق التطبيقات الأخرى (Android فقط)</strong> — للوضع العائم الذي يعرض نافذة صغيرة فوق التطبيقات الأخرى</li>
+        </ul>
+        <p>لا يطلب التطبيق الوصول إلى موقعك أو جهات الاتصال أو التقويم أو أي بيانات حساسة أخرى.</p>
+      </section>
+
+      <section>
+        <h2>9. خصوصية الأطفال</h2>
+        <p>تطبيق Teleprompter for Video غير موجَّه للأطفال دون سن 13. لا يجمع التطبيق معلومات شخصية من أي مستخدم، إلا أن ميزات تسجيل الفيديو والميكروفون والاشتراكات ليست مخصصة لاستخدام الأطفال دون إشراف بالغ. يمكن لأولياء الأمور الذين يعتقدون أن طفلهم استخدم التطبيق التواصل معنا عبر البريد الإلكتروني أدناه لأي استفسار.</p>
+      </section>
+
+      <section>
+        <h2>10. حقوقك</h2>
+        <p>لأننا لا نجمع معلومات شخصية على خوادمنا، لا توجد بيانات يمكننا الوصول إليها أو تصحيحها أو حذفها عن بُعد. تحتفظ بالتحكم الكامل في:</p>
+        <ul>
+          <li><strong>النصوص والجلسات على الجهاز</strong> — احذفها فرديًا داخل التطبيق، أو ألغِ تثبيت التطبيق لمحو كل شيء</li>
+          <li><strong>مزامنة Google Drive</strong> — افصل الربط من الإعدادات، أو ألغِ الصلاحيات من <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a></li>
+          <li><strong>الاشتراك</strong> — الإدارة أو الإلغاء عبر الإعدادات ← الاشتراكات على iOS، أو Google Play ← الاشتراكات على Android</li>
+          <li><strong>وصول الميكروفون أو الكاميرا</strong> — التبديل من إعدادات iOS ← Teleprompter for Video، أو إعدادات Android ← التطبيقات ← Teleprompter for Video ← الأذونات</li>
+        </ul>
+        <p>يحق للمستخدمين في المنطقة الاقتصادية الأوروبية والمملكة المتحدة وكاليفورنيا وغيرها من الولايات القضائية ذات قوانين الخصوصية التي تمنح حقوق الوصول والتصحيح والحذف والاعتراض ممارسة هذه الحقوق في أي وقت بمراسلتنا. ولأننا لا نحتفظ ببيانات شخصية، فستُجاب معظم الطلبات بتأكيد عدم وجود بيانات.</p>
+      </section>
+
+      <section>
+        <h2>11. الاحتفاظ بالبيانات</h2>
+        <p>لا نحتفظ بأي بيانات للمستخدم لأننا لا نجمع أي بيانات. تبقى البيانات على الجهاز ما دام التطبيق مثبتًا. يحتفظ RevenueCat بسجلات اشتراك مجهولة ما دام اشتراكك نشطًا، إضافة إلى فترة احتفاظ تحددها سياسة RevenueCat الخاصة.</p>
+      </section>
+
+      <section>
+        <h2>12. المستخدمون الدوليون</h2>
+        <p>‏Teleprompter for Video متاح في جميع أنحاء العالم. لا ينقل التطبيق أي بيانات شخصية عبر الحدود لأنه لا يجمعها أصلًا. الطلبات السحابية التي تبدأها (مزامنة Google Drive، التحقق من إيصالات RevenueCat، معالجة المشتريات داخل التطبيق) قد تُخدَّم بواسطة البنية التحتية العالمية لشركات Google وApple وRevenueCat، وتخضع لسياسات الخصوصية الخاصة بها.</p>
+      </section>
+
+      <section>
+        <h2>13. التغييرات على هذه السياسة</h2>
+        <p>إذا أجرينا تغييرات على سياسة الخصوصية هذه، فسيتم نشر النسخة المحدّثة على هذا العنوان مع تاريخ "آخر تحديث" جديد في الأعلى. ستُبرَز التغييرات الجوهرية المتعلقة بطريقة التعامل مع البيانات. استمرار استخدامك للتطبيق بعد التغيير يُعدّ قبولًا للسياسة المعدّلة.</p>
+      </section>
+
+      <section>
+        <h2>14. الاتصال بنا</h2>
+        <p>يمكن إرسال الأسئلة أو المخاوف أو طلبات الحقوق إلى:</p>
+        <p><strong>البريد الإلكتروني:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
+        <p>نردّ خلال 7 أيام عمل.</p>
+      </section>
+    </div>
+
+    <!-- ============ CHINESE TRADITIONAL ============ -->
+    <div class="lang-content" data-lang="zh">
+      <section>
+        <h2>簡短版本</h2>
+        <p>Teleprompter for Video 不會收集個人資料或追蹤使用情況。您的腳本只存在於您的手機中。語音同步完全在裝置上執行。攝影機與麥克風僅在錄影期間使用,錄製檔案直接儲存到您的照片圖庫,不會上傳到任何伺服器。雲端同步為選用,且僅限於只有本應用程式可讀取的隱藏 Google Drive 資料夾。訂閱由 Apple 與 Google 處理,收據由 RevenueCat 驗證。沒有廣告、沒有分析、沒有第三方追蹤。</p>
+      </section>
+
+      <section>
+        <h2>1. 關於我們</h2>
+        <p>Teleprompter for Video(「本應用程式」、「我們」)是一款由 YOUNESS HARNAFI 發行的行動裝置電子提詞與影片錄製應用程式。本隱私政策說明您在 iOS 或 Android 上使用本應用程式時,我們處理與不處理的資料。</p>
+      </section>
+
+      <section>
+        <h2>2. 我們不收集的資料</h2>
+        <p>我們不營運任何儲存使用者資料的伺服器。我們不會收集、儲存或傳輸以下任何資料:</p>
+        <ul>
+          <li>姓名、電子郵件或電話號碼(本應用程式無註冊功能)</li>
+          <li>超出裝置內語音辨識範圍的錄音或轉錄(請參閱第 4 節)</li>
+          <li>錄製的影片(僅儲存於您的照片圖庫)</li>
+          <li>位置資料</li>
+          <li>應用程式使用分析、遙測或當機報告</li>
+          <li>行為或興趣個人檔案</li>
+          <li>廣告識別碼</li>
+        </ul>
+        <p>本應用程式不包含任何第三方廣告、分析 SDK 或追蹤像素。</p>
+      </section>
+
+      <section>
+        <h2>3. 僅儲存在您裝置上的資料</h2>
+        <p>本應用程式會於本機儲存下列資料,讓您的內容在工作階段之間保留。我們不會將其中任何資料傳送至您的裝置之外:</p>
+        <ul>
+          <li><strong>腳本</strong> — 標題、內文、資料夾、時間戳記</li>
+          <li><strong>錄製工作階段</strong> — 時長、節奏、日期(供分析畫面使用)</li>
+          <li><strong>偏好設定</strong> — 字型、文字大小、行距、捲動速度、倒數時間、保持螢幕喚醒、主題</li>
+          <li><strong>書籤</strong> — 以 [INTRO]、[BREAK]、[Q&amp;A] 標記的段落</li>
+        </ul>
+        <p>這些資料儲存於裝置的本機儲存空間(Hive)。您可以隨時於應用程式內逐項刪除腳本與工作階段,或完全解除安裝本應用程式以清除所有資料。</p>
+      </section>
+
+      <section>
+        <h2>4. 麥克風與語音同步</h2>
+        <p>本應用程式會請求麥克風權限,以便提詞機能與您的語音同步捲動。辨識使用平台內建的語音 API:</p>
+        <ul>
+          <li><strong>iOS:</strong> Apple 的 <em>Speech</em> 框架(<code>SFSpeechRecognizer</code>)。在新型 iPhone 上完全於裝置內執行。在較舊裝置上,Apple 可能會將短音訊片段傳送至其伺服器進行轉錄 — 此行為受 Apple 自身的隱私政策約束,本應用程式無法攔截或儲存。</li>
+          <li><strong>Android:</strong> Android 的 <em>SpeechRecognizer</em> 服務。根據裝置製造商與系統版本,可能會使用 Google 的雲端語音服務。應用程式不會隨音訊附帶任何額外資料。</li>
+        </ul>
+        <p>本應用程式不儲存音訊錄音、不記錄轉錄文字、亦不會將您的聲音傳送至我們選擇的任何地方。轉錄結果讀取後會立即用於推進腳本反白;辨識完成後底層音訊緩衝即被丟棄。</p>
+        <p>語音同步為選用。即使不開啟麥克風,提詞機仍可完整運作 — 手動模式以您設定的固定速度自動捲動。</p>
+      </section>
+
+      <section>
+        <h2>5. 攝影機與錄影</h2>
+        <p>當您開始一段錄影工作階段時,本應用程式會請求攝影機(以及可選的麥克風)權限。攝影機畫面僅在錄影期間擷取。停止錄影後會產生一個 MP4 檔案,並依您的選擇儲存到裝置的照片圖庫。</p>
+        <p>本應用程式絕不會將錄製的影片上傳至任何伺服器。任何透過系統分享、AirDrop、社群應用程式分享影片的行為,皆由您本人發起,並受目的地服務的隱私政策約束。</p>
+        <p>免費使用者的錄影右下角會合成一個小型「Teleprompter for Video」浮水印,Pro 訂閱者則沒有。浮水印的合成完全在裝置上、於錄影最終化階段完成 — 不會將任何影片資料傳送出裝置。</p>
+      </section>
+
+      <section>
+        <h2>6. 選用:Google Drive 同步</h2>
+        <p>若您在「設定」中點選「連接 Google Drive」,應用程式會以 <code>drive.appdata</code> OAuth 範圍使用 Google 登入。這是 Google 提供的最受限制的 Drive 範圍:</p>
+        <ul>
+          <li>應用程式僅能在 Google 稱為「AppData folder」的隱藏應用程式專屬資料夾中讀寫單一檔案 <code>scripts.json</code></li>
+          <li>應用程式無法讀取、寫入或檢視您 Drive 中的任何其他檔案</li>
+          <li>您可隨時透過 Google 帳戶權限頁面撤銷存取權</li>
+        </ul>
+        <p>僅同步您在應用程式中儲存的腳本。錄影、音訊、設定與分析資料皆不會上傳。同步檔案位於您自己的 Drive 帳戶,而非我們控制的任何伺服器。</p>
+        <p>若您在「設定」中登出 Google Drive,您本機的腳本仍保持不變,後續編輯將停止同步,直到您重新連線。</p>
+      </section>
+
+      <section>
+        <h2>7. 訂閱與應用程式內購買</h2>
+        <p>選用的 Pro 訂閱(月付、年付或終身)透過平台標準的應用程式內購買系統處理:</p>
+        <ul>
+          <li><strong>iOS:</strong> Apple 的 StoreKit / App Store。Apple 接收您的付款資訊;我們不會看到您的卡片明細。</li>
+          <li><strong>Android:</strong> Google Play Billing。Google 接收您的付款資訊;我們不會看到您的卡片明細。</li>
+        </ul>
+        <p>為驗證您的訂閱狀態並解鎖無浮水印錄影功能,本應用程式使用 <strong>RevenueCat</strong> — 一項訂閱管理服務。RevenueCat 會收到一個隨機產生的匿名使用者 ID、來自 Apple 或 Google 的購買收據,以及基本裝置資訊(裝置型號、系統版本、地區、應用程式版本)。RevenueCat 不會收到您的姓名、電子郵件、付款明細,或任何腳本/錄影。</p>
+        <p>RevenueCat 自身的隱私政策可於 <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">revenuecat.com/privacy</a> 查閱。</p>
+      </section>
+
+      <section>
+        <h2>8. 應用程式請求的權限</h2>
+        <p>本應用程式僅請求您實際使用功能所需的權限:</p>
+        <ul>
+          <li><strong>麥克風</strong> — 啟用語音同步或錄製含音訊的影片時</li>
+          <li><strong>攝影機</strong> — 開始錄影工作階段時</li>
+          <li><strong>語音辨識(iOS)</strong> — 將語音轉為提詞反白</li>
+          <li><strong>照片圖庫 / 新增至圖庫</strong> — 儲存錄製的影片</li>
+          <li><strong>網際網路</strong> — 僅在選用 Google Drive 同步與 RevenueCat 收據驗證時需要。語音同步與錄影完全可離線運作。</li>
+          <li><strong>文件資料夾</strong> — 匯入您儲存於「檔案」中的 .txt 或 .md 腳本</li>
+          <li><strong>顯示在其他應用程式上方(僅 Android)</strong> — 用於「浮動模式」,在其他應用程式上方顯示小型提詞視窗</li>
+        </ul>
+        <p>本應用程式不會請求存取您的位置、聯絡人、行事曆或任何其他敏感資料。</p>
+      </section>
+
+      <section>
+        <h2>9. 兒童隱私</h2>
+        <p>Teleprompter for Video 並非針對 13 歲以下兒童設計。本應用程式不會從任何使用者收集個人資料,但攝影、麥克風與訂閱功能不適合兒童在沒有成人監督下使用。若家長或監護人認為其孩子使用了本應用程式並有任何疑問,可以透過下方電子郵件聯絡我們。</p>
+      </section>
+
+      <section>
+        <h2>10. 您的權利</h2>
+        <p>由於我們的伺服器並不收集個人資料,因此沒有任何關於您的資料可供我們遠端存取、更正或刪除。您仍可完全掌控:</p>
+        <ul>
+          <li><strong>裝置內的腳本與工作階段</strong> — 於應用程式中逐項刪除,或解除安裝以清除全部</li>
+          <li><strong>Google Drive 同步</strong> — 於「設定」中中斷連線,或至 <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a> 撤銷</li>
+          <li><strong>訂閱</strong> — 在 iOS 透過「設定 → 訂閱項目」或在 Android 透過「Google Play → 訂閱」管理或取消</li>
+          <li><strong>麥克風或攝影機存取</strong> — 在 iOS「設定 → Teleprompter for Video」或 Android「設定 → 應用程式 → Teleprompter for Video → 權限」中切換</li>
+        </ul>
+        <p>位於歐洲經濟區、英國、加州及其他賦予存取、更正、刪除與反對權的隱私法規管轄區的使用者,可隨時透過聯絡我們以行使這些權利。由於我們未持有個人資料,大多數要求將以「沒有任何資料可供處理」作為回覆。</p>
+      </section>
+
+      <section>
+        <h2>11. 資料保留</h2>
+        <p>我們不保留任何使用者資料,因為我們並不收集任何資料。裝置上的資料僅在應用程式仍安裝期間存在。RevenueCat 會在您的訂閱有效期間,以及其自身政策所定義的保留期內,保留匿名訂閱紀錄。</p>
+      </section>
+
+      <section>
+        <h2>12. 國際使用者</h2>
+        <p>Teleprompter for Video 全球皆可使用。本應用程式不會跨境傳輸個人資料,因為我們並不收集個人資料。您發起的雲端請求(Google Drive 同步、RevenueCat 收據驗證、應用程式內購買處理)可能由 Google、Apple 或 RevenueCat 的全球基礎設施提供服務,並受其各自的隱私政策約束。</p>
+      </section>
+
+      <section>
+        <h2>13. 本政策的變更</h2>
+        <p>若我們對本隱私政策作出變更,將在此網址刊載更新版本,並於頂端標示新的「最後更新」日期。涉及資料處理方式的重大變更會被特別標示。在變更後繼續使用本應用程式即視為接受修訂後的政策。</p>
+      </section>
+
+      <section>
+        <h2>14. 聯絡我們</h2>
+        <p>如有問題、疑慮或權利相關請求,請聯絡:</p>
+        <p><strong>電子郵件:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
+        <p>我們將於 7 個工作日內回覆。</p>
+      </section>
+    </div>
+
+    <!-- ============ FRENCH ============ -->
+    <div class="lang-content" data-lang="fr">
+      <section>
+        <h2>Version courte</h2>
+        <p>Teleprompter for Video ne collecte aucune donnée personnelle et ne piste aucun usage. Vos scripts restent sur votre téléphone. La synchronisation vocale s'exécute sur l'appareil. La caméra et le microphone ne sont utilisés que pendant un enregistrement actif, et les enregistrements sont enregistrés directement dans votre bibliothèque Photos — pas sur un serveur. La synchronisation cloud est facultative et limitée à un dossier Google Drive caché que seule cette application peut lire. Les abonnements sont traités par Apple et Google ; les reçus sont vérifiés par RevenueCat. Pas de publicité, pas d'analytique, pas de pistage tiers.</p>
+      </section>
+
+      <section>
+        <h2>1. Qui sommes-nous</h2>
+        <p>Teleprompter for Video (« l'application », « nous », « notre ») est une application mobile de prompteur et d'enregistrement vidéo publiée par YOUNESS HARNAFI. La présente Politique de confidentialité explique ce que l'application gère ou ne gère pas comme données lorsque vous l'utilisez sur iOS ou Android.</p>
+      </section>
+
+      <section>
+        <h2>2. Données que nous ne collectons pas</h2>
+        <p>Nous n'exploitons aucun serveur stockant des données utilisateur. Nous ne collectons, ne stockons et ne transmettons aucun des éléments suivants :</p>
+        <ul>
+          <li>Noms, adresses e-mail, numéros de téléphone (l'application ne propose aucune inscription)</li>
+          <li>Enregistrements vocaux ou transcriptions au-delà de la reconnaissance vocale locale (voir la section 4)</li>
+          <li>Vidéos enregistrées (elles ne sont sauvegardées que dans votre bibliothèque Photos)</li>
+          <li>Données de localisation</li>
+          <li>Analytique d'utilisation, télémétrie ou rapports de plantage</li>
+          <li>Profils comportementaux ou d'intérêt</li>
+          <li>Identifiants publicitaires</li>
+        </ul>
+        <p>L'application ne contient aucune publicité tierce, aucun SDK d'analytique et aucun pixel de pistage.</p>
+      </section>
+
+      <section>
+        <h2>3. Données stockées uniquement sur votre appareil</h2>
+        <p>L'application enregistre les informations suivantes localement pour que votre travail persiste entre les sessions. Aucune de ces données ne quitte votre appareil de notre fait :</p>
+        <ul>
+          <li><strong>Scripts</strong> — titre, contenu, dossier, horodatages</li>
+          <li><strong>Sessions d'enregistrement</strong> — durée, cadence, date de session (pour l'écran Statistiques)</li>
+          <li><strong>Préférences</strong> — police, taille du texte, interligne, vitesse de défilement, durée du compte à rebours, garder l'écran allumé, thème</li>
+          <li><strong>Signets</strong> — sections marquées avec [INTRO], [BREAK], [Q&amp;A]</li>
+        </ul>
+        <p>Ces données sont stockées dans la mémoire locale de l'appareil (Hive). Vous pouvez les effacer à tout moment en supprimant scripts et sessions un par un dans l'application, ou en désinstallant l'application.</p>
+      </section>
+
+      <section>
+        <h2>4. Microphone et synchronisation vocale</h2>
+        <p>L'application demande l'accès au microphone afin que le prompteur défile en synchronisation avec votre parole. La reconnaissance utilise les API vocales intégrées à la plateforme :</p>
+        <ul>
+          <li><strong>iOS :</strong> le framework <em>Speech</em> d'Apple (<code>SFSpeechRecognizer</code>). Sur les iPhone récents, tout se passe sur l'appareil. Sur les appareils plus anciens, Apple peut transmettre de courts segments audio à ses serveurs pour transcription — ce traitement relève de la politique de confidentialité d'Apple et l'application ne peut ni l'intercepter ni le stocker.</li>
+          <li><strong>Android :</strong> le service <em>SpeechRecognizer</em>. Selon le fabricant et la version du système, ce service peut utiliser le service vocal en nuage de Google. L'application n'envoie rien d'autre avec l'audio.</li>
+        </ul>
+        <p>L'application ne stocke aucun enregistrement audio, ne journalise aucune transcription et n'envoie pas votre voix à un endroit de notre choix. La transcription est lue puis immédiatement utilisée pour faire avancer le surlignage ; le tampon audio sous-jacent est ensuite supprimé.</p>
+        <p>La synchronisation vocale est facultative. Le prompteur fonctionne entièrement sans accès au microphone — le mode Manuel défile à une vitesse fixe que vous contrôlez.</p>
+      </section>
+
+      <section>
+        <h2>5. Caméra et enregistrements</h2>
+        <p>L'application demande l'accès à la caméra (et facultativement au microphone) lorsque vous démarrez une session d'enregistrement vidéo. Le flux caméra n'est capturé qu'en enregistrement actif. L'arrêt produit un fichier MP4 enregistré, à votre discrétion, dans la bibliothèque Photos de l'appareil.</p>
+        <p>Aucune vidéo enregistrée n'est jamais téléversée vers un serveur par cette application. Tout partage (feuille de partage système, AirDrop, applications sociales, etc.) est initié par vous et soumis à la politique de confidentialité du service destinataire.</p>
+        <p>Les utilisateurs gratuits voient un petit filigrane « Teleprompter for Video » en bas à droite des vidéos. Les abonnés Pro ne le voient pas. La composition du filigrane se fait entièrement sur l'appareil à la finalisation — aucune donnée vidéo n'est envoyée hors de l'appareil pour cela.</p>
+      </section>
+
+      <section>
+        <h2>6. Facultatif : synchronisation Google Drive</h2>
+        <p>Si vous touchez « Connecter Google Drive » dans les Paramètres, l'application utilise Google Sign-In avec la portée OAuth <code>drive.appdata</code>, la portée Drive la plus restrictive proposée par Google :</p>
+        <ul>
+          <li>L'application peut lire et écrire un unique fichier <code>scripts.json</code> dans un dossier caché propre à l'application, appelé « AppData folder » par Google</li>
+          <li>L'application ne peut ni lire, ni écrire, ni même voir les autres fichiers de votre Drive</li>
+          <li>Vous pouvez révoquer l'accès à tout moment depuis la page des autorisations de votre compte Google</li>
+        </ul>
+        <p>Seuls les scripts enregistrés dans l'application sont synchronisés. Les enregistrements, l'audio, les réglages et les statistiques ne sont jamais téléversés. Le fichier de synchronisation se trouve dans votre propre compte Drive, pas sur un serveur que nous contrôlons.</p>
+        <p>Si vous vous déconnectez de Google Drive dans les Paramètres, la copie locale de vos scripts reste intacte et les modifications ultérieures cessent de se synchroniser jusqu'à la prochaine reconnexion.</p>
+      </section>
+
+      <section>
+        <h2>7. Abonnements et achats intégrés</h2>
+        <p>L'abonnement Pro facultatif (mensuel, annuel ou à vie) est traité par le système d'achat intégré standard de la plateforme :</p>
+        <ul>
+          <li><strong>iOS :</strong> StoreKit / App Store d'Apple. Apple reçoit vos informations de paiement ; nous ne voyons pas vos coordonnées bancaires.</li>
+          <li><strong>Android :</strong> Google Play Billing. Google reçoit vos informations de paiement ; nous ne voyons pas vos coordonnées bancaires.</li>
+        </ul>
+        <p>Pour vérifier votre statut d'abonnement et débloquer l'enregistrement sans filigrane, l'application utilise <strong>RevenueCat</strong>, un service de gestion d'abonnements. RevenueCat reçoit un identifiant utilisateur anonyme généré aléatoirement, votre reçu d'achat Apple ou Google et des informations basiques sur l'appareil (modèle, version de l'OS, langue, version de l'application). RevenueCat ne reçoit ni votre nom, ni votre e-mail, ni vos coordonnées bancaires, ni vos scripts ou enregistrements.</p>
+        <p>La politique de confidentialité de RevenueCat est disponible sur <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">revenuecat.com/privacy</a>.</p>
+      </section>
+
+      <section>
+        <h2>8. Permissions demandées par l'application</h2>
+        <p>L'application ne demande que les permissions nécessaires aux fonctionnalités que vous utilisez réellement :</p>
+        <ul>
+          <li><strong>Microphone</strong> — lors de l'activation de la synchronisation vocale ou d'un enregistrement avec audio</li>
+          <li><strong>Caméra</strong> — au démarrage d'une session d'enregistrement vidéo</li>
+          <li><strong>Reconnaissance vocale (iOS)</strong> — pour transcrire la parole et faire avancer le surlignage</li>
+          <li><strong>Bibliothèque Photos / Ajouter à la bibliothèque</strong> — pour enregistrer les vidéos</li>
+          <li><strong>Internet</strong> — requis uniquement pour la synchronisation Google Drive facultative et la vérification des reçus RevenueCat. La synchronisation vocale et l'enregistrement fonctionnent entièrement hors-ligne.</li>
+          <li><strong>Dossier Documents</strong> — pour importer des scripts .txt ou .md sauvegardés dans Fichiers</li>
+          <li><strong>Afficher par-dessus d'autres apps (Android uniquement)</strong> — pour le mode Flottant, qui place une petite fenêtre prompteur par-dessus les autres applications</li>
+        </ul>
+        <p>L'application ne demande pas l'accès à votre localisation, à vos contacts, à votre calendrier ni à aucune autre donnée sensible.</p>
+      </section>
+
+      <section>
+        <h2>9. Vie privée des enfants</h2>
+        <p>Teleprompter for Video ne s'adresse pas aux enfants de moins de 13 ans. L'application ne collecte aucune information personnelle, mais les fonctions d'enregistrement vidéo, de microphone et d'abonnement ne sont pas destinées à un usage par des enfants sans surveillance adulte. Les parents et tuteurs qui pensent que leur enfant a utilisé l'application peuvent nous contacter à l'adresse e-mail ci-dessous.</p>
+      </section>
+
+      <section>
+        <h2>10. Vos droits</h2>
+        <p>Comme nous ne collectons aucune information personnelle sur nos serveurs, il n'y a rien à votre sujet que nous puissions consulter, corriger ou supprimer à distance. Vous conservez la pleine maîtrise de :</p>
+        <ul>
+          <li><strong>Scripts et sessions sur l'appareil</strong> — supprimez-les un par un dans l'application, ou désinstallez pour tout effacer</li>
+          <li><strong>Synchronisation Google Drive</strong> — déconnectez dans les Paramètres, ou révoquez sur <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a></li>
+          <li><strong>Abonnement</strong> — gérez ou annulez via Réglages → Abonnements sur iOS, ou Google Play → Abonnements sur Android</li>
+          <li><strong>Accès microphone ou caméra</strong> — basculez dans Réglages iOS → Teleprompter for Video, ou Paramètres Android → Applications → Teleprompter for Video → Autorisations</li>
+        </ul>
+        <p>Les utilisateurs de l'Espace économique européen, du Royaume-Uni, de Californie et d'autres juridictions accordant des droits d'accès, de rectification, d'effacement et d'opposition peuvent les exercer à tout moment en nous contactant. Comme nous ne détenons aucune donnée personnelle, la plupart des demandes seront traitées en confirmant qu'aucune donnée n'existe.</p>
+      </section>
+
+      <section>
+        <h2>11. Conservation des données</h2>
+        <p>Nous ne conservons aucune donnée utilisateur puisque nous n'en collectons aucune. Les données stockées sur l'appareil ne persistent que tant que l'application reste installée. RevenueCat conserve des enregistrements anonymes d'abonnement aussi longtemps que votre abonnement est actif, plus la durée définie par sa propre politique.</p>
+      </section>
+
+      <section>
+        <h2>12. Utilisateurs internationaux</h2>
+        <p>Teleprompter for Video est disponible dans le monde entier. L'application ne transfère pas de données personnelles à l'étranger puisqu'elle n'en collecte pas. Les requêtes cloud que vous initiez (synchronisation Google Drive, vérification de reçus RevenueCat, traitement des achats intégrés) peuvent être servies par les infrastructures mondiales de Google, Apple ou RevenueCat, soumises à leurs propres politiques de confidentialité.</p>
+      </section>
+
+      <section>
+        <h2>13. Modifications de cette politique</h2>
+        <p>Si nous modifions cette Politique de confidentialité, la version mise à jour sera publiée à cette URL avec une nouvelle date « Dernière mise à jour » en haut. Les changements importants concernant le traitement des données seront mis en évidence. Continuer à utiliser l'application après une modification vaut acceptation de la politique révisée.</p>
+      </section>
+
+      <section>
+        <h2>14. Contact</h2>
+        <p>Questions, préoccupations ou demandes relatives aux droits peuvent être envoyées à :</p>
+        <p><strong>E-mail :</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
+        <p>Nous répondons sous 7 jours ouvrés.</p>
+      </section>
+    </div>
+
+    <!-- ============ GERMAN ============ -->
+    <div class="lang-content" data-lang="de">
+      <section>
+        <h2>Kurzfassung</h2>
+        <p>Teleprompter for Video erhebt keine personenbezogenen Daten und verfolgt keine Nutzung. Ihre Skripte bleiben auf Ihrem Telefon. Die Sprachsynchronisation läuft auf dem Gerät. Kamera und Mikrofon werden nur während einer aktiven Aufnahme verwendet, und Aufnahmen werden direkt in Ihrer Fotos-Mediathek gespeichert — nicht auf einem Server. Die Cloud-Synchronisation ist optional und auf einen versteckten Google-Drive-Ordner beschränkt, den nur diese App lesen kann. Abos werden von Apple und Google abgewickelt; Belege werden von RevenueCat validiert. Keine Werbung, keine Analytik, kein Drittanbieter-Tracking.</p>
+      </section>
+
+      <section>
+        <h2>1. Wer wir sind</h2>
+        <p>Teleprompter for Video („die App", „wir", „unser") ist eine mobile Teleprompter- und Videoaufnahme-App, herausgegeben von YOUNESS HARNAFI. Diese Datenschutzerklärung erläutert, welche Daten die App bei Nutzung unter iOS oder Android verarbeitet und welche nicht.</p>
+      </section>
+
+      <section>
+        <h2>2. Daten, die wir nicht erheben</h2>
+        <p>Wir betreiben keinerlei Server, die Nutzerdaten speichern. Wir erheben, speichern oder übertragen keine der folgenden Informationen:</p>
+        <ul>
+          <li>Namen, E-Mail-Adressen oder Telefonnummern (die App kennt keine Anmeldung)</li>
+          <li>Audioaufnahmen oder Transkripte über die On-Device-Spracherkennung hinaus (siehe Abschnitt 4)</li>
+          <li>Aufgenommene Videos (werden ausschließlich in Ihrer Fotos-Mediathek gespeichert)</li>
+          <li>Standortdaten</li>
+          <li>App-Nutzungsanalytik, Telemetrie oder Absturzberichte</li>
+          <li>Verhaltens- oder Interessensprofile</li>
+          <li>Werbe-IDs</li>
+        </ul>
+        <p>Die App enthält keine Werbung Dritter, keine Analytik-SDKs und keine Tracking-Pixel.</p>
+      </section>
+
+      <section>
+        <h2>3. Daten, die nur auf Ihrem Gerät gespeichert werden</h2>
+        <p>Die App speichert folgende Informationen lokal, damit Ihre Arbeit zwischen Sitzungen erhalten bleibt. Nichts davon wird durch uns von Ihrem Gerät übertragen:</p>
+        <ul>
+          <li><strong>Skripte</strong> — Titel, Textinhalt, Ordner, Zeitstempel</li>
+          <li><strong>Aufnahme-Sitzungen</strong> — Dauer, Tempo, Datum (für die Analyse-Ansicht)</li>
+          <li><strong>Einstellungen</strong> — gewählte Schrift, Textgröße, Zeilenabstand, Scroll-Geschwindigkeit, Countdown-Dauer, Bildschirm-an-Lassen, Design</li>
+          <li><strong>Lesezeichen</strong> — Abschnitte, die Sie mit [INTRO], [BREAK], [Q&amp;A] markieren</li>
+        </ul>
+        <p>Diese Daten werden im lokalen Speicher des Geräts (Hive) abgelegt. Sie können sie jederzeit löschen, indem Sie Skripte und Sitzungen einzeln in der App entfernen oder die App komplett deinstallieren.</p>
+      </section>
+
+      <section>
+        <h2>4. Mikrofon und Sprachsynchronisation</h2>
+        <p>Die App fordert Mikrofonzugriff an, damit der Prompter synchron zu Ihrer Sprache scrollt. Die Erkennung nutzt die plattformeigenen Sprach-APIs:</p>
+        <ul>
+          <li><strong>iOS:</strong> Apples <em>Speech</em>-Framework (<code>SFSpeechRecognizer</code>). Auf modernen iPhones läuft das vollständig auf dem Gerät. Auf älteren Geräten kann Apple kurze Audiosegmente zur Transkription an seine Server übertragen — das unterliegt Apples eigener Datenschutzerklärung und kann von der App nicht abgefangen oder gespeichert werden.</li>
+          <li><strong>Android:</strong> der Android-Dienst <em>SpeechRecognizer</em>. Je nach Hersteller und OS-Version kann er Googles Cloud-Spracherkennung nutzen. Die App sendet darüber hinaus nichts mit dem Audio.</li>
+        </ul>
+        <p>Die App speichert keine Audioaufnahmen, protokolliert keine Transkripte und sendet Ihre Stimme an keine Stelle unserer Wahl. Das Transkript wird gelesen und sofort verwendet, um die Skript-Markierung weiterzubewegen; der zugrundeliegende Audiopuffer wird nach Abschluss der Erkennung verworfen.</p>
+        <p>Die Sprachsynchronisation ist optional. Der Prompter funktioniert vollständig ohne Mikrofonzugriff — der manuelle Modus scrollt mit einer festen Geschwindigkeit, die Sie steuern.</p>
+      </section>
+
+      <section>
+        <h2>5. Kamera und Aufnahmen</h2>
+        <p>Die App fordert Kamerazugriff (und optional Mikrofonzugriff) an, wenn Sie eine Aufnahme-Sitzung starten. Der Kamerastrom wird nur während einer aktiven Aufnahme erfasst. Beim Stoppen entsteht eine MP4-Datei, die nach Ihrer Entscheidung in der Fotos-Mediathek gespeichert wird.</p>
+        <p>Aufgenommene Videos werden von dieser App niemals auf einen Server hochgeladen. Jegliches Teilen (über das System-Share-Sheet, AirDrop, Social-Apps etc.) wird von Ihnen ausgelöst und unterliegt der Datenschutzerklärung des Zieldienstes.</p>
+        <p>Kostenlose Nutzer sehen ein kleines „Teleprompter for Video"-Wasserzeichen unten rechts in aufgenommenen Videos. Pro-Abonnenten nicht. Das Wasserzeichen wird komplett auf dem Gerät beim Aufnahme-Abschluss eingebrannt — dafür werden keine Videodaten vom Gerät gesendet.</p>
+      </section>
+
+      <section>
+        <h2>6. Optional: Google-Drive-Sync</h2>
+        <p>Wenn Sie in den Einstellungen „Google Drive verbinden" tippen, verwendet die App Google Sign-In mit dem OAuth-Scope <code>drive.appdata</code>. Das ist der restriktivste Drive-Scope, den Google anbietet:</p>
+        <ul>
+          <li>Die App kann eine einzelne Datei <code>scripts.json</code> in einem versteckten, app-spezifischen Ordner („AppData folder") lesen und schreiben</li>
+          <li>Die App kann keine anderen Dateien in Ihrem Drive lesen, schreiben oder auch nur sehen</li>
+          <li>Sie können den Zugriff jederzeit über die Berechtigungsseite Ihres Google-Kontos widerrufen</li>
+        </ul>
+        <p>Nur die in der App gespeicherten Skripte werden synchronisiert. Aufnahmen, Audio, Einstellungen und Statistiken werden niemals hochgeladen. Die Sync-Datei liegt in Ihrem eigenen Drive-Konto, nicht auf einem von uns betriebenen Server.</p>
+        <p>Wenn Sie sich in den Einstellungen von Google Drive abmelden, bleibt Ihre lokale Skriptkopie unangetastet, und künftige Änderungen werden bis zur erneuten Verbindung nicht synchronisiert.</p>
+      </section>
+
+      <section>
+        <h2>7. Abos und In-App-Käufe</h2>
+        <p>Das optionale Pro-Abo (monatlich, jährlich oder einmalig lebenslang) wird über das Standard-In-App-Kaufsystem der Plattform abgewickelt:</p>
+        <ul>
+          <li><strong>iOS:</strong> Apples StoreKit / App Store. Apple erhält Ihre Zahlungsinformationen; wir sehen Ihre Kartendaten nicht.</li>
+          <li><strong>Android:</strong> Google Play Billing. Google erhält Ihre Zahlungsinformationen; wir sehen Ihre Kartendaten nicht.</li>
+        </ul>
+        <p>Zur Prüfung Ihres Abo-Status und zum Freischalten der wasserzeichenfreien Aufnahme nutzt die App <strong>RevenueCat</strong>, einen Abo-Verwaltungsdienst. RevenueCat erhält eine zufällig generierte, anonyme Benutzer-ID, Ihren Kaufbeleg von Apple oder Google sowie grundlegende Geräteinformationen (Gerätemodell, OS-Version, Locale, App-Version). Name, E-Mail-Adresse, Zahlungsdaten sowie Ihre Skripte/Aufnahmen erhält RevenueCat nicht.</p>
+        <p>Die Datenschutzerklärung von RevenueCat ist verfügbar unter <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">revenuecat.com/privacy</a>.</p>
+      </section>
+
+      <section>
+        <h2>8. Berechtigungen, die die App anfordert</h2>
+        <p>Die App fordert nur die Berechtigungen an, die für die tatsächlich genutzten Funktionen nötig sind:</p>
+        <ul>
+          <li><strong>Mikrofon</strong> — beim Aktivieren der Sprachsynchronisation oder beim Aufnehmen eines Videos mit Ton</li>
+          <li><strong>Kamera</strong> — beim Starten einer Aufnahme-Sitzung</li>
+          <li><strong>Spracherkennung (iOS)</strong> — zum Transkribieren der gesprochenen Worte für die Markierung</li>
+          <li><strong>Fotos-Mediathek / Hinzufügen zur Mediathek</strong> — zum Speichern aufgenommener Videos</li>
+          <li><strong>Internet</strong> — nur für optionales Google-Drive-Sync und RevenueCat-Beleg-Validierung erforderlich. Sprachsynchronisation und Aufnahme funktionieren vollständig offline.</li>
+          <li><strong>Dateien-Ordner</strong> — zum Importieren von .txt- oder .md-Skripten aus der Dateien-App</li>
+          <li><strong>Über andere Apps anzeigen (nur Android)</strong> — für den schwebenden Modus, der ein kleines Prompter-Fenster über andere Apps legt</li>
+        </ul>
+        <p>Die App fordert keinen Zugriff auf Ihren Standort, Kontakte, Kalender oder andere sensible Daten an.</p>
+      </section>
+
+      <section>
+        <h2>9. Datenschutz von Kindern</h2>
+        <p>Teleprompter for Video richtet sich nicht an Kinder unter 13 Jahren. Die App erhebt von keinem Nutzer personenbezogene Daten, doch die Funktionen für Videoaufnahme, Mikrofon und Abo sind nicht für die Nutzung durch Kinder ohne Aufsicht eines Erwachsenen vorgesehen. Eltern und Erziehungsberechtigte, die annehmen, dass ihr Kind die App genutzt hat, können uns über die unten genannte E-Mail kontaktieren.</p>
+      </section>
+
+      <section>
+        <h2>10. Ihre Rechte</h2>
+        <p>Da wir keine personenbezogenen Daten auf unseren Servern erheben, gibt es nichts über Sie, was wir aus der Ferne einsehen, korrigieren oder löschen könnten. Die volle Kontrolle behalten Sie über:</p>
+        <ul>
+          <li><strong>Skripte und Sitzungen auf dem Gerät</strong> — einzeln in der App löschen oder durch Deinstallation alles entfernen</li>
+          <li><strong>Google-Drive-Sync</strong> — in den Einstellungen trennen oder unter <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a> widerrufen</li>
+          <li><strong>Abo</strong> — verwalten oder kündigen über Einstellungen → Abos auf iOS oder Google Play → Abos auf Android</li>
+          <li><strong>Mikrofon- oder Kamerazugriff</strong> — umschalten in iOS-Einstellungen → Teleprompter for Video oder Android-Einstellungen → Apps → Teleprompter for Video → Berechtigungen</li>
+        </ul>
+        <p>Nutzer im Europäischen Wirtschaftsraum, im Vereinigten Königreich, in Kalifornien und anderen Gerichtsbarkeiten mit Datenschutzrechten zu Auskunft, Berichtigung, Löschung und Widerspruch können diese Rechte jederzeit durch Kontaktaufnahme mit uns ausüben. Da wir keine personenbezogenen Daten besitzen, werden die meisten Anfragen mit der Bestätigung beantwortet, dass keine Daten vorliegen.</p>
+      </section>
+
+      <section>
+        <h2>11. Datenaufbewahrung</h2>
+        <p>Wir bewahren keine Nutzerdaten auf, weil wir keine erheben. Geräte-Daten bestehen nur so lange, wie die App installiert ist. RevenueCat bewahrt anonyme Abo-Datensätze so lange auf, wie Ihr Abo aktiv ist, plus eine in seiner Richtlinie definierte Aufbewahrungszeit.</p>
+      </section>
+
+      <section>
+        <h2>12. Internationale Nutzer</h2>
+        <p>Teleprompter for Video ist weltweit verfügbar. Da die App keine personenbezogenen Daten erhebt, findet auch keine grenzüberschreitende Übertragung statt. Cloud-Anfragen, die Sie auslösen (Google-Drive-Sync, RevenueCat-Beleg-Validierung, Verarbeitung von In-App-Käufen), können von der globalen Infrastruktur von Google, Apple oder RevenueCat bedient werden und unterliegen deren eigenen Datenschutzerklärungen.</p>
+      </section>
+
+      <section>
+        <h2>13. Änderungen dieser Erklärung</h2>
+        <p>Sollten wir diese Datenschutzerklärung ändern, wird die aktualisierte Fassung unter dieser URL mit einem neuen „Zuletzt aktualisiert"-Datum oben veröffentlicht. Wesentliche Änderungen bei der Datenverarbeitung werden hervorgehoben. Die fortgesetzte Nutzung der App nach einer Änderung gilt als Annahme der überarbeiteten Erklärung.</p>
+      </section>
+
+      <section>
+        <h2>14. Kontakt</h2>
+        <p>Fragen, Anliegen oder Anträge zu Ihren Rechten können gesendet werden an:</p>
+        <p><strong>E-Mail:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
+        <p>Wir antworten innerhalb von 7 Werktagen.</p>
+      </section>
+    </div>
+
+    <!-- ============ ITALIAN ============ -->
+    <div class="lang-content" data-lang="it">
+      <section>
+        <h2>Versione breve</h2>
+        <p>Teleprompter for Video non raccoglie dati personali né traccia l'utilizzo. I tuoi script restano sul telefono. La sincronizzazione vocale gira sul dispositivo. Fotocamera e microfono sono usati solo durante una registrazione attiva, e le registrazioni vengono salvate direttamente nella tua libreria Foto — non su alcun server. La sincronizzazione cloud è opzionale e limitata a una cartella Google Drive nascosta che solo questa app può leggere. Gli abbonamenti sono gestiti da Apple e Google; le ricevute sono validate da RevenueCat. Nessuna pubblicità, nessuna analisi, nessun tracciamento di terze parti.</p>
+      </section>
+
+      <section>
+        <h2>1. Chi siamo</h2>
+        <p>Teleprompter for Video (di seguito „l'app", „noi", „nostro") è un'app mobile per gobbi elettronici e registrazione video, pubblicata da YOUNESS HARNAFI. Questa Informativa sulla privacy spiega quali dati l'app tratta e quali no quando la usi su iOS o Android.</p>
+      </section>
+
+      <section>
+        <h2>2. Dati che non raccogliamo</h2>
+        <p>Non gestiamo alcun server che memorizzi dati utente. Non raccogliamo, memorizziamo né trasmettiamo nessuno dei seguenti:</p>
+        <ul>
+          <li>Nomi, indirizzi e-mail o numeri di telefono (l'app non prevede registrazione)</li>
+          <li>Registrazioni audio o trascrizioni oltre al riconoscimento vocale on-device (vedi Sezione 4)</li>
+          <li>Video registrati (vengono salvati solo nella tua libreria Foto)</li>
+          <li>Dati di posizione</li>
+          <li>Analitiche di utilizzo, telemetria o report di crash</li>
+          <li>Profili comportamentali o di interessi</li>
+          <li>Identificatori pubblicitari</li>
+        </ul>
+        <p>L'app non contiene pubblicità di terze parti, SDK di analytics o pixel di tracciamento.</p>
+      </section>
+
+      <section>
+        <h2>3. Dati memorizzati solo sul tuo dispositivo</h2>
+        <p>L'app salva localmente le seguenti informazioni perché il tuo lavoro persista tra le sessioni. Nessuna di queste informazioni viene trasmessa fuori dal tuo dispositivo da noi:</p>
+        <ul>
+          <li><strong>Script</strong> — titolo, testo, cartella, timestamp</li>
+          <li><strong>Sessioni di registrazione</strong> — durata, ritmo, data (per la schermata Statistiche)</li>
+          <li><strong>Preferenze</strong> — font, dimensione del testo, interlinea, velocità di scorrimento, conto alla rovescia, schermo sempre acceso, tema</li>
+          <li><strong>Segnalibri</strong> — sezioni contrassegnate con [INTRO], [BREAK], [Q&amp;A]</li>
+        </ul>
+        <p>Questi dati vengono memorizzati nello storage locale del dispositivo (Hive). Puoi cancellarli in qualunque momento eliminando script e sessioni dall'app, oppure disinstallando del tutto l'app.</p>
+      </section>
+
+      <section>
+        <h2>4. Microfono e sincronizzazione vocale</h2>
+        <p>L'app richiede l'accesso al microfono affinché il gobbo possa scorrere in sincronia con la tua voce. Il riconoscimento usa le API vocali integrate nella piattaforma:</p>
+        <ul>
+          <li><strong>iOS:</strong> il framework <em>Speech</em> di Apple (<code>SFSpeechRecognizer</code>). Sugli iPhone moderni gira interamente sul dispositivo. Su dispositivi meno recenti Apple può trasmettere brevi segmenti audio ai propri server per la trascrizione — questo è regolato dalla policy di Apple e l'app non può intercettarlo né memorizzarlo.</li>
+          <li><strong>Android:</strong> il servizio <em>SpeechRecognizer</em>. A seconda del produttore e della versione del sistema, può usare il servizio vocale cloud di Google. L'app non invia nulla di aggiuntivo insieme all'audio.</li>
+        </ul>
+        <p>L'app non memorizza alcuna registrazione audio, non registra trascrizioni e non invia la tua voce in alcun luogo a nostra scelta. La trascrizione viene letta e usata immediatamente per far avanzare l'evidenziazione dello script; il buffer audio sottostante viene scartato al termine del riconoscimento.</p>
+        <p>La sincronizzazione vocale è opzionale. Il gobbo funziona completamente anche senza microfono — la modalità Manuale scorre automaticamente a una velocità fissa che controlli tu.</p>
+      </section>
+
+      <section>
+        <h2>5. Fotocamera e registrazioni</h2>
+        <p>L'app richiede l'accesso alla fotocamera (e facoltativamente al microfono) quando avvii una sessione di registrazione video. Il flusso della fotocamera è acquisito solo durante la registrazione attiva. Interrompendo la registrazione viene generato un file MP4 che, a tua discrezione, viene salvato nella libreria Foto del dispositivo.</p>
+        <p>I video registrati non vengono mai caricati su alcun server da quest'app. Qualsiasi condivisione (tramite menu di condivisione di sistema, AirDrop, app social, ecc.) è avviata da te ed è soggetta alla policy del servizio di destinazione.</p>
+        <p>Gli utenti gratuiti vedono una piccola filigrana „Teleprompter for Video" composta in basso a destra dei video registrati. Gli abbonati Pro no. La composizione della filigrana avviene interamente sul dispositivo al momento di finalizzare la registrazione — nessun dato video viene inviato fuori dal dispositivo per questo.</p>
+      </section>
+
+      <section>
+        <h2>6. Opzionale: sincronizzazione Google Drive</h2>
+        <p>Se tocchi „Connetti Google Drive" nelle Impostazioni, l'app usa Google Sign-In con lo scope OAuth <code>drive.appdata</code>. È lo scope Drive più restrittivo offerto da Google:</p>
+        <ul>
+          <li>L'app può leggere e scrivere un unico file <code>scripts.json</code> all'interno di una cartella nascosta dedicata all'app, chiamata da Google „AppData folder"</li>
+          <li>L'app non può leggere, scrivere né vedere alcun altro file del tuo Drive</li>
+          <li>Puoi revocare l'accesso in qualsiasi momento dalla pagina delle autorizzazioni del tuo account Google</li>
+        </ul>
+        <p>Vengono sincronizzati solo gli script salvati nell'app. Registrazioni, audio, impostazioni e statistiche non vengono mai caricati. Il file di sincronizzazione si trova nel tuo account Drive personale, non su un server da noi gestito.</p>
+        <p>Se ti disconnetti da Google Drive nelle Impostazioni, la copia locale degli script resta intatta e le modifiche successive smettono di sincronizzarsi finché non ti ricolleghi.</p>
+      </section>
+
+      <section>
+        <h2>7. Abbonamenti e acquisti in-app</h2>
+        <p>L'abbonamento Pro opzionale (mensile, annuale o a vita) è gestito dal sistema standard di acquisti in-app della piattaforma:</p>
+        <ul>
+          <li><strong>iOS:</strong> StoreKit / App Store di Apple. Apple riceve le tue informazioni di pagamento; noi non vediamo i dati della tua carta.</li>
+          <li><strong>Android:</strong> Google Play Billing. Google riceve le tue informazioni di pagamento; noi non vediamo i dati della tua carta.</li>
+        </ul>
+        <p>Per verificare lo stato dell'abbonamento e sbloccare la registrazione senza filigrana, l'app usa <strong>RevenueCat</strong>, un servizio di gestione abbonamenti. RevenueCat riceve un ID utente anonimo generato in modo casuale, la ricevuta d'acquisto di Apple o Google e informazioni di base sul dispositivo (modello, versione del sistema, lingua, versione dell'app). RevenueCat non riceve nome, e-mail, dati di pagamento, né alcuno dei tuoi script o registrazioni.</p>
+        <p>La policy sulla privacy di RevenueCat è disponibile su <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">revenuecat.com/privacy</a>.</p>
+      </section>
+
+      <section>
+        <h2>8. Autorizzazioni richieste dall'app</h2>
+        <p>L'app richiede solo le autorizzazioni necessarie alle funzioni che usi davvero:</p>
+        <ul>
+          <li><strong>Microfono</strong> — quando attivi la sincronizzazione vocale o registri un video con audio</li>
+          <li><strong>Fotocamera</strong> — quando avvii una sessione di registrazione</li>
+          <li><strong>Riconoscimento vocale (iOS)</strong> — per trascrivere il parlato e far avanzare l'evidenziazione</li>
+          <li><strong>Libreria Foto / Aggiungi alla libreria</strong> — per salvare i video registrati</li>
+          <li><strong>Internet</strong> — necessaria solo per la sincronizzazione Google Drive opzionale e per la validazione delle ricevute RevenueCat. Sincronizzazione vocale e registrazione funzionano completamente offline.</li>
+          <li><strong>Cartella Documenti</strong> — per importare script .txt o .md salvati in File</li>
+          <li><strong>Visualizzazione sopra altre app (solo Android)</strong> — per la modalità Fluttuante che mostra una piccola finestra del gobbo sopra le altre app</li>
+        </ul>
+        <p>L'app non richiede accesso a posizione, contatti, calendario o altri dati sensibili.</p>
+      </section>
+
+      <section>
+        <h2>9. Privacy dei minori</h2>
+        <p>Teleprompter for Video non è rivolto a bambini sotto i 13 anni. L'app non raccoglie informazioni personali da alcun utente, ma le funzioni di registrazione video, microfono e abbonamento non sono pensate per essere usate da minori senza supervisione adulta. Genitori e tutori che ritengano che il proprio figlio abbia usato l'app possono contattarci all'indirizzo e-mail in fondo.</p>
+      </section>
+
+      <section>
+        <h2>10. I tuoi diritti</h2>
+        <p>Poiché non raccogliamo informazioni personali sui nostri server, non c'è nulla che ti riguardi a cui possiamo accedere, correggere o eliminare da remoto. Mantieni il pieno controllo su:</p>
+        <ul>
+          <li><strong>Script e sessioni sul dispositivo</strong> — eliminali singolarmente nell'app, o disinstalla per cancellare tutto</li>
+          <li><strong>Sincronizzazione Google Drive</strong> — disconnetti nelle Impostazioni, o revoca su <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a></li>
+          <li><strong>Abbonamento</strong> — gestisci o annulla tramite Impostazioni → Abbonamenti su iOS, o Google Play → Abbonamenti su Android</li>
+          <li><strong>Accesso a microfono o fotocamera</strong> — modifica in Impostazioni iOS → Teleprompter for Video, o Impostazioni Android → App → Teleprompter for Video → Autorizzazioni</li>
+        </ul>
+        <p>Gli utenti nello Spazio economico europeo, nel Regno Unito, in California e in altre giurisdizioni con leggi sulla privacy che riconoscono diritti di accesso, rettifica, cancellazione e opposizione possono esercitarli in qualunque momento contattandoci. Poiché non deteniamo dati personali, la maggior parte delle richieste verrà evasa confermando che non esistono dati.</p>
+      </section>
+
+      <section>
+        <h2>11. Conservazione dei dati</h2>
+        <p>Non conserviamo alcun dato utente perché non ne raccogliamo. I dati sul dispositivo permangono solo finché l'app resta installata. RevenueCat conserva record anonimi di abbonamento finché il tuo abbonamento è attivo, più una finestra di conservazione definita dalla sua policy.</p>
+      </section>
+
+      <section>
+        <h2>12. Utenti internazionali</h2>
+        <p>Teleprompter for Video è disponibile in tutto il mondo. L'app non trasferisce dati personali oltre confine perché non ne raccoglie. Le richieste cloud che inizi (sincronizzazione Google Drive, validazione ricevute RevenueCat, elaborazione acquisti in-app) possono essere servite dall'infrastruttura globale di Google, Apple o RevenueCat, soggette alle rispettive policy sulla privacy.</p>
+      </section>
+
+      <section>
+        <h2>13. Modifiche a questa policy</h2>
+        <p>Se apporteremo modifiche a questa Informativa sulla privacy, la versione aggiornata sarà pubblicata a questo URL con una nuova data „Ultimo aggiornamento" in cima. Le modifiche sostanziali sul trattamento dei dati saranno evidenziate. L'uso continuato dell'app dopo una modifica costituisce accettazione della policy rivista.</p>
+      </section>
+
+      <section>
+        <h2>14. Contatto</h2>
+        <p>Domande, dubbi o richieste relative ai diritti possono essere inviati a:</p>
+        <p><strong>E-mail:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
+        <p>Rispondiamo entro 7 giorni lavorativi.</p>
+      </section>
+    </div>
+
+    <!-- ============ JAPANESE ============ -->
+    <div class="lang-content" data-lang="ja">
+      <section>
+        <h2>要約</h2>
+        <p>Teleprompter for Video は個人データを収集せず、利用状況を追跡しません。スクリプトはお使いの端末内に保存されます。音声同期は端末上で実行されます。カメラとマイクは録画中のみ使用され、録画ファイルは端末の写真ライブラリに直接保存されます — サーバーには送信されません。クラウド同期はオプトインで、本アプリだけが読み取れる Google Drive の非表示フォルダに限定されます。サブスクリプションは Apple および Google によって処理され、レシートは RevenueCat によって検証されます。広告、解析、サードパーティのトラッキングは一切ありません。</p>
+      </section>
+
+      <section>
+        <h2>1. 私たちについて</h2>
+        <p>Teleprompter for Video(以下「本アプリ」「当社」)は、YOUNESS HARNAFI が提供するモバイル向けのテレプロンプター兼録画アプリです。本プライバシーポリシーでは、iOS または Android で本アプリを使用する際に取り扱うデータと取り扱わないデータについて説明します。</p>
+      </section>
+
+      <section>
+        <h2>2. 収集しないデータ</h2>
+        <p>当社はユーザーデータを保存するサーバーを一切運用していません。以下のいずれも収集、保存、送信しません:</p>
+        <ul>
+          <li>氏名、メールアドレス、電話番号(本アプリにはサインアップがありません)</li>
+          <li>端末上の音声認識の範囲を超える音声録音や書き起こし(セクション 4 参照)</li>
+          <li>録画した動画(写真ライブラリにのみ保存されます)</li>
+          <li>位置情報</li>
+          <li>アプリ利用解析、テレメトリ、クラッシュレポート</li>
+          <li>行動・関心プロファイル</li>
+          <li>広告 ID</li>
+        </ul>
+        <p>本アプリにはサードパーティ広告、解析 SDK、トラッキングピクセルは含まれません。</p>
+      </section>
+
+      <section>
+        <h2>3. 端末にのみ保存されるデータ</h2>
+        <p>セッション間で作業が引き継がれるよう、本アプリは以下の情報を端末にローカル保存します。これらのデータが当社によって端末外へ送信されることはありません:</p>
+        <ul>
+          <li><strong>スクリプト</strong> — タイトル、本文、フォルダ、タイムスタンプ</li>
+          <li><strong>録画セッション</strong> — 時間、ペース、日付(分析画面用)</li>
+          <li><strong>環境設定</strong> — フォント、テキストサイズ、行間、スクロール速度、カウントダウン、画面オン維持、テーマ</li>
+          <li><strong>ブックマーク</strong> — [INTRO]、[BREAK]、[Q&amp;A] でマークされたセクション</li>
+        </ul>
+        <p>これらのデータは端末のローカルストレージ(Hive)に保存されます。アプリ内でスクリプトやセッションを個別に削除するか、アプリをアンインストールすればいつでも消去できます。</p>
+      </section>
+
+      <section>
+        <h2>4. マイクと音声同期</h2>
+        <p>本アプリは、お客様の発話に合わせてテレプロンプターをスクロールするためにマイク権限を要求します。認識にはプラットフォーム標準の音声 API を使用します:</p>
+        <ul>
+          <li><strong>iOS:</strong> Apple の <em>Speech</em> フレームワーク(<code>SFSpeechRecognizer</code>)。最新の iPhone では完全にデバイス内で処理されます。古い端末では Apple が短い音声セグメントをサーバーに送信して文字起こしを行う場合があります — これは Apple のプライバシーポリシーに従うもので、本アプリが介入したり保存したりすることはできません。</li>
+          <li><strong>Android:</strong> Android の <em>SpeechRecognizer</em> サービス。端末メーカーや OS バージョンによっては Google のクラウド音声サービスが使われる場合があります。本アプリは音声に何も付加して送信しません。</li>
+        </ul>
+        <p>本アプリは音声録音を保存せず、書き起こしのログも残さず、当社の選択でお客様の声をどこにも送信しません。書き起こしは即時に読み取られてスクリプトのハイライト位置を進めるために使われ、認識完了後に元の音声バッファは破棄されます。</p>
+        <p>音声同期は任意です。マイク権限なしでもテレプロンプターは完全に動作します — 手動モードではお客様が制御する一定速度で自動スクロールします。</p>
+      </section>
+
+      <section>
+        <h2>5. カメラと録画</h2>
+        <p>動画録画セッションを開始すると、本アプリはカメラ権限(および任意でマイク権限)を要求します。カメラ映像は録画中のみ取得されます。録画を停止すると MP4 ファイルが生成され、お客様の判断で端末の写真ライブラリに保存されます。</p>
+        <p>本アプリが録画動画をサーバーにアップロードすることはありません。共有(システムの共有シート、AirDrop、SNS など)はお客様の操作で行われ、共有先サービスのプライバシーポリシーに従います。</p>
+        <p>無料ユーザーの録画動画の右下には小さな「Teleprompter for Video」の透かしが合成されます。Pro 加入者には表示されません。透かしの合成は録画の最終処理時にすべて端末内で行われ — 動画データが端末外へ送信されることはありません。</p>
+      </section>
+
+      <section>
+        <h2>6. オプション: Google Drive 同期</h2>
+        <p>設定で「Google Drive を接続」をタップすると、本アプリは <code>drive.appdata</code> という OAuth スコープで Google サインインを使用します。これは Google が提供する Drive スコープのうち最も制限の厳しいものです:</p>
+        <ul>
+          <li>本アプリは Google が「AppData folder」と呼ぶアプリ専用の非表示フォルダ内の単一ファイル <code>scripts.json</code> のみを読み書きできます</li>
+          <li>本アプリは Drive 内の他のファイルを読み書きすることも、見ることもできません</li>
+          <li>Google アカウントの権限ページからいつでもアクセスを取り消せます</li>
+        </ul>
+        <p>同期されるのはアプリ内に保存されたスクリプトのみです。録画、音声、設定、分析データは一切アップロードされません。同期ファイルはお客様自身の Drive アカウント内にあり、当社が管理するサーバー上にはありません。</p>
+        <p>設定で Google Drive からサインアウトしても、ローカルのスクリプトのコピーはそのまま残り、再接続するまで以降の編集は同期されません。</p>
+      </section>
+
+      <section>
+        <h2>7. サブスクリプションとアプリ内課金</h2>
+        <p>オプションの Pro サブスクリプション(月額、年額、または買い切り)は、各プラットフォーム標準のアプリ内課金システムを通じて処理されます:</p>
+        <ul>
+          <li><strong>iOS:</strong> Apple の StoreKit / App Store。Apple がお客様の支払い情報を受け取り、当社がカード情報を見ることはありません。</li>
+          <li><strong>Android:</strong> Google Play Billing。Google がお客様の支払い情報を受け取り、当社がカード情報を見ることはありません。</li>
+        </ul>
+        <p>サブスクリプション状態の確認と透かしなし録画機能のアンロックのために、本アプリはサブスクリプション管理サービス <strong>RevenueCat</strong> を使用します。RevenueCat はランダムに生成された匿名ユーザー ID、Apple または Google からの購入レシート、基本的な端末情報(機種、OS バージョン、ロケール、アプリバージョン)を受け取ります。氏名、メールアドレス、支払い情報、スクリプト/録画の内容は受け取りません。</p>
+        <p>RevenueCat のプライバシーポリシーは <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">revenuecat.com/privacy</a> で確認できます。</p>
+      </section>
+
+      <section>
+        <h2>8. アプリが要求する権限</h2>
+        <p>本アプリはお客様が実際に使う機能に必要な権限のみを要求します:</p>
+        <ul>
+          <li><strong>マイク</strong> — 音声同期の有効化時、または音声付き動画の録画時</li>
+          <li><strong>カメラ</strong> — 動画録画セッションの開始時</li>
+          <li><strong>音声認識(iOS)</strong> — 発話をスクリプトのハイライトに変換するため</li>
+          <li><strong>写真ライブラリ / ライブラリへの追加</strong> — 録画した動画を保存するため</li>
+          <li><strong>インターネット</strong> — オプションの Google Drive 同期と RevenueCat レシート検証にのみ必要。音声同期と録画は完全にオフラインで動作します。</li>
+          <li><strong>ファイル(書類)フォルダ</strong> — Files に保存した .txt や .md スクリプトをインポートするため</li>
+          <li><strong>他のアプリの上に表示(Android のみ)</strong> — フローティングモードで、他のアプリの上に小さなテレプロンプターウィンドウを表示するため</li>
+        </ul>
+        <p>本アプリは位置情報、連絡先、カレンダー、その他の機微情報へのアクセスを要求しません。</p>
+      </section>
+
+      <section>
+        <h2>9. 子どものプライバシー</h2>
+        <p>Teleprompter for Video は 13 歳未満の子どもを対象としていません。本アプリはどのユーザーからも個人情報を収集しませんが、カメラ録画、マイク、サブスクリプション機能は大人の監督なしでの子どもの使用を想定していません。お子様が本アプリを使用したと思われる保護者の方は、下記のメールアドレスからご連絡ください。</p>
+      </section>
+
+      <section>
+        <h2>10. お客様の権利</h2>
+        <p>当社のサーバーには個人情報を収集していないため、リモートでアクセス、修正、削除できる情報はありません。お客様は以下を完全に管理できます:</p>
+        <ul>
+          <li><strong>端末内のスクリプトとセッション</strong> — アプリ内で個別に削除するか、アンインストールしてすべて消去</li>
+          <li><strong>Google Drive 同期</strong> — 設定で接続解除、または <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a> で取り消し</li>
+          <li><strong>サブスクリプション</strong> — iOS の設定 → サブスクリプション、または Android の Google Play → 定期購入から管理・キャンセル</li>
+          <li><strong>マイクまたはカメラのアクセス</strong> — iOS 設定 → Teleprompter for Video、または Android 設定 → アプリ → Teleprompter for Video → 権限で切り替え</li>
+        </ul>
+        <p>欧州経済領域、英国、カリフォルニア、その他アクセス・訂正・削除・異議申立ての権利を認める法域のユーザーは、いつでも当社に連絡することで権利を行使できます。当社は個人データを保持していないため、ほとんどの請求は「該当データなし」の確認をもって対応されます。</p>
+      </section>
+
+      <section>
+        <h2>11. データ保持</h2>
+        <p>当社はデータを収集していないため、ユーザーデータを保持していません。端末上のデータはアプリがインストールされている間のみ存続します。RevenueCat はサブスクリプションが有効である期間、ならびに同社の方針で定められた保持期間中、匿名のサブスクリプション記録を保持します。</p>
+      </section>
+
+      <section>
+        <h2>12. 国際ユーザー</h2>
+        <p>Teleprompter for Video は世界中で利用できます。個人データを収集しないため、本アプリが個人データを越境転送することはありません。お客様が開始するクラウドリクエスト(Google Drive 同期、RevenueCat レシート検証、アプリ内課金処理)は、Google、Apple、または RevenueCat のグローバルインフラから提供される場合があり、それぞれのプライバシーポリシーに従います。</p>
+      </section>
+
+      <section>
+        <h2>13. 本ポリシーの変更</h2>
+        <p>本プライバシーポリシーを変更する場合は、このページに更新版を掲載し、上部の「最終更新」日を更新します。データの取り扱いに影響する重要な変更は強調表示します。変更後にアプリを継続して使用することは、改訂後のポリシーに同意したものとみなされます。</p>
+      </section>
+
+      <section>
+        <h2>14. お問い合わせ</h2>
+        <p>ご質問、ご懸念、権利行使のご要望は以下までお送りください:</p>
+        <p><strong>メール:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
+        <p>7 営業日以内に返信いたします。</p>
+      </section>
+    </div>
+
+    <!-- ============ KOREAN ============ -->
+    <div class="lang-content" data-lang="ko">
+      <section>
+        <h2>간단한 요약</h2>
+        <p>Teleprompter for Video는 개인정보를 수집하거나 사용 행태를 추적하지 않습니다. 스크립트는 사용자의 기기에 보관됩니다. 음성 동기화는 기기 내에서 실행됩니다. 카메라와 마이크는 녹화가 활성화된 동안에만 사용되며, 녹화는 서버가 아닌 기기의 사진 보관함에 바로 저장됩니다. 클라우드 동기화는 선택 사항이며, 이 앱만 읽을 수 있는 숨겨진 Google Drive 폴더로 제한됩니다. 구독은 Apple과 Google이 처리하며, 영수증은 RevenueCat이 검증합니다. 광고, 분석, 제3자 추적이 일절 없습니다.</p>
+      </section>
+
+      <section>
+        <h2>1. 회사 소개</h2>
+        <p>Teleprompter for Video(이하 "본 앱", "당사")는 YOUNESS HARNAFI가 게시한 모바일 텔레프롬프터 및 동영상 녹화 앱입니다. 본 개인정보 처리방침은 iOS 또는 Android에서 본 앱을 사용할 때 처리되는 데이터와 처리되지 않는 데이터를 설명합니다.</p>
+      </section>
+
+      <section>
+        <h2>2. 수집하지 않는 데이터</h2>
+        <p>당사는 사용자 데이터를 저장하는 어떠한 서버도 운영하지 않습니다. 당사는 다음 어떠한 항목도 수집, 저장, 전송하지 않습니다:</p>
+        <ul>
+          <li>이름, 이메일 주소, 전화번호 (본 앱에는 회원가입이 없습니다)</li>
+          <li>기기 내 음성 인식의 범위를 넘어서는 음성 녹음이나 전사(섹션 4 참고)</li>
+          <li>녹화된 영상(사진 보관함에만 저장됩니다)</li>
+          <li>위치 정보</li>
+          <li>앱 이용 분석, 텔레메트리, 충돌 보고서</li>
+          <li>행동 또는 관심 프로필</li>
+          <li>광고 식별자</li>
+        </ul>
+        <p>본 앱에는 제3자 광고, 분석 SDK, 추적 픽셀이 포함되어 있지 않습니다.</p>
+      </section>
+
+      <section>
+        <h2>3. 기기에만 저장되는 데이터</h2>
+        <p>세션 간 작업이 유지되도록 본 앱은 다음 정보를 로컬에 저장합니다. 어떤 항목도 당사에 의해 기기 밖으로 전송되지 않습니다:</p>
+        <ul>
+          <li><strong>스크립트</strong> — 제목, 본문, 폴더, 타임스탬프</li>
+          <li><strong>녹화 세션</strong> — 시간, 페이스, 날짜(분석 화면용)</li>
+          <li><strong>환경 설정</strong> — 글꼴, 글자 크기, 줄 간격, 스크롤 속도, 카운트다운, 화면 켜짐 유지, 테마</li>
+          <li><strong>북마크</strong> — [INTRO], [BREAK], [Q&amp;A]로 표시한 구간</li>
+        </ul>
+        <p>이 데이터는 기기의 로컬 저장소(Hive)에 저장됩니다. 앱에서 스크립트와 세션을 개별 삭제하거나 앱을 완전히 제거하면 언제든 지울 수 있습니다.</p>
+      </section>
+
+      <section>
+        <h2>4. 마이크 및 음성 동기화</h2>
+        <p>본 앱은 텔레프롬프터가 사용자의 음성과 동기되어 스크롤될 수 있도록 마이크 권한을 요청합니다. 인식은 플랫폼 내장 음성 API를 사용합니다:</p>
+        <ul>
+          <li><strong>iOS:</strong> Apple의 <em>Speech</em> 프레임워크(<code>SFSpeechRecognizer</code>). 최신 iPhone에서는 전부 기기 내에서 동작합니다. 구형 기기에서는 Apple이 짧은 오디오 세그먼트를 서버로 전송해 전사할 수 있는데, 이는 Apple 자체의 개인정보 정책을 따르며 본 앱이 가로채거나 저장할 수 없습니다.</li>
+          <li><strong>Android:</strong> Android의 <em>SpeechRecognizer</em> 서비스. 제조사와 OS 버전에 따라 Google의 클라우드 음성 서비스가 사용될 수 있습니다. 본 앱은 오디오와 함께 어떠한 추가 정보도 전송하지 않습니다.</li>
+        </ul>
+        <p>본 앱은 오디오 녹음을 저장하지 않으며, 전사 결과를 기록하지도 않고, 사용자의 음성을 당사가 선택한 어디로도 전송하지 않습니다. 전사 결과는 읽혀서 즉시 스크립트 하이라이트를 진행시키는 데 사용되고, 이후 원본 오디오 버퍼는 폐기됩니다.</p>
+        <p>음성 동기화는 선택 사항입니다. 마이크 권한이 없어도 텔레프롬프터는 완전히 동작합니다 — 수동 모드는 사용자가 제어하는 고정 속도로 자동 스크롤합니다.</p>
+      </section>
+
+      <section>
+        <h2>5. 카메라 및 녹화</h2>
+        <p>동영상 녹화를 시작하면 본 앱은 카메라(필요 시 마이크) 권한을 요청합니다. 카메라 스트림은 녹화가 활성화된 동안에만 캡처됩니다. 녹화를 중지하면 MP4 파일이 생성되고, 사용자의 선택에 따라 기기의 사진 보관함에 저장됩니다.</p>
+        <p>본 앱이 녹화된 영상을 서버에 업로드하는 일은 결코 없습니다. 시스템 공유 시트, AirDrop, 소셜 앱 등을 통한 공유는 사용자가 시작하며 대상 서비스의 개인정보 정책을 따릅니다.</p>
+        <p>무료 사용자는 녹화된 영상 오른쪽 하단에 작은 "Teleprompter for Video" 워터마크가 합성되어 보입니다. Pro 가입자는 그렇지 않습니다. 워터마크 합성은 녹화 마무리 시 전부 기기에서 처리되며, 그 어떤 영상 데이터도 기기 밖으로 전송되지 않습니다.</p>
+      </section>
+
+      <section>
+        <h2>6. 선택 사항: Google Drive 동기화</h2>
+        <p>설정에서 "Google Drive 연결"을 누르면 본 앱은 <code>drive.appdata</code> OAuth 범위를 사용하여 Google 로그인을 수행합니다. 이는 Google이 제공하는 Drive 범위 중 가장 제한적인 것입니다:</p>
+        <ul>
+          <li>본 앱은 Google이 "AppData folder"라고 부르는 앱 전용 숨김 폴더 내의 단일 파일 <code>scripts.json</code>만 읽고 쓸 수 있습니다</li>
+          <li>본 앱은 사용자의 Drive에 있는 다른 어떤 파일도 읽거나, 쓰거나, 볼 수 없습니다</li>
+          <li>Google 계정 권한 페이지에서 언제든지 액세스를 철회할 수 있습니다</li>
+        </ul>
+        <p>앱에 저장된 스크립트만 동기화됩니다. 녹화, 오디오, 설정, 분석 데이터는 절대 업로드되지 않습니다. 동기화 파일은 사용자 본인의 Drive 계정 안에 있으며, 당사가 관리하는 서버에 있지 않습니다.</p>
+        <p>설정에서 Google Drive 로그아웃을 하면 로컬 스크립트 사본은 그대로 남고, 다시 연결할 때까지 이후 편집 내용은 동기화되지 않습니다.</p>
+      </section>
+
+      <section>
+        <h2>7. 구독 및 인앱 결제</h2>
+        <p>선택 사항인 Pro 구독(월간, 연간, 평생)은 플랫폼 표준 인앱 결제 시스템을 통해 처리됩니다:</p>
+        <ul>
+          <li><strong>iOS:</strong> Apple의 StoreKit / App Store. Apple이 결제 정보를 수신하며, 당사는 카드 세부 정보를 볼 수 없습니다.</li>
+          <li><strong>Android:</strong> Google Play 결제. Google이 결제 정보를 수신하며, 당사는 카드 세부 정보를 볼 수 없습니다.</li>
+        </ul>
+        <p>구독 상태를 확인하고 워터마크 없는 녹화 혜택을 해제하기 위해 본 앱은 구독 관리 서비스인 <strong>RevenueCat</strong>을 사용합니다. RevenueCat은 무작위로 생성된 익명 사용자 ID, Apple 또는 Google의 구매 영수증, 그리고 기본 기기 정보(기기 모델, OS 버전, 로캘, 앱 버전)를 수신합니다. RevenueCat은 사용자의 이름, 이메일, 결제 정보, 스크립트/녹화 내용을 수신하지 않습니다.</p>
+        <p>RevenueCat의 개인정보 정책은 <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">revenuecat.com/privacy</a>에서 확인할 수 있습니다.</p>
+      </section>
+
+      <section>
+        <h2>8. 앱이 요청하는 권한</h2>
+        <p>본 앱은 사용자가 실제로 사용하는 기능에 필요한 권한만 요청합니다:</p>
+        <ul>
+          <li><strong>마이크</strong> — 음성 동기화 활성화 또는 오디오 포함 영상 녹화 시</li>
+          <li><strong>카메라</strong> — 영상 녹화 세션 시작 시</li>
+          <li><strong>음성 인식(iOS)</strong> — 발화를 텔레프롬프터 하이라이트로 전사하기 위함</li>
+          <li><strong>사진 보관함 / 보관함에 추가</strong> — 녹화 영상을 저장하기 위함</li>
+          <li><strong>인터넷</strong> — 선택 사항인 Google Drive 동기화와 RevenueCat 영수증 검증에만 필요. 음성 동기화와 녹화는 완전히 오프라인에서 동작합니다.</li>
+          <li><strong>문서 폴더</strong> — 파일 앱에 저장된 .txt 또는 .md 스크립트를 가져오기 위함</li>
+          <li><strong>다른 앱 위에 표시(Android 전용)</strong> — 플로팅 모드: 다른 앱 위에 작은 텔레프롬프터 창을 띄우기 위함</li>
+        </ul>
+        <p>본 앱은 위치, 연락처, 캘린더, 기타 민감한 데이터에 대한 접근을 요청하지 않습니다.</p>
+      </section>
+
+      <section>
+        <h2>9. 아동의 개인정보</h2>
+        <p>Teleprompter for Video는 13세 미만 어린이를 대상으로 하지 않습니다. 본 앱은 어떤 사용자에게도 개인정보를 수집하지 않지만, 카메라 녹화, 마이크, 구독 기능은 성인의 감독 없이 어린이가 사용하도록 의도된 것이 아닙니다. 자녀가 본 앱을 사용했다고 생각되어 문의가 있으신 보호자께서는 아래 이메일로 연락해 주십시오.</p>
+      </section>
+
+      <section>
+        <h2>10. 사용자의 권리</h2>
+        <p>당사 서버에서 개인정보를 수집하지 않으므로 원격으로 접근, 정정, 삭제할 수 있는 정보가 없습니다. 사용자는 다음에 대해 완전한 통제권을 가집니다:</p>
+        <ul>
+          <li><strong>기기 내 스크립트 및 세션</strong> — 앱에서 개별 삭제하거나 앱을 제거하여 전부 삭제</li>
+          <li><strong>Google Drive 동기화</strong> — 설정에서 연결 해제하거나 <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a>에서 권한 철회</li>
+          <li><strong>구독</strong> — iOS 설정 → 구독, 또는 Android Google Play → 정기 결제에서 관리/해지</li>
+          <li><strong>마이크 또는 카메라 접근</strong> — iOS 설정 → Teleprompter for Video, 또는 Android 설정 → 앱 → Teleprompter for Video → 권한에서 전환</li>
+        </ul>
+        <p>유럽경제지역, 영국, 캘리포니아 및 접근·정정·삭제·반대 권리를 보장하는 기타 관할권의 사용자는 당사로 문의하여 언제든지 권리를 행사할 수 있습니다. 당사가 개인 데이터를 보유하지 않으므로 대부분의 요청은 "데이터가 존재하지 않음" 확인으로 응답됩니다.</p>
+      </section>
+
+      <section>
+        <h2>11. 데이터 보관</h2>
+        <p>당사는 데이터를 수집하지 않으므로 사용자 데이터를 보관하지 않습니다. 기기 내 데이터는 앱이 설치되어 있는 동안에만 유지됩니다. RevenueCat은 사용자의 구독이 활성화되어 있는 동안 및 자체 정책에서 정한 보관 기간 동안 익명의 구독 기록을 보관합니다.</p>
+      </section>
+
+      <section>
+        <h2>12. 해외 사용자</h2>
+        <p>Teleprompter for Video는 전 세계에서 사용할 수 있습니다. 본 앱은 개인 데이터를 수집하지 않으므로 국경 간 개인 데이터 이전이 발생하지 않습니다. 사용자가 시작하는 클라우드 요청(Google Drive 동기화, RevenueCat 영수증 검증, 인앱 결제 처리)은 Google, Apple, RevenueCat의 글로벌 인프라에서 제공될 수 있으며, 각 제공자의 개인정보 정책을 따릅니다.</p>
+      </section>
+
+      <section>
+        <h2>13. 본 정책의 변경</h2>
+        <p>본 개인정보 처리방침을 변경하는 경우, 본 URL에 업데이트된 버전을 게시하고 상단의 "최종 업데이트" 날짜를 갱신합니다. 데이터 처리 방식에 영향을 미치는 중요한 변경 사항은 강조 표시됩니다. 변경 이후 앱을 계속 사용하면 개정된 정책에 동의한 것으로 간주됩니다.</p>
+      </section>
+
+      <section>
+        <h2>14. 문의</h2>
+        <p>질문, 우려 또는 권리 요청은 다음으로 보내실 수 있습니다:</p>
+        <p><strong>이메일:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
+        <p>영업일 기준 7일 이내에 회신해 드립니다.</p>
+      </section>
+    </div>
+
+    <!-- ============ PORTUGUESE (BRAZIL) ============ -->
+    <div class="lang-content" data-lang="pt">
+      <section>
+        <h2>Versão curta</h2>
+        <p>O Teleprompter for Video não coleta dados pessoais nem rastreia uso. Seus roteiros ficam no seu celular. A sincronização de voz roda no dispositivo. A câmera e o microfone são usados apenas durante uma gravação ativa, e as gravações são salvas diretamente na sua biblioteca Fotos — não em nenhum servidor. A sincronização na nuvem é opcional e limitada a uma pasta oculta do Google Drive que somente este app pode ler. As assinaturas são processadas pela Apple e pelo Google; os recibos são validados pela RevenueCat. Sem anúncios, sem analytics, sem rastreamento de terceiros.</p>
+      </section>
+
+      <section>
+        <h2>1. Quem somos</h2>
+        <p>Teleprompter for Video ("o app", "nós", "nosso") é um app de teleprompter e gravação de vídeo para celulares, publicado por YOUNESS HARNAFI. Esta Política de Privacidade explica quais dados o app trata e quais não trata quando você o usa no iOS ou Android.</p>
+      </section>
+
+      <section>
+        <h2>2. Dados que não coletamos</h2>
+        <p>Não operamos servidores que armazenem dados do usuário. Não coletamos, armazenamos nem transmitimos nada do seguinte:</p>
+        <ul>
+          <li>Nomes, e-mails ou telefones (o app não tem cadastro)</li>
+          <li>Gravações de voz ou transcrições além do reconhecimento de fala no dispositivo (ver Seção 4)</li>
+          <li>Vídeos gravados (salvos apenas na sua biblioteca Fotos)</li>
+          <li>Dados de localização</li>
+          <li>Analytics de uso, telemetria ou relatórios de falhas</li>
+          <li>Perfis comportamentais ou de interesse</li>
+          <li>Identificadores de publicidade</li>
+        </ul>
+        <p>O app não contém anúncios de terceiros, SDKs de analytics ou pixels de rastreamento.</p>
+      </section>
+
+      <section>
+        <h2>3. Dados armazenados apenas no seu dispositivo</h2>
+        <p>O app salva as seguintes informações localmente para que seu trabalho persista entre sessões. Nada disso é transmitido para fora do seu dispositivo por nós:</p>
+        <ul>
+          <li><strong>Roteiros</strong> — título, texto, pasta, datas</li>
+          <li><strong>Sessões de gravação</strong> — duração, ritmo, data (para a tela de Estatísticas)</li>
+          <li><strong>Preferências</strong> — fonte, tamanho do texto, espaçamento, velocidade de rolagem, contagem regressiva, manter tela ligada, tema</li>
+          <li><strong>Marcadores</strong> — trechos sinalizados com [INTRO], [BREAK], [Q&amp;A]</li>
+        </ul>
+        <p>Esses dados são guardados no armazenamento local do dispositivo (Hive). Você pode apagá-los a qualquer momento excluindo roteiros e sessões individualmente no app, ou desinstalando o app por completo.</p>
+      </section>
+
+      <section>
+        <h2>4. Microfone e sincronização de voz</h2>
+        <p>O app solicita acesso ao microfone para que o teleprompter role em sincronia com sua fala. O reconhecimento usa as APIs de fala embutidas na plataforma:</p>
+        <ul>
+          <li><strong>iOS:</strong> framework <em>Speech</em> da Apple (<code>SFSpeechRecognizer</code>). Em iPhones recentes, roda inteiramente no dispositivo. Em aparelhos mais antigos, a Apple pode transmitir trechos curtos de áudio aos seus servidores para transcrição — isso é regido pela política da Apple e o app não pode interceptar nem armazenar.</li>
+          <li><strong>Android:</strong> serviço <em>SpeechRecognizer</em>. Dependendo da fabricante e da versão do sistema, pode usar o serviço de fala em nuvem do Google. O app não envia nada adicional junto com o áudio.</li>
+        </ul>
+        <p>O app não armazena gravações de áudio, não registra transcrições e não envia sua voz para nenhum local de nossa escolha. A transcrição é lida e usada imediatamente para avançar o destaque do roteiro; o buffer de áudio subjacente é descartado após o reconhecimento.</p>
+        <p>A sincronização de voz é opcional. O teleprompter funciona totalmente sem o microfone — no modo Manual ele rola automaticamente a uma velocidade fixa que você controla.</p>
+      </section>
+
+      <section>
+        <h2>5. Câmera e gravações</h2>
+        <p>O app solicita acesso à câmera (e opcionalmente ao microfone) ao iniciar uma sessão de gravação de vídeo. O feed da câmera é capturado somente enquanto a gravação está ativa. Encerrar a gravação produz um arquivo MP4 que é salvo na biblioteca Fotos do dispositivo conforme sua escolha.</p>
+        <p>Os vídeos gravados nunca são enviados a nenhum servidor por este app. Compartilhar uma gravação (via menu de compartilhamento do sistema, AirDrop, apps sociais etc.) é iniciado por você e regido pela política do serviço de destino.</p>
+        <p>Usuários gratuitos veem uma pequena marca-d'água "Teleprompter for Video" composta no canto inferior direito dos vídeos gravados. Assinantes Pro não veem. A composição da marca-d'água ocorre inteiramente no dispositivo na finalização da gravação — nenhum dado de vídeo é enviado para fora do aparelho para isso.</p>
+      </section>
+
+      <section>
+        <h2>6. Opcional: sincronização com Google Drive</h2>
+        <p>Se você tocar em "Conectar Google Drive" nas Configurações, o app usa o Google Sign-In com o escopo OAuth <code>drive.appdata</code>. Esse é o escopo de Drive mais restritivo oferecido pelo Google:</p>
+        <ul>
+          <li>O app pode ler e escrever apenas um arquivo <code>scripts.json</code> dentro de uma pasta oculta específica do app, chamada pelo Google de "AppData folder"</li>
+          <li>O app não pode ler, escrever nem mesmo ver qualquer outro arquivo do seu Drive</li>
+          <li>Você pode revogar o acesso a qualquer momento pela página de permissões da sua conta Google</li>
+        </ul>
+        <p>Apenas os roteiros salvos no app são sincronizados. Gravações, áudio, configurações e estatísticas nunca são enviados. O arquivo de sincronização fica na sua própria conta do Drive, não em nenhum servidor que controlemos.</p>
+        <p>Se você sair do Google Drive nas Configurações, a cópia local dos seus roteiros permanece intacta e edições futuras param de sincronizar até que você reconecte.</p>
+      </section>
+
+      <section>
+        <h2>7. Assinaturas e compras no app</h2>
+        <p>A assinatura Pro opcional (mensal, anual ou vitalícia) é processada pelo sistema padrão de compras dentro do app de cada plataforma:</p>
+        <ul>
+          <li><strong>iOS:</strong> StoreKit / App Store da Apple. A Apple recebe suas informações de pagamento; nós não vemos os dados do seu cartão.</li>
+          <li><strong>Android:</strong> Google Play Billing. O Google recebe suas informações de pagamento; nós não vemos os dados do seu cartão.</li>
+        </ul>
+        <p>Para verificar o status da assinatura e liberar o benefício de gravação sem marca-d'água, o app usa a <strong>RevenueCat</strong>, um serviço de gestão de assinaturas. A RevenueCat recebe um ID de usuário anônimo gerado aleatoriamente, seu recibo de compra da Apple ou do Google e informações básicas do dispositivo (modelo, versão do SO, localidade, versão do app). A RevenueCat não recebe seu nome, e-mail, dados de pagamento, nem nenhum dos seus roteiros ou gravações.</p>
+        <p>A política de privacidade da RevenueCat está disponível em <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">revenuecat.com/privacy</a>.</p>
+      </section>
+
+      <section>
+        <h2>8. Permissões solicitadas pelo app</h2>
+        <p>O app solicita apenas as permissões necessárias aos recursos que você realmente usa:</p>
+        <ul>
+          <li><strong>Microfone</strong> — ao ativar a Sincronização de Voz ou gravar um vídeo com áudio</li>
+          <li><strong>Câmera</strong> — ao iniciar uma sessão de gravação</li>
+          <li><strong>Reconhecimento de fala (iOS)</strong> — para transcrever a fala e mover o destaque do teleprompter</li>
+          <li><strong>Biblioteca Fotos / adicionar à biblioteca</strong> — para salvar os vídeos gravados</li>
+          <li><strong>Internet</strong> — necessária apenas para a sincronização opcional do Google Drive e validação de recibos da RevenueCat. Sincronização de voz e gravação funcionam totalmente offline.</li>
+          <li><strong>Pasta Documentos</strong> — para importar roteiros .txt ou .md salvos no Arquivos</li>
+          <li><strong>Exibir sobre outros apps (somente Android)</strong> — para o Modo Flutuante, que coloca uma pequena janela do teleprompter sobre outros apps</li>
+        </ul>
+        <p>O app não solicita acesso a localização, contatos, calendário ou outros dados sensíveis.</p>
+      </section>
+
+      <section>
+        <h2>9. Privacidade de crianças</h2>
+        <p>O Teleprompter for Video não é direcionado a crianças menores de 13 anos. O app não coleta informações pessoais de nenhum usuário, mas os recursos de gravação de vídeo, microfone e assinatura não são pensados para uso por crianças sem supervisão adulta. Pais ou responsáveis que acreditem que sua criança usou o app e tenham dúvidas podem nos contatar pelo e-mail abaixo.</p>
+      </section>
+
+      <section>
+        <h2>10. Seus direitos</h2>
+        <p>Como não coletamos informações pessoais em nossos servidores, não há nada sobre você que possamos acessar, corrigir ou excluir remotamente. Você mantém total controle sobre:</p>
+        <ul>
+          <li><strong>Roteiros e sessões no dispositivo</strong> — exclua individualmente no app, ou desinstale para apagar tudo</li>
+          <li><strong>Sincronização com Google Drive</strong> — desconecte nas Configurações ou revogue em <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a></li>
+          <li><strong>Assinatura</strong> — gerencie ou cancele em Ajustes → Assinaturas no iOS ou Google Play → Assinaturas no Android</li>
+          <li><strong>Acesso a microfone ou câmera</strong> — alterne em Ajustes do iOS → Teleprompter for Video ou Configurações do Android → Apps → Teleprompter for Video → Permissões</li>
+        </ul>
+        <p>Usuários do Espaço Econômico Europeu, Reino Unido, Califórnia e outras jurisdições com leis de privacidade que concedem direitos de acesso, correção, exclusão e oposição podem exercê-los a qualquer momento entrando em contato conosco. Como não armazenamos dados pessoais, a maioria das solicitações será respondida confirmando que não há dados.</p>
+      </section>
+
+      <section>
+        <h2>11. Retenção de dados</h2>
+        <p>Não retemos dados do usuário porque não coletamos nenhum. Os dados no dispositivo persistem somente enquanto o app estiver instalado. A RevenueCat mantém registros anônimos de assinatura enquanto sua assinatura estiver ativa, mais um período de retenção definido pela política deles.</p>
+      </section>
+
+      <section>
+        <h2>12. Usuários internacionais</h2>
+        <p>O Teleprompter for Video está disponível em todo o mundo. O app não transfere dados pessoais entre países porque não coleta dados pessoais. Solicitações na nuvem iniciadas por você (sincronização Google Drive, validação de recibo RevenueCat, processamento de compras no app) podem ser atendidas pela infraestrutura global de Google, Apple ou RevenueCat, sujeitas às respectivas políticas de privacidade.</p>
+      </section>
+
+      <section>
+        <h2>13. Alterações desta política</h2>
+        <p>Caso façamos alterações nesta Política de Privacidade, a versão atualizada será publicada nesta URL com uma nova data de "Última atualização" no topo. Alterações materiais que afetem o tratamento de dados serão destacadas. O uso continuado do app após uma alteração indica aceitação da política revisada.</p>
+      </section>
+
+      <section>
+        <h2>14. Contato</h2>
+        <p>Perguntas, preocupações ou solicitações relativas a direitos podem ser enviadas para:</p>
+        <p><strong>E-mail:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
+        <p>Respondemos em até 7 dias úteis.</p>
+      </section>
+    </div>
+
+    <!-- ============ SPANISH ============ -->
+    <div class="lang-content" data-lang="es">
+      <section>
+        <h2>Versión corta</h2>
+        <p>Teleprompter for Video no recopila datos personales ni rastrea el uso. Tus guiones permanecen en tu teléfono. La sincronización por voz se ejecuta en el dispositivo. La cámara y el micrófono se usan solo mientras hay una grabación activa, y las grabaciones se guardan directamente en tu librería Fotos, no en ningún servidor. La sincronización en la nube es opcional y se limita a una carpeta oculta de Google Drive que solo esta app puede leer. Las suscripciones las procesan Apple y Google; los recibos los valida RevenueCat. Sin publicidad, sin analítica, sin seguimiento de terceros.</p>
+      </section>
+
+      <section>
+        <h2>1. Quiénes somos</h2>
+        <p>Teleprompter for Video («la app», «nosotros») es una aplicación móvil de teleprompter y grabación de vídeo publicada por YOUNESS HARNAFI. Esta Política de privacidad explica qué datos trata y no trata la app cuando la usas en iOS o Android.</p>
+      </section>
+
+      <section>
+        <h2>2. Datos que no recopilamos</h2>
+        <p>No operamos ningún servidor que almacene datos de usuario. No recopilamos, almacenamos ni transmitimos nada de lo siguiente:</p>
+        <ul>
+          <li>Nombres, correos electrónicos o números de teléfono (la app no tiene registro)</li>
+          <li>Grabaciones de voz ni transcripciones más allá del reconocimiento de voz en el dispositivo (ver Sección 4)</li>
+          <li>Vídeos grabados (se guardan solo en tu librería Fotos)</li>
+          <li>Datos de ubicación</li>
+          <li>Analítica de uso, telemetría o informes de fallos</li>
+          <li>Perfiles de comportamiento o de intereses</li>
+          <li>Identificadores publicitarios</li>
+        </ul>
+        <p>La app no contiene publicidad de terceros, SDK de analítica ni píxeles de seguimiento.</p>
+      </section>
+
+      <section>
+        <h2>3. Datos almacenados solo en tu dispositivo</h2>
+        <p>La app guarda la siguiente información de forma local para que tu trabajo persista entre sesiones. Nada de esto se transmite fuera de tu dispositivo por nosotros:</p>
+        <ul>
+          <li><strong>Guiones</strong> — título, texto, carpeta, marcas de tiempo</li>
+          <li><strong>Sesiones de grabación</strong> — duración, ritmo, fecha (para la pantalla de Analíticas)</li>
+          <li><strong>Preferencias</strong> — fuente, tamaño de texto, interlineado, velocidad de desplazamiento, cuenta atrás, mantener pantalla encendida, tema</li>
+          <li><strong>Marcadores</strong> — secciones marcadas con [INTRO], [BREAK], [Q&amp;A]</li>
+        </ul>
+        <p>Estos datos se guardan en el almacenamiento local del dispositivo (Hive). Puedes borrarlos en cualquier momento eliminando guiones y sesiones desde la app, o desinstalando la app por completo.</p>
+      </section>
+
+      <section>
+        <h2>4. Micrófono y sincronización por voz</h2>
+        <p>La app solicita acceso al micrófono para que el teleprompter avance sincronizado con tu voz. El reconocimiento usa las API de voz integradas en la plataforma:</p>
+        <ul>
+          <li><strong>iOS:</strong> el framework <em>Speech</em> de Apple (<code>SFSpeechRecognizer</code>). En iPhones modernos se ejecuta íntegramente en el dispositivo. En dispositivos antiguos, Apple puede transmitir fragmentos cortos de audio a sus servidores para la transcripción — esto se rige por la política de privacidad de Apple y la app no puede interceptarlo ni almacenarlo.</li>
+          <li><strong>Android:</strong> el servicio <em>SpeechRecognizer</em>. Según el fabricante y la versión del sistema, puede usar el servicio de voz en la nube de Google. La app no envía nada adicional con el audio.</li>
+        </ul>
+        <p>La app no almacena grabaciones de audio, no registra transcripciones y no envía tu voz a ningún destino de nuestra elección. La transcripción se lee y se usa de inmediato para avanzar el resaltado del guion; el búfer de audio subyacente se descarta una vez completado el reconocimiento.</p>
+        <p>La sincronización por voz es opcional. El teleprompter funciona por completo sin acceso al micrófono — el modo Manual avanza a una velocidad fija que tú controlas.</p>
+      </section>
+
+      <section>
+        <h2>5. Cámara y grabaciones</h2>
+        <p>La app pide acceso a la cámara (y opcionalmente al micrófono) al iniciar una sesión de grabación de vídeo. La señal de la cámara solo se captura durante una grabación activa. Al detener la grabación se produce un archivo MP4 que se guarda en la librería Fotos del dispositivo según tu elección.</p>
+        <p>Esta app nunca sube los vídeos grabados a ningún servidor. Cualquier acción de compartir (hoja de compartir del sistema, AirDrop, apps sociales, etc.) la inicias tú y se rige por la política de privacidad del servicio de destino.</p>
+        <p>Los usuarios gratuitos ven una pequeña marca de agua «Teleprompter for Video» compuesta en la esquina inferior derecha de los vídeos grabados. Los suscriptores Pro no. La composición de la marca de agua ocurre completamente en el dispositivo al finalizar la grabación — no se envía ningún dato de vídeo fuera del dispositivo para esto.</p>
+      </section>
+
+      <section>
+        <h2>6. Opcional: sincronización con Google Drive</h2>
+        <p>Si tocas «Conectar Google Drive» en Ajustes, la app utiliza Google Sign-In con el ámbito OAuth <code>drive.appdata</code>. Es el ámbito más restrictivo de Drive que ofrece Google:</p>
+        <ul>
+          <li>La app puede leer y escribir únicamente un archivo <code>scripts.json</code> dentro de una carpeta oculta específica de la app llamada por Google «AppData folder»</li>
+          <li>La app no puede leer, escribir ni siquiera ver cualquier otro archivo de tu Drive</li>
+          <li>Puedes revocar el acceso en cualquier momento desde la página de permisos de tu cuenta de Google</li>
+        </ul>
+        <p>Solo se sincronizan los guiones guardados en la app. Las grabaciones, audio, ajustes y analíticas nunca se suben. El archivo de sincronización reside en tu propia cuenta de Drive, no en ningún servidor que controlemos.</p>
+        <p>Si cierras sesión en Google Drive desde Ajustes, la copia local de tus guiones permanece intacta y las ediciones posteriores dejan de sincronizarse hasta que vuelvas a conectarte.</p>
+      </section>
+
+      <section>
+        <h2>7. Suscripciones y compras dentro de la app</h2>
+        <p>La suscripción Pro opcional (mensual, anual o de por vida) la gestiona el sistema estándar de compras integradas de la plataforma:</p>
+        <ul>
+          <li><strong>iOS:</strong> StoreKit / App Store de Apple. Apple recibe tu información de pago; nosotros no vemos los datos de tu tarjeta.</li>
+          <li><strong>Android:</strong> Google Play Billing. Google recibe tu información de pago; nosotros no vemos los datos de tu tarjeta.</li>
+        </ul>
+        <p>Para verificar el estado de tu suscripción y desbloquear la grabación sin marca de agua, la app usa <strong>RevenueCat</strong>, un servicio de gestión de suscripciones. RevenueCat recibe un ID de usuario anónimo generado al azar, tu recibo de compra de Apple o Google e información básica del dispositivo (modelo, versión del SO, idioma, versión de la app). RevenueCat no recibe tu nombre, correo, datos de pago, ni ninguno de tus guiones o grabaciones.</p>
+        <p>La política de privacidad de RevenueCat está disponible en <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">revenuecat.com/privacy</a>.</p>
+      </section>
+
+      <section>
+        <h2>8. Permisos que solicita la app</h2>
+        <p>La app solo solicita los permisos necesarios para las funciones que realmente utilizas:</p>
+        <ul>
+          <li><strong>Micrófono</strong> — al activar la Sincronización por Voz o grabar un vídeo con audio</li>
+          <li><strong>Cámara</strong> — al iniciar una sesión de grabación de vídeo</li>
+          <li><strong>Reconocimiento de voz (iOS)</strong> — para transcribir la voz al resaltado del teleprompter</li>
+          <li><strong>Librería Fotos / Añadir a la librería</strong> — para guardar los vídeos grabados</li>
+          <li><strong>Internet</strong> — necesario solo para la sincronización opcional con Google Drive y la validación de recibos de RevenueCat. Sincronización por voz y grabación funcionan totalmente sin conexión.</li>
+          <li><strong>Carpeta Documentos</strong> — para importar guiones .txt o .md guardados en Archivos</li>
+          <li><strong>Mostrar sobre otras apps (solo Android)</strong> — para el modo Flotante, que muestra una pequeña ventana del teleprompter sobre otras apps</li>
+        </ul>
+        <p>La app no solicita acceso a tu ubicación, contactos, calendario ni a ningún otro dato sensible.</p>
+      </section>
+
+      <section>
+        <h2>9. Privacidad de menores</h2>
+        <p>Teleprompter for Video no está dirigido a menores de 13 años. La app no recopila información personal de ningún usuario, pero las funciones de grabación de vídeo, micrófono y suscripción no están pensadas para uso por menores sin supervisión adulta. Padres o tutores que crean que su hijo ha usado la app y tengan dudas pueden contactarnos en el correo de abajo.</p>
+      </section>
+
+      <section>
+        <h2>10. Tus derechos</h2>
+        <p>Como no recopilamos información personal en nuestros servidores, no hay nada sobre ti a lo que podamos acceder, corregir o eliminar de forma remota. Tú conservas el control total sobre:</p>
+        <ul>
+          <li><strong>Guiones y sesiones en el dispositivo</strong> — bórralos uno a uno en la app, o desinstala para borrarlo todo</li>
+          <li><strong>Sincronización con Google Drive</strong> — desconecta desde Ajustes o revoca desde <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a></li>
+          <li><strong>Suscripción</strong> — gestiona o cancela en Ajustes → Suscripciones en iOS, o Google Play → Suscripciones en Android</li>
+          <li><strong>Acceso al micrófono o la cámara</strong> — cambia en Ajustes iOS → Teleprompter for Video o Ajustes de Android → Aplicaciones → Teleprompter for Video → Permisos</li>
+        </ul>
+        <p>Los usuarios del Espacio Económico Europeo, Reino Unido, California y otras jurisdicciones con leyes de privacidad que otorgan derechos de acceso, rectificación, supresión y oposición pueden ejercerlos en cualquier momento contactándonos. Al no almacenar datos personales, la mayoría de solicitudes se responderán confirmando que no existen datos.</p>
+      </section>
+
+      <section>
+        <h2>11. Conservación de datos</h2>
+        <p>No conservamos datos de usuario porque no recopilamos ninguno. Los datos en el dispositivo persisten solo mientras la app esté instalada. RevenueCat conserva registros anónimos de suscripción mientras tu suscripción esté activa, más un periodo de retención definido por su propia política.</p>
+      </section>
+
+      <section>
+        <h2>12. Usuarios internacionales</h2>
+        <p>Teleprompter for Video está disponible en todo el mundo. La app no transfiere datos personales entre fronteras porque no recopila datos personales. Las solicitudes en la nube que tú inicias (sincronización con Google Drive, validación de recibo de RevenueCat, procesamiento de compras dentro de la app) pueden ser servidas por la infraestructura global de Google, Apple o RevenueCat, sujetas a sus respectivas políticas de privacidad.</p>
+      </section>
+
+      <section>
+        <h2>13. Cambios en esta política</h2>
+        <p>Si introducimos cambios en esta Política de privacidad, la versión actualizada se publicará en esta URL con una nueva fecha de «Última actualización» en la parte superior. Los cambios sustanciales sobre el tratamiento de datos se destacarán. El uso continuado de la app tras un cambio implica la aceptación de la política revisada.</p>
+      </section>
+
+      <section>
+        <h2>14. Contacto</h2>
+        <p>Preguntas, dudas o solicitudes de derechos pueden enviarse a:</p>
+        <p><strong>Correo:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
+        <p>Respondemos en 7 días hábiles.</p>
+      </section>
+    </div>
   </main>
 
   <div class="footer">
@@ -272,5 +1600,50 @@
     <a href="mailto:digiforcebusiness@gmail.com">Contact</a>
     <p style="margin-top:10px">© 2026 YOUNESS HARNAFI. All rights reserved.</p>
   </div>
+
+  <script>
+    (function () {
+      var supported = ['en','ar','zh','fr','de','it','ja','ko','pt','es'];
+      var buttons = document.querySelectorAll('.lang-switcher button');
+      var headerBlocks = document.querySelectorAll('.header-block');
+      var contents = document.querySelectorAll('.lang-content');
+
+      function setLang(lang) {
+        if (supported.indexOf(lang) === -1) lang = 'en';
+        buttons.forEach(function (b) {
+          b.classList.toggle('active', b.dataset.lang === lang);
+        });
+        headerBlocks.forEach(function (h) {
+          h.classList.toggle('active', h.dataset.lang === lang);
+        });
+        contents.forEach(function (c) {
+          c.classList.toggle('active', c.dataset.lang === lang);
+        });
+        document.documentElement.lang = lang;
+        document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+        try { localStorage.setItem('prefLang', lang); } catch (e) {}
+      }
+
+      buttons.forEach(function (b) {
+        b.addEventListener('click', function () {
+          setLang(b.dataset.lang);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+
+      // Initial language: saved preference > browser language > English.
+      var saved = null;
+      try { saved = localStorage.getItem('prefLang'); } catch (e) {}
+      if (saved && supported.indexOf(saved) !== -1) {
+        setLang(saved);
+      } else {
+        var nav = (navigator.language || 'en').toLowerCase();
+        var match = supported.find(function (code) {
+          return code === 'zh' ? nav.startsWith('zh') : nav.startsWith(code);
+        });
+        setLang(match || 'en');
+      }
+    })();
+  </script>
 </body>
 </html>
