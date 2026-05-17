@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="/mental-maths/icon.png" />
   <link rel="shortcut icon" href="/mental-maths/icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@400;600;700&family=Noto+Sans+TC:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -32,10 +32,14 @@
       line-height: 1.75;
       min-height: 100vh;
     }
+    html[lang="ar"] body { font-family: 'Noto Sans Arabic', 'Inter', sans-serif; line-height: 1.95; }
+    html[lang="zh"] body { font-family: 'Noto Sans TC', 'Inter', sans-serif; }
+    html[lang="ja"] body { font-family: 'Noto Sans JP', 'Inter', sans-serif; }
+    html[lang="ko"] body { font-family: 'Noto Sans KR', 'Inter', sans-serif; }
 
     header {
       background: linear-gradient(135deg, var(--indigo), var(--violet));
-      padding: 56px 24px 48px;
+      padding: 56px 24px 36px;
       text-align: center;
     }
 
@@ -52,10 +56,56 @@
       font-size: 0.95rem;
     }
 
+    .updated {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .header-block { display: none; }
+    .header-block.active { display: block; }
+
+    /* Language switcher */
+    .lang-switcher-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 22px 16px 0;
+      background: var(--bg);
+    }
+    .lang-switcher {
+      display: inline-flex;
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      padding: 4px;
+      gap: 2px;
+      max-width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .lang-switcher::-webkit-scrollbar { display: none; }
+    .lang-switcher button {
+      background: transparent;
+      border: 0;
+      color: var(--text-muted);
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.6px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: color 0.15s ease, background 0.15s ease;
+      white-space: nowrap;
+    }
+    .lang-switcher button:hover:not(.active) { color: var(--text); }
+    .lang-switcher button.active { background: var(--amber); color: #1a1d4a; }
+
     main {
       max-width: 760px;
       margin: 0 auto;
-      padding: 48px 24px 80px;
+      padding: 40px 24px 80px;
     }
 
     section {
@@ -80,23 +130,13 @@
       margin-bottom: 10px;
     }
 
-    p strong, li strong {
-      color: var(--text);
-    }
+    p strong, li strong { color: var(--text); }
 
-    ul {
-      padding-left: 20px;
-      margin-top: 4px;
-    }
+    ul { padding-left: 20px; margin-top: 4px; }
+    [dir="rtl"] ul { padding-left: 0; padding-right: 20px; }
 
-    a {
-      color: var(--amber);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
+    a { color: var(--amber); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
     .footer {
       text-align: center;
@@ -105,146 +145,1118 @@
       font-size: 0.85rem;
       border-top: 1px solid var(--border);
     }
+    .footer a { color: var(--text-muted); margin: 0 10px; }
 
-    .footer a {
-      color: var(--text-muted);
-      margin: 0 10px;
-    }
-
-    .updated {
-      display: inline-block;
-      margin-top: 6px;
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.7);
-    }
+    .lang-content { display: none; }
+    .lang-content.active { display: block; }
 
     @media (max-width: 600px) {
-      header { padding: 40px 20px 36px; }
+      header { padding: 40px 20px 28px; }
       header h1 { font-size: 1.6rem; }
-      main { padding: 32px 16px 60px; }
+      main { padding: 28px 16px 60px; }
       section { padding: 22px 22px; }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Privacy Policy</h1>
-    <p>Mental Maths</p>
-    <span class="updated">Last updated: May 11, 2026</span>
+    <div class="header-block active" data-lang="en">
+      <h1>Privacy Policy</h1><p>Mental Maths</p>
+      <span class="updated">Last updated: May 11, 2026</span>
+    </div>
+    <div class="header-block" data-lang="ar" dir="rtl">
+      <h1>سياسة الخصوصية</h1><p>Mental Maths</p>
+      <span class="updated">آخر تحديث: 11 مايو 2026</span>
+    </div>
+    <div class="header-block" data-lang="zh">
+      <h1>隱私政策</h1><p>Mental Maths</p>
+      <span class="updated">最後更新：2026 年 5 月 11 日</span>
+    </div>
+    <div class="header-block" data-lang="fr">
+      <h1>Politique de confidentialité</h1><p>Mental Maths</p>
+      <span class="updated">Dernière mise à jour : 11 mai 2026</span>
+    </div>
+    <div class="header-block" data-lang="de">
+      <h1>Datenschutzerklärung</h1><p>Mental Maths</p>
+      <span class="updated">Zuletzt aktualisiert: 11. Mai 2026</span>
+    </div>
+    <div class="header-block" data-lang="it">
+      <h1>Informativa sulla privacy</h1><p>Mental Maths</p>
+      <span class="updated">Ultimo aggiornamento: 11 maggio 2026</span>
+    </div>
+    <div class="header-block" data-lang="ja">
+      <h1>プライバシーポリシー</h1><p>Mental Maths</p>
+      <span class="updated">最終更新：2026 年 5 月 11 日</span>
+    </div>
+    <div class="header-block" data-lang="ko">
+      <h1>개인정보 처리방침</h1><p>Mental Maths</p>
+      <span class="updated">최종 업데이트: 2026년 5월 11일</span>
+    </div>
+    <div class="header-block" data-lang="pt">
+      <h1>Política de Privacidade</h1><p>Mental Maths</p>
+      <span class="updated">Última atualização: 11 de maio de 2026</span>
+    </div>
+    <div class="header-block" data-lang="es">
+      <h1>Política de privacidad</h1><p>Mental Maths</p>
+      <span class="updated">Última actualización: 11 de mayo de 2026</span>
+    </div>
   </header>
 
+  <div class="lang-switcher-wrap">
+    <div class="lang-switcher" role="tablist" aria-label="Language">
+      <button data-lang="en" class="active" aria-label="English">EN</button>
+      <button data-lang="ar" aria-label="Arabic">AR</button>
+      <button data-lang="zh" aria-label="Chinese (Traditional)">ZH</button>
+      <button data-lang="fr" aria-label="French">FR</button>
+      <button data-lang="de" aria-label="German">DE</button>
+      <button data-lang="it" aria-label="Italian">IT</button>
+      <button data-lang="ja" aria-label="Japanese">JA</button>
+      <button data-lang="ko" aria-label="Korean">KO</button>
+      <button data-lang="pt" aria-label="Portuguese (Brazil)">PT</button>
+      <button data-lang="es" aria-label="Spanish">ES</button>
+    </div>
+  </div>
+
   <main>
-    <section>
-      <h2>The Short Version</h2>
-      <p>Mental Maths does not collect any personal information. There are no accounts, no logins, and no tracking of users. Your training sessions, streak, mistakes, and preferences are stored only on your device. The app shows ads from Google AdMob, configured for family-friendly content (G-rated, non-personalized).</p>
-    </section>
+    <!-- ============ ENGLISH ============ -->
+    <div class="lang-content active" data-lang="en">
+      <section>
+        <h2>The Short Version</h2>
+        <p>Mental Maths does not collect any personal information. There are no accounts, no logins, and no tracking of users. Your training sessions, streak, mistakes, and preferences are stored only on your device. The app shows ads from Google AdMob, configured for family-friendly content (G-rated, non-personalized).</p>
+      </section>
+      <section>
+        <h2>1. Who We Are</h2>
+        <p>Mental Maths ("the app", "we", "our") is a mobile mental-math training app published by YOUNESS HARNAFI. This Privacy Policy explains what data the app does and does not collect when you use it on iOS or Android.</p>
+      </section>
+      <section>
+        <h2>2. Data We Do Not Collect</h2>
+        <p>We do not collect, store, or transmit any of the following:</p>
+        <ul>
+          <li>Names, email addresses, or phone numbers</li>
+          <li>Account credentials of any kind (the app has no sign-in)</li>
+          <li>Location data</li>
+          <li>Photos, contacts, or device files</li>
+          <li>Microphone or camera input</li>
+          <li>App usage analytics or crash reports</li>
+          <li>Behavioral or interest profiles</li>
+        </ul>
+        <p>The app has no servers, no databases, and no telemetry of its own. The optional "Name" field shown on the results screen is stored only on your device — you can leave it blank or set it to any nickname you like.</p>
+      </section>
+      <section>
+        <h2>3. Data Stored Only on Your Device</h2>
+        <p>The app saves the following information locally so your learning progress persists between sessions. This data never leaves your device:</p>
+        <ul>
+          <li><strong>Display name</strong> — the nickname you entered during onboarding (optional)</li>
+          <li><strong>Selected grade level</strong> — to tune question difficulty (1 to 12)</li>
+          <li><strong>Training sessions</strong> — mode, score, accuracy, duration, and timestamp of each completed session</li>
+          <li><strong>Mistakes</strong> — questions you answered incorrectly, kept for the in-app review feature</li>
+          <li><strong>Streak data</strong> — dates on which you completed at least one training session</li>
+          <li><strong>Preferences</strong> — theme (light/dark/system), sound on/off, haptics on/off, default timer length</li>
+        </ul>
+        <p>This data is stored using the device's local storage (Hive on both iOS and Android). You can clear it at any time using "Settings → Reset all progress" inside the app, or by uninstalling the app.</p>
+      </section>
+      <section>
+        <h2>4. Advertising</h2>
+        <p>Mental Maths is supported by ads served through <strong>Google AdMob</strong>. AdMob is the only third-party service used by the app. The app displays:</p>
+        <ul>
+          <li>A small banner ad at the bottom of the Home tab</li>
+          <li>A full-screen interstitial ad shown occasionally between completed training sessions (roughly every second session)</li>
+        </ul>
+        <p>To keep the experience appropriate for students of all ages, AdMob is configured with:</p>
+        <ul>
+          <li><strong>Maximum ad content rating:</strong> G (general audiences only)</li>
+          <li><strong>Non-personalized ads:</strong> enabled where consent is required by law</li>
+        </ul>
+        <p>AdMob may collect a limited set of device signals (device type, IP address, advertising identifier, ad-request metadata) to deliver, measure, and frequency-cap ads. For details on AdMob's data practices, see Google's policy at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>. Apple users can disable ad-tracking system-wide via <em>Settings → Privacy &amp; Security → Tracking</em>. Android users can reset or limit their Advertising ID via <em>Settings → Privacy → Ads</em>.</p>
+      </section>
+      <section>
+        <h2>5. Children's Privacy</h2>
+        <p>Mental Maths is designed for use by learners from grade 1 through grade 12, which includes children under 13. Because the app collects no personal information from any user and has no sign-in, chat, social features, or in-app purchases, it complies with the United States Children's Online Privacy Protection Act (COPPA) and similar regulations including the EU GDPR-K and the UK Age-Appropriate Design Code.</p>
+        <p>Specifically:</p>
+        <ul>
+          <li>No personal information is collected from anyone, including children</li>
+          <li>No registration, sign-in, or parental consent is required to use the app</li>
+          <li>All advertising is filtered to G-rated content</li>
+          <li>The app contains no in-app purchases, no chat, no user-to-user communication, and no links to social media</li>
+        </ul>
+        <p>If you are a parent or guardian and have any questions, please contact us at the email address below.</p>
+      </section>
+      <section>
+        <h2>6. Permissions the App Requests</h2>
+        <p>The app requests only the minimum permissions needed to function:</p>
+        <ul>
+          <li><strong>Internet access</strong> — required only for AdMob to fetch and display ads. The training itself works fully offline.</li>
+          <li><strong>Vibration</strong> — for tactile feedback during gameplay (optional, can be disabled in Settings → Haptics)</li>
+        </ul>
+        <p>The app does not request access to your location, camera, microphone, contacts, photos, calendar, or any other sensitive data.</p>
+      </section>
+      <section>
+        <h2>7. Your Rights</h2>
+        <p>Because we collect no personal information on our servers, there is nothing about you for us to access, correct, or delete remotely. You retain full control over the on-device data described in Section 3:</p>
+        <ul>
+          <li><strong>Reset all progress:</strong> Settings → Reset all progress (wipes sessions, mistakes, streak)</li>
+          <li><strong>Clear only mistakes:</strong> Mistakes screen → trash icon</li>
+          <li><strong>Change your name or grade:</strong> Settings → Name / Grade</li>
+          <li><strong>Disable sound or haptics:</strong> Settings → Feedback</li>
+          <li><strong>Delete all app data:</strong> uninstall the app from your device</li>
+        </ul>
+        <p>Users in the European Economic Area, the United Kingdom, California, and other jurisdictions with privacy laws granting rights of access, correction, deletion, and objection may exercise those rights at any time by contacting us. Because we hold no personal data, most requests will be answered confirming that no data exists.</p>
+      </section>
+      <section>
+        <h2>8. Data Retention</h2>
+        <p>We do not retain any user data because we do not collect any. On-device data persists only as long as the app remains installed and is removed when the user uninstalls or chooses "Reset all progress".</p>
+      </section>
+      <section>
+        <h2>9. International Users</h2>
+        <p>Mental Maths is available worldwide. The app does not transfer personal data across borders because it does not collect personal data. Ads served by Google AdMob may be delivered from Google's global infrastructure subject to Google's own privacy policy.</p>
+      </section>
+      <section>
+        <h2>10. Changes to This Policy</h2>
+        <p>If we make changes to this Privacy Policy, the updated version will be posted at this URL with a new "Last updated" date at the top. Material changes affecting how data is handled will be highlighted. Continued use of the app after a change indicates acceptance of the revised policy.</p>
+      </section>
+      <section>
+        <h2>11. Contact</h2>
+        <p>Questions, concerns, or rights requests can be sent to:</p>
+        <p><strong>Email:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
+        <p>We respond within 7 business days.</p>
+      </section>
+    </div>
 
-    <section>
-      <h2>1. Who We Are</h2>
-      <p>Mental Maths ("the app", "we", "our") is a mobile mental-math training app published by YOUNESS HARNAFI. This Privacy Policy explains what data the app does and does not collect when you use it on iOS or Android.</p>
-    </section>
+    <!-- ============ ARABIC ============ -->
+    <div class="lang-content" data-lang="ar" dir="rtl">
+      <section>
+        <h2>الملخص</h2>
+        <p>لا يجمع تطبيق Mental Maths أي معلومات شخصية. لا توجد حسابات ولا تسجيل دخول ولا تتبّع للمستخدمين. تُخزَّن جلسات التدريب وسلسلة الإنجاز والأخطاء والتفضيلات على جهازك فقط. يعرض التطبيق إعلانات من Google AdMob، مهيّأة لمحتوى مناسب للعائلة (تصنيف عام، غير مخصّص).</p>
+      </section>
+      <section>
+        <h2>1. من نحن</h2>
+        <p>‏Mental Maths ("التطبيق"، "نحن"، "خاصتنا") هو تطبيق محمول لتدريب الحساب الذهني، يصدره يونس حرنافي (YOUNESS HARNAFI). توضح سياسة الخصوصية هذه ما يجمعه التطبيق وما لا يجمعه من بيانات عند استخدامه على iOS أو Android.</p>
+      </section>
+      <section>
+        <h2>2. البيانات التي لا نجمعها</h2>
+        <p>لا نجمع أو نخزّن أو ننقل أيًا مما يلي:</p>
+        <ul>
+          <li>الأسماء أو عناوين البريد الإلكتروني أو أرقام الهواتف</li>
+          <li>أي بيانات اعتماد للحساب (لا يوجد تسجيل دخول في التطبيق)</li>
+          <li>بيانات الموقع الجغرافي</li>
+          <li>الصور أو جهات الاتصال أو ملفات الجهاز</li>
+          <li>مدخلات الميكروفون أو الكاميرا</li>
+          <li>تحليلات استخدام التطبيق أو تقارير الأعطال</li>
+          <li>ملفات تعريف سلوكية أو اهتمامات</li>
+        </ul>
+        <p>لا يملك التطبيق خوادم ولا قواعد بيانات ولا أي قياسات خاصة به. حقل "الاسم" الاختياري الظاهر في شاشة النتائج يُخزَّن على جهازك فقط — يمكنك تركه فارغًا أو إدخال أي لقب تريده.</p>
+      </section>
+      <section>
+        <h2>3. البيانات المخزّنة على جهازك فقط</h2>
+        <p>يحفظ التطبيق المعلومات التالية محليًا حتى يستمر تقدّمك التعليمي بين الجلسات. لا تغادر هذه البيانات جهازك إطلاقًا:</p>
+        <ul>
+          <li><strong>الاسم الظاهر</strong> — اللقب الذي أدخلته أثناء الإعداد (اختياري)</li>
+          <li><strong>المستوى الدراسي المختار</strong> — لضبط صعوبة الأسئلة (من 1 إلى 12)</li>
+          <li><strong>جلسات التدريب</strong> — الوضع والنتيجة والدقة والمدة والطابع الزمني لكل جلسة مكتملة</li>
+          <li><strong>الأخطاء</strong> — الأسئلة التي أجبت عنها بشكل خاطئ، تُحفظ لميزة المراجعة داخل التطبيق</li>
+          <li><strong>بيانات السلسلة</strong> — التواريخ التي أكملت فيها جلسة تدريب واحدة على الأقل</li>
+          <li><strong>التفضيلات</strong> — السمة (فاتح/داكن/النظام)، الصوت، الاهتزاز، مدة المؤقت الافتراضية</li>
+        </ul>
+        <p>تُخزَّن هذه البيانات في وحدة التخزين المحلية للجهاز (Hive على iOS وAndroid). يمكنك مسحها في أي وقت عبر "الإعدادات ← إعادة ضبط كل التقدّم" داخل التطبيق، أو بإزالة تثبيت التطبيق.</p>
+      </section>
+      <section>
+        <h2>4. الإعلانات</h2>
+        <p>يُموَّل تطبيق Mental Maths عبر إعلانات تُعرض من خلال <strong>Google AdMob</strong>. وهي الخدمة الخارجية الوحيدة التي يستخدمها التطبيق. يعرض التطبيق:</p>
+        <ul>
+          <li>إعلان بانر صغير أسفل تبويب الصفحة الرئيسية</li>
+          <li>إعلان بيني بملء الشاشة يُعرض أحيانًا بين جلسات التدريب المكتملة (تقريبًا كل جلسة ثانية)</li>
+        </ul>
+        <p>للحفاظ على تجربة مناسبة للطلاب من جميع الأعمار، تتم تهيئة AdMob بـ:</p>
+        <ul>
+          <li><strong>الحد الأقصى لتصنيف محتوى الإعلان:</strong> عام (G — لجميع الفئات)</li>
+          <li><strong>إعلانات غير مخصّصة:</strong> مفعّلة حيثما تتطلب القوانين الحصول على الموافقة</li>
+        </ul>
+        <p>قد يجمع AdMob مجموعة محدودة من إشارات الجهاز (نوع الجهاز، عنوان IP، معرّف الإعلانات، بيانات طلب الإعلان) لعرض الإعلانات وقياسها وضبط تكرارها. لتفاصيل ممارسات بيانات AdMob، راجع سياسة Google على <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>. يمكن لمستخدمي Apple تعطيل تتبّع الإعلانات على مستوى النظام عبر <em>الإعدادات ← الخصوصية والأمان ← التتبّع</em>. ويمكن لمستخدمي Android إعادة تعيين معرّف الإعلانات أو الحد منه عبر <em>الإعدادات ← الخصوصية ← الإعلانات</em>.</p>
+      </section>
+      <section>
+        <h2>5. خصوصية الأطفال</h2>
+        <p>صُمِّم تطبيق Mental Maths للمتعلمين من الصف الأول حتى الصف الثاني عشر، وهذا يشمل أطفالًا دون سن 13. ولأن التطبيق لا يجمع أي معلومات شخصية من أي مستخدم وليس فيه تسجيل دخول أو محادثة أو ميزات اجتماعية أو مشتريات داخل التطبيق، فإنه يمتثل لقانون حماية خصوصية الأطفال على الإنترنت في الولايات المتحدة (COPPA) ولوائح مماثلة منها GDPR-K في الاتحاد الأوروبي ومدوّنة التصميم الملائم للعمر في المملكة المتحدة.</p>
+        <p>وعلى وجه التحديد:</p>
+        <ul>
+          <li>لا تُجمع أي معلومات شخصية من أي شخص، بمن في ذلك الأطفال</li>
+          <li>لا يلزم أي تسجيل أو تسجيل دخول أو موافقة وليّ الأمر لاستخدام التطبيق</li>
+          <li>تُصفّى جميع الإعلانات إلى محتوى بتصنيف عام</li>
+          <li>لا يحتوي التطبيق على مشتريات داخلية ولا محادثة ولا تواصل بين المستخدمين ولا روابط لوسائل التواصل الاجتماعي</li>
+        </ul>
+        <p>إذا كنت وليّ أمر ولديك أي أسئلة، يُرجى التواصل معنا عبر البريد الإلكتروني أدناه.</p>
+      </section>
+      <section>
+        <h2>6. الأذونات التي يطلبها التطبيق</h2>
+        <p>يطلب التطبيق فقط الحد الأدنى من الأذونات اللازمة لعمله:</p>
+        <ul>
+          <li><strong>الوصول إلى الإنترنت</strong> — مطلوب فقط لكي يجلب AdMob الإعلانات ويعرضها. أما التدريب نفسه فيعمل دون اتصال بالكامل.</li>
+          <li><strong>الاهتزاز</strong> — للتغذية الراجعة اللمسية أثناء اللعب (اختياري، يمكن تعطيله من الإعدادات ← الاهتزاز)</li>
+        </ul>
+        <p>لا يطلب التطبيق الوصول إلى موقعك أو الكاميرا أو الميكروفون أو جهات الاتصال أو الصور أو التقويم أو أي بيانات حساسة أخرى.</p>
+      </section>
+      <section>
+        <h2>7. حقوقك</h2>
+        <p>لأننا لا نجمع أي معلومات شخصية على خوادمنا، لا توجد بيانات تخصّك يمكننا الوصول إليها أو تصحيحها أو حذفها عن بُعد. تحتفظ بالتحكم الكامل في البيانات المخزّنة على الجهاز والموضّحة في القسم 3:</p>
+        <ul>
+          <li><strong>إعادة ضبط كل التقدّم:</strong> الإعدادات ← إعادة ضبط كل التقدّم (يمحو الجلسات والأخطاء والسلسلة)</li>
+          <li><strong>مسح الأخطاء فقط:</strong> شاشة الأخطاء ← أيقونة سلة المهملات</li>
+          <li><strong>تغيير الاسم أو المستوى:</strong> الإعدادات ← الاسم / المستوى</li>
+          <li><strong>تعطيل الصوت أو الاهتزاز:</strong> الإعدادات ← التغذية الراجعة</li>
+          <li><strong>حذف كل بيانات التطبيق:</strong> أزِل تثبيت التطبيق من جهازك</li>
+        </ul>
+        <p>يحق للمستخدمين في المنطقة الاقتصادية الأوروبية والمملكة المتحدة وكاليفورنيا وغيرها من الولايات القضائية ذات قوانين الخصوصية التي تمنح حقوق الوصول والتصحيح والحذف والاعتراض ممارسة هذه الحقوق في أي وقت بمراسلتنا. ولأننا لا نحتفظ ببيانات شخصية، فستُجاب معظم الطلبات بتأكيد عدم وجود بيانات.</p>
+      </section>
+      <section>
+        <h2>8. الاحتفاظ بالبيانات</h2>
+        <p>لا نحتفظ بأي بيانات للمستخدم لأننا لا نجمع أي بيانات. تبقى البيانات على الجهاز ما دام التطبيق مثبتًا، وتُزال عند إزالة تثبيت التطبيق أو اختيار "إعادة ضبط كل التقدّم".</p>
+      </section>
+      <section>
+        <h2>9. المستخدمون الدوليون</h2>
+        <p>‏Mental Maths متاح في جميع أنحاء العالم. لا ينقل التطبيق بيانات شخصية عبر الحدود لأنه لا يجمعها أصلًا. قد تُسلَّم الإعلانات التي يعرضها Google AdMob من البنية التحتية العالمية لـ Google وتخضع لسياسة خصوصية Google الخاصة.</p>
+      </section>
+      <section>
+        <h2>10. التغييرات على هذه السياسة</h2>
+        <p>إذا أجرينا تغييرات على سياسة الخصوصية هذه، فسيتم نشر النسخة المحدّثة على هذا العنوان مع تاريخ "آخر تحديث" جديد في الأعلى. ستُبرَز التغييرات الجوهرية المتعلقة بطريقة التعامل مع البيانات. استمرار استخدامك للتطبيق بعد التغيير يُعدّ قبولًا للسياسة المعدّلة.</p>
+      </section>
+      <section>
+        <h2>11. الاتصال بنا</h2>
+        <p>يمكن إرسال الأسئلة أو المخاوف أو طلبات الحقوق إلى:</p>
+        <p><strong>البريد الإلكتروني:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
+        <p>نردّ خلال 7 أيام عمل.</p>
+      </section>
+    </div>
 
-    <section>
-      <h2>2. Data We Do Not Collect</h2>
-      <p>We do not collect, store, or transmit any of the following:</p>
-      <ul>
-        <li>Names, email addresses, or phone numbers</li>
-        <li>Account credentials of any kind (the app has no sign-in)</li>
-        <li>Location data</li>
-        <li>Photos, contacts, or device files</li>
-        <li>Microphone or camera input</li>
-        <li>App usage analytics or crash reports</li>
-        <li>Behavioral or interest profiles</li>
-      </ul>
-      <p>The app has no servers, no databases, and no telemetry of its own. The optional "Name" field shown on the results screen is stored only on your device — you can leave it blank or set it to any nickname you like.</p>
-    </section>
+    <!-- ============ CHINESE TRADITIONAL ============ -->
+    <div class="lang-content" data-lang="zh">
+      <section>
+        <h2>簡短版本</h2>
+        <p>Mental Maths 不會收集任何個人資訊。沒有帳戶、沒有登入、不追蹤使用者。您的訓練記錄、連續天數、錯題與偏好設定僅儲存在您的裝置上。本應用程式顯示來自 Google AdMob 的廣告,並設定為適合家庭的內容(普遍級、非個人化)。</p>
+      </section>
+      <section>
+        <h2>1. 關於我們</h2>
+        <p>Mental Maths(「本應用程式」、「我們」)是一款由 YOUNESS HARNAFI 發行的行動裝置心算訓練應用程式。本隱私政策說明您在 iOS 或 Android 上使用本應用程式時,我們收集與不收集哪些資料。</p>
+      </section>
+      <section>
+        <h2>2. 我們不收集的資料</h2>
+        <p>我們不會收集、儲存或傳輸以下任何資料:</p>
+        <ul>
+          <li>姓名、電子郵件或電話號碼</li>
+          <li>任何形式的帳戶憑證(本應用程式無登入功能)</li>
+          <li>位置資料</li>
+          <li>相片、聯絡人或裝置檔案</li>
+          <li>麥克風或攝影機輸入</li>
+          <li>應用程式使用分析或當機報告</li>
+          <li>行為或興趣個人檔案</li>
+        </ul>
+        <p>本應用程式沒有自己的伺服器、資料庫或遙測。結果畫面上顯示的選填「名稱」欄位僅儲存於您的裝置 — 您可以留空,或填入任何您喜歡的暱稱。</p>
+      </section>
+      <section>
+        <h2>3. 僅儲存在您裝置上的資料</h2>
+        <p>本應用程式會於本機儲存下列資訊,讓您的學習進度在工作階段之間保留。這些資料絕不會離開您的裝置:</p>
+        <ul>
+          <li><strong>顯示名稱</strong> — 您在引導流程中輸入的暱稱(選填)</li>
+          <li><strong>選擇的年級</strong> — 用於調整題目難度(1 至 12 年級)</li>
+          <li><strong>訓練記錄</strong> — 每次完成的模式、分數、正確率、時長與時間戳記</li>
+          <li><strong>錯題</strong> — 您答錯的題目,供應用程式內複習功能使用</li>
+          <li><strong>連續天數資料</strong> — 您至少完成一次訓練的日期</li>
+          <li><strong>偏好設定</strong> — 主題(淺色/深色/系統)、音效開關、震動開關、預設計時長度</li>
+        </ul>
+        <p>這些資料儲存於裝置的本機儲存空間(iOS 與 Android 皆使用 Hive)。您可隨時在應用程式內透過「設定 → 重設所有進度」清除,或解除安裝本應用程式。</p>
+      </section>
+      <section>
+        <h2>4. 廣告</h2>
+        <p>Mental Maths 透過 <strong>Google AdMob</strong> 投放的廣告獲得支援。AdMob 是本應用程式使用的唯一第三方服務。本應用程式顯示:</p>
+        <ul>
+          <li>首頁分頁底部的小型橫幅廣告</li>
+          <li>在完成的訓練之間偶爾顯示的全螢幕插頁廣告(約每兩次訓練一次)</li>
+        </ul>
+        <p>為使體驗適合各年齡層的學生,AdMob 設定為:</p>
+        <ul>
+          <li><strong>廣告內容分級上限:</strong> G(僅普遍級)</li>
+          <li><strong>非個人化廣告:</strong> 在法律要求徵得同意的地區啟用</li>
+        </ul>
+        <p>AdMob 可能會收集有限的裝置訊號(裝置類型、IP 位址、廣告識別碼、廣告請求中繼資料)以投放、評估廣告並進行頻率上限控制。有關 AdMob 的資料做法,請參閱 Google 政策:<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>。Apple 使用者可透過 <em>設定 → 隱私權與安全性 → 追蹤</em> 在系統層級停用廣告追蹤。Android 使用者可透過 <em>設定 → 隱私權 → 廣告</em> 重設或限制廣告 ID。</p>
+      </section>
+      <section>
+        <h2>5. 兒童隱私</h2>
+        <p>Mental Maths 專為一年級至十二年級的學習者設計,當中包含 13 歲以下的兒童。由於本應用程式不向任何使用者收集個人資訊,且沒有登入、聊天、社群功能或應用程式內購買,因此符合美國《兒童網路隱私保護法》(COPPA)以及包括歐盟 GDPR-K 與英國《適齡設計準則》在內的類似法規。</p>
+        <p>具體而言:</p>
+        <ul>
+          <li>不向任何人(包括兒童)收集個人資訊</li>
+          <li>使用本應用程式不需註冊、登入或家長同意</li>
+          <li>所有廣告皆篩選為普遍級內容</li>
+          <li>本應用程式不含應用程式內購買、聊天、使用者間通訊,亦無社群媒體連結</li>
+        </ul>
+        <p>若您是家長或監護人並有任何疑問,請透過下方電子郵件與我們聯絡。</p>
+      </section>
+      <section>
+        <h2>6. 應用程式請求的權限</h2>
+        <p>本應用程式僅請求運作所需的最低限度權限:</p>
+        <ul>
+          <li><strong>網際網路存取</strong> — 僅供 AdMob 擷取並顯示廣告所需。訓練本身完全可離線運作。</li>
+          <li><strong>震動</strong> — 用於遊戲過程中的觸覺回饋(選用,可於 設定 → 震動 中停用)</li>
+        </ul>
+        <p>本應用程式不會請求存取您的位置、攝影機、麥克風、聯絡人、相片、行事曆或任何其他敏感資料。</p>
+      </section>
+      <section>
+        <h2>7. 您的權利</h2>
+        <p>由於我們的伺服器並不收集任何個人資訊,因此沒有任何關於您的資料可供我們遠端存取、更正或刪除。您仍可完全掌控第 3 節所述的裝置內資料:</p>
+        <ul>
+          <li><strong>重設所有進度:</strong> 設定 → 重設所有進度(清除記錄、錯題、連續天數)</li>
+          <li><strong>僅清除錯題:</strong> 錯題畫面 → 垃圾桶圖示</li>
+          <li><strong>變更名稱或年級:</strong> 設定 → 名稱 / 年級</li>
+          <li><strong>停用音效或震動:</strong> 設定 → 回饋</li>
+          <li><strong>刪除所有應用程式資料:</strong> 從裝置解除安裝本應用程式</li>
+        </ul>
+        <p>位於歐洲經濟區、英國、加州及其他賦予存取、更正、刪除與反對權的隱私法規管轄區的使用者,可隨時透過聯絡我們以行使這些權利。由於我們未持有個人資料,大多數要求將以「沒有任何資料可供處理」作為回覆。</p>
+      </section>
+      <section>
+        <h2>8. 資料保留</h2>
+        <p>我們不保留任何使用者資料,因為我們並不收集任何資料。裝置上的資料僅在應用程式仍安裝期間存在,並會在使用者解除安裝或選擇「重設所有進度」時移除。</p>
+      </section>
+      <section>
+        <h2>9. 國際使用者</h2>
+        <p>Mental Maths 全球皆可使用。本應用程式不會跨境傳輸個人資料,因為它並不收集個人資料。Google AdMob 投放的廣告可能由 Google 的全球基礎設施提供,並受 Google 自身的隱私政策約束。</p>
+      </section>
+      <section>
+        <h2>10. 本政策的變更</h2>
+        <p>若我們對本隱私政策作出變更,將在此網址刊載更新版本,並於頂端標示新的「最後更新」日期。涉及資料處理方式的重大變更會被特別標示。在變更後繼續使用本應用程式即視為接受修訂後的政策。</p>
+      </section>
+      <section>
+        <h2>11. 聯絡我們</h2>
+        <p>如有問題、疑慮或權利相關請求,請聯絡:</p>
+        <p><strong>電子郵件:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
+        <p>我們將於 7 個工作日內回覆。</p>
+      </section>
+    </div>
 
-    <section>
-      <h2>3. Data Stored Only on Your Device</h2>
-      <p>The app saves the following information locally so your learning progress persists between sessions. This data never leaves your device:</p>
-      <ul>
-        <li><strong>Display name</strong> — the nickname you entered during onboarding (optional)</li>
-        <li><strong>Selected grade level</strong> — to tune question difficulty (1 to 12)</li>
-        <li><strong>Training sessions</strong> — mode, score, accuracy, duration, and timestamp of each completed session</li>
-        <li><strong>Mistakes</strong> — questions you answered incorrectly, kept for the in-app review feature</li>
-        <li><strong>Streak data</strong> — dates on which you completed at least one training session</li>
-        <li><strong>Preferences</strong> — theme (light/dark/system), sound on/off, haptics on/off, default timer length</li>
-      </ul>
-      <p>This data is stored using the device's local storage (Hive on both iOS and Android). You can clear it at any time using "Settings → Reset all progress" inside the app, or by uninstalling the app.</p>
-    </section>
+    <!-- ============ FRENCH ============ -->
+    <div class="lang-content" data-lang="fr">
+      <section>
+        <h2>Version courte</h2>
+        <p>Mental Maths ne collecte aucune information personnelle. Pas de comptes, pas de connexion, aucun pistage des utilisateurs. Vos sessions d'entraînement, votre série, vos erreurs et vos préférences sont stockées uniquement sur votre appareil. L'application affiche des publicités via Google AdMob, configurées pour un contenu familial (tout public, non personnalisé).</p>
+      </section>
+      <section>
+        <h2>1. Qui sommes-nous</h2>
+        <p>Mental Maths (« l'application », « nous », « notre ») est une application mobile d'entraînement au calcul mental publiée par YOUNESS HARNAFI. Cette Politique de confidentialité explique quelles données l'application collecte et ne collecte pas lorsque vous l'utilisez sur iOS ou Android.</p>
+      </section>
+      <section>
+        <h2>2. Données que nous ne collectons pas</h2>
+        <p>Nous ne collectons, ne stockons ni ne transmettons aucun des éléments suivants :</p>
+        <ul>
+          <li>Noms, adresses e-mail ou numéros de téléphone</li>
+          <li>Identifiants de compte de toute nature (l'application n'a pas de connexion)</li>
+          <li>Données de localisation</li>
+          <li>Photos, contacts ou fichiers de l'appareil</li>
+          <li>Entrée du microphone ou de la caméra</li>
+          <li>Analytique d'utilisation ou rapports de plantage</li>
+          <li>Profils comportementaux ou d'intérêt</li>
+        </ul>
+        <p>L'application n'a ni serveurs, ni bases de données, ni télémétrie propre. Le champ « Nom » facultatif affiché sur l'écran des résultats est stocké uniquement sur votre appareil — vous pouvez le laisser vide ou y mettre le surnom de votre choix.</p>
+      </section>
+      <section>
+        <h2>3. Données stockées uniquement sur votre appareil</h2>
+        <p>L'application enregistre localement les informations suivantes pour que votre progression d'apprentissage persiste entre les sessions. Ces données ne quittent jamais votre appareil :</p>
+        <ul>
+          <li><strong>Nom affiché</strong> — le surnom saisi lors de la configuration (facultatif)</li>
+          <li><strong>Niveau scolaire sélectionné</strong> — pour ajuster la difficulté des questions (1 à 12)</li>
+          <li><strong>Sessions d'entraînement</strong> — mode, score, précision, durée et horodatage de chaque session terminée</li>
+          <li><strong>Erreurs</strong> — questions auxquelles vous avez mal répondu, conservées pour la fonction de révision intégrée</li>
+          <li><strong>Données de série</strong> — dates auxquelles vous avez terminé au moins une session</li>
+          <li><strong>Préférences</strong> — thème (clair/sombre/système), son activé/désactivé, retour haptique activé/désactivé, durée du minuteur par défaut</li>
+        </ul>
+        <p>Ces données sont stockées dans la mémoire locale de l'appareil (Hive sur iOS comme sur Android). Vous pouvez les effacer à tout moment via « Réglages → Réinitialiser toute la progression » dans l'application, ou en désinstallant l'application.</p>
+      </section>
+      <section>
+        <h2>4. Publicité</h2>
+        <p>Mental Maths est soutenue par des publicités diffusées via <strong>Google AdMob</strong>. AdMob est le seul service tiers utilisé par l'application. L'application affiche :</p>
+        <ul>
+          <li>Une petite bannière en bas de l'onglet Accueil</li>
+          <li>Une publicité interstitielle plein écran affichée occasionnellement entre les sessions terminées (environ une session sur deux)</li>
+        </ul>
+        <p>Pour que l'expérience reste adaptée aux élèves de tous âges, AdMob est configuré avec :</p>
+        <ul>
+          <li><strong>Classification maximale du contenu publicitaire :</strong> G (tout public uniquement)</li>
+          <li><strong>Publicités non personnalisées :</strong> activées là où le consentement est requis par la loi</li>
+        </ul>
+        <p>AdMob peut collecter un ensemble limité de signaux de l'appareil (type d'appareil, adresse IP, identifiant publicitaire, métadonnées de demande publicitaire) pour diffuser, mesurer et plafonner la fréquence des publicités. Pour plus de détails sur les pratiques d'AdMob, voir la politique de Google sur <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>. Les utilisateurs Apple peuvent désactiver le pistage publicitaire à l'échelle du système via <em>Réglages → Confidentialité et sécurité → Suivi</em>. Les utilisateurs Android peuvent réinitialiser ou limiter leur identifiant publicitaire via <em>Paramètres → Confidentialité → Annonces</em>.</p>
+      </section>
+      <section>
+        <h2>5. Vie privée des enfants</h2>
+        <p>Mental Maths est conçue pour des apprenants de la 1re à la 12e année, ce qui inclut des enfants de moins de 13 ans. Comme l'application ne collecte aucune information personnelle et n'a ni connexion, ni chat, ni fonctions sociales, ni achats intégrés, elle est conforme au Children's Online Privacy Protection Act (COPPA) des États-Unis et à des réglementations similaires, dont le RGPD-K de l'UE et le UK Age-Appropriate Design Code.</p>
+        <p>Concrètement :</p>
+        <ul>
+          <li>Aucune information personnelle n'est collectée auprès de quiconque, y compris les enfants</li>
+          <li>Aucune inscription, connexion ni consentement parental n'est requis pour utiliser l'application</li>
+          <li>Toute la publicité est filtrée vers du contenu tout public</li>
+          <li>L'application ne contient pas d'achats intégrés, pas de chat, pas de communication entre utilisateurs et aucun lien vers les réseaux sociaux</li>
+        </ul>
+        <p>Si vous êtes parent ou tuteur et avez des questions, contactez-nous à l'adresse e-mail ci-dessous.</p>
+      </section>
+      <section>
+        <h2>6. Permissions demandées par l'application</h2>
+        <p>L'application ne demande que les permissions minimales nécessaires à son fonctionnement :</p>
+        <ul>
+          <li><strong>Accès Internet</strong> — requis uniquement pour qu'AdMob récupère et affiche les publicités. L'entraînement lui-même fonctionne entièrement hors-ligne.</li>
+          <li><strong>Vibration</strong> — pour le retour tactile pendant le jeu (facultatif, désactivable dans Réglages → Retour haptique)</li>
+        </ul>
+        <p>L'application ne demande pas l'accès à votre localisation, caméra, microphone, contacts, photos, calendrier ni à aucune autre donnée sensible.</p>
+      </section>
+      <section>
+        <h2>7. Vos droits</h2>
+        <p>Comme nous ne collectons aucune information personnelle sur nos serveurs, il n'y a rien à votre sujet que nous puissions consulter, corriger ou supprimer à distance. Vous conservez la pleine maîtrise des données sur l'appareil décrites à la Section 3 :</p>
+        <ul>
+          <li><strong>Réinitialiser toute la progression :</strong> Réglages → Réinitialiser toute la progression (efface sessions, erreurs, série)</li>
+          <li><strong>Effacer uniquement les erreurs :</strong> écran Erreurs → icône corbeille</li>
+          <li><strong>Changer votre nom ou niveau :</strong> Réglages → Nom / Niveau</li>
+          <li><strong>Désactiver le son ou le retour haptique :</strong> Réglages → Retour</li>
+          <li><strong>Supprimer toutes les données :</strong> désinstallez l'application de votre appareil</li>
+        </ul>
+        <p>Les utilisateurs de l'Espace économique européen, du Royaume-Uni, de Californie et d'autres juridictions accordant des droits d'accès, de rectification, d'effacement et d'opposition peuvent les exercer à tout moment en nous contactant. Comme nous ne détenons aucune donnée personnelle, la plupart des demandes seront traitées en confirmant qu'aucune donnée n'existe.</p>
+      </section>
+      <section>
+        <h2>8. Conservation des données</h2>
+        <p>Nous ne conservons aucune donnée utilisateur puisque nous n'en collectons aucune. Les données sur l'appareil ne persistent que tant que l'application reste installée et sont supprimées lorsque l'utilisateur la désinstalle ou choisit « Réinitialiser toute la progression ».</p>
+      </section>
+      <section>
+        <h2>9. Utilisateurs internationaux</h2>
+        <p>Mental Maths est disponible dans le monde entier. L'application ne transfère pas de données personnelles à l'étranger puisqu'elle n'en collecte pas. Les publicités diffusées par Google AdMob peuvent provenir de l'infrastructure mondiale de Google, soumise à la propre politique de confidentialité de Google.</p>
+      </section>
+      <section>
+        <h2>10. Modifications de cette politique</h2>
+        <p>Si nous modifions cette Politique de confidentialité, la version mise à jour sera publiée à cette URL avec une nouvelle date « Dernière mise à jour » en haut. Les changements importants concernant le traitement des données seront mis en évidence. Continuer à utiliser l'application après une modification vaut acceptation de la politique révisée.</p>
+      </section>
+      <section>
+        <h2>11. Contact</h2>
+        <p>Questions, préoccupations ou demandes relatives aux droits peuvent être envoyées à :</p>
+        <p><strong>E-mail :</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
+        <p>Nous répondons sous 7 jours ouvrés.</p>
+      </section>
+    </div>
 
-    <section>
-      <h2>4. Advertising</h2>
-      <p>Mental Maths is supported by ads served through <strong>Google AdMob</strong>. AdMob is the only third-party service used by the app. The app displays:</p>
-      <ul>
-        <li>A small banner ad at the bottom of the Home tab</li>
-        <li>A full-screen interstitial ad shown occasionally between completed training sessions (roughly every second session)</li>
-      </ul>
-      <p>To keep the experience appropriate for students of all ages, AdMob is configured with:</p>
-      <ul>
-        <li><strong>Maximum ad content rating:</strong> G (general audiences only)</li>
-        <li><strong>Non-personalized ads:</strong> enabled where consent is required by law</li>
-      </ul>
-      <p>AdMob may collect a limited set of device signals (device type, IP address, advertising identifier, ad-request metadata) to deliver, measure, and frequency-cap ads. For details on AdMob's data practices, see Google's policy at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>. Apple users can disable ad-tracking system-wide via <em>Settings → Privacy &amp; Security → Tracking</em>. Android users can reset or limit their Advertising ID via <em>Settings → Privacy → Ads</em>.</p>
-    </section>
+    <!-- ============ GERMAN ============ -->
+    <div class="lang-content" data-lang="de">
+      <section>
+        <h2>Kurzfassung</h2>
+        <p>Mental Maths erhebt keinerlei personenbezogene Daten. Es gibt keine Konten, keine Anmeldungen und kein Tracking der Nutzer. Ihre Trainingseinheiten, Ihre Serie, Ihre Fehler und Einstellungen werden nur auf Ihrem Gerät gespeichert. Die App zeigt Werbung über Google AdMob, konfiguriert für familienfreundliche Inhalte (Freigabe ab 0, nicht personalisiert).</p>
+      </section>
+      <section>
+        <h2>1. Wer wir sind</h2>
+        <p>Mental Maths („die App", „wir", „unser") ist eine mobile App zum Training des Kopfrechnens, herausgegeben von YOUNESS HARNAFI. Diese Datenschutzerklärung erläutert, welche Daten die App bei Nutzung unter iOS oder Android erhebt und welche nicht.</p>
+      </section>
+      <section>
+        <h2>2. Daten, die wir nicht erheben</h2>
+        <p>Wir erheben, speichern oder übertragen keine der folgenden Informationen:</p>
+        <ul>
+          <li>Namen, E-Mail-Adressen oder Telefonnummern</li>
+          <li>Konto-Anmeldedaten jeglicher Art (die App hat keine Anmeldung)</li>
+          <li>Standortdaten</li>
+          <li>Fotos, Kontakte oder Gerätedateien</li>
+          <li>Mikrofon- oder Kameraeingaben</li>
+          <li>App-Nutzungsanalytik oder Absturzberichte</li>
+          <li>Verhaltens- oder Interessensprofile</li>
+        </ul>
+        <p>Die App hat keine eigenen Server, keine Datenbanken und keine eigene Telemetrie. Das optionale Feld „Name" auf dem Ergebnisbildschirm wird nur auf Ihrem Gerät gespeichert — Sie können es leer lassen oder einen beliebigen Spitznamen eintragen.</p>
+      </section>
+      <section>
+        <h2>3. Daten, die nur auf Ihrem Gerät gespeichert werden</h2>
+        <p>Die App speichert folgende Informationen lokal, damit Ihr Lernfortschritt zwischen Sitzungen erhalten bleibt. Diese Daten verlassen Ihr Gerät niemals:</p>
+        <ul>
+          <li><strong>Anzeigename</strong> — der beim Onboarding eingegebene Spitzname (optional)</li>
+          <li><strong>Gewählte Klassenstufe</strong> — zur Anpassung des Schwierigkeitsgrads (1 bis 12)</li>
+          <li><strong>Trainingseinheiten</strong> — Modus, Punktzahl, Genauigkeit, Dauer und Zeitstempel jeder abgeschlossenen Einheit</li>
+          <li><strong>Fehler</strong> — falsch beantwortete Aufgaben, gespeichert für die integrierte Wiederholungsfunktion</li>
+          <li><strong>Seriendaten</strong> — Tage, an denen Sie mindestens eine Trainingseinheit abgeschlossen haben</li>
+          <li><strong>Einstellungen</strong> — Design (hell/dunkel/System), Ton an/aus, Haptik an/aus, Standard-Timerdauer</li>
+        </ul>
+        <p>Diese Daten werden im lokalen Speicher des Geräts abgelegt (Hive unter iOS wie Android). Sie können sie jederzeit über „Einstellungen → Gesamten Fortschritt zurücksetzen" in der App löschen oder durch Deinstallation der App.</p>
+      </section>
+      <section>
+        <h2>4. Werbung</h2>
+        <p>Mental Maths wird durch Werbung über <strong>Google AdMob</strong> finanziert. AdMob ist der einzige von der App genutzte Drittanbieterdienst. Die App zeigt:</p>
+        <ul>
+          <li>Eine kleine Banner-Anzeige unten im Start-Tab</li>
+          <li>Eine bildschirmfüllende Interstitial-Anzeige, die gelegentlich zwischen abgeschlossenen Einheiten erscheint (etwa jede zweite Einheit)</li>
+        </ul>
+        <p>Damit das Erlebnis für Lernende jeden Alters angemessen bleibt, ist AdMob konfiguriert mit:</p>
+        <ul>
+          <li><strong>Maximale Inhaltsfreigabe der Werbung:</strong> G (nur allgemeines Publikum)</li>
+          <li><strong>Nicht personalisierte Werbung:</strong> aktiviert, wo eine Einwilligung gesetzlich erforderlich ist</li>
+        </ul>
+        <p>AdMob kann einen begrenzten Satz von Gerätesignalen erheben (Gerätetyp, IP-Adresse, Werbe-ID, Metadaten der Werbeanfrage), um Anzeigen auszuliefern, zu messen und in der Häufigkeit zu begrenzen. Einzelheiten zu den Datenpraktiken von AdMob finden Sie in Googles Richtlinie unter <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>. Apple-Nutzer können das Werbe-Tracking systemweit über <em>Einstellungen → Datenschutz &amp; Sicherheit → Tracking</em> deaktivieren. Android-Nutzer können ihre Werbe-ID über <em>Einstellungen → Datenschutz → Werbung</em> zurücksetzen oder einschränken.</p>
+      </section>
+      <section>
+        <h2>5. Datenschutz von Kindern</h2>
+        <p>Mental Maths ist für Lernende von der 1. bis zur 12. Klasse konzipiert, was Kinder unter 13 Jahren einschließt. Da die App von keinem Nutzer personenbezogene Daten erhebt und weder Anmeldung, Chat, soziale Funktionen noch In-App-Käufe hat, entspricht sie dem US-amerikanischen Children's Online Privacy Protection Act (COPPA) sowie ähnlichen Regelungen, darunter die EU-DSGVO-K und der UK Age-Appropriate Design Code.</p>
+        <p>Konkret:</p>
+        <ul>
+          <li>Von niemandem werden personenbezogene Daten erhoben, auch nicht von Kindern</li>
+          <li>Für die Nutzung der App ist keine Registrierung, Anmeldung oder elterliche Einwilligung erforderlich</li>
+          <li>Sämtliche Werbung ist auf Inhalte mit Freigabe ab 0 gefiltert</li>
+          <li>Die App enthält keine In-App-Käufe, keinen Chat, keine Nutzer-zu-Nutzer-Kommunikation und keine Links zu sozialen Medien</li>
+        </ul>
+        <p>Wenn Sie Elternteil oder Erziehungsberechtigte(r) sind und Fragen haben, kontaktieren Sie uns bitte über die unten genannte E-Mail-Adresse.</p>
+      </section>
+      <section>
+        <h2>6. Berechtigungen, die die App anfordert</h2>
+        <p>Die App fordert nur die minimal nötigen Berechtigungen zum Funktionieren an:</p>
+        <ul>
+          <li><strong>Internetzugriff</strong> — nur erforderlich, damit AdMob Anzeigen abrufen und anzeigen kann. Das Training selbst funktioniert vollständig offline.</li>
+          <li><strong>Vibration</strong> — für haptisches Feedback im Spiel (optional, in Einstellungen → Haptik deaktivierbar)</li>
+        </ul>
+        <p>Die App fordert keinen Zugriff auf Ihren Standort, Kamera, Mikrofon, Kontakte, Fotos, Kalender oder andere sensible Daten an.</p>
+      </section>
+      <section>
+        <h2>7. Ihre Rechte</h2>
+        <p>Da wir keine personenbezogenen Daten auf unseren Servern erheben, gibt es nichts über Sie, was wir aus der Ferne einsehen, korrigieren oder löschen könnten. Die volle Kontrolle behalten Sie über die in Abschnitt 3 beschriebenen Geräte-Daten:</p>
+        <ul>
+          <li><strong>Gesamten Fortschritt zurücksetzen:</strong> Einstellungen → Gesamten Fortschritt zurücksetzen (löscht Einheiten, Fehler, Serie)</li>
+          <li><strong>Nur Fehler löschen:</strong> Fehler-Bildschirm → Papierkorb-Symbol</li>
+          <li><strong>Name oder Klassenstufe ändern:</strong> Einstellungen → Name / Klassenstufe</li>
+          <li><strong>Ton oder Haptik deaktivieren:</strong> Einstellungen → Feedback</li>
+          <li><strong>Alle App-Daten löschen:</strong> App vom Gerät deinstallieren</li>
+        </ul>
+        <p>Nutzer im Europäischen Wirtschaftsraum, im Vereinigten Königreich, in Kalifornien und anderen Gerichtsbarkeiten mit Datenschutzrechten zu Auskunft, Berichtigung, Löschung und Widerspruch können diese Rechte jederzeit durch Kontaktaufnahme mit uns ausüben. Da wir keine personenbezogenen Daten besitzen, werden die meisten Anfragen mit der Bestätigung beantwortet, dass keine Daten vorliegen.</p>
+      </section>
+      <section>
+        <h2>8. Datenaufbewahrung</h2>
+        <p>Wir bewahren keine Nutzerdaten auf, weil wir keine erheben. Geräte-Daten bestehen nur so lange, wie die App installiert ist, und werden entfernt, wenn der Nutzer sie deinstalliert oder „Gesamten Fortschritt zurücksetzen" wählt.</p>
+      </section>
+      <section>
+        <h2>9. Internationale Nutzer</h2>
+        <p>Mental Maths ist weltweit verfügbar. Da die App keine personenbezogenen Daten erhebt, findet keine grenzüberschreitende Übertragung statt. Von Google AdMob ausgelieferte Werbung kann von Googles globaler Infrastruktur stammen und unterliegt Googles eigener Datenschutzerklärung.</p>
+      </section>
+      <section>
+        <h2>10. Änderungen dieser Erklärung</h2>
+        <p>Sollten wir diese Datenschutzerklärung ändern, wird die aktualisierte Fassung unter dieser URL mit einem neuen „Zuletzt aktualisiert"-Datum oben veröffentlicht. Wesentliche Änderungen bei der Datenverarbeitung werden hervorgehoben. Die fortgesetzte Nutzung der App nach einer Änderung gilt als Annahme der überarbeiteten Erklärung.</p>
+      </section>
+      <section>
+        <h2>11. Kontakt</h2>
+        <p>Fragen, Anliegen oder Anträge zu Ihren Rechten können gesendet werden an:</p>
+        <p><strong>E-Mail:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
+        <p>Wir antworten innerhalb von 7 Werktagen.</p>
+      </section>
+    </div>
 
-    <section>
-      <h2>5. Children's Privacy</h2>
-      <p>Mental Maths is designed for use by learners from grade 1 through grade 12, which includes children under 13. Because the app collects no personal information from any user and has no sign-in, chat, social features, or in-app purchases, it complies with the United States Children's Online Privacy Protection Act (COPPA) and similar regulations including the EU GDPR-K and the UK Age-Appropriate Design Code.</p>
-      <p>Specifically:</p>
-      <ul>
-        <li>No personal information is collected from anyone, including children</li>
-        <li>No registration, sign-in, or parental consent is required to use the app</li>
-        <li>All advertising is filtered to G-rated content</li>
-        <li>The app contains no in-app purchases, no chat, no user-to-user communication, and no links to social media</li>
-      </ul>
-      <p>If you are a parent or guardian and have any questions, please contact us at the email address below.</p>
-    </section>
+    <!-- ============ ITALIAN ============ -->
+    <div class="lang-content" data-lang="it">
+      <section>
+        <h2>Versione breve</h2>
+        <p>Mental Maths non raccoglie alcuna informazione personale. Non ci sono account, né accessi, né tracciamento degli utenti. Le tue sessioni di allenamento, la serie, gli errori e le preferenze sono memorizzati solo sul tuo dispositivo. L'app mostra annunci tramite Google AdMob, configurati per contenuti adatti alle famiglie (per tutti, non personalizzati).</p>
+      </section>
+      <section>
+        <h2>1. Chi siamo</h2>
+        <p>Mental Maths («l'app», «noi», «nostro») è un'app mobile per l'allenamento al calcolo mentale, pubblicata da YOUNESS HARNAFI. Questa Informativa sulla privacy spiega quali dati l'app raccoglie e quali no quando la usi su iOS o Android.</p>
+      </section>
+      <section>
+        <h2>2. Dati che non raccogliamo</h2>
+        <p>Non raccogliamo, memorizziamo né trasmettiamo nessuno dei seguenti:</p>
+        <ul>
+          <li>Nomi, indirizzi e-mail o numeri di telefono</li>
+          <li>Credenziali di account di qualsiasi tipo (l'app non ha accesso)</li>
+          <li>Dati di posizione</li>
+          <li>Foto, contatti o file del dispositivo</li>
+          <li>Input da microfono o fotocamera</li>
+          <li>Analitiche d'uso o report di crash</li>
+          <li>Profili comportamentali o di interessi</li>
+        </ul>
+        <p>L'app non ha server, né database, né telemetria propria. Il campo facoltativo «Nome» mostrato nella schermata dei risultati è memorizzato solo sul tuo dispositivo — puoi lasciarlo vuoto o inserire qualsiasi soprannome desideri.</p>
+      </section>
+      <section>
+        <h2>3. Dati memorizzati solo sul tuo dispositivo</h2>
+        <p>L'app salva localmente le seguenti informazioni perché i tuoi progressi di apprendimento persistano tra le sessioni. Questi dati non lasciano mai il tuo dispositivo:</p>
+        <ul>
+          <li><strong>Nome visualizzato</strong> — il soprannome inserito durante l'onboarding (facoltativo)</li>
+          <li><strong>Livello scolastico selezionato</strong> — per regolare la difficoltà delle domande (da 1 a 12)</li>
+          <li><strong>Sessioni di allenamento</strong> — modalità, punteggio, precisione, durata e timestamp di ogni sessione completata</li>
+          <li><strong>Errori</strong> — domande a cui hai risposto in modo errato, conservate per la funzione di ripasso integrata</li>
+          <li><strong>Dati della serie</strong> — date in cui hai completato almeno una sessione</li>
+          <li><strong>Preferenze</strong> — tema (chiaro/scuro/sistema), suono on/off, feedback aptico on/off, durata predefinita del timer</li>
+        </ul>
+        <p>Questi dati sono memorizzati nello storage locale del dispositivo (Hive sia su iOS che su Android). Puoi cancellarli in qualunque momento tramite «Impostazioni → Azzera tutti i progressi» nell'app, oppure disinstallando l'app.</p>
+      </section>
+      <section>
+        <h2>4. Pubblicità</h2>
+        <p>Mental Maths è sostenuta da annunci pubblicitari erogati tramite <strong>Google AdMob</strong>. AdMob è l'unico servizio di terze parti usato dall'app. L'app mostra:</p>
+        <ul>
+          <li>Un piccolo banner in fondo alla scheda Home</li>
+          <li>Un annuncio interstiziale a schermo intero mostrato occasionalmente tra le sessioni completate (all'incirca ogni due sessioni)</li>
+        </ul>
+        <p>Per mantenere l'esperienza adatta a studenti di ogni età, AdMob è configurato con:</p>
+        <ul>
+          <li><strong>Classificazione massima dei contenuti pubblicitari:</strong> G (solo pubblico generico)</li>
+          <li><strong>Annunci non personalizzati:</strong> abilitati dove il consenso è richiesto dalla legge</li>
+        </ul>
+        <p>AdMob può raccogliere un insieme limitato di segnali del dispositivo (tipo di dispositivo, indirizzo IP, identificatore pubblicitario, metadati della richiesta di annuncio) per erogare, misurare e limitare la frequenza degli annunci. Per i dettagli sulle pratiche di AdMob, consulta la policy di Google su <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>. Gli utenti Apple possono disattivare il tracciamento pubblicitario a livello di sistema da <em>Impostazioni → Privacy e sicurezza → Tracciamento</em>. Gli utenti Android possono reimpostare o limitare il proprio ID pubblicità da <em>Impostazioni → Privacy → Annunci</em>.</p>
+      </section>
+      <section>
+        <h2>5. Privacy dei minori</h2>
+        <p>Mental Maths è pensata per studenti dalla 1ª alla 12ª classe, il che include bambini sotto i 13 anni. Poiché l'app non raccoglie informazioni personali da alcun utente e non ha accesso, chat, funzioni social o acquisti in-app, è conforme al Children's Online Privacy Protection Act (COPPA) degli Stati Uniti e a normative simili, tra cui il GDPR-K dell'UE e l'Age-Appropriate Design Code del Regno Unito.</p>
+        <p>Nello specifico:</p>
+        <ul>
+          <li>Non vengono raccolte informazioni personali da nessuno, bambini inclusi</li>
+          <li>Non sono richiesti registrazione, accesso né consenso dei genitori per usare l'app</li>
+          <li>Tutta la pubblicità è filtrata su contenuti per tutti</li>
+          <li>L'app non contiene acquisti in-app, chat, comunicazione tra utenti né link ai social media</li>
+        </ul>
+        <p>Se sei un genitore o tutore e hai domande, contattaci all'indirizzo e-mail in fondo.</p>
+      </section>
+      <section>
+        <h2>6. Autorizzazioni richieste dall'app</h2>
+        <p>L'app richiede solo le autorizzazioni minime necessarie al funzionamento:</p>
+        <ul>
+          <li><strong>Accesso a Internet</strong> — necessario solo perché AdMob recuperi e mostri gli annunci. L'allenamento in sé funziona completamente offline.</li>
+          <li><strong>Vibrazione</strong> — per il feedback tattile durante il gioco (facoltativa, disattivabile in Impostazioni → Feedback aptico)</li>
+        </ul>
+        <p>L'app non richiede accesso a posizione, fotocamera, microfono, contatti, foto, calendario o altri dati sensibili.</p>
+      </section>
+      <section>
+        <h2>7. I tuoi diritti</h2>
+        <p>Poiché non raccogliamo informazioni personali sui nostri server, non c'è nulla che ti riguardi a cui possiamo accedere, correggere o eliminare da remoto. Mantieni il pieno controllo dei dati sul dispositivo descritti nella Sezione 3:</p>
+        <ul>
+          <li><strong>Azzera tutti i progressi:</strong> Impostazioni → Azzera tutti i progressi (cancella sessioni, errori, serie)</li>
+          <li><strong>Cancella solo gli errori:</strong> schermata Errori → icona cestino</li>
+          <li><strong>Cambia nome o classe:</strong> Impostazioni → Nome / Classe</li>
+          <li><strong>Disattiva suono o feedback aptico:</strong> Impostazioni → Feedback</li>
+          <li><strong>Elimina tutti i dati dell'app:</strong> disinstalla l'app dal dispositivo</li>
+        </ul>
+        <p>Gli utenti nello Spazio economico europeo, nel Regno Unito, in California e in altre giurisdizioni con leggi sulla privacy che riconoscono diritti di accesso, rettifica, cancellazione e opposizione possono esercitarli in qualunque momento contattandoci. Poiché non deteniamo dati personali, la maggior parte delle richieste verrà evasa confermando che non esistono dati.</p>
+      </section>
+      <section>
+        <h2>8. Conservazione dei dati</h2>
+        <p>Non conserviamo alcun dato utente perché non ne raccogliamo. I dati sul dispositivo permangono solo finché l'app resta installata e vengono rimossi quando l'utente la disinstalla o sceglie «Azzera tutti i progressi».</p>
+      </section>
+      <section>
+        <h2>9. Utenti internazionali</h2>
+        <p>Mental Maths è disponibile in tutto il mondo. L'app non trasferisce dati personali oltre confine perché non ne raccoglie. Gli annunci erogati da Google AdMob possono essere forniti dall'infrastruttura globale di Google, soggetta alla policy sulla privacy di Google.</p>
+      </section>
+      <section>
+        <h2>10. Modifiche a questa policy</h2>
+        <p>Se apporteremo modifiche a questa Informativa sulla privacy, la versione aggiornata sarà pubblicata a questo URL con una nuova data «Ultimo aggiornamento» in cima. Le modifiche sostanziali sul trattamento dei dati saranno evidenziate. L'uso continuato dell'app dopo una modifica costituisce accettazione della policy rivista.</p>
+      </section>
+      <section>
+        <h2>11. Contatto</h2>
+        <p>Domande, dubbi o richieste relative ai diritti possono essere inviati a:</p>
+        <p><strong>E-mail:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
+        <p>Rispondiamo entro 7 giorni lavorativi.</p>
+      </section>
+    </div>
 
-    <section>
-      <h2>6. Permissions the App Requests</h2>
-      <p>The app requests only the minimum permissions needed to function:</p>
-      <ul>
-        <li><strong>Internet access</strong> — required only for AdMob to fetch and display ads. The training itself works fully offline.</li>
-        <li><strong>Vibration</strong> — for tactile feedback during gameplay (optional, can be disabled in Settings → Haptics)</li>
-      </ul>
-      <p>The app does not request access to your location, camera, microphone, contacts, photos, calendar, or any other sensitive data.</p>
-    </section>
+    <!-- ============ JAPANESE ============ -->
+    <div class="lang-content" data-lang="ja">
+      <section>
+        <h2>要約</h2>
+        <p>Mental Maths は個人情報を一切収集しません。アカウント、ログイン、ユーザー追跡はありません。トレーニングの記録、連続日数、間違えた問題、設定はお使いの端末内にのみ保存されます。本アプリは Google AdMob の広告を表示し、ファミリー向けコンテンツ(全年齢対象・非パーソナライズ)に設定されています。</p>
+      </section>
+      <section>
+        <h2>1. 私たちについて</h2>
+        <p>Mental Maths(以下「本アプリ」「当社」)は、YOUNESS HARNAFI が提供するモバイル向け暗算トレーニングアプリです。本プライバシーポリシーでは、iOS または Android で本アプリを使用する際に収集するデータと収集しないデータについて説明します。</p>
+      </section>
+      <section>
+        <h2>2. 収集しないデータ</h2>
+        <p>当社は以下のいずれも収集、保存、送信しません:</p>
+        <ul>
+          <li>氏名、メールアドレス、電話番号</li>
+          <li>あらゆる種類のアカウント認証情報(本アプリにログインはありません)</li>
+          <li>位置情報</li>
+          <li>写真、連絡先、端末内のファイル</li>
+          <li>マイクやカメラの入力</li>
+          <li>アプリ利用解析やクラッシュレポート</li>
+          <li>行動・関心プロファイル</li>
+        </ul>
+        <p>本アプリは独自のサーバー、データベース、テレメトリを持ちません。結果画面に表示される任意の「名前」欄はお使いの端末内にのみ保存されます — 空欄のままでも、お好きなニックネームを設定してもかまいません。</p>
+      </section>
+      <section>
+        <h2>3. 端末にのみ保存されるデータ</h2>
+        <p>セッション間で学習の進捗が引き継がれるよう、本アプリは以下の情報を端末にローカル保存します。これらのデータが端末外に出ることはありません:</p>
+        <ul>
+          <li><strong>表示名</strong> — オンボーディング時に入力したニックネーム(任意)</li>
+          <li><strong>選択した学年</strong> — 問題の難易度を調整するため(1〜12)</li>
+          <li><strong>トレーニング記録</strong> — 完了した各セッションのモード、スコア、正答率、所要時間、タイムスタンプ</li>
+          <li><strong>間違えた問題</strong> — 誤答した問題。アプリ内の復習機能のために保持されます</li>
+          <li><strong>連続記録データ</strong> — 1 回以上トレーニングを完了した日付</li>
+          <li><strong>設定</strong> — テーマ(ライト/ダーク/システム)、サウンドのオン・オフ、触覚のオン・オフ、既定のタイマー長</li>
+        </ul>
+        <p>これらのデータは端末のローカルストレージ(iOS・Android とも Hive)に保存されます。アプリ内の「設定 → すべての進捗をリセット」、またはアプリのアンインストールでいつでも消去できます。</p>
+      </section>
+      <section>
+        <h2>4. 広告</h2>
+        <p>Mental Maths は <strong>Google AdMob</strong> を通じて配信される広告によって支えられています。AdMob は本アプリが使用する唯一のサードパーティサービスです。本アプリは以下を表示します:</p>
+        <ul>
+          <li>ホームタブ下部の小さなバナー広告</li>
+          <li>完了したトレーニングの合間に時折表示される全画面インタースティシャル広告(おおむね 2 セッションに 1 回)</li>
+        </ul>
+        <p>あらゆる年齢の学習者に適した体験を保つため、AdMob は次のように設定されています:</p>
+        <ul>
+          <li><strong>広告コンテンツの最大レーティング:</strong> G(全年齢対象のみ)</li>
+          <li><strong>非パーソナライズ広告:</strong> 法律で同意が必要な地域では有効</li>
+        </ul>
+        <p>AdMob は広告の配信、測定、フリークエンシーキャップのために、限定的な端末シグナル(端末の種類、IP アドレス、広告 ID、広告リクエストのメタデータ)を収集する場合があります。AdMob のデータ慣行の詳細は、Google のポリシー <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a> をご覧ください。Apple ユーザーは <em>設定 → プライバシーとセキュリティ → トラッキング</em> から広告トラッキングをシステム全体で無効化できます。Android ユーザーは <em>設定 → プライバシー → 広告</em> から広告 ID をリセットまたは制限できます。</p>
+      </section>
+      <section>
+        <h2>5. 子どものプライバシー</h2>
+        <p>Mental Maths は 1 年生から 12 年生までの学習者を対象に設計されており、13 歳未満の子どもも含まれます。本アプリはどのユーザーからも個人情報を収集せず、ログイン、チャット、ソーシャル機能、アプリ内課金がないため、米国の児童オンラインプライバシー保護法(COPPA)や、EU の GDPR-K、英国の年齢適合設計規範(Age-Appropriate Design Code)を含む同様の規制に準拠しています。</p>
+        <p>具体的には:</p>
+        <ul>
+          <li>子どもを含め、誰からも個人情報を収集しません</li>
+          <li>本アプリの利用に、登録・ログイン・保護者の同意は不要です</li>
+          <li>すべての広告は全年齢対象のコンテンツにフィルタリングされます</li>
+          <li>本アプリにはアプリ内課金、チャット、ユーザー間のやり取り、ソーシャルメディアへのリンクがありません</li>
+        </ul>
+        <p>保護者の方でご質問がある場合は、下記のメールアドレスまでご連絡ください。</p>
+      </section>
+      <section>
+        <h2>6. アプリが要求する権限</h2>
+        <p>本アプリは動作に必要な最小限の権限のみを要求します:</p>
+        <ul>
+          <li><strong>インターネットアクセス</strong> — AdMob が広告を取得・表示するためにのみ必要です。トレーニング自体は完全にオフラインで動作します。</li>
+          <li><strong>バイブレーション</strong> — プレイ中の触覚フィードバックのため(任意。設定 → 触覚 で無効化できます)</li>
+        </ul>
+        <p>本アプリは位置情報、カメラ、マイク、連絡先、写真、カレンダー、その他の機微情報へのアクセスを要求しません。</p>
+      </section>
+      <section>
+        <h2>7. お客様の権利</h2>
+        <p>当社のサーバーには個人情報を収集していないため、リモートでアクセス、修正、削除できる情報はありません。セクション 3 に記載の端末内データについては、お客様が完全に管理できます:</p>
+        <ul>
+          <li><strong>すべての進捗をリセット:</strong> 設定 → すべての進捗をリセット(記録・間違えた問題・連続記録を消去)</li>
+          <li><strong>間違えた問題のみ消去:</strong> 間違えた問題の画面 → ゴミ箱アイコン</li>
+          <li><strong>名前や学年の変更:</strong> 設定 → 名前 / 学年</li>
+          <li><strong>サウンドや触覚の無効化:</strong> 設定 → フィードバック</li>
+          <li><strong>すべてのアプリデータの削除:</strong> 端末からアプリをアンインストール</li>
+        </ul>
+        <p>欧州経済領域、英国、カリフォルニア、その他アクセス・訂正・削除・異議申立ての権利を認める法域のユーザーは、いつでも当社に連絡することで権利を行使できます。当社は個人データを保持していないため、ほとんどの請求は「該当データなし」の確認をもって対応されます。</p>
+      </section>
+      <section>
+        <h2>8. データ保持</h2>
+        <p>当社はデータを収集していないため、ユーザーデータを保持していません。端末上のデータはアプリがインストールされている間のみ存続し、ユーザーがアンインストールするか「すべての進捗をリセット」を選択すると削除されます。</p>
+      </section>
+      <section>
+        <h2>9. 国際ユーザー</h2>
+        <p>Mental Maths は世界中で利用できます。個人データを収集しないため、本アプリが個人データを越境転送することはありません。Google AdMob が配信する広告は Google のグローバルインフラから提供される場合があり、Google 自身のプライバシーポリシーに従います。</p>
+      </section>
+      <section>
+        <h2>10. 本ポリシーの変更</h2>
+        <p>本プライバシーポリシーを変更する場合は、このページに更新版を掲載し、上部の「最終更新」日を更新します。データの取り扱いに影響する重要な変更は強調表示します。変更後にアプリを継続して使用することは、改訂後のポリシーに同意したものとみなされます。</p>
+      </section>
+      <section>
+        <h2>11. お問い合わせ</h2>
+        <p>ご質問、ご懸念、権利行使のご要望は以下までお送りください:</p>
+        <p><strong>メール:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
+        <p>7 営業日以内に返信いたします。</p>
+      </section>
+    </div>
 
-    <section>
-      <h2>7. Your Rights</h2>
-      <p>Because we collect no personal information on our servers, there is nothing about you for us to access, correct, or delete remotely. You retain full control over the on-device data described in Section 3:</p>
-      <ul>
-        <li><strong>Reset all progress:</strong> Settings → Reset all progress (wipes sessions, mistakes, streak)</li>
-        <li><strong>Clear only mistakes:</strong> Mistakes screen → trash icon</li>
-        <li><strong>Change your name or grade:</strong> Settings → Name / Grade</li>
-        <li><strong>Disable sound or haptics:</strong> Settings → Feedback</li>
-        <li><strong>Delete all app data:</strong> uninstall the app from your device</li>
-      </ul>
-      <p>Users in the European Economic Area, the United Kingdom, California, and other jurisdictions with privacy laws granting rights of access, correction, deletion, and objection may exercise those rights at any time by contacting us. Because we hold no personal data, most requests will be answered confirming that no data exists.</p>
-    </section>
+    <!-- ============ KOREAN ============ -->
+    <div class="lang-content" data-lang="ko">
+      <section>
+        <h2>간단한 요약</h2>
+        <p>Mental Maths는 어떠한 개인정보도 수집하지 않습니다. 계정도, 로그인도, 사용자 추적도 없습니다. 훈련 기록, 연속 기록, 오답, 환경 설정은 사용자의 기기에만 저장됩니다. 본 앱은 Google AdMob 광고를 표시하며, 가족 친화적 콘텐츠(전체 이용가, 비개인화)로 설정되어 있습니다.</p>
+      </section>
+      <section>
+        <h2>1. 회사 소개</h2>
+        <p>Mental Maths(이하 "본 앱", "당사")는 YOUNESS HARNAFI가 게시한 모바일 암산 훈련 앱입니다. 본 개인정보 처리방침은 iOS 또는 Android에서 본 앱을 사용할 때 수집하는 데이터와 수집하지 않는 데이터를 설명합니다.</p>
+      </section>
+      <section>
+        <h2>2. 수집하지 않는 데이터</h2>
+        <p>당사는 다음 어떠한 항목도 수집, 저장, 전송하지 않습니다:</p>
+        <ul>
+          <li>이름, 이메일 주소, 전화번호</li>
+          <li>모든 형태의 계정 자격 증명(본 앱에는 로그인이 없습니다)</li>
+          <li>위치 정보</li>
+          <li>사진, 연락처, 기기 파일</li>
+          <li>마이크 또는 카메라 입력</li>
+          <li>앱 이용 분석 또는 충돌 보고서</li>
+          <li>행동 또는 관심 프로필</li>
+        </ul>
+        <p>본 앱에는 자체 서버, 데이터베이스, 텔레메트리가 없습니다. 결과 화면에 표시되는 선택 항목인 "이름" 필드는 사용자의 기기에만 저장됩니다 — 비워 두거나 원하는 닉네임을 입력할 수 있습니다.</p>
+      </section>
+      <section>
+        <h2>3. 기기에만 저장되는 데이터</h2>
+        <p>세션 간 학습 진행 상황이 유지되도록 본 앱은 다음 정보를 로컬에 저장합니다. 이 데이터는 절대 기기를 벗어나지 않습니다:</p>
+        <ul>
+          <li><strong>표시 이름</strong> — 온보딩 중 입력한 닉네임(선택)</li>
+          <li><strong>선택한 학년</strong> — 문제 난이도 조정용(1~12)</li>
+          <li><strong>훈련 기록</strong> — 완료한 각 세션의 모드, 점수, 정확도, 소요 시간, 타임스탬프</li>
+          <li><strong>오답</strong> — 틀린 문제. 앱 내 복습 기능을 위해 보관됩니다</li>
+          <li><strong>연속 기록 데이터</strong> — 훈련 세션을 한 번 이상 완료한 날짜</li>
+          <li><strong>환경 설정</strong> — 테마(라이트/다크/시스템), 소리 켜기/끄기, 햅틱 켜기/끄기, 기본 타이머 길이</li>
+        </ul>
+        <p>이 데이터는 기기의 로컬 저장소(iOS와 Android 모두 Hive)에 저장됩니다. 앱 내 "설정 → 모든 진행 상황 초기화"를 사용하거나 앱을 제거하면 언제든 지울 수 있습니다.</p>
+      </section>
+      <section>
+        <h2>4. 광고</h2>
+        <p>Mental Maths는 <strong>Google AdMob</strong>을 통해 게재되는 광고로 운영됩니다. AdMob은 본 앱이 사용하는 유일한 제3자 서비스입니다. 본 앱은 다음을 표시합니다:</p>
+        <ul>
+          <li>홈 탭 하단의 작은 배너 광고</li>
+          <li>완료한 훈련 세션 사이에 가끔 표시되는 전체 화면 전면 광고(대략 두 세션마다 한 번)</li>
+        </ul>
+        <p>모든 연령대의 학습자에게 적절한 경험을 유지하기 위해 AdMob은 다음과 같이 설정되어 있습니다:</p>
+        <ul>
+          <li><strong>광고 콘텐츠 최대 등급:</strong> G(전체 이용가)</li>
+          <li><strong>비개인화 광고:</strong> 법률상 동의가 필요한 곳에서 활성화</li>
+        </ul>
+        <p>AdMob은 광고를 게재·측정하고 노출 빈도를 제한하기 위해 제한된 기기 신호(기기 유형, IP 주소, 광고 식별자, 광고 요청 메타데이터)를 수집할 수 있습니다. AdMob의 데이터 처리 방식에 대한 자세한 내용은 Google 정책 <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>를 참고하세요. Apple 사용자는 <em>설정 → 개인정보 보호 및 보안 → 추적</em>에서 광고 추적을 시스템 전체에 대해 비활성화할 수 있습니다. Android 사용자는 <em>설정 → 개인정보 → 광고</em>에서 광고 ID를 재설정하거나 제한할 수 있습니다.</p>
+      </section>
+      <section>
+        <h2>5. 아동의 개인정보</h2>
+        <p>Mental Maths는 1학년부터 12학년까지의 학습자를 위해 설계되었으며, 여기에는 13세 미만 어린이가 포함됩니다. 본 앱은 어떤 사용자에게서도 개인정보를 수집하지 않으며 로그인, 채팅, 소셜 기능, 인앱 결제가 없으므로 미국 아동 온라인 개인정보 보호법(COPPA)과 EU GDPR-K, 영국 연령 적합 설계 규범(Age-Appropriate Design Code)을 포함한 유사 규정을 준수합니다.</p>
+        <p>구체적으로:</p>
+        <ul>
+          <li>어린이를 포함한 누구에게서도 개인정보를 수집하지 않습니다</li>
+          <li>앱 사용에 등록, 로그인, 보호자 동의가 필요하지 않습니다</li>
+          <li>모든 광고는 전체 이용가 콘텐츠로 필터링됩니다</li>
+          <li>본 앱에는 인앱 결제, 채팅, 사용자 간 커뮤니케이션, 소셜 미디어 링크가 없습니다</li>
+        </ul>
+        <p>보호자이며 문의 사항이 있으시면 아래 이메일 주소로 연락해 주십시오.</p>
+      </section>
+      <section>
+        <h2>6. 앱이 요청하는 권한</h2>
+        <p>본 앱은 작동에 필요한 최소한의 권한만 요청합니다:</p>
+        <ul>
+          <li><strong>인터넷 접근</strong> — AdMob이 광고를 가져와 표시하는 데에만 필요합니다. 훈련 자체는 완전히 오프라인에서 동작합니다.</li>
+          <li><strong>진동</strong> — 게임 중 촉각 피드백용(선택, 설정 → 햅틱에서 비활성화 가능)</li>
+        </ul>
+        <p>본 앱은 위치, 카메라, 마이크, 연락처, 사진, 캘린더, 기타 민감한 데이터에 대한 접근을 요청하지 않습니다.</p>
+      </section>
+      <section>
+        <h2>7. 사용자의 권리</h2>
+        <p>당사 서버에서 개인정보를 수집하지 않으므로 원격으로 접근, 정정, 삭제할 수 있는 정보가 없습니다. 섹션 3에 설명된 기기 내 데이터에 대해서는 사용자가 완전한 통제권을 가집니다:</p>
+        <ul>
+          <li><strong>모든 진행 상황 초기화:</strong> 설정 → 모든 진행 상황 초기화(기록, 오답, 연속 기록 삭제)</li>
+          <li><strong>오답만 삭제:</strong> 오답 화면 → 휴지통 아이콘</li>
+          <li><strong>이름 또는 학년 변경:</strong> 설정 → 이름 / 학년</li>
+          <li><strong>소리 또는 햅틱 비활성화:</strong> 설정 → 피드백</li>
+          <li><strong>모든 앱 데이터 삭제:</strong> 기기에서 앱 제거</li>
+        </ul>
+        <p>유럽경제지역, 영국, 캘리포니아 및 접근·정정·삭제·반대 권리를 보장하는 기타 관할권의 사용자는 당사로 문의하여 언제든지 권리를 행사할 수 있습니다. 당사가 개인 데이터를 보유하지 않으므로 대부분의 요청은 "데이터가 존재하지 않음" 확인으로 응답됩니다.</p>
+      </section>
+      <section>
+        <h2>8. 데이터 보관</h2>
+        <p>당사는 데이터를 수집하지 않으므로 사용자 데이터를 보관하지 않습니다. 기기 내 데이터는 앱이 설치되어 있는 동안에만 유지되며, 사용자가 앱을 제거하거나 "모든 진행 상황 초기화"를 선택하면 삭제됩니다.</p>
+      </section>
+      <section>
+        <h2>9. 해외 사용자</h2>
+        <p>Mental Maths는 전 세계에서 사용할 수 있습니다. 본 앱은 개인 데이터를 수집하지 않으므로 국경 간 개인 데이터 이전이 발생하지 않습니다. Google AdMob이 게재하는 광고는 Google의 글로벌 인프라에서 제공될 수 있으며, Google 자체의 개인정보 정책을 따릅니다.</p>
+      </section>
+      <section>
+        <h2>10. 본 정책의 변경</h2>
+        <p>본 개인정보 처리방침을 변경하는 경우, 본 URL에 업데이트된 버전을 게시하고 상단의 "최종 업데이트" 날짜를 갱신합니다. 데이터 처리 방식에 영향을 미치는 중요한 변경 사항은 강조 표시됩니다. 변경 이후 앱을 계속 사용하면 개정된 정책에 동의한 것으로 간주됩니다.</p>
+      </section>
+      <section>
+        <h2>11. 문의</h2>
+        <p>질문, 우려 또는 권리 요청은 다음으로 보내실 수 있습니다:</p>
+        <p><strong>이메일:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
+        <p>영업일 기준 7일 이내에 회신해 드립니다.</p>
+      </section>
+    </div>
 
-    <section>
-      <h2>8. Data Retention</h2>
-      <p>We do not retain any user data because we do not collect any. On-device data persists only as long as the app remains installed and is removed when the user uninstalls or chooses "Reset all progress".</p>
-    </section>
+    <!-- ============ PORTUGUESE (BRAZIL) ============ -->
+    <div class="lang-content" data-lang="pt">
+      <section>
+        <h2>Versão curta</h2>
+        <p>O Mental Maths não coleta nenhuma informação pessoal. Não há contas, logins nem rastreamento de usuários. Suas sessões de treino, sequência, erros e preferências ficam armazenados apenas no seu dispositivo. O app exibe anúncios do Google AdMob, configurados para conteúdo apropriado para a família (classificação livre, não personalizado).</p>
+      </section>
+      <section>
+        <h2>1. Quem somos</h2>
+        <p>Mental Maths ("o app", "nós", "nosso") é um app móvel de treino de cálculo mental, publicado por YOUNESS HARNAFI. Esta Política de Privacidade explica quais dados o app coleta e quais não coleta quando você o usa no iOS ou Android.</p>
+      </section>
+      <section>
+        <h2>2. Dados que não coletamos</h2>
+        <p>Não coletamos, armazenamos nem transmitimos nada do seguinte:</p>
+        <ul>
+          <li>Nomes, e-mails ou telefones</li>
+          <li>Credenciais de conta de qualquer tipo (o app não tem login)</li>
+          <li>Dados de localização</li>
+          <li>Fotos, contatos ou arquivos do dispositivo</li>
+          <li>Entrada de microfone ou câmera</li>
+          <li>Analytics de uso ou relatórios de falhas</li>
+          <li>Perfis comportamentais ou de interesse</li>
+        </ul>
+        <p>O app não tem servidores, bancos de dados nem telemetria própria. O campo opcional "Nome" exibido na tela de resultados é armazenado apenas no seu dispositivo — você pode deixá-lo em branco ou usar qualquer apelido.</p>
+      </section>
+      <section>
+        <h2>3. Dados armazenados apenas no seu dispositivo</h2>
+        <p>O app salva localmente as seguintes informações para que seu progresso de aprendizado persista entre sessões. Esses dados nunca saem do seu dispositivo:</p>
+        <ul>
+          <li><strong>Nome de exibição</strong> — o apelido informado durante a configuração inicial (opcional)</li>
+          <li><strong>Série escolar selecionada</strong> — para ajustar a dificuldade das questões (1 a 12)</li>
+          <li><strong>Sessões de treino</strong> — modo, pontuação, precisão, duração e data/hora de cada sessão concluída</li>
+          <li><strong>Erros</strong> — questões que você respondeu incorretamente, mantidas para o recurso de revisão no app</li>
+          <li><strong>Dados de sequência</strong> — datas em que você concluiu pelo menos uma sessão de treino</li>
+          <li><strong>Preferências</strong> — tema (claro/escuro/sistema), som ligado/desligado, vibração ligada/desligada, duração padrão do timer</li>
+        </ul>
+        <p>Esses dados são guardados no armazenamento local do dispositivo (Hive no iOS e no Android). Você pode apagá-los a qualquer momento em "Configurações → Redefinir todo o progresso" dentro do app, ou desinstalando o app.</p>
+      </section>
+      <section>
+        <h2>4. Publicidade</h2>
+        <p>O Mental Maths é mantido por anúncios veiculados pelo <strong>Google AdMob</strong>. O AdMob é o único serviço de terceiros usado pelo app. O app exibe:</p>
+        <ul>
+          <li>Um pequeno banner na parte inferior da aba Início</li>
+          <li>Um anúncio intersticial em tela cheia exibido ocasionalmente entre sessões concluídas (aproximadamente a cada duas sessões)</li>
+        </ul>
+        <p>Para manter a experiência adequada a estudantes de todas as idades, o AdMob é configurado com:</p>
+        <ul>
+          <li><strong>Classificação máxima de conteúdo de anúncios:</strong> G (público geral apenas)</li>
+          <li><strong>Anúncios não personalizados:</strong> ativados onde o consentimento é exigido por lei</li>
+        </ul>
+        <p>O AdMob pode coletar um conjunto limitado de sinais do dispositivo (tipo de dispositivo, endereço IP, identificador de publicidade, metadados da solicitação de anúncio) para veicular, medir e limitar a frequência dos anúncios. Para detalhes sobre as práticas de dados do AdMob, veja a política do Google em <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>. Usuários da Apple podem desativar o rastreamento de anúncios em todo o sistema em <em>Ajustes → Privacidade e Segurança → Rastreamento</em>. Usuários do Android podem redefinir ou limitar o ID de publicidade em <em>Configurações → Privacidade → Anúncios</em>.</p>
+      </section>
+      <section>
+        <h2>5. Privacidade de crianças</h2>
+        <p>O Mental Maths foi projetado para estudantes do 1º ao 12º ano, o que inclui crianças menores de 13 anos. Como o app não coleta informações pessoais de nenhum usuário e não tem login, chat, recursos sociais nem compras no app, ele está em conformidade com o Children's Online Privacy Protection Act (COPPA) dos Estados Unidos e regulamentos similares, incluindo o GDPR-K da UE e o Age-Appropriate Design Code do Reino Unido.</p>
+        <p>Especificamente:</p>
+        <ul>
+          <li>Nenhuma informação pessoal é coletada de ninguém, incluindo crianças</li>
+          <li>Não é exigido cadastro, login ou consentimento dos pais para usar o app</li>
+          <li>Toda a publicidade é filtrada para conteúdo de classificação livre</li>
+          <li>O app não contém compras no app, chat, comunicação entre usuários nem links para redes sociais</li>
+        </ul>
+        <p>Se você é pai, mãe ou responsável e tem dúvidas, entre em contato pelo e-mail abaixo.</p>
+      </section>
+      <section>
+        <h2>6. Permissões solicitadas pelo app</h2>
+        <p>O app solicita apenas as permissões mínimas necessárias para funcionar:</p>
+        <ul>
+          <li><strong>Acesso à internet</strong> — necessário apenas para que o AdMob busque e exiba anúncios. O treino em si funciona totalmente offline.</li>
+          <li><strong>Vibração</strong> — para retorno tátil durante o jogo (opcional, pode ser desativado em Configurações → Vibração)</li>
+        </ul>
+        <p>O app não solicita acesso à sua localização, câmera, microfone, contatos, fotos, calendário ou qualquer outro dado sensível.</p>
+      </section>
+      <section>
+        <h2>7. Seus direitos</h2>
+        <p>Como não coletamos informações pessoais em nossos servidores, não há nada sobre você que possamos acessar, corrigir ou excluir remotamente. Você mantém total controle sobre os dados no dispositivo descritos na Seção 3:</p>
+        <ul>
+          <li><strong>Redefinir todo o progresso:</strong> Configurações → Redefinir todo o progresso (apaga sessões, erros, sequência)</li>
+          <li><strong>Limpar apenas os erros:</strong> tela de Erros → ícone de lixeira</li>
+          <li><strong>Alterar seu nome ou série:</strong> Configurações → Nome / Série</li>
+          <li><strong>Desativar som ou vibração:</strong> Configurações → Feedback</li>
+          <li><strong>Excluir todos os dados do app:</strong> desinstale o app do seu dispositivo</li>
+        </ul>
+        <p>Usuários do Espaço Econômico Europeu, Reino Unido, Califórnia e outras jurisdições com leis de privacidade que concedem direitos de acesso, correção, exclusão e oposição podem exercê-los a qualquer momento entrando em contato conosco. Como não armazenamos dados pessoais, a maioria das solicitações será respondida confirmando que não há dados.</p>
+      </section>
+      <section>
+        <h2>8. Retenção de dados</h2>
+        <p>Não retemos dados de usuário porque não coletamos nenhum. Os dados no dispositivo persistem somente enquanto o app estiver instalado e são removidos quando o usuário o desinstala ou escolhe "Redefinir todo o progresso".</p>
+      </section>
+      <section>
+        <h2>9. Usuários internacionais</h2>
+        <p>O Mental Maths está disponível em todo o mundo. O app não transfere dados pessoais entre países porque não coleta dados pessoais. Os anúncios veiculados pelo Google AdMob podem ser entregues pela infraestrutura global do Google, sujeitos à própria política de privacidade do Google.</p>
+      </section>
+      <section>
+        <h2>10. Alterações desta política</h2>
+        <p>Caso façamos alterações nesta Política de Privacidade, a versão atualizada será publicada nesta URL com uma nova data de "Última atualização" no topo. Alterações materiais que afetem o tratamento de dados serão destacadas. O uso continuado do app após uma alteração indica aceitação da política revisada.</p>
+      </section>
+      <section>
+        <h2>11. Contato</h2>
+        <p>Perguntas, preocupações ou solicitações relativas a direitos podem ser enviadas para:</p>
+        <p><strong>E-mail:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
+        <p>Respondemos em até 7 dias úteis.</p>
+      </section>
+    </div>
 
-    <section>
-      <h2>9. International Users</h2>
-      <p>Mental Maths is available worldwide. The app does not transfer personal data across borders because it does not collect personal data. Ads served by Google AdMob may be delivered from Google's global infrastructure subject to Google's own privacy policy.</p>
-    </section>
-
-    <section>
-      <h2>10. Changes to This Policy</h2>
-      <p>If we make changes to this Privacy Policy, the updated version will be posted at this URL with a new "Last updated" date at the top. Material changes affecting how data is handled will be highlighted. Continued use of the app after a change indicates acceptance of the revised policy.</p>
-    </section>
-
-    <section>
-      <h2>11. Contact</h2>
-      <p>Questions, concerns, or rights requests can be sent to:</p>
-      <p><strong>Email:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
-      <p>We respond within 7 business days.</p>
-    </section>
+    <!-- ============ SPANISH ============ -->
+    <div class="lang-content" data-lang="es">
+      <section>
+        <h2>Versión corta</h2>
+        <p>Mental Maths no recopila ninguna información personal. No hay cuentas, ni inicios de sesión, ni seguimiento de usuarios. Tus sesiones de entrenamiento, racha, errores y preferencias se almacenan solo en tu dispositivo. La app muestra anuncios de Google AdMob, configurados para contenido apto para la familia (para todos los públicos, no personalizado).</p>
+      </section>
+      <section>
+        <h2>1. Quiénes somos</h2>
+        <p>Mental Maths («la app», «nosotros») es una aplicación móvil de entrenamiento de cálculo mental publicada por YOUNESS HARNAFI. Esta Política de privacidad explica qué datos recopila y no recopila la app cuando la usas en iOS o Android.</p>
+      </section>
+      <section>
+        <h2>2. Datos que no recopilamos</h2>
+        <p>No recopilamos, almacenamos ni transmitimos nada de lo siguiente:</p>
+        <ul>
+          <li>Nombres, correos electrónicos o números de teléfono</li>
+          <li>Credenciales de cuenta de cualquier tipo (la app no tiene inicio de sesión)</li>
+          <li>Datos de ubicación</li>
+          <li>Fotos, contactos o archivos del dispositivo</li>
+          <li>Entrada de micrófono o cámara</li>
+          <li>Analítica de uso o informes de fallos</li>
+          <li>Perfiles de comportamiento o de intereses</li>
+        </ul>
+        <p>La app no tiene servidores, ni bases de datos, ni telemetría propia. El campo opcional «Nombre» que se muestra en la pantalla de resultados se almacena solo en tu dispositivo: puedes dejarlo en blanco o poner el apodo que quieras.</p>
+      </section>
+      <section>
+        <h2>3. Datos almacenados solo en tu dispositivo</h2>
+        <p>La app guarda la siguiente información de forma local para que tu progreso de aprendizaje persista entre sesiones. Estos datos nunca salen de tu dispositivo:</p>
+        <ul>
+          <li><strong>Nombre mostrado</strong> — el apodo que introdujiste durante la configuración inicial (opcional)</li>
+          <li><strong>Curso seleccionado</strong> — para ajustar la dificultad de las preguntas (1 a 12)</li>
+          <li><strong>Sesiones de entrenamiento</strong> — modo, puntuación, precisión, duración y marca de tiempo de cada sesión completada</li>
+          <li><strong>Errores</strong> — preguntas que respondiste mal, conservadas para la función de repaso integrada</li>
+          <li><strong>Datos de racha</strong> — fechas en las que completaste al menos una sesión de entrenamiento</li>
+          <li><strong>Preferencias</strong> — tema (claro/oscuro/sistema), sonido activado/desactivado, vibración activada/desactivada, duración predeterminada del temporizador</li>
+        </ul>
+        <p>Estos datos se guardan en el almacenamiento local del dispositivo (Hive tanto en iOS como en Android). Puedes borrarlos en cualquier momento desde «Ajustes → Restablecer todo el progreso» dentro de la app, o desinstalando la app.</p>
+      </section>
+      <section>
+        <h2>4. Publicidad</h2>
+        <p>Mental Maths se sostiene con anuncios servidos a través de <strong>Google AdMob</strong>. AdMob es el único servicio de terceros que usa la app. La app muestra:</p>
+        <ul>
+          <li>Un pequeño banner en la parte inferior de la pestaña Inicio</li>
+          <li>Un anuncio intersticial a pantalla completa que aparece de vez en cuando entre sesiones completadas (aproximadamente una de cada dos sesiones)</li>
+        </ul>
+        <p>Para mantener la experiencia adecuada para estudiantes de todas las edades, AdMob está configurado con:</p>
+        <ul>
+          <li><strong>Clasificación máxima de contenido publicitario:</strong> G (solo público general)</li>
+          <li><strong>Anuncios no personalizados:</strong> activados donde la ley exige consentimiento</li>
+        </ul>
+        <p>AdMob puede recopilar un conjunto limitado de señales del dispositivo (tipo de dispositivo, dirección IP, identificador publicitario, metadatos de la solicitud de anuncio) para mostrar, medir y limitar la frecuencia de los anuncios. Para más detalles sobre las prácticas de datos de AdMob, consulta la política de Google en <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>. Los usuarios de Apple pueden desactivar el seguimiento publicitario en todo el sistema en <em>Ajustes → Privacidad y seguridad → Seguimiento</em>. Los usuarios de Android pueden restablecer o limitar su ID de publicidad en <em>Ajustes → Privacidad → Anuncios</em>.</p>
+      </section>
+      <section>
+        <h2>5. Privacidad de menores</h2>
+        <p>Mental Maths está diseñada para estudiantes desde 1.º hasta 12.º curso, lo que incluye a menores de 13 años. Como la app no recopila información personal de ningún usuario y no tiene inicio de sesión, chat, funciones sociales ni compras dentro de la app, cumple con la Children's Online Privacy Protection Act (COPPA) de Estados Unidos y con normativas similares, incluido el RGPD-K de la UE y el Age-Appropriate Design Code del Reino Unido.</p>
+        <p>En concreto:</p>
+        <ul>
+          <li>No se recopila información personal de nadie, incluidos los menores</li>
+          <li>No se requiere registro, inicio de sesión ni consentimiento parental para usar la app</li>
+          <li>Toda la publicidad se filtra a contenido para todos los públicos</li>
+          <li>La app no contiene compras dentro de la app, chat, comunicación entre usuarios ni enlaces a redes sociales</li>
+        </ul>
+        <p>Si eres madre, padre o tutor y tienes alguna duda, contáctanos en la dirección de correo de abajo.</p>
+      </section>
+      <section>
+        <h2>6. Permisos que solicita la app</h2>
+        <p>La app solicita solo los permisos mínimos necesarios para funcionar:</p>
+        <ul>
+          <li><strong>Acceso a Internet</strong> — necesario únicamente para que AdMob obtenga y muestre los anuncios. El entrenamiento en sí funciona totalmente sin conexión.</li>
+          <li><strong>Vibración</strong> — para la respuesta táctil durante el juego (opcional, se puede desactivar en Ajustes → Vibración)</li>
+        </ul>
+        <p>La app no solicita acceso a tu ubicación, cámara, micrófono, contactos, fotos, calendario ni a ningún otro dato sensible.</p>
+      </section>
+      <section>
+        <h2>7. Tus derechos</h2>
+        <p>Como no recopilamos información personal en nuestros servidores, no hay nada sobre ti a lo que podamos acceder, corregir o eliminar de forma remota. Tú conservas el control total de los datos en el dispositivo descritos en la Sección 3:</p>
+        <ul>
+          <li><strong>Restablecer todo el progreso:</strong> Ajustes → Restablecer todo el progreso (borra sesiones, errores, racha)</li>
+          <li><strong>Borrar solo los errores:</strong> pantalla de Errores → icono de papelera</li>
+          <li><strong>Cambiar tu nombre o curso:</strong> Ajustes → Nombre / Curso</li>
+          <li><strong>Desactivar sonido o vibración:</strong> Ajustes → Feedback</li>
+          <li><strong>Eliminar todos los datos de la app:</strong> desinstala la app de tu dispositivo</li>
+        </ul>
+        <p>Los usuarios del Espacio Económico Europeo, Reino Unido, California y otras jurisdicciones con leyes de privacidad que otorgan derechos de acceso, rectificación, supresión y oposición pueden ejercerlos en cualquier momento contactándonos. Al no almacenar datos personales, la mayoría de solicitudes se responderán confirmando que no existen datos.</p>
+      </section>
+      <section>
+        <h2>8. Conservación de datos</h2>
+        <p>No conservamos datos de usuario porque no recopilamos ninguno. Los datos en el dispositivo persisten solo mientras la app esté instalada y se eliminan cuando el usuario la desinstala o elige «Restablecer todo el progreso».</p>
+      </section>
+      <section>
+        <h2>9. Usuarios internacionales</h2>
+        <p>Mental Maths está disponible en todo el mundo. La app no transfiere datos personales entre fronteras porque no recopila datos personales. Los anuncios servidos por Google AdMob pueden entregarse desde la infraestructura global de Google, sujeta a la propia política de privacidad de Google.</p>
+      </section>
+      <section>
+        <h2>10. Cambios en esta política</h2>
+        <p>Si introducimos cambios en esta Política de privacidad, la versión actualizada se publicará en esta URL con una nueva fecha de «Última actualización» en la parte superior. Los cambios sustanciales sobre el tratamiento de datos se destacarán. El uso continuado de la app tras un cambio implica la aceptación de la política revisada.</p>
+      </section>
+      <section>
+        <h2>11. Contacto</h2>
+        <p>Preguntas, dudas o solicitudes de derechos pueden enviarse a:</p>
+        <p><strong>Correo:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
+        <p>Respondemos en 7 días hábiles.</p>
+      </section>
+    </div>
   </main>
 
   <div class="footer">
@@ -253,5 +1265,43 @@
     <a href="mailto:digiforcebusiness@gmail.com">Contact</a>
     <p style="margin-top:10px">© 2026 YOUNESS HARNAFI. All rights reserved.</p>
   </div>
+
+  <script>
+    (function () {
+      var supported = ['en','ar','zh','fr','de','it','ja','ko','pt','es'];
+      var buttons = document.querySelectorAll('.lang-switcher button');
+      var headerBlocks = document.querySelectorAll('.header-block');
+      var contents = document.querySelectorAll('.lang-content');
+
+      function setLang(lang) {
+        if (supported.indexOf(lang) === -1) lang = 'en';
+        buttons.forEach(function (b) { b.classList.toggle('active', b.dataset.lang === lang); });
+        headerBlocks.forEach(function (h) { h.classList.toggle('active', h.dataset.lang === lang); });
+        contents.forEach(function (c) { c.classList.toggle('active', c.dataset.lang === lang); });
+        document.documentElement.lang = lang;
+        document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+        try { localStorage.setItem('mentalMathsPrefLang', lang); } catch (e) {}
+      }
+
+      buttons.forEach(function (b) {
+        b.addEventListener('click', function () {
+          setLang(b.dataset.lang);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+
+      var saved = null;
+      try { saved = localStorage.getItem('mentalMathsPrefLang'); } catch (e) {}
+      if (saved && supported.indexOf(saved) !== -1) {
+        setLang(saved);
+      } else {
+        var nav = (navigator.language || 'en').toLowerCase();
+        var match = supported.find(function (code) {
+          return code === 'zh' ? nav.startsWith('zh') : nav.startsWith(code);
+        });
+        setLang(match || 'en');
+      }
+    })();
+  </script>
 </body>
 </html>
