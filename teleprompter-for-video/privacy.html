@@ -169,61 +169,61 @@
     <div class="header-block active" data-lang="en">
       <h1>Privacy Policy</h1>
       <p>Teleprompter for Video</p>
-      <span class="updated">Last updated: May 14, 2026</span>
+      <span class="updated">Last updated: May 19, 2026</span>
     </div>
     <!-- ARABIC -->
     <div class="header-block" data-lang="ar" dir="rtl">
       <h1>سياسة الخصوصية</h1>
       <p>Teleprompter for Video</p>
-      <span class="updated">آخر تحديث: 14 مايو 2026</span>
+      <span class="updated">آخر تحديث: 19 مايو 2026</span>
     </div>
     <!-- CHINESE TRADITIONAL -->
     <div class="header-block" data-lang="zh">
       <h1>隱私政策</h1>
       <p>Teleprompter for Video</p>
-      <span class="updated">最後更新：2026 年 5 月 14 日</span>
+      <span class="updated">最後更新：2026 年 5 月 19 日</span>
     </div>
     <!-- FRENCH -->
     <div class="header-block" data-lang="fr">
       <h1>Politique de confidentialité</h1>
       <p>Teleprompter for Video</p>
-      <span class="updated">Dernière mise à jour : 14 mai 2026</span>
+      <span class="updated">Dernière mise à jour : 19 mai 2026</span>
     </div>
     <!-- GERMAN -->
     <div class="header-block" data-lang="de">
       <h1>Datenschutzerklärung</h1>
       <p>Teleprompter for Video</p>
-      <span class="updated">Zuletzt aktualisiert: 14. Mai 2026</span>
+      <span class="updated">Zuletzt aktualisiert: 19. Mai 2026</span>
     </div>
     <!-- ITALIAN -->
     <div class="header-block" data-lang="it">
       <h1>Informativa sulla privacy</h1>
       <p>Teleprompter for Video</p>
-      <span class="updated">Ultimo aggiornamento: 14 maggio 2026</span>
+      <span class="updated">Ultimo aggiornamento: 19 maggio 2026</span>
     </div>
     <!-- JAPANESE -->
     <div class="header-block" data-lang="ja">
       <h1>プライバシーポリシー</h1>
       <p>Teleprompter for Video</p>
-      <span class="updated">最終更新：2026 年 5 月 14 日</span>
+      <span class="updated">最終更新：2026 年 5 月 19 日</span>
     </div>
     <!-- KOREAN -->
     <div class="header-block" data-lang="ko">
       <h1>개인정보 처리방침</h1>
       <p>Teleprompter for Video</p>
-      <span class="updated">최종 업데이트: 2026년 5월 14일</span>
+      <span class="updated">최종 업데이트: 2026년 5월 19일</span>
     </div>
     <!-- PORTUGUESE BRAZIL -->
     <div class="header-block" data-lang="pt">
       <h1>Política de Privacidade</h1>
       <p>Teleprompter for Video</p>
-      <span class="updated">Última atualização: 14 de maio de 2026</span>
+      <span class="updated">Última atualização: 19 de maio de 2026</span>
     </div>
     <!-- SPANISH -->
     <div class="header-block" data-lang="es">
       <h1>Política de privacidad</h1>
       <p>Teleprompter for Video</p>
-      <span class="updated">Última actualización: 14 de mayo de 2026</span>
+      <span class="updated">Última actualización: 19 de mayo de 2026</span>
     </div>
   </header>
 
@@ -257,17 +257,17 @@
 
       <section>
         <h2>2. Data We Do Not Collect</h2>
-        <p>We do not operate any servers that store user data. We do not collect, store, or transmit any of the following:</p>
+        <p>Aside from the crash diagnostics and optional in-app feedback described in Section 14, we do not operate servers that store your personal data. We do not collect, store, or transmit any of the following:</p>
         <ul>
           <li>Names, email addresses, or phone numbers (the app has no sign-up)</li>
           <li>Voice recordings or transcripts beyond on-device speech recognition (see Section 4)</li>
           <li>Recorded videos (they save to your Photos library only)</li>
           <li>Location data</li>
-          <li>App usage analytics, telemetry, or crash reports</li>
+          <li>App usage analytics or behavioral telemetry</li>
           <li>Behavioral or interest profiles</li>
           <li>Advertising identifiers</li>
         </ul>
-        <p>The app contains no third-party advertising, no analytics SDKs, and no tracking pixels.</p>
+        <p>The app contains no third-party advertising and no tracking pixels. It uses Google Firebase Crashlytics solely for crash diagnostics — see Section 14.</p>
       </section>
 
       <section>
@@ -357,7 +357,7 @@
 
       <section>
         <h2>11. Data Retention</h2>
-        <p>We do not retain any user data because we do not collect any. On-device data persists only as long as the app remains installed. RevenueCat retains anonymous subscription records for as long as your subscription is active plus a retention window defined by their own policy.</p>
+        <p>The only data we retain is the crash diagnostics and any in-app feedback you choose to submit (see Section 14), held in Google Firebase. On-device data persists only as long as the app remains installed. RevenueCat retains anonymous subscription records for as long as your subscription is active plus a retention window defined by their own policy.</p>
       </section>
 
       <section>
@@ -371,7 +371,17 @@
       </section>
 
       <section>
-        <h2>14. Contact</h2>
+        <h2>14. Crash Reporting &amp; In-App Feedback</h2>
+        <p>The app uses Google Firebase for two limited, non-advertising purposes:</p>
+        <ul>
+          <li><strong>Crash diagnostics (Firebase Crashlytics).</strong> If the app crashes, an automatic diagnostic report is sent to Google Firebase. It contains your device model, operating system version, app version, and a technical stack trace of the crash. It contains no name, email address, or other personal identifier, and is used solely to find and fix bugs.</li>
+          <li><strong>In-app feedback (Firebase Firestore).</strong> If you choose to submit a bug report or feature request from Settings → Feedback, the message you write — together with basic device and app-version information — is stored in Google Firebase so we can read and act on it. This happens only when you voluntarily send feedback; it is never automatic.</li>
+        </ul>
+        <p>This data is processed by Google as our service provider and is used only to keep the app stable and to respond to your feedback. Google's privacy practices for Firebase are described at <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">firebase.google.com/support/privacy</a>.</p>
+      </section>
+
+      <section>
+        <h2>15. Contact</h2>
         <p>Questions, concerns, or rights requests can be sent to:</p>
         <p><strong>Email:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
         <p>We respond within 7 business days.</p>
@@ -392,17 +402,17 @@
 
       <section>
         <h2>2. البيانات التي لا نجمعها</h2>
-        <p>نحن لا نشغّل أي خوادم تخزّن بيانات المستخدم. لا نجمع أو نخزّن أو ننقل أيًا مما يلي:</p>
+        <p>باستثناء تقارير الأعطال التشخيصية والملاحظات الاختيارية داخل التطبيق الموضّحة في القسم 14، لا نشغّل خوادم تخزّن بياناتك الشخصية. لا نجمع أو نخزّن أو ننقل أيًا مما يلي:</p>
         <ul>
           <li>الأسماء أو عناوين البريد الإلكتروني أو أرقام الهواتف (لا يوجد تسجيل في التطبيق)</li>
           <li>التسجيلات الصوتية أو النصوص المنسوخة فيما يتجاوز التعرّف على الصوت داخل الجهاز (انظر القسم 4)</li>
           <li>مقاطع الفيديو المسجّلة (تُحفظ في مكتبة الصور فقط)</li>
           <li>بيانات الموقع الجغرافي</li>
-          <li>تحليلات استخدام التطبيق أو القياسات أو تقارير الأعطال</li>
+          <li>تحليلات استخدام التطبيق أو القياسات السلوكية</li>
           <li>ملفات تعريف سلوكية أو اهتمامات</li>
           <li>معرّفات الإعلانات</li>
         </ul>
-        <p>لا يحتوي التطبيق على أي إعلانات من أطراف خارجية، ولا على حزم تحليلات SDK، ولا على وحدات تتبع.</p>
+        <p>لا يحتوي التطبيق على أي إعلانات من أطراف خارجية ولا على وحدات تتبع. يستخدم التطبيق خدمة Google Firebase Crashlytics فقط لتشخيص الأعطال — انظر القسم 14.</p>
       </section>
 
       <section>
@@ -492,7 +502,7 @@
 
       <section>
         <h2>11. الاحتفاظ بالبيانات</h2>
-        <p>لا نحتفظ بأي بيانات للمستخدم لأننا لا نجمع أي بيانات. تبقى البيانات على الجهاز ما دام التطبيق مثبتًا. يحتفظ RevenueCat بسجلات اشتراك مجهولة ما دام اشتراكك نشطًا، إضافة إلى فترة احتفاظ تحددها سياسة RevenueCat الخاصة.</p>
+        <p>البيانات الوحيدة التي نحتفظ بها هي تقارير الأعطال التشخيصية وأي ملاحظات تختار إرسالها داخل التطبيق (انظر القسم 14)، والمخزّنة في Google Firebase. تبقى البيانات على الجهاز ما دام التطبيق مثبتًا. يحتفظ RevenueCat بسجلات اشتراك مجهولة ما دام اشتراكك نشطًا، إضافة إلى فترة احتفاظ تحددها سياسة RevenueCat الخاصة.</p>
       </section>
 
       <section>
@@ -506,7 +516,17 @@
       </section>
 
       <section>
-        <h2>14. الاتصال بنا</h2>
+        <h2>14. تقارير الأعطال والملاحظات داخل التطبيق</h2>
+        <p>يستخدم التطبيق Google Firebase لغرضين محدودين لا علاقة لهما بالإعلانات:</p>
+        <ul>
+          <li><strong>تشخيص الأعطال (Firebase Crashlytics).</strong> عند تعطّل التطبيق، يُرسَل تقرير تشخيصي تلقائي إلى Google Firebase. يحتوي على طراز جهازك وإصدار نظام التشغيل وإصدار التطبيق وتتبّع تقني للعطل. لا يحتوي على اسم أو بريد إلكتروني أو أي معرّف شخصي آخر، ويُستخدم فقط للعثور على الأخطاء وإصلاحها.</li>
+          <li><strong>الملاحظات داخل التطبيق (Firebase Firestore).</strong> إذا اخترت إرسال بلاغ عن خطأ أو طلب ميزة من الإعدادات ← الملاحظات، فإن الرسالة التي تكتبها — إلى جانب معلومات أساسية عن الجهاز وإصدار التطبيق — تُخزَّن في Google Firebase لنتمكن من قراءتها والتصرّف بشأنها. يحدث هذا فقط عندما ترسل ملاحظاتك طوعًا؛ ولا يحدث تلقائيًا أبدًا.</li>
+        </ul>
+        <p>تُعالَج هذه البيانات بواسطة Google بصفتها مزوّد الخدمة لدينا، وتُستخدم فقط للحفاظ على استقرار التطبيق والردّ على ملاحظاتك. ممارسات الخصوصية لدى Google بشأن Firebase موضّحة على <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">firebase.google.com/support/privacy</a>.</p>
+      </section>
+
+      <section>
+        <h2>15. الاتصال بنا</h2>
         <p>يمكن إرسال الأسئلة أو المخاوف أو طلبات الحقوق إلى:</p>
         <p><strong>البريد الإلكتروني:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
         <p>نردّ خلال 7 أيام عمل.</p>
@@ -527,17 +547,17 @@
 
       <section>
         <h2>2. 我們不收集的資料</h2>
-        <p>我們不營運任何儲存使用者資料的伺服器。我們不會收集、儲存或傳輸以下任何資料:</p>
+        <p>除了第 14 節所述的當機診斷與選用的應用程式內意見回饋外,我們不營運儲存您個人資料的伺服器。我們不會收集、儲存或傳輸以下任何資料:</p>
         <ul>
           <li>姓名、電子郵件或電話號碼(本應用程式無註冊功能)</li>
           <li>超出裝置內語音辨識範圍的錄音或轉錄(請參閱第 4 節)</li>
           <li>錄製的影片(僅儲存於您的照片圖庫)</li>
           <li>位置資料</li>
-          <li>應用程式使用分析、遙測或當機報告</li>
+          <li>應用程式使用分析或行為遙測</li>
           <li>行為或興趣個人檔案</li>
           <li>廣告識別碼</li>
         </ul>
-        <p>本應用程式不包含任何第三方廣告、分析 SDK 或追蹤像素。</p>
+        <p>本應用程式不包含任何第三方廣告或追蹤像素。本應用程式僅使用 Google Firebase Crashlytics 進行當機診斷 — 請見第 14 節。</p>
       </section>
 
       <section>
@@ -627,7 +647,7 @@
 
       <section>
         <h2>11. 資料保留</h2>
-        <p>我們不保留任何使用者資料,因為我們並不收集任何資料。裝置上的資料僅在應用程式仍安裝期間存在。RevenueCat 會在您的訂閱有效期間,以及其自身政策所定義的保留期內,保留匿名訂閱紀錄。</p>
+        <p>我們唯一保留的資料,是您選擇提交的當機診斷與應用程式內意見回饋(請見第 14 節),儲存於 Google Firebase。裝置上的資料僅在應用程式仍安裝期間存在。RevenueCat 會在您的訂閱有效期間,以及其自身政策所定義的保留期內,保留匿名訂閱紀錄。</p>
       </section>
 
       <section>
@@ -641,7 +661,17 @@
       </section>
 
       <section>
-        <h2>14. 聯絡我們</h2>
+        <h2>14. 當機回報與應用程式內意見回饋</h2>
+        <p>本應用程式將 Google Firebase 用於兩項有限、與廣告無關的用途:</p>
+        <ul>
+          <li><strong>當機診斷(Firebase Crashlytics)。</strong>當應用程式當機時,系統會自動將診斷報告傳送至 Google Firebase。報告包含您的裝置型號、作業系統版本、應用程式版本,以及當機的技術堆疊追蹤。報告不含姓名、電子郵件或其他個人識別資訊,僅用於找出並修正錯誤。</li>
+          <li><strong>應用程式內意見回饋(Firebase Firestore)。</strong>若您選擇在「設定 → 意見回饋」中提交錯誤回報或功能建議,您所撰寫的訊息 — 連同基本的裝置與應用程式版本資訊 — 會儲存於 Google Firebase,以便我們閱讀並處理。此情形僅在您自願送出意見回饋時發生,絕不會自動進行。</li>
+        </ul>
+        <p>這些資料由 Google 以我們的服務供應商身分處理,僅用於維持應用程式穩定及回覆您的意見。Google 對 Firebase 的隱私做法說明於 <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">firebase.google.com/support/privacy</a>。</p>
+      </section>
+
+      <section>
+        <h2>15. 聯絡我們</h2>
         <p>如有問題、疑慮或權利相關請求,請聯絡:</p>
         <p><strong>電子郵件:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
         <p>我們將於 7 個工作日內回覆。</p>
@@ -662,17 +692,17 @@
 
       <section>
         <h2>2. Données que nous ne collectons pas</h2>
-        <p>Nous n'exploitons aucun serveur stockant des données utilisateur. Nous ne collectons, ne stockons et ne transmettons aucun des éléments suivants :</p>
+        <p>En dehors des diagnostics de plantage et des retours facultatifs dans l'application décrits à la section 14, nous n'exploitons aucun serveur stockant vos données personnelles. Nous ne collectons, ne stockons et ne transmettons aucun des éléments suivants :</p>
         <ul>
           <li>Noms, adresses e-mail, numéros de téléphone (l'application ne propose aucune inscription)</li>
           <li>Enregistrements vocaux ou transcriptions au-delà de la reconnaissance vocale locale (voir la section 4)</li>
           <li>Vidéos enregistrées (elles ne sont sauvegardées que dans votre bibliothèque Photos)</li>
           <li>Données de localisation</li>
-          <li>Analytique d'utilisation, télémétrie ou rapports de plantage</li>
+          <li>Analytique d'utilisation ou télémétrie comportementale</li>
           <li>Profils comportementaux ou d'intérêt</li>
           <li>Identifiants publicitaires</li>
         </ul>
-        <p>L'application ne contient aucune publicité tierce, aucun SDK d'analytique et aucun pixel de pistage.</p>
+        <p>L'application ne contient aucune publicité tierce ni aucun pixel de pistage. Elle utilise Google Firebase Crashlytics uniquement pour les diagnostics de plantage — voir la section 14.</p>
       </section>
 
       <section>
@@ -762,7 +792,7 @@
 
       <section>
         <h2>11. Conservation des données</h2>
-        <p>Nous ne conservons aucune donnée utilisateur puisque nous n'en collectons aucune. Les données stockées sur l'appareil ne persistent que tant que l'application reste installée. RevenueCat conserve des enregistrements anonymes d'abonnement aussi longtemps que votre abonnement est actif, plus la durée définie par sa propre politique.</p>
+        <p>Les seules données que nous conservons sont les diagnostics de plantage et les retours que vous choisissez d'envoyer depuis l'application (voir la section 14), hébergés dans Google Firebase. Les données stockées sur l'appareil ne persistent que tant que l'application reste installée. RevenueCat conserve des enregistrements anonymes d'abonnement aussi longtemps que votre abonnement est actif, plus la durée définie par sa propre politique.</p>
       </section>
 
       <section>
@@ -776,7 +806,17 @@
       </section>
 
       <section>
-        <h2>14. Contact</h2>
+        <h2>14. Rapports de plantage et retours dans l'application</h2>
+        <p>L'application utilise Google Firebase à deux fins limitées, sans rapport avec la publicité :</p>
+        <ul>
+          <li><strong>Diagnostics de plantage (Firebase Crashlytics).</strong> Si l'application plante, un rapport de diagnostic est envoyé automatiquement à Google Firebase. Il contient le modèle de votre appareil, la version du système d'exploitation, la version de l'application et une trace technique du plantage. Il ne contient ni nom, ni adresse e-mail, ni autre identifiant personnel, et sert uniquement à détecter et corriger les bugs.</li>
+          <li><strong>Retours dans l'application (Firebase Firestore).</strong> Si vous choisissez d'envoyer un rapport de bug ou une suggestion de fonctionnalité depuis Réglages → Retours, le message que vous rédigez — avec des informations basiques sur l'appareil et la version de l'application — est stocké dans Google Firebase afin que nous puissions le lire et y donner suite. Cela ne se produit que lorsque vous envoyez volontairement un retour ; ce n'est jamais automatique.</li>
+        </ul>
+        <p>Ces données sont traitées par Google en tant que notre sous-traitant et servent uniquement à maintenir la stabilité de l'application et à répondre à vos retours. Les pratiques de confidentialité de Google pour Firebase sont décrites sur <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">firebase.google.com/support/privacy</a>.</p>
+      </section>
+
+      <section>
+        <h2>15. Contact</h2>
         <p>Questions, préoccupations ou demandes relatives aux droits peuvent être envoyées à :</p>
         <p><strong>E-mail :</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
         <p>Nous répondons sous 7 jours ouvrés.</p>
@@ -797,17 +837,17 @@
 
       <section>
         <h2>2. Daten, die wir nicht erheben</h2>
-        <p>Wir betreiben keinerlei Server, die Nutzerdaten speichern. Wir erheben, speichern oder übertragen keine der folgenden Informationen:</p>
+        <p>Abgesehen von den in Abschnitt 14 beschriebenen Absturzdiagnosen und dem optionalen In-App-Feedback betreiben wir keine Server, die Ihre personenbezogenen Daten speichern. Wir erheben, speichern oder übertragen keine der folgenden Informationen:</p>
         <ul>
           <li>Namen, E-Mail-Adressen oder Telefonnummern (die App kennt keine Anmeldung)</li>
           <li>Audioaufnahmen oder Transkripte über die On-Device-Spracherkennung hinaus (siehe Abschnitt 4)</li>
           <li>Aufgenommene Videos (werden ausschließlich in Ihrer Fotos-Mediathek gespeichert)</li>
           <li>Standortdaten</li>
-          <li>App-Nutzungsanalytik, Telemetrie oder Absturzberichte</li>
+          <li>App-Nutzungsanalytik oder verhaltensbezogene Telemetrie</li>
           <li>Verhaltens- oder Interessensprofile</li>
           <li>Werbe-IDs</li>
         </ul>
-        <p>Die App enthält keine Werbung Dritter, keine Analytik-SDKs und keine Tracking-Pixel.</p>
+        <p>Die App enthält keine Werbung Dritter und keine Tracking-Pixel. Sie nutzt Google Firebase Crashlytics ausschließlich für Absturzdiagnosen — siehe Abschnitt 14.</p>
       </section>
 
       <section>
@@ -897,7 +937,7 @@
 
       <section>
         <h2>11. Datenaufbewahrung</h2>
-        <p>Wir bewahren keine Nutzerdaten auf, weil wir keine erheben. Geräte-Daten bestehen nur so lange, wie die App installiert ist. RevenueCat bewahrt anonyme Abo-Datensätze so lange auf, wie Ihr Abo aktiv ist, plus eine in seiner Richtlinie definierte Aufbewahrungszeit.</p>
+        <p>Die einzigen Daten, die wir aufbewahren, sind die Absturzdiagnosen und jegliches von Ihnen freiwillig gesendete In-App-Feedback (siehe Abschnitt 14), gespeichert in Google Firebase. Geräte-Daten bestehen nur so lange, wie die App installiert ist. RevenueCat bewahrt anonyme Abo-Datensätze so lange auf, wie Ihr Abo aktiv ist, plus eine in seiner Richtlinie definierte Aufbewahrungszeit.</p>
       </section>
 
       <section>
@@ -911,7 +951,17 @@
       </section>
 
       <section>
-        <h2>14. Kontakt</h2>
+        <h2>14. Absturzberichte und In-App-Feedback</h2>
+        <p>Die App nutzt Google Firebase für zwei begrenzte, werbefreie Zwecke:</p>
+        <ul>
+          <li><strong>Absturzdiagnose (Firebase Crashlytics).</strong> Stürzt die App ab, wird automatisch ein Diagnosebericht an Google Firebase gesendet. Er enthält Ihr Gerätemodell, die Betriebssystemversion, die App-Version und einen technischen Stack-Trace des Absturzes. Er enthält keinen Namen, keine E-Mail-Adresse und keine andere personenbezogene Kennung und dient ausschließlich dazu, Fehler zu finden und zu beheben.</li>
+          <li><strong>In-App-Feedback (Firebase Firestore).</strong> Wenn Sie über Einstellungen → Feedback einen Fehlerbericht oder Funktionswunsch senden, wird die von Ihnen verfasste Nachricht — zusammen mit grundlegenden Geräte- und App-Versionsinformationen — in Google Firebase gespeichert, damit wir sie lesen und bearbeiten können. Dies geschieht nur, wenn Sie freiwillig Feedback senden; niemals automatisch.</li>
+        </ul>
+        <p>Diese Daten werden von Google als unserem Auftragsverarbeiter verarbeitet und ausschließlich dazu verwendet, die App stabil zu halten und auf Ihr Feedback zu reagieren. Googles Datenschutzpraktiken für Firebase sind unter <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">firebase.google.com/support/privacy</a> beschrieben.</p>
+      </section>
+
+      <section>
+        <h2>15. Kontakt</h2>
         <p>Fragen, Anliegen oder Anträge zu Ihren Rechten können gesendet werden an:</p>
         <p><strong>E-Mail:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
         <p>Wir antworten innerhalb von 7 Werktagen.</p>
@@ -932,17 +982,17 @@
 
       <section>
         <h2>2. Dati che non raccogliamo</h2>
-        <p>Non gestiamo alcun server che memorizzi dati utente. Non raccogliamo, memorizziamo né trasmettiamo nessuno dei seguenti:</p>
+        <p>A parte i dati diagnostici di crash e il feedback facoltativo in-app descritti nella Sezione 14, non gestiamo server che memorizzino i tuoi dati personali. Non raccogliamo, memorizziamo né trasmettiamo nessuno dei seguenti:</p>
         <ul>
           <li>Nomi, indirizzi e-mail o numeri di telefono (l'app non prevede registrazione)</li>
           <li>Registrazioni audio o trascrizioni oltre al riconoscimento vocale on-device (vedi Sezione 4)</li>
           <li>Video registrati (vengono salvati solo nella tua libreria Foto)</li>
           <li>Dati di posizione</li>
-          <li>Analitiche di utilizzo, telemetria o report di crash</li>
+          <li>Analitiche di utilizzo o telemetria comportamentale</li>
           <li>Profili comportamentali o di interessi</li>
           <li>Identificatori pubblicitari</li>
         </ul>
-        <p>L'app non contiene pubblicità di terze parti, SDK di analytics o pixel di tracciamento.</p>
+        <p>L'app non contiene pubblicità di terze parti né pixel di tracciamento. Usa Google Firebase Crashlytics esclusivamente per la diagnostica dei crash — vedi la Sezione 14.</p>
       </section>
 
       <section>
@@ -1032,7 +1082,7 @@
 
       <section>
         <h2>11. Conservazione dei dati</h2>
-        <p>Non conserviamo alcun dato utente perché non ne raccogliamo. I dati sul dispositivo permangono solo finché l'app resta installata. RevenueCat conserva record anonimi di abbonamento finché il tuo abbonamento è attivo, più una finestra di conservazione definita dalla sua policy.</p>
+        <p>Gli unici dati che conserviamo sono i dati diagnostici di crash e qualsiasi feedback che scegli di inviare dall'app (vedi la Sezione 14), ospitati in Google Firebase. I dati sul dispositivo permangono solo finché l'app resta installata. RevenueCat conserva record anonimi di abbonamento finché il tuo abbonamento è attivo, più una finestra di conservazione definita dalla sua policy.</p>
       </section>
 
       <section>
@@ -1046,7 +1096,17 @@
       </section>
 
       <section>
-        <h2>14. Contatto</h2>
+        <h2>14. Report di crash e feedback in-app</h2>
+        <p>L'app usa Google Firebase per due finalità limitate, non pubblicitarie:</p>
+        <ul>
+          <li><strong>Diagnostica dei crash (Firebase Crashlytics).</strong> Se l'app si blocca, un report diagnostico viene inviato automaticamente a Google Firebase. Contiene il modello del dispositivo, la versione del sistema operativo, la versione dell'app e una traccia tecnica del crash. Non contiene nome, indirizzo e-mail o altri identificatori personali, ed è usato unicamente per individuare e correggere i bug.</li>
+          <li><strong>Feedback in-app (Firebase Firestore).</strong> Se scegli di inviare una segnalazione di bug o una richiesta di funzionalità da Impostazioni → Feedback, il messaggio che scrivi — insieme a informazioni di base su dispositivo e versione dell'app — viene memorizzato in Google Firebase così da poterlo leggere e gestire. Ciò avviene solo quando invii volontariamente un feedback; non è mai automatico.</li>
+        </ul>
+        <p>Questi dati sono trattati da Google in qualità di nostro responsabile del trattamento e sono usati solo per mantenere stabile l'app e rispondere al tuo feedback. Le pratiche sulla privacy di Google per Firebase sono descritte su <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">firebase.google.com/support/privacy</a>.</p>
+      </section>
+
+      <section>
+        <h2>15. Contatto</h2>
         <p>Domande, dubbi o richieste relative ai diritti possono essere inviati a:</p>
         <p><strong>E-mail:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
         <p>Rispondiamo entro 7 giorni lavorativi.</p>
@@ -1067,17 +1127,17 @@
 
       <section>
         <h2>2. 収集しないデータ</h2>
-        <p>当社はユーザーデータを保存するサーバーを一切運用していません。以下のいずれも収集、保存、送信しません:</p>
+        <p>セクション 14 に記載するクラッシュ診断および任意のアプリ内フィードバックを除き、当社はお客様の個人データを保存するサーバーを運用していません。以下のいずれも収集、保存、送信しません:</p>
         <ul>
           <li>氏名、メールアドレス、電話番号(本アプリにはサインアップがありません)</li>
           <li>端末上の音声認識の範囲を超える音声録音や書き起こし(セクション 4 参照)</li>
           <li>録画した動画(写真ライブラリにのみ保存されます)</li>
           <li>位置情報</li>
-          <li>アプリ利用解析、テレメトリ、クラッシュレポート</li>
+          <li>アプリ利用解析または行動テレメトリ</li>
           <li>行動・関心プロファイル</li>
           <li>広告 ID</li>
         </ul>
-        <p>本アプリにはサードパーティ広告、解析 SDK、トラッキングピクセルは含まれません。</p>
+        <p>本アプリにはサードパーティ広告およびトラッキングピクセルは含まれません。本アプリは Google Firebase Crashlytics をクラッシュ診断のためだけに使用します — セクション 14 を参照してください。</p>
       </section>
 
       <section>
@@ -1167,7 +1227,7 @@
 
       <section>
         <h2>11. データ保持</h2>
-        <p>当社はデータを収集していないため、ユーザーデータを保持していません。端末上のデータはアプリがインストールされている間のみ存続します。RevenueCat はサブスクリプションが有効である期間、ならびに同社の方針で定められた保持期間中、匿名のサブスクリプション記録を保持します。</p>
+        <p>当社が保持する唯一のデータは、クラッシュ診断と、お客様が送信を選択したアプリ内フィードバック(セクション 14 を参照)であり、Google Firebase に保存されます。端末上のデータはアプリがインストールされている間のみ存続します。RevenueCat はサブスクリプションが有効である期間、ならびに同社の方針で定められた保持期間中、匿名のサブスクリプション記録を保持します。</p>
       </section>
 
       <section>
@@ -1181,7 +1241,17 @@
       </section>
 
       <section>
-        <h2>14. お問い合わせ</h2>
+        <h2>14. クラッシュレポートとアプリ内フィードバック</h2>
+        <p>本アプリは、広告とは無関係の限定された 2 つの目的で Google Firebase を使用します:</p>
+        <ul>
+          <li><strong>クラッシュ診断(Firebase Crashlytics)。</strong>アプリがクラッシュすると、診断レポートが自動的に Google Firebase に送信されます。レポートには端末モデル、OS バージョン、アプリバージョン、クラッシュの技術的なスタックトレースが含まれます。氏名、メールアドレス、その他の個人識別情報は含まれず、不具合の発見と修正のためだけに使用されます。</li>
+          <li><strong>アプリ内フィードバック(Firebase Firestore)。</strong>設定 → フィードバックから不具合の報告や機能のご要望を送信する場合、お客様が記入したメッセージは、端末とアプリバージョンの基本情報とともに Google Firebase に保存され、当社が内容を確認し対応できるようにします。これはお客様が任意でフィードバックを送信したときにのみ発生し、自動的に行われることはありません。</li>
+        </ul>
+        <p>これらのデータは当社のサービス提供者として Google によって処理され、アプリの安定性維持とフィードバックへの対応のためにのみ使用されます。Firebase に関する Google のプライバシー慣行は <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">firebase.google.com/support/privacy</a> に記載されています。</p>
+      </section>
+
+      <section>
+        <h2>15. お問い合わせ</h2>
         <p>ご質問、ご懸念、権利行使のご要望は以下までお送りください:</p>
         <p><strong>メール:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
         <p>7 営業日以内に返信いたします。</p>
@@ -1202,17 +1272,17 @@
 
       <section>
         <h2>2. 수집하지 않는 데이터</h2>
-        <p>당사는 사용자 데이터를 저장하는 어떠한 서버도 운영하지 않습니다. 당사는 다음 어떠한 항목도 수집, 저장, 전송하지 않습니다:</p>
+        <p>섹션 14에 설명된 충돌 진단 및 선택적 인앱 피드백을 제외하고, 당사는 사용자의 개인정보를 저장하는 서버를 운영하지 않습니다. 당사는 다음 어떠한 항목도 수집, 저장, 전송하지 않습니다:</p>
         <ul>
           <li>이름, 이메일 주소, 전화번호 (본 앱에는 회원가입이 없습니다)</li>
           <li>기기 내 음성 인식의 범위를 넘어서는 음성 녹음이나 전사(섹션 4 참고)</li>
           <li>녹화된 영상(사진 보관함에만 저장됩니다)</li>
           <li>위치 정보</li>
-          <li>앱 이용 분석, 텔레메트리, 충돌 보고서</li>
+          <li>앱 이용 분석 또는 행동 텔레메트리</li>
           <li>행동 또는 관심 프로필</li>
           <li>광고 식별자</li>
         </ul>
-        <p>본 앱에는 제3자 광고, 분석 SDK, 추적 픽셀이 포함되어 있지 않습니다.</p>
+        <p>본 앱에는 제3자 광고 및 추적 픽셀이 포함되어 있지 않습니다. 본 앱은 충돌 진단을 위해서만 Google Firebase Crashlytics를 사용합니다 — 섹션 14를 참고하십시오.</p>
       </section>
 
       <section>
@@ -1302,7 +1372,7 @@
 
       <section>
         <h2>11. 데이터 보관</h2>
-        <p>당사는 데이터를 수집하지 않으므로 사용자 데이터를 보관하지 않습니다. 기기 내 데이터는 앱이 설치되어 있는 동안에만 유지됩니다. RevenueCat은 사용자의 구독이 활성화되어 있는 동안 및 자체 정책에서 정한 보관 기간 동안 익명의 구독 기록을 보관합니다.</p>
+        <p>당사가 보관하는 유일한 데이터는 충돌 진단과 사용자가 보내기로 선택한 인앱 피드백(섹션 14 참고)이며, Google Firebase에 저장됩니다. 기기 내 데이터는 앱이 설치되어 있는 동안에만 유지됩니다. RevenueCat은 사용자의 구독이 활성화되어 있는 동안 및 자체 정책에서 정한 보관 기간 동안 익명의 구독 기록을 보관합니다.</p>
       </section>
 
       <section>
@@ -1316,7 +1386,17 @@
       </section>
 
       <section>
-        <h2>14. 문의</h2>
+        <h2>14. 충돌 보고 및 인앱 피드백</h2>
+        <p>본 앱은 광고와 무관한 두 가지 제한된 목적으로 Google Firebase를 사용합니다:</p>
+        <ul>
+          <li><strong>충돌 진단(Firebase Crashlytics).</strong> 앱이 충돌하면 진단 보고서가 자동으로 Google Firebase에 전송됩니다. 보고서에는 기기 모델, 운영체제 버전, 앱 버전, 충돌의 기술적 스택 추적이 포함됩니다. 이름, 이메일 주소, 기타 개인 식별자는 포함되지 않으며, 오로지 버그를 찾아 수정하는 데만 사용됩니다.</li>
+          <li><strong>인앱 피드백(Firebase Firestore).</strong> 설정 → 피드백에서 버그 신고나 기능 제안을 보내기로 선택하면, 작성한 메시지가 기본 기기 및 앱 버전 정보와 함께 Google Firebase에 저장되어 당사가 읽고 처리할 수 있습니다. 이는 사용자가 자발적으로 피드백을 보낼 때에만 발생하며, 자동으로 이루어지지 않습니다.</li>
+        </ul>
+        <p>이 데이터는 당사의 서비스 제공자로서 Google이 처리하며, 앱의 안정성 유지와 피드백 응대를 위해서만 사용됩니다. Firebase에 대한 Google의 개인정보 처리 관행은 <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">firebase.google.com/support/privacy</a>에 설명되어 있습니다.</p>
+      </section>
+
+      <section>
+        <h2>15. 문의</h2>
         <p>질문, 우려 또는 권리 요청은 다음으로 보내실 수 있습니다:</p>
         <p><strong>이메일:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
         <p>영업일 기준 7일 이내에 회신해 드립니다.</p>
@@ -1337,17 +1417,17 @@
 
       <section>
         <h2>2. Dados que não coletamos</h2>
-        <p>Não operamos servidores que armazenem dados do usuário. Não coletamos, armazenamos nem transmitimos nada do seguinte:</p>
+        <p>Salvo os diagnósticos de falha e o feedback opcional no app descritos na Seção 14, não operamos servidores que armazenem seus dados pessoais. Não coletamos, armazenamos nem transmitimos nada do seguinte:</p>
         <ul>
           <li>Nomes, e-mails ou telefones (o app não tem cadastro)</li>
           <li>Gravações de voz ou transcrições além do reconhecimento de fala no dispositivo (ver Seção 4)</li>
           <li>Vídeos gravados (salvos apenas na sua biblioteca Fotos)</li>
           <li>Dados de localização</li>
-          <li>Analytics de uso, telemetria ou relatórios de falhas</li>
+          <li>Analytics de uso ou telemetria comportamental</li>
           <li>Perfis comportamentais ou de interesse</li>
           <li>Identificadores de publicidade</li>
         </ul>
-        <p>O app não contém anúncios de terceiros, SDKs de analytics ou pixels de rastreamento.</p>
+        <p>O app não contém anúncios de terceiros nem pixels de rastreamento. Ele usa o Google Firebase Crashlytics apenas para diagnóstico de falhas — consulte a Seção 14.</p>
       </section>
 
       <section>
@@ -1437,7 +1517,7 @@
 
       <section>
         <h2>11. Retenção de dados</h2>
-        <p>Não retemos dados do usuário porque não coletamos nenhum. Os dados no dispositivo persistem somente enquanto o app estiver instalado. A RevenueCat mantém registros anônimos de assinatura enquanto sua assinatura estiver ativa, mais um período de retenção definido pela política deles.</p>
+        <p>Os únicos dados que retemos são os diagnósticos de falha e qualquer feedback que você opte por enviar pelo app (consulte a Seção 14), hospedados no Google Firebase. Os dados no dispositivo persistem somente enquanto o app estiver instalado. A RevenueCat mantém registros anônimos de assinatura enquanto sua assinatura estiver ativa, mais um período de retenção definido pela política deles.</p>
       </section>
 
       <section>
@@ -1451,7 +1531,17 @@
       </section>
 
       <section>
-        <h2>14. Contato</h2>
+        <h2>14. Relatórios de falhas e feedback no app</h2>
+        <p>O app usa o Google Firebase para duas finalidades limitadas e não publicitárias:</p>
+        <ul>
+          <li><strong>Diagnóstico de falhas (Firebase Crashlytics).</strong> Se o app travar, um relatório de diagnóstico é enviado automaticamente ao Google Firebase. Ele contém o modelo do seu dispositivo, a versão do sistema operacional, a versão do app e um rastreamento técnico da falha. Não contém nome, e-mail ou outro identificador pessoal, e é usado apenas para encontrar e corrigir bugs.</li>
+          <li><strong>Feedback no app (Firebase Firestore).</strong> Se você optar por enviar um relatório de bug ou sugestão de recurso em Ajustes → Feedback, a mensagem que você escreve — junto com informações básicas de dispositivo e versão do app — é armazenada no Google Firebase para que possamos lê-la e tratá-la. Isso só acontece quando você envia feedback voluntariamente; nunca é automático.</li>
+        </ul>
+        <p>Esses dados são processados pelo Google como nosso prestador de serviços e usados somente para manter o app estável e responder ao seu feedback. As práticas de privacidade do Google para o Firebase estão descritas em <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">firebase.google.com/support/privacy</a>.</p>
+      </section>
+
+      <section>
+        <h2>15. Contato</h2>
         <p>Perguntas, preocupações ou solicitações relativas a direitos podem ser enviadas para:</p>
         <p><strong>E-mail:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
         <p>Respondemos em até 7 dias úteis.</p>
@@ -1472,17 +1562,17 @@
 
       <section>
         <h2>2. Datos que no recopilamos</h2>
-        <p>No operamos ningún servidor que almacene datos de usuario. No recopilamos, almacenamos ni transmitimos nada de lo siguiente:</p>
+        <p>Salvo los diagnósticos de fallos y los comentarios opcionales en la app descritos en la Sección 14, no operamos servidores que almacenen tus datos personales. No recopilamos, almacenamos ni transmitimos nada de lo siguiente:</p>
         <ul>
           <li>Nombres, correos electrónicos o números de teléfono (la app no tiene registro)</li>
           <li>Grabaciones de voz ni transcripciones más allá del reconocimiento de voz en el dispositivo (ver Sección 4)</li>
           <li>Vídeos grabados (se guardan solo en tu librería Fotos)</li>
           <li>Datos de ubicación</li>
-          <li>Analítica de uso, telemetría o informes de fallos</li>
+          <li>Analítica de uso o telemetría de comportamiento</li>
           <li>Perfiles de comportamiento o de intereses</li>
           <li>Identificadores publicitarios</li>
         </ul>
-        <p>La app no contiene publicidad de terceros, SDK de analítica ni píxeles de seguimiento.</p>
+        <p>La app no contiene publicidad de terceros ni píxeles de seguimiento. Usa Google Firebase Crashlytics únicamente para el diagnóstico de fallos — consulta la Sección 14.</p>
       </section>
 
       <section>
@@ -1572,7 +1662,7 @@
 
       <section>
         <h2>11. Conservación de datos</h2>
-        <p>No conservamos datos de usuario porque no recopilamos ninguno. Los datos en el dispositivo persisten solo mientras la app esté instalada. RevenueCat conserva registros anónimos de suscripción mientras tu suscripción esté activa, más un periodo de retención definido por su propia política.</p>
+        <p>Los únicos datos que conservamos son los diagnósticos de fallos y cualquier comentario que decidas enviar desde la app (consulta la Sección 14), alojados en Google Firebase. Los datos en el dispositivo persisten solo mientras la app esté instalada. RevenueCat conserva registros anónimos de suscripción mientras tu suscripción esté activa, más un periodo de retención definido por su propia política.</p>
       </section>
 
       <section>
@@ -1586,7 +1676,17 @@
       </section>
 
       <section>
-        <h2>14. Contacto</h2>
+        <h2>14. Informes de fallos y comentarios en la app</h2>
+        <p>La app usa Google Firebase para dos fines limitados y no publicitarios:</p>
+        <ul>
+          <li><strong>Diagnóstico de fallos (Firebase Crashlytics).</strong> Si la app se bloquea, se envía automáticamente un informe de diagnóstico a Google Firebase. Contiene el modelo de tu dispositivo, la versión del sistema operativo, la versión de la app y una traza técnica del fallo. No contiene nombre, correo electrónico ni ningún otro identificador personal, y se usa únicamente para detectar y corregir errores.</li>
+          <li><strong>Comentarios en la app (Firebase Firestore).</strong> Si decides enviar un informe de error o una sugerencia de función desde Ajustes → Comentarios, el mensaje que escribes — junto con información básica del dispositivo y la versión de la app — se almacena en Google Firebase para que podamos leerlo y atenderlo. Esto solo ocurre cuando envías comentarios de forma voluntaria; nunca es automático.</li>
+        </ul>
+        <p>Estos datos los trata Google como nuestro encargado del tratamiento y se usan solo para mantener la app estable y responder a tus comentarios. Las prácticas de privacidad de Google para Firebase se describen en <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">firebase.google.com/support/privacy</a>.</p>
+      </section>
+
+      <section>
+        <h2>15. Contacto</h2>
         <p>Preguntas, dudas o solicitudes de derechos pueden enviarse a:</p>
         <p><strong>Correo:</strong> <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a></p>
         <p>Respondemos en 7 días hábiles.</p>
@@ -1595,8 +1695,10 @@
   </main>
 
   <div class="footer">
-    <a href="/">Home</a> ·
+    <a href="/teleprompter-for-video/">Home</a> ·
+    <a href="/teleprompter-for-video/support.html">Support</a> ·
     <a href="/teleprompter-for-video/privacy.html">Privacy</a> ·
+    <a href="/teleprompter-for-video/terms.html">Terms</a> ·
     <a href="mailto:digiforcebusiness@gmail.com">Contact</a>
     <p style="margin-top:10px">© 2026 YOUNESS HARNAFI. All rights reserved.</p>
   </div>
