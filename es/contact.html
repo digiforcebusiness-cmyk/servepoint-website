@@ -93,7 +93,7 @@
     <div class="contact-form-card">
       <h2>Enviar un Mensaje</h2>
 
-      <form id="contact-form" action="https://formspree.io/f/digiforcebusiness@gmail.com" method="POST">
+      <form id="contact-form" action="#" method="POST">
         <div class="form-row">
           <div class="form-group">
             <label for="name">Nombre completo</label>
@@ -190,5 +190,69 @@
     });
   </script>
 
+  <script>
+    // Auto-injected Web3Forms submission handler. Wired by
+    // _inject-web3forms.js so every contact form across the site goes
+    // through the same backend.
+    (function () {
+      const KEY = "e157f175-3a00-429c-98a8-5f525134f5ac";
+      const APP_NAME = "ServePoint POS";
+      const TO_EMAIL = "digiforcebusiness@gmail.com";
+      const form = document.getElementById("contact-form") || document.querySelector("form");
+      if (!form) return;
+
+      // Drop any legacy action so a JS failure can't redirect to a dead
+      // Formspree / FormSubmit endpoint.
+      form.removeAttribute("action");
+
+      function showStatus(form, ok, text) {
+        let el = form.querySelector("[data-form-status]");
+        if (!el) {
+          el = document.createElement("div");
+          el.setAttribute("data-form-status", "");
+          el.style.cssText = "margin-top:14px;padding:10px 14px;border-radius:8px;font-size:0.9rem;";
+          form.appendChild(el);
+        }
+        el.style.background = ok ? "rgba(48,209,88,0.10)" : "rgba(255,59,48,0.10)";
+        el.style.color = ok ? "#30d158" : "#FF3B30";
+        el.style.border = ok ? "1px solid rgba(48,209,88,0.30)" : "1px solid rgba(255,59,48,0.30)";
+        el.textContent = text;
+      }
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const fd = new FormData(form);
+        fd.append("access_key", KEY);
+        const userSubject = fd.get("subject") || fd.get("topic") || "Contact form";
+        fd.set("subject", "[" + APP_NAME + "] " + userSubject);
+        fd.append("from_name", APP_NAME + " contact form");
+        const emailVal = fd.get("email");
+        if (emailVal) fd.append("replyto", emailVal);
+
+        const btn = form.querySelector('button[type=submit], input[type=submit]');
+        let originalLabel = "";
+        if (btn) {
+          originalLabel = btn.tagName === "INPUT" ? btn.value : btn.textContent;
+          btn.disabled = true;
+          if (btn.tagName === "INPUT") btn.value = "Sending\u2026"; else btn.textContent = "Sending\u2026";
+        }
+
+        try {
+          const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: fd });
+          const j = await res.json().catch(function () { return {}; });
+          if (!res.ok || j.success === false) throw new Error(j.message || "Network error");
+          showStatus(form, true, "Thanks \u2014 your message has been sent. We'll reply within 7 business days.");
+          form.reset();
+        } catch (err) {
+          showStatus(form, false, "Couldn't send the message \u2014 please email " + TO_EMAIL + " directly.");
+        } finally {
+          if (btn) {
+            btn.disabled = false;
+            if (btn.tagName === "INPUT") btn.value = originalLabel; else btn.textContent = originalLabel;
+          }
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
