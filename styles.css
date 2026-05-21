@@ -233,6 +233,21 @@ body {
   transition: background .2s, transform .15s;
 }
 .btn-msstore:hover { background: #005a9e; transform: translateY(-2px); }
+.btn-huawei {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: #C8102E;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: background .2s, transform .15s;
+}
+.btn-huawei:hover { background: #9e0c24; transform: translateY(-2px); }
 .btn-large { padding: 18px 36px; font-size: 16px; }
 .hero-tags { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 .tag {
