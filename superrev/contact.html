@@ -27,21 +27,51 @@
     a { color: var(--red); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    .email-card {
-      display: flex; flex-direction: column; align-items: center;
-      gap: 12px; padding: 28px 24px; text-align: center;
+    /* Contact form */
+    form.contact { display: flex; flex-direction: column; gap: 14px; margin-top: 6px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field label {
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--text); letter-spacing: 0.3px; text-transform: uppercase;
     }
-    .email-card .email {
-      font-size: 1.2rem; font-weight: 700; color: var(--text);
-      letter-spacing: 0.2px;
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    input.field-input, textarea.field-input {
+      width: 100%;
+      background: #0e0e10;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 11px 14px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.15s ease, background 0.15s ease;
     }
-    .email-card .cta {
-      display: inline-block; margin-top: 8px;
-      background: var(--red); color: #fff; font-weight: 600;
-      padding: 10px 22px; border-radius: 10px; font-size: 0.95rem;
-      transition: background 0.15s ease;
+    input.field-input:focus, textarea.field-input:focus {
+      outline: none;
+      border-color: var(--red);
+      background: #121214;
     }
-    .email-card .cta:hover { background: var(--red-deep); text-decoration: none; }
+    textarea.field-input { resize: vertical; min-height: 140px; line-height: 1.6; }
+    button.send {
+      align-self: flex-start;
+      background: var(--red); color: #fff;
+      font-weight: 700; font-size: 0.95rem;
+      padding: 12px 28px; border: 0; border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.05s ease;
+    }
+    button.send:hover { background: var(--red-deep); }
+    button.send:active { transform: translateY(1px); }
+    button.send:disabled { opacity: 0.6; cursor: not-allowed; }
+    .form-note {
+      font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;
+    }
+    .form-status {
+      margin-top: 8px; padding: 10px 14px; border-radius: 8px;
+      font-size: 0.9rem; display: none;
+    }
+    .form-status.ok    { display: block; background: rgba(48, 209, 88, 0.10); color: #30d158; border: 1px solid rgba(48,209,88,0.30); }
+    .form-status.err   { display: block; background: rgba(255, 59, 48, 0.10); color: var(--red); border: 1px solid rgba(255,59,48,0.30); }
 
     .footer { text-align: center; padding: 32px 24px; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
     .footer a { color: var(--text-muted); margin: 0 10px; }
@@ -51,6 +81,7 @@
       header h1 { font-size: 1.6rem; }
       main { padding: 32px 16px 60px; }
       section { padding: 22px 22px; }
+      .row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -61,12 +92,33 @@
   </header>
 
   <main>
-    <section class="email-card">
-      <h2 style="margin-bottom: 4px;">Get in touch</h2>
-      <p>The fastest way to reach us is by email. We answer every message.</p>
-      <div class="email">digiforcebusiness@gmail.com</div>
-      <a class="cta" href="mailto:digiforcebusiness@gmail.com?subject=SuperRev%20Support">Send us an email</a>
-      <p style="margin-top: 10px; font-size: 0.85rem;">We respond within <strong>7 business days</strong> (usually faster).</p>
+    <section>
+      <h2>Send us a message</h2>
+      <p>Bug report, feature idea, or anything else — fill in the form below and we'll get back within 7 business days (usually faster).</p>
+
+      <form class="contact" id="contact-form" novalidate>
+        <div class="row">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input class="field-input" id="name" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="email">Your email</label>
+            <input class="field-input" id="email" name="email" type="email" autocomplete="email" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="subject">Subject</label>
+          <input class="field-input" id="subject" name="subject" type="text" placeholder="e.g. No engine sound on iPhone 15" required />
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea class="field-input" id="message" name="message" placeholder="Tell us what's happening. For bug reports, include your device model and iOS / Android version." required></textarea>
+        </div>
+        <button class="send" type="submit">Send message</button>
+        <p class="form-note">Or just email <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a> directly.</p>
+        <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
+      </form>
     </section>
 
     <section>
@@ -104,5 +156,86 @@
     <a href="/superrev/contact.html">Contact</a>
     <p style="margin-top:10px">© 2026 YOUNESS HARNAFI. All rights reserved.</p>
   </div>
+
+  <script>
+    // To enable true in-page submission (no email-client redirect),
+    // sign up at https://web3forms.com (free), paste the access key
+    // below, and the form will POST to Web3Forms instead of falling
+    // back to mailto:. Leave empty for mailto: behaviour.
+    const WEB3FORMS_KEY = "";
+
+    const TO_EMAIL = "digiforcebusiness@gmail.com";
+    const form = document.getElementById("contact-form");
+    const statusEl = document.getElementById("form-status");
+
+    function setStatus(kind, text) {
+      statusEl.className = "form-status " + kind;
+      statusEl.textContent = text;
+    }
+
+    async function submitViaWeb3Forms(data) {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          name: data.name,
+          email: data.email,
+          subject: "[SuperRev] " + data.subject,
+          message: data.message,
+          from_name: "SuperRev contact form",
+          replyto: data.email,
+        }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || json.success === false) {
+        throw new Error(json.message || "Network error");
+      }
+    }
+
+    function submitViaMailto(data) {
+      // Build a mailto: that opens the user's default mail client
+      // pre-filled with the form values. This works without any
+      // server-side dependency.
+      const subject = encodeURIComponent("[SuperRev] " + data.subject);
+      const body = encodeURIComponent(
+        "From: " + data.name + " <" + data.email + ">\n\n" + data.message
+      );
+      window.location.href =
+        "mailto:" + TO_EMAIL + "?subject=" + subject + "&body=" + body;
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = {
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        subject: form.subject.value.trim(),
+        message: form.message.value.trim(),
+      };
+      if (!data.name || !data.email || !data.subject || !data.message) {
+        setStatus("err", "Please fill in every field.");
+        return;
+      }
+      const btn = form.querySelector("button.send");
+      btn.disabled = true;
+      btn.textContent = "Sending…";
+      try {
+        if (WEB3FORMS_KEY) {
+          await submitViaWeb3Forms(data);
+          setStatus("ok", "Thanks — your message has been sent. We'll reply within 7 business days.");
+          form.reset();
+        } else {
+          submitViaMailto(data);
+          setStatus("ok", "Opening your email app… If nothing happened, email " + TO_EMAIL + " directly.");
+        }
+      } catch (err) {
+        setStatus("err", "Couldn't send the message — please email " + TO_EMAIL + " directly. (" + err.message + ")");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Send message";
+      }
+    });
+  </script>
 </body>
 </html>
