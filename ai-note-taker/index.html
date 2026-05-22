@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Speech to Text Note Taker — AI Meeting Recorder & Transcriber</title>
+  <meta name="description" content="Record meetings, lectures and voice notes. On-device AI transcription with cloud-quality summaries, multi-language support, calendar sync, and AI Chat across every recording." />
+  <meta name="keywords" content="ai note taker, meeting transcription app, voice recorder app, ai summary, otter alternative, summary ai alternative, speech to text android" />
+  <meta name="author" content="Speech to Text Note Taker" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.servepointpos.com/ai-note-taker/" />
+  <link rel="icon" type="image/png" href="/ai-note-taker/icon.png" />
+  <link rel="apple-touch-icon" href="/ai-note-taker/icon.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.servepointpos.com/ai-note-taker/" />
+  <meta property="og:title" content="Speech to Text Note Taker — AI Meeting Recorder" />
+  <meta property="og:description" content="Record, transcribe and summarise every meeting. On-device AI with optional cloud accuracy and Google Calendar sync." />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Speech to Text Note Taker",
+    "operatingSystem": "Android",
+    "applicationCategory": "ProductivityApplication",
+    "description": "AI-powered note-taking app that records, transcribes and summarises meetings, lectures and voice notes.",
+    "url": "https://www.servepointpos.com/ai-note-taker/"
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #2D6BFF;
+      --blue-soft: #5B8FF9;
+      --bg: #07090f;
+      --card: #11131a;
+      --border: #1d2230;
+      --text: #ffffff;
+      --muted: #8a92a8;
+      --gradient: linear-gradient(135deg, #2D6BFF, #5B8FF9);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px; height: 64px;
+      background: rgba(7,9,15,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: var(--text); text-decoration: none; }
+    .nav-logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-icon { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 18px; color: #fff; font-weight: 900; }
+    .nav-cta {
+      padding: 8px 20px; border-radius: 24px; border: none; cursor: pointer;
+      background: var(--gradient); color: #fff; font-weight: 700; font-size: 14px;
+      text-decoration: none;
+    }
+
+    .hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 120px 24px 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: 15%; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(45,107,255,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(45,107,255,0.10); border: 1px solid rgba(45,107,255,0.30);
+      border-radius: 24px; padding: 6px 16px; font-size: 13px; color: var(--blue-soft);
+      font-weight: 600; margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 72px); font-weight: 900;
+      letter-spacing: -2px; line-height: 1.05; margin-bottom: 24px;
+      max-width: 880px;
+    }
+    .hero h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p {
+      font-size: clamp(16px, 2vw, 20px); color: var(--muted);
+      max-width: 620px; margin: 0 auto 40px;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .btn-primary {
+      padding: 16px 36px; border-radius: 50px; border: none; cursor: pointer;
+      background: var(--gradient); color: #fff; font-weight: 800; font-size: 16px;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+      box-shadow: 0 8px 32px rgba(45,107,255,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(45,107,255,0.5); }
+    .btn-secondary {
+      padding: 16px 36px; border-radius: 50px; border: 1px solid var(--border);
+      cursor: pointer; background: transparent; color: var(--text);
+      font-weight: 700; font-size: 16px; text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--blue); }
+
+    .section { padding: 100px 24px; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      text-align: center; font-size: 13px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 2px;
+      background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      text-align: center; font-size: clamp(28px, 4vw, 44px);
+      font-weight: 900; letter-spacing: -1px; margin-bottom: 16px;
+    }
+    .section-sub {
+      text-align: center; color: var(--muted); font-size: 17px;
+      max-width: 620px; margin: 0 auto 56px;
+    }
+
+    .features {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .feature {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 32px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .feature:hover { transform: translateY(-4px); border-color: rgba(45,107,255,0.4); }
+    .feature-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: rgba(45,107,255,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 18px;
+    }
+    .feature h3 { font-size: 18px; font-weight: 800; margin-bottom: 10px; }
+    .feature p { color: var(--muted); font-size: 14.5px; }
+
+    .steps {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px; counter-reset: step;
+    }
+    .step {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 28px;
+      position: relative; counter-increment: step;
+    }
+    .step::before {
+      content: counter(step);
+      position: absolute; top: -18px; left: 24px;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--gradient); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 15px;
+    }
+    .step h3 { font-size: 17px; font-weight: 800; margin: 8px 0 10px; }
+    .step p { color: var(--muted); font-size: 14.5px; }
+
+    .cta-band {
+      text-align: center; padding: 80px 24px;
+      background: var(--card); border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .cta-band h2 { font-size: clamp(26px, 4vw, 38px); font-weight: 900; margin-bottom: 14px; letter-spacing: -1px; }
+    .cta-band p { color: var(--muted); margin-bottom: 30px; }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 36px 24px;
+      text-align: center; color: var(--muted); font-size: 13px;
+    }
+    footer a { color: var(--muted); text-decoration: none; margin: 0 10px; }
+    footer a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/ai-note-taker/" class="nav-logo">
+    <div class="nav-icon">S</div>
+    <span>Speech to Text Note Taker</span>
+  </a>
+  <a href="#download" class="nav-cta">Get the app</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">★★★★★ &nbsp; Built for thinkers, not stenographers</div>
+  <h1>Record any conversation. <span>Get the AI summary.</span></h1>
+  <p>
+    Capture meetings, lectures and voice memos. On-device AI gives you an
+    instant transcript and a clean summary — and Premium adds cloud-grade
+    accuracy in 50+ languages plus AI Chat across every recording.
+  </p>
+  <div class="hero-actions">
+    <a href="#download" class="btn-primary">Try it free →</a>
+    <a href="#how-it-works" class="btn-secondary">How it works</a>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="section-label">Features</div>
+  <h2 class="section-title">Everything you need in one app</h2>
+  <p class="section-sub">
+    From silence-busting recording to AI Chat across years of notes — your
+    voice, your transcripts, your insights.
+  </p>
+
+  <div class="features">
+    <div class="feature">
+      <div class="feature-icon">🎙️</div>
+      <h3>Crisp recordings</h3>
+      <p>Pause-and-resume, background-safe, 16 kHz mono — engineered for transcription quality, not just playback.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">⚡</div>
+      <h3>Instant on-device transcripts</h3>
+      <p>Whisper runs locally on your phone the moment you stop recording. No upload, no waiting, no quota.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🌍</div>
+      <h3>50+ languages</h3>
+      <p>Cloud transcription auto-detects language. Summaries are written in whatever language was spoken.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">💬</div>
+      <h3>AI Chat across notes</h3>
+      <p>Ask "what did the client decide last week?" — the AI searches every transcript and answers in seconds.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📅</div>
+      <h3>Calendar sync</h3>
+      <p>Connect Google Calendar or Outlook to see today's meetings — tap any to record with one button.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔒</div>
+      <h3>Privacy first</h3>
+      <p>Audio lives on your device. Cloud features only run when you ask, into your private storage — never resold.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="how-it-works">
+  <div class="section-label">How it works</div>
+  <h2 class="section-title">From silent room to searchable summary</h2>
+  <p class="section-sub">Four taps from press-record to ready-to-share notes.</p>
+
+  <div class="steps">
+    <div class="step">
+      <h3>Hit record</h3>
+      <p>Big mic button on the bottom of every screen. Pause and resume as needed.</p>
+    </div>
+    <div class="step">
+      <h3>Stop & transcribe</h3>
+      <p>On-device Whisper writes the transcript locally. No internet required.</p>
+    </div>
+    <div class="step">
+      <h3>Read the summary</h3>
+      <p>Key points, action items, decisions — auto-generated in seconds.</p>
+    </div>
+    <div class="step">
+      <h3>Ask anything</h3>
+      <p>AI Chat answers questions across all your notes. Translate, listen, share.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" id="download">
+  <h2>Ready to never miss a word again?</h2>
+  <p>Free tier records and transcribes unlimited notes on-device. Premium adds cloud accuracy + AI Chat.</p>
+  <a href="https://play.google.com/store" class="btn-primary">Download on Google Play →</a>
+</section>
+
+<footer>
+  <p style="margin-bottom:12px;">© 2026 Speech to Text Note Taker. All rights reserved.</p>
+  <a href="/ai-note-taker/">Home</a>
+  <a href="/ai-note-taker/privacy.html">Privacy Policy</a>
+  <a href="/ai-note-taker/terms.html">Terms of Use</a>
+  <a href="/ai-note-taker/support.html">Support</a>
+  <a href="mailto:digiforcebusiness@gmail.com">Contact</a>
+</footer>
+
+</body>
+</html>
