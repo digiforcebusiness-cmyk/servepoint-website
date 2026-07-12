@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real Tractor Farm Simulator — Plow, Plant &amp; Harvest 3D Farming Game | iOS</title>
+  <meta name="description" content="Real Tractor Farm Simulator is a free 3D farming game. Drive real tractors, plow, plant and harvest 100 unique fields, raise animals, grow an orchard, hire workers, and build your dream farm." />
+  <meta name="keywords" content="tractor game, farming simulator, farm game, tractor simulator, harvest game, farming games, 3d tractor, plow game, farm sim, idle farm" />
+  <meta name="author" content="DigiForce" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.servepointpos.com/real-tractor-farm-simulator/" />
+  <link rel="icon" type="image/png" href="/real-tractor-farm-simulator/icon.png" />
+  <link rel="apple-touch-icon" href="/real-tractor-farm-simulator/icon.png" />
+  <link rel="shortcut icon" href="/real-tractor-farm-simulator/icon.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.servepointpos.com/real-tractor-farm-simulator/" />
+  <meta property="og:title" content="Real Tractor Farm Simulator — 3D Farming Game" />
+  <meta property="og:description" content="Drive tractors, plow, plant and harvest 100 fields, raise animals, grow an orchard, and build your farm. Free on the App Store." />
+  <meta property="og:image" content="https://www.servepointpos.com/real-tractor-farm-simulator/icon.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Real Tractor Farm Simulator — 3D Farming Game" />
+  <meta name="twitter:description" content="Free 3D tractor farming game: plow, plant, harvest, raise animals, grow your farm." />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    "name": "Real Tractor Farm Simulator",
+    "operatingSystem": ["iOS"],
+    "applicationCategory": "GameApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Real Tractor Farm Simulator is a free 3D farming game. Drive real tractors, plow, plant and harvest 100 unique fields, raise animals, grow an orchard, hire workers, and build your dream farm.",
+    "url": "https://www.servepointpos.com/real-tractor-farm-simulator/",
+    "downloadUrl": [
+      "https://apps.apple.com/app/id6788441012"
+    ],
+    "publisher": {
+      "@type": "Organization",
+      "name": "DigiForce"
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0e1f12;
+      --surface: #16301c;
+      --surface-2: #1f4127;
+      --border: rgba(255,255,255,0.09);
+      --text: #f4faf1;
+      --text-muted: #b7d0b3;
+      --green: #4CB944;
+      --green-2: #2E8B3D;
+      --amber: #F2B705;
+      --orange: #F27A17;
+      --sky: #4FB0E5;
+      --soil: #9A6B3F;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Hero */
+    .hero {
+      background:
+        radial-gradient(ellipse at top right, rgba(79,176,229,0.20), transparent 60%),
+        radial-gradient(ellipse at bottom left, rgba(76,185,68,0.25), transparent 60%),
+        var(--bg);
+      padding: 56px 24px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-inner { max-width: 900px; margin: 0 auto; }
+
+    .app-icon {
+      width: 120px;
+      height: 120px;
+      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(46,139,61,0.45), 0 8px 20px rgba(0,0,0,0.35);
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff, #b7d0b3);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .tagline {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .store-buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .store-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--green), var(--green-2));
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 16px rgba(46,139,61,0.45);
+    }
+
+    .store-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(46,139,61,0.65);
+    }
+
+    .store-button.secondary {
+      background: var(--surface-2);
+      color: var(--text-muted);
+      box-shadow: none;
+      border: 1px solid var(--border);
+    }
+
+    .store-button svg { width: 22px; height: 22px; }
+
+    .store-meta { color: var(--text-muted); font-size: 0.85rem; margin-top: 8px; }
+
+    /* Sections */
+    section.content { max-width: 1000px; margin: 0 auto; padding: 80px 24px; }
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      text-align: center;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      margin-bottom: 48px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Features grid */
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+    .feature {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      transition: transform 0.15s ease, border-color 0.2s ease;
+    }
+
+    .feature:hover { transform: translateY(-3px); border-color: rgba(76,185,68,0.45); }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+    }
+
+    .feature h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .feature p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; }
+
+    /* Loop steps */
+    .loop {
+      background: var(--surface);
+      border-radius: 24px;
+      padding: 48px;
+      border: 1px solid var(--border);
+    }
+
+    .loop-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 32px;
+    }
+
+    .loop-step { display: flex; gap: 16px; align-items: flex-start; }
+
+    .loop-bullet {
+      flex: 0 0 auto;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #10240f;
+    }
+
+    .loop-step h4 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .loop-step p { color: var(--text-muted); font-size: 0.88rem; }
+
+    /* CTA */
+    .cta {
+      text-align: center;
+      padding: 80px 24px;
+      background: radial-gradient(ellipse at center, rgba(76,185,68,0.20), transparent 70%);
+    }
+
+    .cta h2 { margin-bottom: 16px; }
+    .cta p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 32px; }
+
+    /* Contact / FAQ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 56px;
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.15s ease, border-color 0.2s ease;
+    }
+
+    .contact-card:hover { transform: translateY(-3px); border-color: rgba(76,185,68,0.45); }
+
+    .contact-icon {
+      flex: 0 0 auto;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+
+    .contact-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .contact-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 4px; }
+    .contact-meta { display: block; color: rgba(255,255,255,0.45); font-size: 0.78rem; }
+
+    .faq { max-width: 720px; margin: 0 auto; }
+    .faq-title { font-size: 1.3rem; font-weight: 700; text-align: center; margin-bottom: 24px; }
+
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 4px 20px;
+      margin-bottom: 10px;
+      transition: border-color 0.2s ease;
+    }
+
+    .faq-item[open] { border-color: rgba(76,185,68,0.45); }
+
+    .faq-item summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.98rem;
+      padding: 16px 0;
+      list-style: none;
+      position: relative;
+      padding-right: 28px;
+    }
+
+    .faq-item summary::-webkit-details-marker { display: none; }
+
+    .faq-item summary::after {
+      content: '+';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4rem;
+      color: var(--amber);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-item[open] summary::after { content: '−'; }
+
+    .faq-item p { color: var(--text-muted); font-size: 0.92rem; padding-bottom: 16px; line-height: 1.7; }
+    .faq-item p a { color: var(--amber); text-decoration: none; }
+    .faq-item p a:hover { text-decoration: underline; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer a { color: var(--amber); text-decoration: none; margin: 0 10px; }
+    footer a:hover { text-decoration: underline; }
+
+    /* Mobile */
+    @media (max-width: 760px) {
+      h1 { font-size: 2.2rem; }
+      .tagline { font-size: 1.05rem; }
+      .app-icon { width: 100px; height: 100px; }
+      section.content { padding: 56px 20px; }
+      h2 { font-size: 1.6rem; }
+      .features { grid-template-columns: 1fr; }
+      .loop { padding: 28px 22px; }
+      .loop-list { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <img src="/real-tractor-farm-simulator/icon.png" alt="Real Tractor Farm Simulator app icon" class="app-icon" />
+    <h1>Start your engine. Grow your farm.</h1>
+    <p class="tagline">Real Tractor Farm Simulator is a free 3D farming game. Drive real tractors across 100 hand-crafted fields — plow, plant, and harvest — then raise animals, grow an orchard, hire workers, and watch your farm come to life.</p>
+    <div class="store-buttons">
+      <a class="store-button" href="https://apps.apple.com/app/id6788441012" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+        Download on App Store
+      </a>
+      <a class="store-button secondary" href="#" onclick="alert('Android version coming soon!'); return false;">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5V3.5c0-.7.5-1.2 1.1-1.4l11.2 9.4-11.2 9.4c-.6-.2-1.1-.7-1.1-1.4zm14.7-7.1l-2.4-1.4-2.6 2.2 2.6 2.2 2.4-1.4c.8-.5.8-1.1 0-1.6zM5.5 2.5l10 8.4 2.2-1.9-12.2-6.5zm0 19l12.2-6.5-2.2-1.9-10 8.4z"/></svg>
+        Google Play (Soon)
+      </a>
+    </div>
+    <p class="store-meta">Free · No accounts · Play offline · No in-app purchases</p>
+  </div>
+</header>
+
+<section class="content">
+  <h2>A real farm, in your pocket</h2>
+  <p class="section-sub">Not just tapping menus — you drive the tractor, work the soil, and see every animal and tree you buy appear on your 3D farm.</p>
+
+  <div class="features">
+    <div class="feature">
+      <div class="feature-icon" style="background: linear-gradient(135deg, #4CB944, #2E8B3D);">🚜</div>
+      <h3>Drive Real Tractors</h3>
+      <p>Steer with a joystick, work the throttle, fold your implements for transport. Every tractor, plow, seeder and harvester handles differently.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background: linear-gradient(135deg, #F2B705, #F27A17);">🌾</div>
+      <h3>100 Unique Fields</h3>
+      <p>Plow, plant, grow and harvest across a hundred hand-tuned lands — plains, valleys, highlands and coast, each with its own crop and look.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background: linear-gradient(135deg, #F27A17, #C0392B);">🐄</div>
+      <h3>Animals &amp; Orchard</h3>
+      <p>Raise chickens, cows and sheep for eggs, milk and wool. Plant apple, orange and olive trees. Collect every day and watch your farmyard fill up.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background: linear-gradient(135deg, #5B8DEF, #4FB0E5);">👨‍🌾</div>
+      <h3>Hire Workers</h3>
+      <p>Put a Farmhand, Herder and Orchardist to work so your farm keeps earning — even while you're away.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background: linear-gradient(135deg, #9B59B6, #E056A0);">🎨</div>
+      <h3>Upgrade &amp; Customize</h3>
+      <p>Earn money to buy bigger machines in the shop, then unlock 12 paint schemes to make your tractor truly your own.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background: linear-gradient(135deg, #4CB944, #14B8A6);">📋</div>
+      <h3>Daily Orders &amp; Market</h3>
+      <p>Fresh contracts every day, a market that pays extra for the right crop, and a welcome-back chest waiting each time you return.</p>
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="loop">
+    <h2>The Farming Loop</h2>
+    <p class="section-sub">Four simple steps, endlessly satisfying.</p>
+    <div class="loop-list">
+      <div class="loop-step">
+        <div class="loop-bullet" style="background: linear-gradient(135deg, #9A6B3F, #C69256);">1</div>
+        <div><h4>Plow</h4><p>Break the soil across the whole field with your cultivator.</p></div>
+      </div>
+      <div class="loop-step">
+        <div class="loop-bullet" style="background: linear-gradient(135deg, #4CB944, #2E8B3D);">2</div>
+        <div><h4>Plant</h4><p>Switch to the seeder and drill every row — the trace shows you where you've been.</p></div>
+      </div>
+      <div class="loop-step">
+        <div class="loop-bullet" style="background: linear-gradient(135deg, #F2B705, #F0C020);">3</div>
+        <div><h4>Harvest</h4><p>Let the crop grow, then bring in the combine and fill the grain hopper.</p></div>
+      </div>
+      <div class="loop-step">
+        <div class="loop-bullet" style="background: linear-gradient(135deg, #F27A17, #F0A020);">4</div>
+        <div><h4>Sell</h4><p>Cash in your haul at the day's market price and reinvest in your farm.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Your farm is waiting</h2>
+  <p>Free download. No accounts. No paywalls.</p>
+  <a class="store-button" href="https://apps.apple.com/app/id6788441012" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+    Download on App Store
+  </a>
+</section>
+
+<section id="contact" class="content">
+  <h2>Support &amp; Contact</h2>
+  <p class="section-sub">Bug reports, feature requests, or just want to say hi — we read every message and reply within 7 business days.</p>
+
+  <div class="contact-grid">
+    <a class="contact-card" href="mailto:digiforcebusiness@gmail.com?subject=Real%20Tractor%20Farm%20Simulator%20%E2%80%94%20Support">
+      <div class="contact-icon" style="background: linear-gradient(135deg, #4CB944, #2E8B3D);">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </div>
+      <div>
+        <h3>Email</h3>
+        <p>digiforcebusiness@gmail.com</p>
+        <span class="contact-meta">Reply within 7 business days</span>
+      </div>
+    </a>
+
+    <a class="contact-card" href="https://apps.apple.com/app/id6788441012?action=write-review" target="_blank" rel="noopener">
+      <div class="contact-icon" style="background: linear-gradient(135deg, #F2B705, #F27A17);">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>
+      </div>
+      <div>
+        <h3>Leave a review</h3>
+        <p>Rate the game on the App Store</p>
+        <span class="contact-meta">Reviews help other farmers find us</span>
+      </div>
+    </a>
+
+    <a class="contact-card" href="/real-tractor-farm-simulator/privacy.html">
+      <div class="contact-icon" style="background: linear-gradient(135deg, #5B8DEF, #4FB0E5);">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 6c1.4 0 2.5 1.1 2.5 2.5S13.4 12 12 12s-2.5-1.1-2.5-2.5S10.6 7 12 7zm0 12c-1.86 0-3.5-.97-4.5-2.42 0-1.49 3-2.31 4.5-2.31s4.5.82 4.5 2.31C15.5 18.03 13.86 19 12 19z"/></svg>
+      </div>
+      <div>
+        <h3>Privacy Policy</h3>
+        <p>What we collect (spoiler: nothing personal)</p>
+        <span class="contact-meta">No accounts · plays offline</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="faq">
+    <h3 class="faq-title">Frequently asked</h3>
+
+    <details class="faq-item">
+      <summary>Is Real Tractor Farm Simulator free?</summary>
+      <p>Yes — the whole game is free to play with no in-app purchases. All 100 fields, every machine, animals, the orchard, workers and paint schemes are earned by playing. The game shows ads from Google AdMob to support development; watching an optional rewarded ad can grant bonus cash or double your earnings, but it's always your choice.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Does it need internet?</summary>
+      <p>No. All driving, farming, and progress work fully offline. An internet connection is only used to load ads.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Do I need an account?</summary>
+      <p>No accounts, no sign-up, no login. Your farm and progress are saved locally on your device. See the <a href="/real-tractor-farm-simulator/privacy.html">privacy policy</a> for details.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>What happens while I'm away?</summary>
+      <p>Your owned fields earn passive rent, and if you've hired a Herder or Orchardist your animals and trees keep producing. When you come back, a welcome-back chest shows everything your farm earned while you were gone.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>When will Android launch?</summary>
+      <p>An Android version is planned. Email digiforcebusiness@gmail.com if you'd like to be notified at launch.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Found a bug or have an idea?</summary>
+      <p>Email digiforcebusiness@gmail.com with a quick description (and a screenshot if it's visual). We read every message and reply within a week.</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <a href="/">Home</a> ·
+  <a href="/real-tractor-farm-simulator/privacy.html">Privacy Policy</a> ·
+  <a href="/real-tractor-farm-simulator/contact.html">Contact</a>
+  <p style="margin-top:12px">© 2026 DigiForce. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
