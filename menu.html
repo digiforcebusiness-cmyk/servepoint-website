@@ -496,6 +496,7 @@
         }
 
         document.title = `${storeName} — Menu`;
+        let io = null;
         renderMenu(0);
 
         function renderMenu(current) {
@@ -600,7 +601,8 @@
         const tabButtons = document.querySelectorAll('.tab-btn');
         const sections   = document.querySelectorAll('.category-section');
 
-        const io = new IntersectionObserver((entries) => {
+        if (io) io.disconnect();
+        io = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               const slug = entry.target.dataset.slug;
