@@ -160,6 +160,41 @@
       color: var(--primary);
     }
 
+    /* ─── Menu Switcher (multiple menus) ─────────────────────── */
+    .menus-bar {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border);
+    }
+    .menus-row {
+      display: flex;
+      gap: 8px;
+      padding: 10px 14px 6px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .menus-row::-webkit-scrollbar { display: none; }
+    .menu-btn {
+      flex-shrink: 0;
+      background: transparent;
+      border: 1.5px solid var(--primary);
+      border-radius: 20px;
+      padding: 8px 20px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      outline: none;
+      font-family: inherit;
+    }
+    body.rtl .menu-btn { font-family: 'Cairo', sans-serif; }
+    .menu-btn.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
     /* ─── Main Content ───────────────────────────────────────── */
     .content {
       max-width: 700px;
@@ -442,19 +477,40 @@
         const data      = snap.data();
         const storeName = data.storeName || 'Notre Menu';
         const currency  = data.currency  || '';
-        const cats      = (data.categories || []).filter(c => (c.products || []).length > 0);
 
-        // RTL detection
-        let isRtl = false;
+        // Both doc shapes: new { menus: [{name, categories}] } and
+        // legacy { categories: [...] }. Empty categories/menus are dropped.
+        const menus = ((Array.isArray(data.menus) && data.menus.length)
+            ? data.menus
+            : [{ name: null, categories: data.categories || [] }])
+          .map(m => ({
+            name: m.name,
+            categories: (m.categories || []).filter(c => (c.products || []).length > 0),
+          }))
+          .filter(m => m.categories.length > 0);
+
+        if (!menus.length) {
+          renderError('🍽️', 'Menu non publié',
+            'Ce restaurant n\'a pas encore publié son menu digital. Réessayez dans quelques instants.');
+          return;
+        }
+
+        document.title = `${storeName} — Menu`;
+        renderMenu(0);
+
+        function renderMenu(current) {
+        const cats = menus[current].categories;
+
+        // RTL detection (per selected menu)
+        let isRtl = isArabic(menus[current].name);
         outer: for (const cat of cats) {
+          if (isRtl) break;
           if (isArabic(cat.nameAr)) { isRtl = true; break; }
           for (const p of (cat.products || [])) {
             if (isArabic(p.nameAr)) { isRtl = true; break outer; }
           }
         }
-        if (isRtl) document.body.classList.add('rtl');
-
-        document.title = `${storeName} — Menu`;
+        document.body.classList.toggle('rtl', isRtl);
 
         // ── Header ──────────────────────────────────────────────────────────
         const logoUrl  = data.logoUrl || '';
@@ -471,6 +527,17 @@
               </div>
             </div>
           </div>`;
+
+        // ── Menu Switcher (only when more than one menu) ────────────────────
+        let menusBarHtml = '';
+        if (menus.length > 1) {
+          menusBarHtml = '<div class="menus-bar"><div class="menus-row">';
+          menus.forEach((m, i) => {
+            const label = m.name || `Menu ${i + 1}`;
+            menusBarHtml += `<button class="menu-btn${i === current ? ' active' : ''}" onclick="switchMenu(${i})">${esc(label)}</button>`;
+          });
+          menusBarHtml += '</div></div>';
+        }
 
         // ── Category Tabs ────────────────────────────────────────────────────
         let tabsHtml = '<div class="tabs-bar"><div class="tabs" id="tabs">';
@@ -498,7 +565,8 @@
 
           prods.forEach(p => {
             const name   = (isRtl && p.nameAr) ? p.nameAr : p.nameFr;
-            const imgUrl = (p.imageUrl && p.imageUrl.trim()) ? p.imageUrl : getImageUrl(p.nameFr, p.nameAr);
+            const rawImg = (p.image && p.image.trim()) || (p.imageUrl && p.imageUrl.trim());
+            const imgUrl = rawImg || getImageUrl(p.nameFr, p.nameAr);
             sectionsHtml += `
               <div class="product-card">
                 <div class="product-img-wrap">
@@ -523,6 +591,7 @@
         root.innerHTML = `
           <div class="sticky-top">
             ${headerHtml}
+            ${menusBarHtml}
             ${tabsHtml}
           </div>
           ${sectionsHtml}`;
@@ -545,6 +614,12 @@
         }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
 
         sections.forEach(s => io.observe(s));
+        }
+
+        window.switchMenu = function(i) {
+          renderMenu(i);
+          window.scrollTo({ top: 0 });
+        };
 
       } catch (err) {
         console.error(err);
