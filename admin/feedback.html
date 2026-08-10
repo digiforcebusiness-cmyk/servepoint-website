@@ -512,14 +512,15 @@
       });
     }
 
-    // The hub project alone controls the gate.
-    onAuthStateChanged(fb[HUB.id].auth, async user => {
+    // The hub project alone controls the gate. Credential replay is triggered
+    // solely by signIn() — this listener also fires on session restore, when
+    // there is no token to replay.
+    onAuthStateChanged(fb[HUB.id].auth, user => {
       if (isAdmin(user)) {
         el.authGate.style.display = 'none';
         el.app.style.display = 'block';
         el.logoutBtn.style.display = '';
         el.userEmail.textContent = user.email;
-        await connectOthers();
       } else {
         el.authGate.style.display = '';
         el.app.style.display = 'none';
