@@ -234,7 +234,6 @@
     .conn-title { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
     .conn-row { display: flex; align-items: center; gap: 10px; padding: 5px 0; flex-wrap: wrap; }
     .conn-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: var(--muted); }
-    .conn-dot.conn-connected { background: var(--green); }
     .conn-dot.conn-connecting { background: var(--yellow); }
     .conn-dot.conn-error { background: var(--accent); }
     .conn-name { font-size: 12px; font-weight: 600; }
@@ -391,6 +390,8 @@
       connection: Object.fromEntries(APPS.map(a => [a.id, { status: 'idle', error: null, canRetry: false }])),
       feedback: Object.fromEntries(APPS.map(a => [a.id, []])),
       unsubscribe: {},
+      // appId -> true once that project's first snapshot has arrived.
+      loaded: {},
       filters: { app: 'all', kind: 'all', search: '' }
     };
 
@@ -430,7 +431,9 @@
       el.connRows.innerHTML = APPS.map(cfg => {
         const c = state.connection[cfg.id];
         const msg = c.error || CONN_LABEL[c.status];
-        const retry = c.status === 'error' && c.canRetry
+        // Any non-connected state is connectable: 'idle' covers a session that
+        // never restored, and a retryable error covers a failed attempt.
+        const retry = (c.status === 'idle' || (c.status === 'error' && c.canRetry))
           ? `<button class="conn-btn" data-connect="${escHtml(cfg.id)}">Connect</button>`
           : '';
         return `
@@ -467,6 +470,13 @@
       el.gateError.textContent = '';
       try {
         const result = await signInWithPopup(fb[HUB.id].auth, new GoogleAuthProvider());
+        // Never replay a non-admin credential into the other projects: that would
+        // provision an Auth user record in every one of them. The hub-gate auth
+        // listener already renders the denial message.
+        if (!isAdmin(result.user)) {
+          googleIdToken = null;
+          return;
+        }
         const cred = GoogleAuthProvider.credentialFromResult(result);
         googleIdToken = cred && cred.idToken ? cred.idToken : null;
         await connectOthers();
@@ -478,7 +488,9 @@
     async function connectOthers() {
       for (const cfg of APPS) {
         if (cfg.hub) continue;
-        if (fb[cfg.id].auth.currentUser) continue;
+        // Skip only a project that already holds an admin session. A non-admin
+        // currentUser whose signOut is still in flight must not block the replay.
+        if (isAdmin(fb[cfg.id].auth.currentUser)) continue;
         if (!googleIdToken) {
           setConn(cfg.id, 'error', 'Sign in again to connect this app.', true);
           continue;
@@ -512,8 +524,9 @@
           onAppReady(cfg.id);
         } else {
           if (user) {
-            signOut(fb[cfg.id].auth);
-            setConn(cfg.id, 'error', 'Account not authorized for this project.', false);
+            signOut(fb[cfg.id].auth).catch(() => {});
+            // Retryable: the user can reconnect with the correct account.
+            setConn(cfg.id, 'error', 'Account not authorized for this project.', true);
           } else if (state.connection[cfg.id].status !== 'error') {
             setConn(cfg.id, 'idle');
           }
@@ -546,7 +559,14 @@
 
     el.logoutBtn.addEventListener('click', async () => {
       googleIdToken = null;
-      await Promise.all(APPS.map(cfg => signOut(fb[cfg.id].auth)));
+      // allSettled: one project failing to sign out must not abort the others.
+      const results = await Promise.allSettled(APPS.map(cfg => signOut(fb[cfg.id].auth)));
+      const failed = results
+        .map((r, i) => (r.status === 'rejected' ? APPS[i].name : null))
+        .filter(Boolean);
+      if (failed.length) {
+        el.gateError.textContent = 'Could not sign out of: ' + failed.join(', ');
+      }
     });
 
     el.connRows.addEventListener('click', e => {
@@ -565,11 +585,18 @@
         limit(PAGE_SIZE)
       );
       state.unsubscribe[appId] = onSnapshot(q, snap => {
+        state.loaded[appId] = true;
         state.feedback[appId] = snap.docs.map(d => ({ id: d.id, appId, ...d.data() }));
         render();
       }, err => {
+        // Firestore has already torn this listener down; drop the dead handle so
+        // startListening can re-subscribe once the cause is fixed.
+        delete state.unsubscribe[appId];
+        delete state.loaded[appId];
         state.feedback[appId] = [];
-        setConn(appId, 'error', authErrorMessage(err), false);
+        // A permission error is not fixed by re-authenticating; anything else may be transient.
+        const canRetry = !(err && err.code === 'permission-denied');
+        setConn(appId, 'error', authErrorMessage(err), canRetry);
         render();
       });
     }
@@ -578,6 +605,7 @@
       if (!state.unsubscribe[appId]) return;
       state.unsubscribe[appId]();
       delete state.unsubscribe[appId];
+      delete state.loaded[appId];
       state.feedback[appId] = [];
     }
 
@@ -629,11 +657,16 @@
         : '—';
     }
 
-    function renderFeed() {
-      const items = visibleItems();
+    // True until at least one connected project has delivered its first snapshot.
+    function nothingLoadedYet() {
+      return !APPS.some(cfg => state.loaded[cfg.id]);
+    }
 
+    function renderFeed(items) {
       if (items.length === 0) {
-        el.feed.innerHTML = `<div class="state-msg"><p>No feedback matches this view.</p></div>`;
+        el.feed.innerHTML = nothingLoadedYet()
+          ? `<div class="state-msg"><div class="spinner"></div><p>Loading…</p></div>`
+          : `<div class="state-msg"><p>No feedback matches this view.</p></div>`;
         return;
       }
 
@@ -695,8 +728,7 @@
       }).join('');
     }
 
-    function renderStats() {
-      const items = visibleItems();
+    function renderStats(items) {
       el.statTotal.textContent = items.length;
       el.statNew.textContent = items.filter(i => i.status === 'new').length;
       el.statBugs.textContent = items.filter(i => i.type === 'bug').length;
@@ -704,10 +736,12 @@
     }
 
     function render() {
+      // Computed once per render and shared by both consumers.
+      const items = visibleItems();
       renderAppTiles();
       renderAppFilters();
-      renderStats();
-      renderFeed();
+      renderStats(items);
+      renderFeed(items);
     }
 
     el.appTiles.addEventListener('click', e => {
@@ -785,7 +819,8 @@
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
     }
 
     renderConnectionPanel();
