@@ -649,13 +649,16 @@ Insert immediately before the `// ─── Utils ───` comment:
     }
 
     // The hub project alone controls the gate.
-    onAuthStateChanged(fb[HUB.id].auth, async user => {
+    // It deliberately does NOT call connectOthers(): this listener fires before
+    // signInWithPopup() returns, so googleIdToken would still be null here.
+    // signIn() is the sole trigger for replay. On reload there is nothing to
+    // replay — each project restores its own persisted session.
+    onAuthStateChanged(fb[HUB.id].auth, user => {
       if (isAdmin(user)) {
         el.authGate.style.display = 'none';
         el.app.style.display = 'block';
         el.logoutBtn.style.display = '';
         el.userEmail.textContent = user.email;
-        await connectOthers();
       } else {
         el.authGate.style.display = '';
         el.app.style.display = 'none';
