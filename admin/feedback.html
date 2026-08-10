@@ -332,7 +332,9 @@
 
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-    import { getAuth } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+    import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithCredential,
+             onAuthStateChanged, signOut }
+      from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
     import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
     // ─── App registry ─────────────────────────────────────────
@@ -391,7 +393,13 @@
     };
 
     const el = {
-      connRows: document.getElementById('conn-rows')
+      connRows: document.getElementById('conn-rows'),
+      authGate: document.getElementById('auth-gate'),
+      app: document.getElementById('app'),
+      gateError: document.getElementById('gate-error'),
+      userEmail: document.getElementById('user-email'),
+      logoutBtn: document.getElementById('logout-btn'),
+      signInBtn: document.getElementById('sign-in-btn')
     };
 
     // ─── Connection panel ─────────────────────────────────────
@@ -423,6 +431,117 @@
           </div>`;
       }).join('');
     }
+
+    // ─── Auth ─────────────────────────────────────────────────
+
+    let googleIdToken = null;
+
+    function isAdmin(user) {
+      return !!user && ADMIN_EMAILS.includes(user.email);
+    }
+
+    function authErrorMessage(e) {
+      const code = e && e.code ? e.code : '';
+      if (code === 'permission-denied') return 'Firestore rules deny access for this project.';
+      if (code === 'auth/popup-blocked') return 'Popup blocked — allow popups and retry.';
+      if (code === 'auth/popup-closed-by-user') return 'Sign-in window closed before completing.';
+      if (code === 'auth/invalid-credential' || code === 'auth/invalid-id-token') {
+        return 'This project does not accept the hub sign-in. Whitelist the hub OAuth client ID, or use Connect.';
+      }
+      if (code === 'auth/unauthorized-domain') return 'This domain is not authorized in this Firebase project.';
+      return (e && e.message) ? e.message : String(e);
+    }
+
+    async function signIn() {
+      el.gateError.textContent = '';
+      try {
+        const result = await signInWithPopup(fb[HUB.id].auth, new GoogleAuthProvider());
+        const cred = GoogleAuthProvider.credentialFromResult(result);
+        googleIdToken = cred && cred.idToken ? cred.idToken : null;
+        await connectOthers();
+      } catch (e) {
+        el.gateError.textContent = authErrorMessage(e);
+      }
+    }
+
+    async function connectOthers() {
+      for (const cfg of APPS) {
+        if (cfg.hub) continue;
+        if (fb[cfg.id].auth.currentUser) continue;
+        if (!googleIdToken) {
+          setConn(cfg.id, 'error', 'Sign in again to connect this app.', true);
+          continue;
+        }
+        setConn(cfg.id, 'connecting');
+        try {
+          await signInWithCredential(fb[cfg.id].auth, GoogleAuthProvider.credential(googleIdToken));
+        } catch (e) {
+          setConn(cfg.id, 'error', authErrorMessage(e), true);
+        }
+      }
+    }
+
+    async function connectOne(appId) {
+      setConn(appId, 'connecting');
+      try {
+        await signInWithPopup(fb[appId].auth, new GoogleAuthProvider());
+      } catch (e) {
+        setConn(appId, 'error', authErrorMessage(e), true);
+      }
+    }
+
+    // Hooks — Task 3 fills these in.
+    function onAppReady(appId) {}
+    function onAppLost(appId) {}
+
+    // Per-project auth state. Each project reports its own connection status.
+    for (const cfg of APPS) {
+      onAuthStateChanged(fb[cfg.id].auth, user => {
+        if (isAdmin(user)) {
+          setConn(cfg.id, 'connected');
+          onAppReady(cfg.id);
+        } else {
+          if (user) {
+            signOut(fb[cfg.id].auth);
+            setConn(cfg.id, 'error', 'Account not authorized for this project.', false);
+          } else if (state.connection[cfg.id].status !== 'error') {
+            setConn(cfg.id, 'idle');
+          }
+          onAppLost(cfg.id);
+        }
+      });
+    }
+
+    // The hub project alone controls the gate.
+    onAuthStateChanged(fb[HUB.id].auth, async user => {
+      if (isAdmin(user)) {
+        el.authGate.style.display = 'none';
+        el.app.style.display = 'block';
+        el.logoutBtn.style.display = '';
+        el.userEmail.textContent = user.email;
+        await connectOthers();
+      } else {
+        el.authGate.style.display = '';
+        el.app.style.display = 'none';
+        el.logoutBtn.style.display = 'none';
+        el.userEmail.textContent = '';
+        if (user) {
+          el.gateError.textContent = 'Access denied. This account is not authorized.';
+        }
+      }
+    });
+
+    el.signInBtn.addEventListener('click', signIn);
+
+    el.logoutBtn.addEventListener('click', async () => {
+      googleIdToken = null;
+      await Promise.all(APPS.map(cfg => signOut(fb[cfg.id].auth)));
+    });
+
+    el.connRows.addEventListener('click', e => {
+      const btn = e.target.closest('[data-connect]');
+      if (btn) connectOne(btn.dataset.connect);
+    });
 
     // ─── Utils ────────────────────────────────────────────────
     function escHtml(str) {
