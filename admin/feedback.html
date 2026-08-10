@@ -743,6 +743,42 @@
       }, 200);
     });
 
+    // ─── Actions ──────────────────────────────────────────────
+    // Delegated: the card carries data-app so each write lands in
+    // the project the document actually came from.
+
+    function findItem(appId, docId) {
+      return (state.feedback[appId] || []).find(i => i.id === docId) || null;
+    }
+
+    async function toggleStatus(appId, docId) {
+      const item = findItem(appId, docId);
+      if (!item) return;
+      const next = item.status === 'done' ? 'new' : 'done';
+      try {
+        await updateDoc(doc(fb[appId].db, APPS_BY_ID[appId].collection, docId), { status: next });
+      } catch (e) {
+        alert('Could not update: ' + authErrorMessage(e));
+      }
+    }
+
+    async function deleteItem(appId, docId) {
+      if (!confirm('Delete this feedback permanently?')) return;
+      try {
+        await deleteDoc(doc(fb[appId].db, APPS_BY_ID[appId].collection, docId));
+      } catch (e) {
+        alert('Could not delete: ' + authErrorMessage(e));
+      }
+    }
+
+    el.feed.addEventListener('click', e => {
+      const btn = e.target.closest('[data-action]');
+      if (!btn) return;
+      const { action, app, id } = btn.dataset;
+      if (action === 'toggle') toggleStatus(app, id);
+      else if (action === 'delete') deleteItem(app, id);
+    });
+
     // ─── Utils ────────────────────────────────────────────────
     function escHtml(str) {
       return String(str ?? '')
