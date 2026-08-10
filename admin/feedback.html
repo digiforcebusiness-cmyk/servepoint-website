@@ -335,7 +335,9 @@
     import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithCredential,
              onAuthStateChanged, signOut }
       from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-    import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+    import { getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc,
+             orderBy, query, limit }
+      from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
     // ─── App registry ─────────────────────────────────────────
     // To add an app: paste one entry. Exactly one entry must have hub: true.
@@ -399,7 +401,8 @@
       gateError: document.getElementById('gate-error'),
       userEmail: document.getElementById('user-email'),
       logoutBtn: document.getElementById('logout-btn'),
-      signInBtn: document.getElementById('sign-in-btn')
+      signInBtn: document.getElementById('sign-in-btn'),
+      feed: document.getElementById('feed')
     };
 
     // ─── Connection panel ─────────────────────────────────────
@@ -490,9 +493,8 @@
       }
     }
 
-    // Hooks — Task 3 fills these in.
-    function onAppReady(appId) {}
-    function onAppLost(appId) {}
+    function onAppReady(appId) { startListening(appId); }
+    function onAppLost(appId) { stopListening(appId); render(); }
 
     // Per-project auth state. Each project reports its own connection status.
     for (const cfg of APPS) {
@@ -543,6 +545,109 @@
       const btn = e.target.closest('[data-connect]');
       if (btn) connectOne(btn.dataset.connect);
     });
+
+    // ─── Data ─────────────────────────────────────────────────
+
+    function startListening(appId) {
+      if (state.unsubscribe[appId]) return;
+      const cfg = APPS_BY_ID[appId];
+      const q = query(
+        collection(fb[appId].db, cfg.collection),
+        orderBy('createdAt', 'desc'),
+        limit(PAGE_SIZE)
+      );
+      state.unsubscribe[appId] = onSnapshot(q, snap => {
+        state.feedback[appId] = snap.docs.map(d => ({ id: d.id, appId, ...d.data() }));
+        render();
+      }, err => {
+        state.feedback[appId] = [];
+        setConn(appId, 'error', authErrorMessage(err), false);
+        render();
+      });
+    }
+
+    function stopListening(appId) {
+      if (!state.unsubscribe[appId]) return;
+      state.unsubscribe[appId]();
+      delete state.unsubscribe[appId];
+      state.feedback[appId] = [];
+    }
+
+    // A pending server timestamp has no toDate(); sort those to the top.
+    function sortKey(item) {
+      const d = item.createdAt && typeof item.createdAt.toDate === 'function'
+        ? item.createdAt.toDate()
+        : null;
+      return d ? d.getTime() : Number.MAX_SAFE_INTEGER;
+    }
+
+    function mergedItems() {
+      return APPS
+        .flatMap(cfg => state.feedback[cfg.id])
+        .sort((a, b) => sortKey(b) - sortKey(a));
+    }
+
+    function visibleItems() {
+      return mergedItems();
+    }
+
+    // ─── Render ───────────────────────────────────────────────
+
+    const LOCALES = {
+      en: '🇬🇧 English', fr: '🇫🇷 French', es: '🇪🇸 Spanish',
+      ar: '🇩🇿 Arabic', zh: '🇨🇳 Chinese', de: '🇩🇪 German'
+    };
+
+    function formatDate(item) {
+      const d = item.createdAt && typeof item.createdAt.toDate === 'function'
+        ? item.createdAt.toDate()
+        : null;
+      return d
+        ? d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+        : '—';
+    }
+
+    function renderFeed() {
+      const items = visibleItems();
+
+      if (items.length === 0) {
+        el.feed.innerHTML = `<div class="state-msg"><p>No feedback matches this view.</p></div>`;
+        return;
+      }
+
+      el.feed.innerHTML = items.map(item => {
+        const cfg = APPS_BY_ID[item.appId];
+        const isBug = item.type === 'bug';
+        const isDone = item.status === 'done';
+        const localeLabel = LOCALES[item.locale] || item.locale || '—';
+        return `
+          <div class="card status-${isDone ? 'done' : 'new'}">
+            <div class="card-top">
+              <span class="badge badge-app" style="background:${escHtml(cfg.color)}">${escHtml(cfg.name)}</span>
+              <span class="badge badge-${isBug ? 'bug' : 'feature'}">${isBug ? '🐛 Bug' : '💡 Suggestion'}</span>
+              <span class="badge badge-${isDone ? 'done' : 'new'}">${isDone ? '✓ Done' : '🔔 New'}</span>
+              <div class="card-message">${escHtml(item.message)}</div>
+            </div>
+            <div class="card-meta">
+              <span class="meta-item">📅 ${escHtml(formatDate(item))}</span>
+              <span class="meta-item">${escHtml(localeLabel)}</span>
+              ${item.uid ? `<span class="meta-item" title="${escHtml(item.uid)}">👤 ${escHtml(String(item.uid).slice(0, 8))}…</span>` : ''}
+              <div class="card-actions">
+                <button class="action-btn ${isDone ? 'done' : ''}"
+                        data-action="toggle" data-app="${escHtml(item.appId)}" data-id="${escHtml(item.id)}">
+                  ${isDone ? '↩ Reopen' : '✓ Mark done'}
+                </button>
+                <button class="action-btn delete"
+                        data-action="delete" data-app="${escHtml(item.appId)}" data-id="${escHtml(item.id)}">🗑</button>
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    function render() {
+      renderFeed();
+    }
 
     // ─── Utils ────────────────────────────────────────────────
     function escHtml(str) {
