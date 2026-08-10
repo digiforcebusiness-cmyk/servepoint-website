@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MacFree — Ship Unity iOS to TestFlight from Windows. No Mac.</title>
+  <meta name="description" content="MacFree is a Unity Editor tool that builds, code-signs and uploads your iOS game to Apple TestFlight from a Windows or Linux PC — no Mac, no Xcode, no command line. Two build engines: GitHub Actions or Unity Build Automation." />
+  <meta name="keywords" content="unity ios build, testflight from windows, ios build no mac, unity ios testflight, ios code signing, unity build automation, github actions unity ios, ship ios without mac, macfree" />
+  <meta name="author" content="DigiForce" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.servepointpos.com/macfree/" />
+  <link rel="icon" type="image/png" href="/macfree/icon.png" />
+  <link rel="apple-touch-icon" href="/macfree/icon.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.servepointpos.com/macfree/" />
+  <meta property="og:title" content="MacFree — Ship Unity iOS to TestFlight from Windows. No Mac." />
+  <meta property="og:description" content="Build, sign and upload your Unity iOS game to TestFlight from a Windows or Linux PC. No Mac required. On the Unity Asset Store." />
+  <meta property="og:image" content="https://www.servepointpos.com/macfree/banner.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MacFree — Ship Unity iOS to TestFlight from Windows" />
+  <meta name="twitter:description" content="No Mac, no Xcode, no command line. Two build engines. On the Unity Asset Store." />
+  <meta name="twitter:image" content="https://www.servepointpos.com/macfree/banner.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "MacFree — iOS Builder",
+    "operatingSystem": ["Windows", "macOS", "Linux"],
+    "applicationCategory": "DeveloperApplication",
+    "offers": { "@type": "Offer", "price": "29.99", "priceCurrency": "USD" },
+    "description": "MacFree builds, code-signs and uploads a Unity iOS project to Apple TestFlight from Windows or Linux — no Mac required.",
+    "url": "https://www.servepointpos.com/macfree/",
+    "publisher": { "@type": "Organization", "name": "DigiForce" }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0b0e17;
+      --surface: #141a29;
+      --surface-2: #1d2740;
+      --border: rgba(255,255,255,0.09);
+      --text: #f2f5fc;
+      --text-muted: #a9b6d4;
+      --blue: #4f6bff;
+      --blue-2: #6366f1;
+      --cyan: #22d3ee;
+      --violet: #a855f7;
+      --green: #34d399;
+      --amber: #f5b301;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Hero */
+    .hero {
+      background:
+        radial-gradient(ellipse at top right, rgba(99,102,241,0.22), transparent 60%),
+        radial-gradient(ellipse at bottom left, rgba(34,211,238,0.14), transparent 60%),
+        var(--bg);
+      padding: 56px 24px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-inner { max-width: 900px; margin: 0 auto; }
+
+    .app-icon {
+      width: 108px; height: 108px; border-radius: 26px;
+      box-shadow: 0 20px 60px rgba(79,107,255,0.45), 0 8px 20px rgba(0,0,0,0.35);
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: 3rem; font-weight: 900; letter-spacing: -1.5px; line-height: 1.1;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff, #a9b6d4);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .tagline {
+      font-size: 1.25rem; color: var(--text-muted); margin: 0 auto 36px; max-width: 660px;
+    }
+
+    .store-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+
+    .store-button {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-2));
+      color: #fff; padding: 14px 28px; border-radius: 14px; text-decoration: none;
+      font-weight: 600; font-size: 0.95rem;
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 16px rgba(79,107,255,0.45);
+    }
+    .store-button:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(79,107,255,0.65); }
+    .store-button.secondary { background: var(--surface-2); color: var(--text); box-shadow: none; border: 1px solid var(--border); }
+    .store-button svg { width: 20px; height: 20px; }
+    .store-meta { color: var(--text-muted); font-size: 0.85rem; margin-top: 8px; }
+    .hero-shot { max-width: 840px; margin: 48px auto 0; border-radius: 18px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 24px 70px rgba(0,0,0,0.55); }
+    .hero-shot img { display: block; width: 100%; height: auto; }
+
+    /* Sections */
+    section.content { max-width: 1000px; margin: 0 auto; padding: 80px 24px; }
+    h2 { font-size: 2rem; font-weight: 800; text-align: center; letter-spacing: -0.5px; margin-bottom: 12px; }
+    .section-sub { text-align: center; color: var(--text-muted); font-size: 1.05rem; margin: 0 auto 48px; max-width: 660px; }
+
+    /* Features grid */
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .feature {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 28px;
+      transition: transform 0.15s ease, border-color 0.2s ease;
+    }
+    .feature:hover { transform: translateY(-3px); border-color: rgba(79,107,255,0.5); }
+    .feature-icon {
+      width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 16px;
+    }
+    .feature h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .feature p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; }
+
+    /* Steps */
+    .loop { background: var(--surface); border-radius: 24px; padding: 48px; border: 1px solid var(--border); }
+    .loop-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 32px; }
+    .loop-step { display: flex; gap: 16px; align-items: flex-start; }
+    .loop-bullet {
+      flex: 0 0 auto; width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem; font-weight: 800; color: #fff;
+    }
+    .loop-step h4 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .loop-step p { color: var(--text-muted); font-size: 0.88rem; }
+
+    /* Engines */
+    .engines { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .engine { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 30px; }
+    .engine h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; }
+    .engine .badge { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; padding: 3px 9px; border-radius: 20px; margin-bottom: 12px; }
+    .engine p { color: var(--text-muted); font-size: 0.92rem; }
+
+    /* CTA */
+    .cta { text-align: center; padding: 80px 24px; background: radial-gradient(ellipse at center, rgba(79,107,255,0.18), transparent 70%); }
+    .cta h2 { margin-bottom: 16px; }
+    .cta p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 32px; }
+
+    /* Contact / FAQ */
+    .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 56px; }
+    .contact-card {
+      display: flex; align-items: flex-start; gap: 16px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 22px; text-decoration: none; color: inherit;
+      transition: transform 0.15s ease, border-color 0.2s ease;
+    }
+    .contact-card:hover { transform: translateY(-3px); border-color: rgba(79,107,255,0.5); }
+    .contact-icon { flex: 0 0 auto; width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; }
+    .contact-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .contact-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 4px; word-break: break-word; }
+    .contact-meta { display: block; color: rgba(255,255,255,0.45); font-size: 0.78rem; }
+
+    .faq { max-width: 720px; margin: 0 auto; }
+    .faq-title { font-size: 1.3rem; font-weight: 700; text-align: center; margin-bottom: 24px; }
+    .faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 4px 20px; margin-bottom: 10px; transition: border-color 0.2s ease; }
+    .faq-item[open] { border-color: rgba(79,107,255,0.5); }
+    .faq-item summary { cursor: pointer; font-weight: 600; font-size: 0.98rem; padding: 16px 0; list-style: none; position: relative; padding-right: 28px; }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after { content: '+'; position: absolute; right: 0; top: 50%; transform: translateY(-50%); font-size: 1.4rem; color: var(--cyan); transition: transform 0.2s ease; }
+    .faq-item[open] summary::after { content: '\2212'; }
+    .faq-item p { color: var(--text-muted); font-size: 0.92rem; padding-bottom: 16px; line-height: 1.7; }
+    .faq-item p a { color: var(--cyan); text-decoration: none; }
+    .faq-item p a:hover { text-decoration: underline; }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
+    footer a { color: var(--cyan); text-decoration: none; margin: 0 10px; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 760px) {
+      h1 { font-size: 2.2rem; }
+      .tagline { font-size: 1.05rem; }
+      section.content { padding: 56px 20px; }
+      h2 { font-size: 1.6rem; }
+      .features { grid-template-columns: 1fr; }
+      .loop { padding: 28px 22px; }
+      .loop-list { grid-template-columns: 1fr; }
+      .engines { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <img class="app-icon" src="/macfree/icon.png" alt="MacFree — Unity 3D to TestFlight icon" />
+    <h1>Ship Unity iOS to TestFlight — from Windows.</h1>
+    <p class="tagline">MacFree builds, code-signs and uploads your Unity iOS game to Apple TestFlight from a Windows or Linux PC. No Mac. No Xcode on your machine. No command-line crypto.</p>
+    <div class="store-buttons">
+      <a class="store-button" href="https://assetstore.unity.com/publishers/DigiForce" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5zm0 2.2 6.5 3.6L12 11.4 5.5 7.8 12 4.2zM5 9.3l6 3.4v6.9l-6-3.3V9.3zm14 0v7l-6 3.3v-6.9l6-3.4z"/></svg>
+        Get it on the Unity Asset Store
+      </a>
+      <a class="store-button secondary" href="mailto:digiforcebusiness@gmail.com?subject=MacFree%20%E2%80%94%20Question">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Contact us
+      </a>
+    </div>
+    <p class="store-meta">Unity 6 · GitHub Actions or Unity Build Automation · Works with every render pipeline</p>
+    <div class="hero-shot">
+      <img src="/macfree/banner.png" alt="Unity 3D to TestFlight — build without a Mac" loading="lazy" />
+    </div>
+  </div>
+</header>
+
+<section class="content">
+  <h2>A Mac is no longer part of the plan</h2>
+  <p class="section-sub">Apple's build, signing and upload steps normally need a Mac. MacFree runs them on a cloud machine and drives the whole thing from inside your Unity Editor.</p>
+
+  <div class="features">
+    <div class="feature">
+      <div class="feature-icon" style="background: linear-gradient(135deg,#4f6bff,#6366f1);">🖥️</div>
+      <h3>No Mac Required</h3>
+      <p>Build and ship from Windows or Linux. Every Mac-only step — Xcode build, code-signing, upload — happens in the cloud.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background: linear-gradient(135deg,#22d3ee,#0ea5e9);">🔐</div>
+      <h3>Automatic Signing</h3>
+      <p>Your iOS distribution certificate and provisioning profile are created for you. No openssl, no Keychain, no manual steps.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background: linear-gradient(135deg,#a855f7,#7c3aed);">⚙️</div>
+      <h3>Two Build Engines</h3>
+      <p>Choose the fully-automated GitHub Actions engine (no dashboards) or Unity Build Automation. Both reach the same TestFlight result.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background: linear-gradient(135deg,#34d399,#10b981);">🚀</div>
+      <h3>One-Click Ship</h3>
+      <p>Build, code-sign, archive and upload to TestFlight with a single button. Roughly 15–25 minutes later your build is ready to test.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background: linear-gradient(135deg,#f5b301,#f97316);">✅</div>
+      <h3>Smart Preflight</h3>
+      <p>Catches missing icons and bundle-ID mistakes before they cost build minutes, stamps a fresh build number, and auto-selects the newest Xcode/SDK to meet Apple's requirements.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background: linear-gradient(135deg,#64748b,#334155);">🔒</div>
+      <h3>Safe by Design</h3>
+      <p>Credentials are stored encrypted and kept out of Git. Your keys and passwords never leave your machine except as encrypted build secrets.</p>
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="loop">
+    <h2>Three steps to TestFlight</h2>
+    <p class="section-sub">Set it up once. After that, shipping a new build is a single click.</p>
+    <div class="loop-list">
+      <div class="loop-step">
+        <div class="loop-bullet" style="background: linear-gradient(135deg,#4f6bff,#6366f1);">1</div>
+        <div><h4>Connect</h4><p>Paste your App Store Connect key and a couple of IDs. Once.</p></div>
+      </div>
+      <div class="loop-step">
+        <div class="loop-bullet" style="background: linear-gradient(135deg,#22d3ee,#0ea5e9);">2</div>
+        <div><h4>Set Up</h4><p>One click creates your certificate, provisioning profile and cloud build config.</p></div>
+      </div>
+      <div class="loop-step">
+        <div class="loop-bullet" style="background: linear-gradient(135deg,#34d399,#10b981);">3</div>
+        <div><h4>Ship</h4><p>One click builds, signs and uploads. Your build lands on TestFlight.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <h2>Pick your build engine</h2>
+  <p class="section-sub">MacFree drives two cloud build services. New to this? Use GitHub Actions.</p>
+  <div class="engines">
+    <div class="engine">
+      <span class="badge" style="background:rgba(79,107,255,0.18); color:#8ea3ff;">Recommended</span>
+      <h3>GitHub Actions</h3>
+      <p>Fully automated with zero dashboards to click through. MacFree creates a private repo, pushes your project, installs the build recipe, and runs everything on GitHub's free cloud minutes. All you need is a free GitHub account and your Unity login.</p>
+    </div>
+    <div class="engine">
+      <span class="badge" style="background:rgba(34,211,238,0.15); color:#67e8f9;">Also supported</span>
+      <h3>Unity Build Automation</h3>
+      <p>Already using Unity Cloud / Unity DevOps? MacFree sets up the certificate, profile, secrets and build target for you — you just connect your repository once in the Unity dashboard, and ship.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Stop renting a Mac to ship iOS</h2>
+  <p>Build, sign and upload your Unity game to TestFlight from the PC you already have.</p>
+  <a class="store-button" href="https://assetstore.unity.com/publishers/DigiForce" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5zm0 2.2 6.5 3.6L12 11.4 5.5 7.8 12 4.2zM5 9.3l6 3.4v6.9l-6-3.3V9.3zm14 0v7l-6 3.3v-6.9l6-3.4z"/></svg>
+    Get MacFree on the Unity Asset Store
+  </a>
+</section>
+
+<section id="contact" class="content">
+  <h2>Support &amp; Contact</h2>
+  <p class="section-sub">Questions, bug reports or setup help — email us directly and we reply within 2 business days.</p>
+
+  <div class="contact-grid">
+    <a class="contact-card" href="mailto:digiforcebusiness@gmail.com?subject=MacFree%20%E2%80%94%20Support">
+      <div class="contact-icon" style="background: linear-gradient(135deg,#4f6bff,#6366f1);">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </div>
+      <div>
+        <h3>Email Support</h3>
+        <p>digiforcebusiness@gmail.com</p>
+        <span class="contact-meta">Reply within 2 business days</span>
+      </div>
+    </a>
+
+    <a class="contact-card" href="https://assetstore.unity.com/publishers/DigiForce" target="_blank" rel="noopener">
+      <div class="contact-icon" style="background: linear-gradient(135deg,#22d3ee,#0ea5e9);">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5zm0 2.2 6.5 3.6L12 11.4 5.5 7.8 12 4.2zM5 9.3l6 3.4v6.9l-6-3.3V9.3zm14 0v7l-6 3.3v-6.9l6-3.4z"/></svg>
+      </div>
+      <div>
+        <h3>Unity Asset Store</h3>
+        <p>View MacFree on the Asset Store</p>
+        <span class="contact-meta">Published by DigiForce</span>
+      </div>
+    </a>
+
+    <a class="contact-card" href="/macfree/contact.html">
+      <div class="contact-icon" style="background: linear-gradient(135deg,#a855f7,#7c3aed);">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+      </div>
+      <div>
+        <h3>Contact &amp; Company</h3>
+        <p>DigiForce — publisher details</p>
+        <span class="contact-meta">Business &amp; support info</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="faq">
+    <h3 class="faq-title">Frequently asked</h3>
+
+    <details class="faq-item">
+      <summary>Do I really never need a Mac?</summary>
+      <p>Correct. Every Mac-only step — compiling the Xcode project, code-signing, and uploading — runs on a cloud machine. You drive it all from the Unity Editor on Windows or Linux.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>What do I need to get started?</summary>
+      <p>Unity 6 with the iOS Build Support module, a paid Apple Developer Program account (Apple's requirement for any iOS app), a Unity account (Personal works), and — for the GitHub Actions engine — a free GitHub account. A full step-by-step PDF guide is included with the asset.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is Unity Personal (free) enough?</summary>
+      <p>Yes, for the GitHub Actions engine. You still need the paid Apple Developer Program — that's Apple's rule, not MacFree's.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>How long does a build take?</summary>
+      <p>Typically 15–25 minutes from clicking Build &amp; Ship to the build appearing on TestFlight.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Where are my credentials stored?</summary>
+      <p>Locally in your project's UserSettings folder (kept out of Git), and as encrypted secrets on your build service. They're only used by the build machine and are never committed to your repository.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Which render pipelines does it support?</summary>
+      <p>All of them. MacFree is an Editor tool that renders nothing at runtime, so it works with Built-in, URP, HDRP and custom SRPs alike.</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <a href="https://www.servepointpos.com/">Home</a> ·
+  <a href="/macfree/contact.html">Contact</a> ·
+  <a href="https://assetstore.unity.com/publishers/DigiForce" target="_blank" rel="noopener">Asset Store</a>
+  <p style="margin-top:12px">© 2026 DigiForce. All rights reserved. · MacFree — iOS Builder</p>
+</footer>
+
+</body>
+</html>

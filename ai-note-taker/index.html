@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Speech to Text Note Taker — AI Meeting Recorder & Transcriber</title>
-  <meta name="description" content="Record meetings, lectures and voice notes. On-device AI transcription with cloud-quality summaries, multi-language support, calendar sync, and AI Chat across every recording." />
-  <meta name="keywords" content="ai note taker, meeting transcription app, voice recorder app, ai summary, otter alternative, summary ai alternative, speech to text android" />
-  <meta name="author" content="Speech to Text Note Taker" />
+  <title>VibeNote — AI Lecture & Meeting Notes, Recorded Privately</title>
+  <meta name="description" content="The AI note-taker for students and researchers. Record lectures on-device, import PDF, Word and PowerPoint files, get editorial AI summaries in seconds, chat with every note, translate to 120+ languages, and turn any lecture into flashcards." />
+  <meta name="keywords" content="ai note taker, lecture transcription, ai notes for students, summarise pdf, summarise word document, summarise powerpoint, voice recorder, ai summary, flashcards from lectures, on-device whisper, otter alternative, notta alternative" />
+  <meta name="author" content="VibeNote" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.servepointpos.com/ai-note-taker/" />
   <link rel="icon" type="image/png" href="/ai-note-taker/icon.png" />
@@ -14,17 +14,19 @@
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.servepointpos.com/ai-note-taker/" />
-  <meta property="og:title" content="Speech to Text Note Taker — AI Meeting Recorder" />
-  <meta property="og:description" content="Record, transcribe and summarise every meeting. On-device AI with optional cloud accuracy and Google Calendar sync." />
+  <meta property="og:title" content="VibeNote — Private AI Notes for Lectures & Meetings" />
+  <meta property="og:description" content="Record any lecture, meeting, or voice memo — or import a PDF, Word doc, or slide deck. AI summarises in seconds, chats with all your notes, and translates to 120+ languages." />
+  <meta property="og:image" content="https://www.servepointpos.com/ai-note-taker/screenshots/summary.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Speech to Text Note Taker",
-    "operatingSystem": "Android",
-    "applicationCategory": "ProductivityApplication",
-    "description": "AI-powered note-taking app that records, transcribes and summarises meetings, lectures and voice notes.",
+    "name": "VibeNote",
+    "operatingSystem": "iOS, Android",
+    "applicationCategory": "EducationApplication",
+    "description": "AI note-taker for students and researchers. On-device transcription, PDF, Word and PowerPoint import, editorial AI summaries, AI Chat, translation, and flashcards.",
     "url": "https://www.servepointpos.com/ai-note-taker/"
   }
   </script>
@@ -33,14 +35,14 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --blue: #2D6BFF;
-      --blue-soft: #5B8FF9;
+      --blue: #1772FD;
+      --blue-soft: #5B9CFF;
       --bg: #07090f;
       --card: #11131a;
       --border: #1d2230;
       --text: #ffffff;
       --muted: #8a92a8;
-      --gradient: linear-gradient(135deg, #2D6BFF, #5B8FF9);
+      --gradient: linear-gradient(135deg, #1772FD, #5B9CFF);
     }
 
     html { scroll-behavior: smooth; }
@@ -79,12 +81,17 @@
       content: '';
       position: absolute; top: 15%; left: 50%; transform: translateX(-50%);
       width: 700px; height: 700px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(45,107,255,0.18) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(23,114,253,0.18) 0%, transparent 70%);
       pointer-events: none;
+    }
+    .hero-icon {
+      width: 96px; height: 96px; border-radius: 22px;
+      margin-bottom: 24px; position: relative;
+      box-shadow: 0 12px 40px rgba(23,114,253,0.35);
     }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(45,107,255,0.10); border: 1px solid rgba(45,107,255,0.30);
+      background: rgba(23,114,253,0.10); border: 1px solid rgba(23,114,253,0.30);
       border-radius: 24px; padding: 6px 16px; font-size: 13px; color: var(--blue-soft);
       font-weight: 600; margin-bottom: 28px;
     }
@@ -103,10 +110,10 @@
       padding: 16px 36px; border-radius: 50px; border: none; cursor: pointer;
       background: var(--gradient); color: #fff; font-weight: 800; font-size: 16px;
       text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-      box-shadow: 0 8px 32px rgba(45,107,255,0.4);
+      box-shadow: 0 8px 32px rgba(23,114,253,0.4);
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(45,107,255,0.5); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(23,114,253,0.5); }
     .btn-secondary {
       padding: 16px 36px; border-radius: 50px; border: 1px solid var(--border);
       cursor: pointer; background: transparent; color: var(--text);
@@ -140,15 +147,38 @@
       border-radius: 20px; padding: 32px;
       transition: transform 0.2s, border-color 0.2s;
     }
-    .feature:hover { transform: translateY(-4px); border-color: rgba(45,107,255,0.4); }
+    .feature:hover { transform: translateY(-4px); border-color: rgba(23,114,253,0.4); }
     .feature-icon {
       width: 48px; height: 48px; border-radius: 12px;
-      background: rgba(45,107,255,0.12);
+      background: rgba(23,114,253,0.12);
       display: flex; align-items: center; justify-content: center;
       font-size: 22px; margin-bottom: 18px;
     }
     .feature h3 { font-size: 18px; font-weight: 800; margin-bottom: 10px; }
     .feature p { color: var(--muted); font-size: 14.5px; }
+
+    /* Screenshot gallery — scrolls sideways on phones, centres on desktop.
+       The shots are light-background marketing images, so they read as
+       bright cards against the dark page. */
+    .shots {
+      display: flex; gap: 18px; overflow-x: auto;
+      padding: 4px 4px 18px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .shots::-webkit-scrollbar { height: 6px; }
+    .shots::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    .shot { flex: 0 0 216px; margin: 0; scroll-snap-align: center; }
+    .shot img {
+      width: 100%; height: auto; display: block;
+      border-radius: 18px; border: 1px solid var(--border);
+      background: #fff;
+    }
+    .shot figcaption {
+      margin-top: 12px; text-align: center;
+      font-size: 13.5px; color: var(--muted); line-height: 1.45;
+    }
+    @media (min-width: 1000px) { .shots { justify-content: center; } }
 
     .steps {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -177,6 +207,7 @@
     }
     .cta-band h2 { font-size: clamp(26px, 4vw, 38px); font-weight: 900; margin-bottom: 14px; letter-spacing: -1px; }
     .cta-band p { color: var(--muted); margin-bottom: 30px; }
+    .store-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
     footer {
       border-top: 1px solid var(--border); padding: 36px 24px;
@@ -190,19 +221,22 @@
 
 <nav>
   <a href="/ai-note-taker/" class="nav-logo">
-    <div class="nav-icon">S</div>
-    <span>Speech to Text Note Taker</span>
+    <img src="/ai-note-taker/icon.png" alt="VibeNote app icon" class="nav-icon" width="32" height="32" />
+    <span>VibeNote</span>
   </a>
   <a href="#download" class="nav-cta">Get the app</a>
 </nav>
 
 <section class="hero">
-  <div class="hero-badge">★★★★★ &nbsp; Built for thinkers, not stenographers</div>
-  <h1>Record any conversation. <span>Get the AI summary.</span></h1>
+  <img src="/ai-note-taker/icon.png" alt="VibeNote app icon" class="hero-icon" width="96" height="96" />
+  <div class="hero-badge">★★★★★ &nbsp; Built for students and researchers</div>
+  <h1>Record any lecture. <span>Get AI notes you can study from.</span></h1>
   <p>
-    Capture meetings, lectures and voice memos. On-device AI gives you an
-    instant transcript and a clean summary — and Premium adds cloud-grade
-    accuracy in 50+ languages plus AI Chat across every recording.
+    VibeNote turns lectures, meetings, and voice memos into structured notes
+    in seconds — and imports the PDFs, Word docs, and slide decks your course
+    already runs on. Editorial AI summaries, chat across all your notes,
+    translation to 120+ languages, and flashcards for exam night. Free
+    recording is transcribed privately on your device.
   </p>
   <div class="hero-actions">
     <a href="#download" class="btn-primary">Try it free →</a>
@@ -212,79 +246,124 @@
 
 <section class="section" id="features">
   <div class="section-label">Features</div>
-  <h2 class="section-title">Everything you need in one app</h2>
+  <h2 class="section-title">Everything you need in one note-taker</h2>
   <p class="section-sub">
-    From silence-busting recording to AI Chat across years of notes — your
-    voice, your transcripts, your insights.
+    Capture, understand, and revise — from a lecture you recorded or a
+    document your professor handed out.
   </p>
 
   <div class="features">
     <div class="feature">
-      <div class="feature-icon">🎙️</div>
-      <h3>Crisp recordings</h3>
-      <p>Pause-and-resume, background-safe, 16 kHz mono — engineered for transcription quality, not just playback.</p>
+      <div class="feature-icon">🔒</div>
+      <h3>Record privately, offline</h3>
+      <p>On-device Whisper writes the transcript locally on the free plan. No upload, no cloud quota. Works in airplane mode, in any classroom, on the train.</p>
     </div>
     <div class="feature">
       <div class="feature-icon">⚡</div>
-      <h3>Instant on-device transcripts</h3>
-      <p>Whisper runs locally on your phone the moment you stop recording. No upload, no waiting, no quota.</p>
+      <h3>Transcripts in seconds</h3>
+      <p>Live text appears while you speak, and the polished transcript is ready the moment you hit stop — no staring at a progress bar after a two-hour lecture.</p>
     </div>
     <div class="feature">
-      <div class="feature-icon">🌍</div>
-      <h3>50+ languages</h3>
-      <p>Cloud transcription auto-detects language. Summaries are written in whatever language was spoken.</p>
+      <div class="feature-icon">📄</div>
+      <h3>Import PDF, Word &amp; PowerPoint</h3>
+      <p>Drop in a reading, an essay, or a lecture deck and get the same AI summary, flashcards, and chat you get from a recording. Free users included.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">✨</div>
+      <h3>Editorial AI summaries</h3>
+      <p>Premium turns any recording into a multi-section summary — <strong>What This Is About</strong>, <strong>Main Thoughts</strong>, <strong>Key Insights</strong>, <strong>Memorable Quotes</strong> — ready to paste into your study notes.</p>
     </div>
     <div class="feature">
       <div class="feature-icon">💬</div>
-      <h3>AI Chat across notes</h3>
-      <p>Ask "what did the client decide last week?" — the AI searches every transcript and answers in seconds.</p>
+      <h3>Chat with every lecture</h3>
+      <p>"What did the professor say about mitochondria?" "Pull the key dates from yesterday's history class." AI Chat searches across every note you've recorded.</p>
     </div>
     <div class="feature">
-      <div class="feature-icon">📅</div>
-      <h3>Calendar sync</h3>
-      <p>Connect Google Calendar or Outlook to see today's meetings — tap any to record with one button.</p>
+      <div class="feature-icon">🌍</div>
+      <h3>Translate to 120+ languages</h3>
+      <p>One-tap translation built for international students, exchange semesters, and multilingual research. Keep both languages side-by-side.</p>
     </div>
     <div class="feature">
-      <div class="feature-icon">🔒</div>
-      <h3>Privacy first</h3>
-      <p>Audio lives on your device. Cloud features only run when you ask, into your private storage — never resold.</p>
+      <div class="feature-icon">🃏</div>
+      <h3>Flashcards & quizzes</h3>
+      <p>Turn last week's lecture into tonight's revision. Generate flashcards and quizzes from any transcript in seconds.</p>
     </div>
+    <div class="feature">
+      <div class="feature-icon">📝</div>
+      <h3>Built for study</h3>
+      <p>Editable transcripts, custom vocabulary for class terms, speaker labels for seminars, summary styles for lecture / interview / meeting / brainstorm.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="screens">
+  <div class="section-label">See it in action</div>
+  <h2 class="section-title">A look inside VibeNote</h2>
+  <p class="section-sub">
+    Record, read the summary, ask questions, and revise — all from the
+    same note.
+  </p>
+
+  <div class="shots">
+    <figure class="shot">
+      <img src="/ai-note-taker/screenshots/home.webp" alt="VibeNote home screen showing a searchable list of recordings with AI processing status" width="600" height="1298" loading="lazy" />
+      <figcaption>All your lectures, searchable in one place</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="/ai-note-taker/screenshots/record.webp" alt="VibeNote recording screen with a live waveform and high-quality capture setting" width="600" height="1298" loading="lazy" />
+      <figcaption>One tap to record, with a live waveform</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="/ai-note-taker/screenshots/summary.webp" alt="VibeNote summary tab listing AI-generated key points and checkable action items" width="600" height="1298" loading="lazy" />
+      <figcaption>Key points and action items, auto-written</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="/ai-note-taker/screenshots/chat.webp" alt="VibeNote AI Chat tab suggesting questions to ask about the recording" width="600" height="1298" loading="lazy" />
+      <figcaption>Ask AI Chat anything about your notes</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="/ai-note-taker/screenshots/calendar.webp" alt="VibeNote calendar screen connected to Google Calendar with Zoom, Meet and Teams meeting bots" width="600" height="1298" loading="lazy" />
+      <figcaption>Calendar sync and meeting bots for Zoom, Meet &amp; Teams</figcaption>
+    </figure>
   </div>
 </section>
 
 <section class="section" id="how-it-works">
   <div class="section-label">How it works</div>
-  <h2 class="section-title">From silent room to searchable summary</h2>
-  <p class="section-sub">Four taps from press-record to ready-to-share notes.</p>
+  <h2 class="section-title">From the lecture hall to your study notes</h2>
+  <p class="section-sub">Four taps from press-record to revision-ready notes.</p>
 
   <div class="steps">
     <div class="step">
-      <h3>Hit record</h3>
-      <p>Big mic button on the bottom of every screen. Pause and resume as needed.</p>
+      <h3>Record or import</h3>
+      <p>Hit the mic for a lecture, or import a PDF, Word doc, or PowerPoint deck. Pause and resume freely — perfect for lectures with Q&amp;A breaks.</p>
     </div>
     <div class="step">
-      <h3>Stop & transcribe</h3>
-      <p>On-device Whisper writes the transcript locally. No internet required.</p>
+      <h3>Watch the live transcript</h3>
+      <p>Words appear as you speak, and the finished transcript is waiting the second you stop — no post-recording wait.</p>
     </div>
     <div class="step">
       <h3>Read the summary</h3>
-      <p>Key points, action items, decisions — auto-generated in seconds.</p>
+      <p>Editorial-style summary with key points, quotes, and insights — auto-generated in seconds.</p>
     </div>
     <div class="step">
-      <h3>Ask anything</h3>
-      <p>AI Chat answers questions across all your notes. Translate, listen, share.</p>
+      <h3>Study and chat</h3>
+      <p>Generate flashcards, run quizzes, or ask AI Chat anything about every lecture you've ever recorded.</p>
     </div>
   </div>
 </section>
 
 <section class="cta-band" id="download">
-  <h2>Ready to never miss a word again?</h2>
-  <p>Free tier records and transcribes unlimited notes on-device. Premium adds cloud accuracy + AI Chat.</p>
-  <a href="https://play.google.com/store" class="btn-primary">Download on Google Play →</a>
+  <h2>The note-taker that respects your privacy</h2>
+  <p>Free forever on-device recording, plus document import and AI summaries on the free plan. Premium adds unlimited AI Chat, cloud accuracy, translation, and study tools.</p>
+  <div class="store-buttons">
+    <a href="https://apps.apple.com/app/id6774342610" class="btn-primary">Download on the App Store →</a>
+    <a href="https://play.google.com/store" class="btn-secondary">Get it on Google Play</a>
+  </div>
 </section>
 
 <footer>
-  <p style="margin-bottom:12px;">© 2026 Speech to Text Note Taker. All rights reserved.</p>
+  <p style="margin-bottom:12px;">© 2026 VibeNote. All rights reserved.</p>
   <a href="/ai-note-taker/">Home</a>
   <a href="/ai-note-taker/privacy.html">Privacy Policy</a>
   <a href="/ai-note-taker/terms.html">Terms of Use</a>
