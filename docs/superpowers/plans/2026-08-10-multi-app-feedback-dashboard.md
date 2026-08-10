@@ -1,0 +1,1164 @@
+# Multi-App Feedback Dashboard Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Replace the two single-project feedback dashboards with one page that shows feedback from every Firebase project at once.
+
+**Architecture:** One static HTML file holds a list of Firebase web configs. `initializeApp(config, appId)` creates an independent named Firebase instance per project, so N Firestore realtime listeners run side by side in the browser. Google sign-in happens once against a designated hub project; the resulting Google ID token is replayed into the other projects via `signInWithCredential`. Results merge into one chronological feed tagged by app.
+
+**Tech Stack:** Plain HTML + CSS + ES modules. Firebase JS SDK 10.12.0 loaded from `https://www.gstatic.com/firebasejs/10.12.0/`. No build step, no package manager, no backend.
+
+## Global Constraints
+
+- Firebase SDK version is exactly `10.12.0`, imported from gstatic URLs — matches every other page in this repo.
+- `admin/feedback.html` stays a **single self-contained file**: inline `<style>`, one `<script type="module">`. No new JS/CSS files, no bundler, no npm.
+- UI language is **English** throughout.
+- `ADMIN_EMAILS = ['mobilestudio66@gmail.com', 'digiforcebusiness@gmail.com']`.
+- Per-app Firestore query uses `orderBy('createdAt', 'desc')` and `limit(200)`.
+- Design tokens carried verbatim from the current page: `--bg:#0D2137`, `--card:#132A45`, `--card2:#0F2236`, `--accent:#E94560`, `--green:#22C55E`, `--yellow:#F59E0B`, `--blue:#60A5FA`, `--text:#F0F4F8`, `--muted:#7A8FA6`, `--border:rgba(255,255,255,0.07)`, `--radius:12px`.
+- Page carries `<meta name="robots" content="noindex, nofollow" />`.
+- All user-supplied strings pass through `escHtml()` before entering `innerHTML`.
+- Exactly one entry in `APPS` has `hub: true`.
+- Commit after every task.
+
+**Local preview:** Firebase auth popups do not work over `file://`. Serve the repo root and open the page over HTTP:
+
+```bash
+python -m http.server 8000
+# then open http://localhost:8000/admin/feedback.html
+```
+
+`localhost` is an authorized domain in every Firebase project by default, so sign-in works locally with no console changes.
+
+**Testing note:** This is a single static page talking to live Firestore, and the repo has no test harness or build step. Each task therefore ends with a concrete browser verification step listing exactly what to observe. There is no automated red-green cycle.
+
+## File Structure
+
+- **Modify (full rewrite):** `admin/feedback.html` — the entire dashboard. Sections in file order: styles, markup skeleton, `APPS` config, Firebase bootstrap, auth, data layer, render, filters, actions, utils.
+- **Delete:** `spa/admin/feedback.html` — its project becomes an entry in `APPS`.
+
+No other files change.
+
+---
+
+### Task 1: Page skeleton, app config, and multi-project bootstrap
+
+**Files:**
+- Modify: `admin/feedback.html` (full rewrite)
+
+**Interfaces:**
+- Consumes: nothing.
+- Produces:
+  - `APPS` — array of `{ id, name, color, collection, firebase, hub? }`
+  - `APPS_BY_ID` — `Record<string, AppConfig>`
+  - `fb` — `Record<string, { app, auth, db }>`
+  - `state` — `{ connection, feedback, unsubscribe, filters }`
+  - `setConn(appId, status, error?, canRetry?)` — updates connection state and re-renders the panel
+  - `renderConnectionPanel()` — void
+  - `escHtml(str)` — string
+
+- [ ] **Step 1: Rewrite `admin/feedback.html` with the skeleton, styles, and config**
+
+Replace the entire contents of `admin/feedback.html` with:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feedback Admin — All Apps</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="/icon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0D2137;
+      --card: #132A45;
+      --card2: #0F2236;
+      --accent: #E94560;
+      --green: #22C55E;
+      --yellow: #F59E0B;
+      --blue: #60A5FA;
+      --text: #F0F4F8;
+      --muted: #7A8FA6;
+      --border: rgba(255,255,255,0.07);
+      --radius: 12px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ─── Header ─────────────────────────────────────────── */
+    .header {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .header-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+    .header-logo img { border-radius: 8px; }
+    .header-logo span { font-size: 18px; font-weight: 700; }
+    .header h1 { font-size: 18px; font-weight: 700; color: var(--muted); }
+    .header h1 span { color: var(--accent); }
+    .user-email { font-size: 12px; color: var(--muted); margin-left: auto; }
+    .logout-btn {
+      padding: 7px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .logout-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ─── Auth gate ──────────────────────────────────────── */
+    #auth-gate {
+      max-width: 400px;
+      margin: 80px auto;
+      padding: 32px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-align: center;
+    }
+    #auth-gate h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    #auth-gate p { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+    .btn-google {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      color: #111;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-google:hover { opacity: 0.9; }
+    .btn-google svg { width: 18px; height: 18px; }
+    .gate-error { color: var(--accent); font-size: 12px; margin-top: 16px; min-height: 16px; }
+
+    /* ─── Main ───────────────────────────────────────────── */
+    #app { display: none; }
+    .main { max-width: 1000px; margin: 0 auto; padding: 24px 16px 60px; }
+
+    /* ─── App tiles ──────────────────────────────────────── */
+    .app-tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .app-tile {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--muted);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .app-tile:hover { background: var(--card2); }
+    .app-tile.active { background: var(--card2); }
+    .app-tile-name { font-size: 12px; font-weight: 600; color: var(--text); }
+    .app-tile-count { font-size: 22px; font-weight: 800; margin-top: 4px; }
+    .app-tile-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ─── Stats ──────────────────────────────────────────── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      text-align: center;
+    }
+    .stat-number { font-size: 28px; font-weight: 800; }
+    .stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ─── Filters ────────────────────────────────────────── */
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .filter-btn {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover { color: var(--text); }
+    .filter-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+    .search-wrap { margin-bottom: 16px; }
+    #search {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card2);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 13px;
+    }
+    #search::placeholder { color: var(--muted); }
+    #search:focus { outline: none; border-color: var(--accent); }
+
+    /* ─── Feed ───────────────────────────────────────────── */
+    #feed { display: flex; flex-direction: column; gap: 10px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .card.status-new { border-left: 3px solid var(--yellow); }
+    .card.status-done { border-left: 3px solid var(--green); opacity: 0.7; }
+    .card-top { display: flex; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+    .badge {
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge-app { color: #fff; }
+    .badge-bug { background: rgba(233,69,96,0.15); color: var(--accent); }
+    .badge-feature { background: rgba(96,165,250,0.15); color: var(--blue); }
+    .badge-new { background: rgba(245,158,11,0.15); color: var(--yellow); }
+    .badge-done { background: rgba(34,197,94,0.15); color: var(--green); }
+    .card-message { font-size: 14px; line-height: 1.6; flex: 1 1 100%; }
+    .card-meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .meta-item { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+    .card-actions { display: flex; gap: 8px; margin-left: auto; }
+    .action-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .action-btn:hover { background: var(--green); color: #111; border-color: var(--green); }
+    .action-btn.done { background: rgba(34,197,94,0.1); color: var(--green); border-color: var(--green); }
+    .action-btn.done:hover { background: rgba(233,69,96,0.1); color: var(--accent); border-color: var(--accent); }
+    .action-btn.delete:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+    /* ─── States ─────────────────────────────────────────── */
+    .state-msg { text-align: center; padding: 60px 20px; color: var(--muted); }
+    .spinner {
+      width: 32px; height: 32px;
+      border: 3px solid rgba(233,69,96,0.2);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 14px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── Connection panel ───────────────────────────────── */
+    .conn-panel {
+      margin-top: 32px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+    }
+    .conn-title { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+    .conn-row { display: flex; align-items: center; gap: 10px; padding: 5px 0; flex-wrap: wrap; }
+    .conn-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: var(--muted); }
+    .conn-dot.conn-connected { background: var(--green); }
+    .conn-dot.conn-connecting { background: var(--yellow); }
+    .conn-dot.conn-error { background: var(--accent); }
+    .conn-name { font-size: 12px; font-weight: 600; }
+    .conn-msg { font-size: 11px; color: var(--muted); }
+    .conn-btn {
+      margin-left: auto;
+      padding: 4px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--accent);
+      background: transparent;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .conn-btn:hover { background: var(--accent); color: white; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <a href="/" class="header-logo">
+      <img src="/app_icon.png" alt="ServePoint" width="32" height="32">
+      <span>ServePoint</span>
+    </a>
+    <h1>Feedback <span>Admin</span></h1>
+    <span class="user-email" id="user-email"></span>
+    <button class="logout-btn" id="logout-btn" style="display:none">Sign out</button>
+  </div>
+
+  <div id="auth-gate">
+    <h2>Restricted access</h2>
+    <p>Sign in with an authorized Google account to view feedback from all apps.</p>
+    <button class="btn-google" id="sign-in-btn">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+      </svg>
+      Continue with Google
+    </button>
+    <div class="gate-error" id="gate-error"></div>
+  </div>
+
+  <div id="app">
+    <div class="main">
+
+      <div class="app-tiles" id="app-tiles"></div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-number" id="stat-total">—</div>
+          <div class="stat-label">Total</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" style="color:var(--yellow)" id="stat-new">—</div>
+          <div class="stat-label">New</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" style="color:var(--accent)" id="stat-bugs">—</div>
+          <div class="stat-label">Bugs</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" style="color:var(--blue)" id="stat-features">—</div>
+          <div class="stat-label">Suggestions</div>
+        </div>
+      </div>
+
+      <div class="filters" id="app-filters"></div>
+
+      <div class="filters" id="kind-filters">
+        <button class="filter-btn active" data-kind="all">All</button>
+        <button class="filter-btn" data-kind="bug">🐛 Bugs</button>
+        <button class="filter-btn" data-kind="feature">💡 Suggestions</button>
+        <button class="filter-btn" data-kind="new">🔔 New</button>
+        <button class="filter-btn" data-kind="done">✓ Done</button>
+      </div>
+
+      <div class="search-wrap">
+        <input id="search" type="search" placeholder="Search feedback messages…" autocomplete="off" />
+      </div>
+
+      <div id="feed">
+        <div class="state-msg"><div class="spinner"></div><p>Loading…</p></div>
+      </div>
+
+      <div class="conn-panel">
+        <div class="conn-title">Connections</div>
+        <div id="conn-rows"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+    import { getAuth } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+    import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+    // ─── App registry ─────────────────────────────────────────
+    // To add an app: paste one entry. Exactly one entry must have hub: true.
+    const APPS = [
+      {
+        id: 'servepoint',
+        name: 'ServePoint',
+        color: '#E94560',
+        hub: true,
+        collection: 'feedback',
+        firebase: {
+          apiKey: "AIzaSyAAIJ8bI66QDixcj5-f4CnuGvosu_R6Mz0",
+          authDomain: "servepoint-16302.firebaseapp.com",
+          projectId: "servepoint-16302",
+          storageBucket: "servepoint-16302.firebasestorage.app",
+          messagingSenderId: "984531213248",
+          appId: "1:984531213248:web:3487ca37bd57cddd568625"
+        }
+      },
+      {
+        id: 'spa',
+        name: 'ServePoint SPA',
+        color: '#60A5FA',
+        collection: 'feedback',
+        firebase: {
+          apiKey: "AIzaSyC5bqVNCAJ2zx_cwK9OhmwQFGRaQRBMg-4",
+          authDomain: "servepoint-spa.firebaseapp.com",
+          projectId: "servepoint-spa",
+          storageBucket: "servepoint-spa.firebasestorage.app",
+          messagingSenderId: "462468606743",
+          appId: "1:462468606743:web:a5b93c0cf151f488be2552"
+        }
+      }
+    ];
+
+    const ADMIN_EMAILS = ['mobilestudio66@gmail.com', 'digiforcebusiness@gmail.com'];
+    const PAGE_SIZE = 200;
+
+    const APPS_BY_ID = Object.fromEntries(APPS.map(a => [a.id, a]));
+    const HUB = APPS.find(a => a.hub) || APPS[0];
+
+    // ─── Firebase instances (one per project) ─────────────────
+    const fb = {};
+    for (const cfg of APPS) {
+      const app = initializeApp(cfg.firebase, cfg.id);
+      fb[cfg.id] = { app, auth: getAuth(app), db: getFirestore(app) };
+    }
+
+    // ─── State ────────────────────────────────────────────────
+    const state = {
+      connection: Object.fromEntries(APPS.map(a => [a.id, { status: 'idle', error: null, canRetry: false }])),
+      feedback: Object.fromEntries(APPS.map(a => [a.id, []])),
+      unsubscribe: {},
+      filters: { app: 'all', kind: 'all', search: '' }
+    };
+
+    const el = {
+      connRows: document.getElementById('conn-rows')
+    };
+
+    // ─── Connection panel ─────────────────────────────────────
+    const CONN_LABEL = {
+      idle: 'Not connected',
+      connecting: 'Connecting…',
+      connected: 'Connected',
+      error: 'Error'
+    };
+
+    function setConn(appId, status, error = null, canRetry = false) {
+      state.connection[appId] = { status, error, canRetry };
+      renderConnectionPanel();
+    }
+
+    function renderConnectionPanel() {
+      el.connRows.innerHTML = APPS.map(cfg => {
+        const c = state.connection[cfg.id];
+        const msg = c.error || CONN_LABEL[c.status];
+        const retry = c.status === 'error' && c.canRetry
+          ? `<button class="conn-btn" data-connect="${escHtml(cfg.id)}">Connect</button>`
+          : '';
+        return `
+          <div class="conn-row">
+            <span class="conn-dot conn-${escHtml(c.status)}" style="${c.status === 'connected' ? `background:${escHtml(cfg.color)}` : ''}"></span>
+            <span class="conn-name">${escHtml(cfg.name)}</span>
+            <span class="conn-msg">${escHtml(msg)}</span>
+            ${retry}
+          </div>`;
+      }).join('');
+    }
+
+    // ─── Utils ────────────────────────────────────────────────
+    function escHtml(str) {
+      return String(str ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    renderConnectionPanel();
+  </script>
+</body>
+</html>
+```
+
+- [ ] **Step 2: Verify the page loads and both projects initialize**
+
+Run: `python -m http.server 8000` from the repo root, then open `http://localhost:8000/admin/feedback.html`.
+
+Expected:
+- The auth gate is visible with the "Continue with Google" button.
+- Open DevTools console — **no errors**. In particular no "Firebase app named X already exists" and no import failures.
+- In the console, run `document.getElementById('conn-rows').children.length` → returns `2`.
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add admin/feedback.html
+git commit -m "feat(admin): multi-app feedback dashboard skeleton and Firebase bootstrap"
+```
+
+---
+
+### Task 2: Authentication with credential replay
+
+**Files:**
+- Modify: `admin/feedback.html`
+
+**Interfaces:**
+- Consumes: `APPS`, `APPS_BY_ID`, `HUB`, `fb`, `state`, `setConn()`, `renderConnectionPanel()`, `escHtml()`
+- Produces:
+  - `signIn()` — async, hub popup + captures Google ID token
+  - `connectOthers()` — async, replays the token into non-hub projects
+  - `connectOne(appId)` — async, single-project popup fallback
+  - `authErrorMessage(error)` — string
+  - `isAdmin(user)` — boolean
+  - `onAppReady(appId)` — hook called when a project reaches `connected`; Task 3 replaces its body with `startListening(appId)`
+  - `onAppLost(appId)` — hook called when a project drops out of `connected`
+
+- [ ] **Step 1: Add the auth imports**
+
+Replace the auth import line with:
+
+```js
+    import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithCredential,
+             onAuthStateChanged, signOut }
+      from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+```
+
+- [ ] **Step 2: Add element references**
+
+Replace the `const el = { ... }` block with:
+
+```js
+    const el = {
+      connRows: document.getElementById('conn-rows'),
+      authGate: document.getElementById('auth-gate'),
+      app: document.getElementById('app'),
+      gateError: document.getElementById('gate-error'),
+      userEmail: document.getElementById('user-email'),
+      logoutBtn: document.getElementById('logout-btn'),
+      signInBtn: document.getElementById('sign-in-btn')
+    };
+```
+
+- [ ] **Step 3: Add the auth block**
+
+Insert immediately before the `// ─── Utils ───` comment:
+
+```js
+    // ─── Auth ─────────────────────────────────────────────────
+
+    let googleIdToken = null;
+
+    function isAdmin(user) {
+      return !!user && ADMIN_EMAILS.includes(user.email);
+    }
+
+    function authErrorMessage(e) {
+      const code = e && e.code ? e.code : '';
+      if (code === 'permission-denied') return 'Firestore rules deny access for this project.';
+      if (code === 'auth/popup-blocked') return 'Popup blocked — allow popups and retry.';
+      if (code === 'auth/popup-closed-by-user') return 'Sign-in window closed before completing.';
+      if (code === 'auth/invalid-credential' || code === 'auth/invalid-id-token') {
+        return 'This project does not accept the hub sign-in. Whitelist the hub OAuth client ID, or use Connect.';
+      }
+      if (code === 'auth/unauthorized-domain') return 'This domain is not authorized in this Firebase project.';
+      return (e && e.message) ? e.message : String(e);
+    }
+
+    async function signIn() {
+      el.gateError.textContent = '';
+      try {
+        const result = await signInWithPopup(fb[HUB.id].auth, new GoogleAuthProvider());
+        const cred = GoogleAuthProvider.credentialFromResult(result);
+        googleIdToken = cred && cred.idToken ? cred.idToken : null;
+        await connectOthers();
+      } catch (e) {
+        el.gateError.textContent = authErrorMessage(e);
+      }
+    }
+
+    async function connectOthers() {
+      for (const cfg of APPS) {
+        if (cfg.hub) continue;
+        if (fb[cfg.id].auth.currentUser) continue;
+        if (!googleIdToken) {
+          setConn(cfg.id, 'error', 'Sign in again to connect this app.', true);
+          continue;
+        }
+        setConn(cfg.id, 'connecting');
+        try {
+          await signInWithCredential(fb[cfg.id].auth, GoogleAuthProvider.credential(googleIdToken));
+        } catch (e) {
+          setConn(cfg.id, 'error', authErrorMessage(e), true);
+        }
+      }
+    }
+
+    async function connectOne(appId) {
+      setConn(appId, 'connecting');
+      try {
+        await signInWithPopup(fb[appId].auth, new GoogleAuthProvider());
+      } catch (e) {
+        setConn(appId, 'error', authErrorMessage(e), true);
+      }
+    }
+
+    // Hooks — Task 3 fills these in.
+    function onAppReady(appId) {}
+    function onAppLost(appId) {}
+
+    // Per-project auth state. Each project reports its own connection status.
+    for (const cfg of APPS) {
+      onAuthStateChanged(fb[cfg.id].auth, user => {
+        if (isAdmin(user)) {
+          setConn(cfg.id, 'connected');
+          onAppReady(cfg.id);
+        } else {
+          if (user) {
+            signOut(fb[cfg.id].auth);
+            setConn(cfg.id, 'error', 'Account not authorized for this project.', false);
+          } else if (state.connection[cfg.id].status !== 'error') {
+            setConn(cfg.id, 'idle');
+          }
+          onAppLost(cfg.id);
+        }
+      });
+    }
+
+    // The hub project alone controls the gate.
+    onAuthStateChanged(fb[HUB.id].auth, async user => {
+      if (isAdmin(user)) {
+        el.authGate.style.display = 'none';
+        el.app.style.display = 'block';
+        el.logoutBtn.style.display = '';
+        el.userEmail.textContent = user.email;
+        await connectOthers();
+      } else {
+        el.authGate.style.display = '';
+        el.app.style.display = 'none';
+        el.logoutBtn.style.display = 'none';
+        el.userEmail.textContent = '';
+        if (user) {
+          el.gateError.textContent = 'Access denied. This account is not authorized.';
+        }
+      }
+    });
+
+    el.signInBtn.addEventListener('click', signIn);
+
+    el.logoutBtn.addEventListener('click', async () => {
+      googleIdToken = null;
+      await Promise.all(APPS.map(cfg => signOut(fb[cfg.id].auth)));
+    });
+
+    el.connRows.addEventListener('click', e => {
+      const btn = e.target.closest('[data-connect]');
+      if (btn) connectOne(btn.dataset.connect);
+    });
+```
+
+- [ ] **Step 4: Verify sign-in connects every project**
+
+Reload `http://localhost:8000/admin/feedback.html`.
+
+Expected:
+- Click "Continue with Google", pick an authorized account → gate disappears, dashboard shows, your email appears in the header.
+- Connection panel: **both apps show a coloured dot and "Connected"**.
+- If a non-hub app shows red, read its message. `auth/invalid-credential` means the hub's OAuth client ID is not whitelisted in that project — click **Connect** on that row, complete the popup, and confirm it turns green.
+- Reload the page: it goes straight to the dashboard with both apps connected and **no popup**.
+- Click "Sign out" → gate returns, both rows go back to "Not connected".
+- Sign in with an unauthorized Google account → gate stays up with "Access denied. This account is not authorized."
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add admin/feedback.html
+git commit -m "feat(admin): single sign-in replayed across all Firebase projects"
+```
+
+---
+
+### Task 3: Realtime data layer and merged feed
+
+**Files:**
+- Modify: `admin/feedback.html`
+
+**Interfaces:**
+- Consumes: `APPS`, `APPS_BY_ID`, `fb`, `state`, `setConn()`, `escHtml()`, `onAppReady()`, `onAppLost()`, `PAGE_SIZE`
+- Produces:
+  - `startListening(appId)` — opens the per-project snapshot listener
+  - `stopListening(appId)` — tears it down
+  - `mergedItems()` — returns all items across apps, sorted newest first
+  - `visibleItems()` — Task 4 adds filtering; here it returns `mergedItems()`
+  - `renderFeed()` — void
+  - `sortKey(item)` — number
+  - `formatDate(item)` — string
+  - Each item is `{ id, appId, ...docData }`
+
+- [ ] **Step 1: Add the Firestore imports**
+
+Replace the Firestore import line with:
+
+```js
+    import { getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc,
+             orderBy, query, limit }
+      from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+```
+
+- [ ] **Step 2: Add the feed element reference**
+
+Add `feed: document.getElementById('feed'),` to the `el` object.
+
+- [ ] **Step 3: Add the data layer**
+
+Insert immediately before the `// ─── Utils ───` comment:
+
+```js
+    // ─── Data ─────────────────────────────────────────────────
+
+    function startListening(appId) {
+      if (state.unsubscribe[appId]) return;
+      const cfg = APPS_BY_ID[appId];
+      const q = query(
+        collection(fb[appId].db, cfg.collection),
+        orderBy('createdAt', 'desc'),
+        limit(PAGE_SIZE)
+      );
+      state.unsubscribe[appId] = onSnapshot(q, snap => {
+        state.feedback[appId] = snap.docs.map(d => ({ id: d.id, appId, ...d.data() }));
+        render();
+      }, err => {
+        state.feedback[appId] = [];
+        setConn(appId, 'error', authErrorMessage(err), false);
+        render();
+      });
+    }
+
+    function stopListening(appId) {
+      if (!state.unsubscribe[appId]) return;
+      state.unsubscribe[appId]();
+      delete state.unsubscribe[appId];
+      state.feedback[appId] = [];
+    }
+
+    // A pending server timestamp has no toDate(); sort those to the top.
+    function sortKey(item) {
+      const d = item.createdAt && typeof item.createdAt.toDate === 'function'
+        ? item.createdAt.toDate()
+        : null;
+      return d ? d.getTime() : Number.MAX_SAFE_INTEGER;
+    }
+
+    function mergedItems() {
+      return APPS
+        .flatMap(cfg => state.feedback[cfg.id])
+        .sort((a, b) => sortKey(b) - sortKey(a));
+    }
+
+    function visibleItems() {
+      return mergedItems();
+    }
+
+    // ─── Render ───────────────────────────────────────────────
+
+    const LOCALES = {
+      en: '🇬🇧 English', fr: '🇫🇷 French', es: '🇪🇸 Spanish',
+      ar: '🇩🇿 Arabic', zh: '🇨🇳 Chinese', de: '🇩🇪 German'
+    };
+
+    function formatDate(item) {
+      const d = item.createdAt && typeof item.createdAt.toDate === 'function'
+        ? item.createdAt.toDate()
+        : null;
+      return d
+        ? d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+        : '—';
+    }
+
+    function renderFeed() {
+      const items = visibleItems();
+
+      if (items.length === 0) {
+        el.feed.innerHTML = `<div class="state-msg"><p>No feedback matches this view.</p></div>`;
+        return;
+      }
+
+      el.feed.innerHTML = items.map(item => {
+        const cfg = APPS_BY_ID[item.appId];
+        const isBug = item.type === 'bug';
+        const isDone = item.status === 'done';
+        const localeLabel = LOCALES[item.locale] || item.locale || '—';
+        return `
+          <div class="card status-${isDone ? 'done' : 'new'}">
+            <div class="card-top">
+              <span class="badge badge-app" style="background:${escHtml(cfg.color)}">${escHtml(cfg.name)}</span>
+              <span class="badge badge-${isBug ? 'bug' : 'feature'}">${isBug ? '🐛 Bug' : '💡 Suggestion'}</span>
+              <span class="badge badge-${isDone ? 'done' : 'new'}">${isDone ? '✓ Done' : '🔔 New'}</span>
+              <div class="card-message">${escHtml(item.message)}</div>
+            </div>
+            <div class="card-meta">
+              <span class="meta-item">📅 ${escHtml(formatDate(item))}</span>
+              <span class="meta-item">${escHtml(localeLabel)}</span>
+              ${item.uid ? `<span class="meta-item" title="${escHtml(item.uid)}">👤 ${escHtml(String(item.uid).slice(0, 8))}…</span>` : ''}
+              <div class="card-actions">
+                <button class="action-btn ${isDone ? 'done' : ''}"
+                        data-action="toggle" data-app="${escHtml(item.appId)}" data-id="${escHtml(item.id)}">
+                  ${isDone ? '↩ Reopen' : '✓ Mark done'}
+                </button>
+                <button class="action-btn delete"
+                        data-action="delete" data-app="${escHtml(item.appId)}" data-id="${escHtml(item.id)}">🗑</button>
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    function render() {
+      renderFeed();
+    }
+```
+
+- [ ] **Step 4: Wire the hooks**
+
+Replace the two hook stubs from Task 2 with:
+
+```js
+    function onAppReady(appId) { startListening(appId); }
+    function onAppLost(appId) { stopListening(appId); render(); }
+```
+
+- [ ] **Step 5: Verify the merged feed**
+
+Reload and sign in.
+
+Expected:
+- Feedback from **both** projects appears in one list.
+- Every card carries a coloured app badge naming its app — ServePoint in red, ServePoint SPA in blue.
+- Cards are ordered newest first across apps, not grouped by app.
+- Add a feedback document in one project via the Firebase console → it appears at the top within a second or two, no reload.
+- Sign out → feed clears.
+
+- [ ] **Step 6: Commit**
+
+```bash
+git add admin/feedback.html
+git commit -m "feat(admin): merge realtime feedback from every project into one feed"
+```
+
+---
+
+### Task 4: App tiles, filters, search, and stats
+
+**Files:**
+- Modify: `admin/feedback.html`
+
+**Interfaces:**
+- Consumes: `APPS`, `APPS_BY_ID`, `state`, `mergedItems()`, `render()`, `escHtml()`
+- Produces:
+  - `matchesFilters(item)` — boolean
+  - `visibleItems()` — replaced to apply `state.filters`
+  - `renderAppTiles()`, `renderAppFilters()`, `renderStats()` — void
+  - `newCountFor(appId)` — number
+
+- [ ] **Step 1: Add element references**
+
+Add to the `el` object:
+
+```js
+      appTiles: document.getElementById('app-tiles'),
+      appFilters: document.getElementById('app-filters'),
+      kindFilters: document.getElementById('kind-filters'),
+      search: document.getElementById('search'),
+      statTotal: document.getElementById('stat-total'),
+      statNew: document.getElementById('stat-new'),
+      statBugs: document.getElementById('stat-bugs'),
+      statFeatures: document.getElementById('stat-features'),
+```
+
+- [ ] **Step 2: Replace `visibleItems()` with a filtering version**
+
+Replace the `visibleItems()` function body with:
+
+```js
+    function matchesFilters(item) {
+      const f = state.filters;
+      if (f.app !== 'all' && item.appId !== f.app) return false;
+      if (f.kind === 'bug' && item.type !== 'bug') return false;
+      if (f.kind === 'feature' && item.type !== 'feature') return false;
+      if (f.kind === 'new' && item.status !== 'new') return false;
+      if (f.kind === 'done' && item.status !== 'done') return false;
+      if (f.search) {
+        const msg = String(item.message ?? '').toLowerCase();
+        if (!msg.includes(f.search)) return false;
+      }
+      return true;
+    }
+
+    function visibleItems() {
+      return mergedItems().filter(matchesFilters);
+    }
+```
+
+- [ ] **Step 3: Add tiles, filters, and stats rendering**
+
+Insert immediately before `function render()`:
+
+```js
+    // Tile counts are deliberately unfiltered — they answer
+    // "which app needs attention", independent of the current view.
+    function newCountFor(appId) {
+      return state.feedback[appId].filter(i => i.status === 'new').length;
+    }
+
+    function renderAppTiles() {
+      el.appTiles.innerHTML = APPS.map(cfg => {
+        const active = state.filters.app === cfg.id ? ' active' : '';
+        return `
+          <button class="app-tile${active}" data-app-tile="${escHtml(cfg.id)}"
+                  style="border-left-color:${escHtml(cfg.color)}">
+            <div class="app-tile-name">${escHtml(cfg.name)}</div>
+            <div class="app-tile-count" style="color:${escHtml(cfg.color)}">${newCountFor(cfg.id)}</div>
+            <div class="app-tile-label">New</div>
+          </button>`;
+      }).join('');
+    }
+
+    function renderAppFilters() {
+      const chips = [{ id: 'all', name: 'All apps' }]
+        .concat(APPS.map(c => ({ id: c.id, name: c.name })));
+      el.appFilters.innerHTML = chips.map(c => {
+        const active = state.filters.app === c.id ? ' active' : '';
+        return `<button class="filter-btn${active}" data-app-filter="${escHtml(c.id)}">${escHtml(c.name)}</button>`;
+      }).join('');
+    }
+
+    function renderStats() {
+      const items = visibleItems();
+      el.statTotal.textContent = items.length;
+      el.statNew.textContent = items.filter(i => i.status === 'new').length;
+      el.statBugs.textContent = items.filter(i => i.type === 'bug').length;
+      el.statFeatures.textContent = items.filter(i => i.type === 'feature').length;
+    }
+```
+
+- [ ] **Step 4: Replace `render()` and add the filter event handlers**
+
+Replace `function render()` with:
+
+```js
+    function render() {
+      renderAppTiles();
+      renderAppFilters();
+      renderStats();
+      renderFeed();
+    }
+
+    el.appTiles.addEventListener('click', e => {
+      const btn = e.target.closest('[data-app-tile]');
+      if (!btn) return;
+      const id = btn.dataset.appTile;
+      state.filters.app = state.filters.app === id ? 'all' : id;
+      render();
+    });
+
+    el.appFilters.addEventListener('click', e => {
+      const btn = e.target.closest('[data-app-filter]');
+      if (!btn) return;
+      state.filters.app = btn.dataset.appFilter;
+      render();
+    });
+
+    el.kindFilters.addEventListener('click', e => {
+      const btn = e.target.closest('[data-kind]');
+      if (!btn) return;
+      state.filters.kind = btn.dataset.kind;
+      el.kindFilters.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render();
+    });
+
+    let searchTimer = null;
+    el.search.addEventListener('input', () => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => {
+        state.filters.search = el.search.value.trim().toLowerCase();
+        render();
+      }, 200);
+    });
+```
+
+- [ ] **Step 5: Verify filtering, search, and stats**
+
+Reload and sign in.
+
+Expected:
+- One tile per app showing that app's new-feedback count.
+- Clicking a tile filters the feed to that app and highlights the matching app chip; clicking the same tile again returns to all apps.
+- App chips and type/status chips **combine** — e.g. "ServePoint SPA" + "🐛 Bugs" shows only SPA bugs.
+- Typing in search narrows the feed to messages containing that text, and combines with the active chips.
+- The four stat numbers change to describe only what is on screen.
+- Tile counts do **not** change when you apply filters or type in search.
+
+- [ ] **Step 6: Commit**
+
+```bash
+git add admin/feedback.html
+git commit -m "feat(admin): per-app tiles, combined filters, search, and scoped stats"
+```
+
+---
+
+### Task 5: Mark-done and delete routed to the right project
+
+**Files:**
+- Modify: `admin/feedback.html`
+
+**Interfaces:**
+- Consumes: `APPS_BY_ID`, `fb`, `el.feed`, `render()`
+- Produces:
+  - `toggleStatus(appId, docId)` — async
+  - `deleteItem(appId, docId)` — async
+
+- [ ] **Step 1: Add the actions block**
+
+Insert immediately before the `// ─── Utils ───` comment:
+
+```js
+    // ─── Actions ──────────────────────────────────────────────
+    // Delegated: the card carries data-app so each write lands in
+    // the project the document actually came from.
+
+    function findItem(appId, docId) {
+      return (state.feedback[appId] || []).find(i => i.id === docId) || null;
+    }
+
+    async function toggleStatus(appId, docId) {
+      const item = findItem(appId, docId);
+      if (!item) return;
+      const next = item.status === 'done' ? 'new' : 'done';
+      try {
+        await updateDoc(doc(fb[appId].db, APPS_BY_ID[appId].collection, docId), { status: next });
+      } catch (e) {
+        alert('Could not update: ' + authErrorMessage(e));
+      }
+    }
+
+    async function deleteItem(appId, docId) {
+      if (!confirm('Delete this feedback permanently?')) return;
+      try {
+        await deleteDoc(doc(fb[appId].db, APPS_BY_ID[appId].collection, docId));
+      } catch (e) {
+        alert('Could not delete: ' + authErrorMessage(e));
+      }
+    }
+
+    el.feed.addEventListener('click', e => {
+      const btn = e.target.closest('[data-action]');
+      if (!btn) return;
+      const { action, app, id } = btn.dataset;
+      if (action === 'toggle') toggleStatus(app, id);
+      else if (action === 'delete') deleteItem(app, id);
+    });
+```
+
+- [ ] **Step 2: Verify actions hit the correct project**
+
+Reload and sign in.
+
+Expected:
+- "Mark done" on a **ServePoint SPA** card turns it green immediately (the snapshot listener pushes the change back), and the `status` field of that document changes to `done` in the **servepoint-spa** project in the Firebase console — and nothing changes in servepoint-16302.
+- "Reopen" flips it back to `new`.
+- Delete asks for confirmation, then removes the card and the document from the correct project.
+- Repeat one toggle on a **ServePoint** card and confirm it writes to servepoint-16302.
+- Post a feedback message containing `<b>hi</b>` and confirm it renders as literal text, not bold — escaping is intact.
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add admin/feedback.html
+git commit -m "feat(admin): route mark-done and delete to the originating project"
+```
+
+---
+
+### Task 6: Retire the SPA dashboard and run the full checklist
+
+**Files:**
+- Delete: `spa/admin/feedback.html`
+
+**Interfaces:**
+- Consumes: the finished `admin/feedback.html`
+- Produces: nothing.
+
+- [ ] **Step 1: Confirm nothing links to the old dashboard**
+
+Run: `grep -rn "admin/feedback" --include=*.html --include=*.xml --include=*.txt --include=*.json . | grep -v "^./admin/feedback.html"`
+
+Expected: no results. If `sitemap.xml` or any page links to `spa/admin/feedback.html`, remove that reference in this task — an admin page must not be in the sitemap regardless.
+
+- [ ] **Step 2: Delete the SPA dashboard**
+
+```bash
+git rm spa/admin/feedback.html
+```
+
+- [ ] **Step 3: Run the full verification checklist**
+
+Against `http://localhost:8000/admin/feedback.html`:
+
+1. Signed out → auth gate shown, no data.
+2. Sign in with an allowed account → every configured app reaches "Connected".
+3. Sign in with a non-allowed account → "Access denied", no data loads.
+4. Each tile's count matches that app's count of `status: "new"` documents in the Firebase console.
+5. App chips, type/status chips, and search each narrow the feed and combine correctly.
+6. Mark-done writes to the originating project only, and the card updates without a reload.
+7. Delete removes the document from the originating project after confirmation.
+8. Reload while signed in → all apps reconnect with no popup.
+9. Break one app deliberately — temporarily change its `projectId` in `APPS` to a nonexistent value — and confirm that app goes red with a readable message **while the other app keeps working and the feed still renders**. Restore the correct value afterwards and confirm it reconnects.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add -A
+git commit -m "chore(admin): retire the single-project SPA feedback dashboard"
+```
+
+---
+
+## Adding an app later
+
+1. Paste a new entry into `APPS` with a unique `id`, a display `name`, a distinct `color`, the `collection` name, and the project's Firebase web config.
+2. In that project's Firebase console: enable the Google sign-in provider, whitelist the **hub project's OAuth client ID** under the Google provider's Web SDK configuration, and add the dashboard's domain to Authorized domains.
+3. Set that project's Firestore rules to allow read/write on the feedback collection only for the admin emails.
+4. Reload the dashboard and confirm the new app reaches "Connected". If it does not, click **Connect** on its row.
+
+## Deferred / out of scope
+
+- Migrating existing feedback between projects.
+- Changing what the mobile apps write, or their feedback schema.
+- A shared feedback project for future apps.
+- Pagination beyond the 200-per-app limit.
+- Replying to feedback, or any write beyond `status` and delete.
