@@ -402,7 +402,15 @@
       userEmail: document.getElementById('user-email'),
       logoutBtn: document.getElementById('logout-btn'),
       signInBtn: document.getElementById('sign-in-btn'),
-      feed: document.getElementById('feed')
+      feed: document.getElementById('feed'),
+      appTiles: document.getElementById('app-tiles'),
+      appFilters: document.getElementById('app-filters'),
+      kindFilters: document.getElementById('kind-filters'),
+      search: document.getElementById('search'),
+      statTotal: document.getElementById('stat-total'),
+      statNew: document.getElementById('stat-new'),
+      statBugs: document.getElementById('stat-bugs'),
+      statFeatures: document.getElementById('stat-features'),
     };
 
     // ─── Connection panel ─────────────────────────────────────
@@ -587,8 +595,22 @@
         .sort((a, b) => sortKey(b) - sortKey(a));
     }
 
+    function matchesFilters(item) {
+      const f = state.filters;
+      if (f.app !== 'all' && item.appId !== f.app) return false;
+      if (f.kind === 'bug' && item.type !== 'bug') return false;
+      if (f.kind === 'feature' && item.type !== 'feature') return false;
+      if (f.kind === 'new' && item.status !== 'new') return false;
+      if (f.kind === 'done' && item.status !== 'done') return false;
+      if (f.search) {
+        const msg = String(item.message ?? '').toLowerCase();
+        if (!msg.includes(f.search)) return false;
+      }
+      return true;
+    }
+
     function visibleItems() {
-      return mergedItems();
+      return mergedItems().filter(matchesFilters);
     }
 
     // ─── Render ───────────────────────────────────────────────
@@ -645,9 +667,81 @@
       }).join('');
     }
 
+    // Tile counts are deliberately unfiltered — they answer
+    // "which app needs attention", independent of the current view.
+    function newCountFor(appId) {
+      return state.feedback[appId].filter(i => i.status === 'new').length;
+    }
+
+    function renderAppTiles() {
+      el.appTiles.innerHTML = APPS.map(cfg => {
+        const active = state.filters.app === cfg.id ? ' active' : '';
+        return `
+          <button class="app-tile${active}" data-app-tile="${escHtml(cfg.id)}"
+                  style="border-left-color:${escHtml(cfg.color)}">
+            <div class="app-tile-name">${escHtml(cfg.name)}</div>
+            <div class="app-tile-count" style="color:${escHtml(cfg.color)}">${newCountFor(cfg.id)}</div>
+            <div class="app-tile-label">New</div>
+          </button>`;
+      }).join('');
+    }
+
+    function renderAppFilters() {
+      const chips = [{ id: 'all', name: 'All apps' }]
+        .concat(APPS.map(c => ({ id: c.id, name: c.name })));
+      el.appFilters.innerHTML = chips.map(c => {
+        const active = state.filters.app === c.id ? ' active' : '';
+        return `<button class="filter-btn${active}" data-app-filter="${escHtml(c.id)}">${escHtml(c.name)}</button>`;
+      }).join('');
+    }
+
+    function renderStats() {
+      const items = visibleItems();
+      el.statTotal.textContent = items.length;
+      el.statNew.textContent = items.filter(i => i.status === 'new').length;
+      el.statBugs.textContent = items.filter(i => i.type === 'bug').length;
+      el.statFeatures.textContent = items.filter(i => i.type === 'feature').length;
+    }
+
     function render() {
+      renderAppTiles();
+      renderAppFilters();
+      renderStats();
       renderFeed();
     }
+
+    el.appTiles.addEventListener('click', e => {
+      const btn = e.target.closest('[data-app-tile]');
+      if (!btn) return;
+      const id = btn.dataset.appTile;
+      state.filters.app = state.filters.app === id ? 'all' : id;
+      render();
+    });
+
+    el.appFilters.addEventListener('click', e => {
+      const btn = e.target.closest('[data-app-filter]');
+      if (!btn) return;
+      state.filters.app = btn.dataset.appFilter;
+      render();
+    });
+
+    el.kindFilters.addEventListener('click', e => {
+      const btn = e.target.closest('[data-kind]');
+      if (!btn) return;
+      state.filters.kind = btn.dataset.kind;
+      el.kindFilters.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render();
+    });
+
+    let searchTimer = null;
+    el.search.addEventListener('input', () => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => {
+        state.filters.search = el.search.value.trim().toLowerCase();
+        render();
+      }, 200);
+    });
 
     // ─── Utils ────────────────────────────────────────────────
     function escHtml(str) {
