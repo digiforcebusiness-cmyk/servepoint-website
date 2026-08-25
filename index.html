@@ -95,6 +95,7 @@
   <link rel="icon" href="icon.png" type="image/png" />
   <link rel="apple-touch-icon" href="icon.png" />
 
+  <link rel="preload" as="image" href="icon.webp" type="image/webp" fetchpriority="high" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -132,7 +133,10 @@
   <section class="hero">
     <div class="container hero-inner">
       <div class="hero-badge">Cloud POS — Available on Google Play, App Store, Xiaomi GetApps &amp; Huawei AppGallery</div>
-      <img src="icon.png" alt="ServePoint POS app icon" class="hero-icon" />
+      <picture>
+        <source srcset="icon.webp" type="image/webp" />
+        <img src="icon.png" alt="ServePoint POS app icon" class="hero-icon" width="128" height="128" fetchpriority="high" decoding="async" />
+      </picture>
       <h1 class="hero-title">The POS System Your<br /><span class="gradient-text">Restaurant Deserves</span></h1>
       <p class="hero-subtitle">ServePoint is a cloud POS system built for restaurants, cafés, bars and snack bars. Manage orders, kitchen display system, inventory and reports — all synced in real time across every device in your venue.</p>
       <div class="hero-actions">
@@ -207,7 +211,10 @@
       <div class="showcase-row">
         <div class="showcase-media">
           <div class="phone-wrap">
-            <img src="screenshot-1.png" alt="ServePoint order management screen" loading="lazy" />
+            <picture>
+              <source srcset="screenshot-1.webp" type="image/webp" />
+              <img src="screenshot-1.png" alt="ServePoint order management screen" width="1000" height="524" loading="lazy" decoding="async" />
+            </picture>
           </div>
         </div>
         <div class="showcase-text">
@@ -232,7 +239,10 @@
       <div class="showcase-row showcase-row--reverse">
         <div class="showcase-media">
           <div class="phone-wrap">
-            <img src="screenshot-4.png" alt="ServePoint kitchen display system" loading="lazy" />
+            <picture>
+              <source srcset="screenshot-4.webp" type="image/webp" />
+              <img src="screenshot-4.png" alt="ServePoint kitchen display system" width="1000" height="563" loading="lazy" decoding="async" />
+            </picture>
           </div>
         </div>
         <div class="showcase-text">
@@ -257,7 +267,10 @@
       <div class="showcase-row">
         <div class="showcase-media">
           <div class="phone-wrap">
-            <img src="screenshot-2.png" alt="ServePoint payment and receipt screen" loading="lazy" />
+            <picture>
+              <source srcset="screenshot-2.webp" type="image/webp" />
+              <img src="screenshot-2.png" alt="ServePoint payment and receipt screen" width="1000" height="563" loading="lazy" decoding="async" />
+            </picture>
           </div>
         </div>
         <div class="showcase-text">
@@ -282,7 +295,10 @@
       <div class="showcase-row showcase-row--reverse">
         <div class="showcase-media">
           <div class="phone-wrap">
-            <img src="screenshot-3.png" alt="ServePoint inventory management screen" loading="lazy" />
+            <picture>
+              <source srcset="screenshot-3.webp" type="image/webp" />
+              <img src="screenshot-3.png" alt="ServePoint inventory management screen" width="1000" height="563" loading="lazy" decoding="async" />
+            </picture>
           </div>
         </div>
         <div class="showcase-text">
@@ -307,7 +323,10 @@
       <div class="showcase-row">
         <div class="showcase-media">
           <div class="phone-wrap">
-            <img src="screenshot-5.png" alt="ServePoint sales reports and analytics" loading="lazy" />
+            <picture>
+              <source srcset="screenshot-5.webp" type="image/webp" />
+              <img src="screenshot-5.png" alt="ServePoint sales reports and analytics" width="1000" height="563" loading="lazy" decoding="async" />
+            </picture>
           </div>
         </div>
         <div class="showcase-text">
