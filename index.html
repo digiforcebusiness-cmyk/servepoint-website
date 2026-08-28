@@ -141,7 +141,7 @@
       <h1 class="hero-title">The POS System Your<br /><span class="gradient-text">Restaurant Deserves</span></h1>
       <p class="hero-subtitle">ServePoint is a cloud POS system built for restaurants, cafés, bars and snack bars. Manage orders, kitchen display system, inventory and reports — all synced in real time across every device in your venue.</p>
       <div class="hero-actions">
-        <a id="smart-download" href="https://play.google.com/store/apps/details?id=com.app.servepoint" class="btn-primary btn-large" target="_blank" rel="noopener">
+        <a id="smart-download" href="https://play.google.com/store/apps/details?id=com.app.servepoint" class="btn-playstore btn-large" target="_blank" rel="noopener">
           <span class="dl-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.22 1.18.03l12.62-7.28-2.9-2.9-10.9 10.15zM.5 1.28C.19 1.67 0 2.22 0 2.93v18.14c0 .71.19 1.26.51 1.65l.09.08 10.15-10.15v-.24L.59 1.2.5 1.28zm20.07 9.63l-2.89-1.67-3.26 3.26 3.26 3.26 2.91-1.68c.83-.48.83-1.26-.02-1.74v-.43zM4.36.24L16.98 7.52l-2.9 2.9L4.27.28c.38-.21.8-.2 1.09-.04z"/></svg></span>
           <span class="dl-label">Download the app</span>
         </a>
@@ -678,6 +678,11 @@
         ios: "Download on the App Store",
         windows: "Get it on Microsoft Store"
       };
+      var classes = {
+        android: "btn-playstore btn-large",
+        ios: "btn-appstore btn-large",
+        windows: "btn-msstore btn-large"
+      };
       try {
         var ua = navigator.userAgent || "";
         var isIPad = navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
@@ -690,6 +695,7 @@
           var btn = document.getElementById("smart-download");
           if (btn) {
             btn.href = links[plat];
+            btn.className = classes[plat];
             var lab = btn.querySelector(".dl-label");
             if (lab) lab.textContent = labels[plat];
             var ic = btn.querySelector(".dl-icon");
