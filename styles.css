@@ -249,6 +249,10 @@ body {
 }
 .btn-huawei:hover { background: #9e0c24; transform: translateY(-2px); }
 .btn-large { padding: 18px 36px; font-size: 16px; }
+.dl-icon { display: inline-flex; align-items: center; }
+.store-links { margin: -16px 0 32px; font-size: 13px; color: var(--text-muted); }
+.store-links a { color: var(--text-muted); text-decoration: underline; text-underline-offset: 2px; text-decoration-color: rgba(255,255,255,.25); }
+.store-links a:hover { color: var(--text); text-decoration-color: currentColor; }
 .hero-tags { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 .tag {
   background: rgba(255,255,255,.06);
