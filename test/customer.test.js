@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { normalizeRcSubscriber, buildCustomerRecord, isGrantActive } from '../api/_lib/customer.js';
+import { normalizeRcSubscriber, buildCustomerRecord, isGrantActive, mergeRcSubscribers } from '../api/_lib/customer.js';
 
 const now = Date.parse('2026-10-01T00:00:00Z');
 const future = '2026-11-01T00:00:00Z';
@@ -73,4 +73,18 @@ test('buildCustomerRecord with nothing → not Pro, email from RC then Windows',
   assert.deepEqual(r.proSources, []);
   assert.equal(r.email, 'w@x.com');
   assert.deepEqual(r.subscriptions, []);
+});
+
+test('mergeRcSubscribers combines two projects', () => {
+  const a = { firstSeen: '2026-03-01T00:00:00Z', email: null, entitlementActive: false, subscriptions: [{ product: 'a' }] };
+  const b = { firstSeen: '2026-01-01T00:00:00Z', email: 'b@x.com', entitlementActive: true, subscriptions: [{ product: 'b' }] };
+  assert.deepEqual(mergeRcSubscribers([a, b]), {
+    firstSeen: '2026-01-01T00:00:00Z', email: 'b@x.com', entitlementActive: true, subscriptions: [{ product: 'a' }, { product: 'b' }],
+  });
+});
+
+test('mergeRcSubscribers skips nulls and returns null when all are null', () => {
+  const a = { firstSeen: null, email: 'a@x.com', entitlementActive: false, subscriptions: [] };
+  assert.deepEqual(mergeRcSubscribers([null, a]), a);
+  assert.equal(mergeRcSubscribers([null, null]), null);
 });

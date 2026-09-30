@@ -6,7 +6,11 @@ import { parseAdminEmails } from './auth.js';
 import { createRevenueCat } from './revenuecat.js';
 import { createStore } from './store.js';
 
-const REQUIRED = ['REVENUECAT_V1_SECRET_KEY', 'REVENUECAT_V2_SECRET_KEY', 'REVENUECAT_PROJECT_ID', 'FIREBASE_SERVICE_ACCOUNT', 'ADMIN_EMAILS'];
+const REQUIRED = [
+  'REVENUECAT_IOS_V1_SECRET_KEY', 'REVENUECAT_IOS_V2_SECRET_KEY', 'REVENUECAT_IOS_PROJECT_ID',
+  'REVENUECAT_ANDROID_V1_SECRET_KEY', 'REVENUECAT_ANDROID_V2_SECRET_KEY', 'REVENUECAT_ANDROID_PROJECT_ID',
+  'FIREBASE_SERVICE_ACCOUNT', 'ADMIN_EMAILS',
+];
 
 let cached;
 export function getDeps() {
@@ -19,11 +23,18 @@ export function getDeps() {
   cached = {
     auth: getAuth(),
     store: createStore(getFirestore()),
-    rc: createRevenueCat({
-      v1Key: process.env.REVENUECAT_V1_SECRET_KEY,
-      v2Key: process.env.REVENUECAT_V2_SECRET_KEY,
-      projectId: process.env.REVENUECAT_PROJECT_ID,
-    }),
+    rc: {
+      ios: createRevenueCat({
+        v1Key: process.env.REVENUECAT_IOS_V1_SECRET_KEY,
+        v2Key: process.env.REVENUECAT_IOS_V2_SECRET_KEY,
+        projectId: process.env.REVENUECAT_IOS_PROJECT_ID,
+      }),
+      android: createRevenueCat({
+        v1Key: process.env.REVENUECAT_ANDROID_V1_SECRET_KEY,
+        v2Key: process.env.REVENUECAT_ANDROID_V2_SECRET_KEY,
+        projectId: process.env.REVENUECAT_ANDROID_PROJECT_ID,
+      }),
+    },
     adminEmails: parseAdminEmails(process.env.ADMIN_EMAILS),
   };
   return cached;

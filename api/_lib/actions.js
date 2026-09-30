@@ -1,27 +1,48 @@
 import { HttpError } from './http.js';
 import { resolveCustomerId, userExists } from './resolve.js';
-import { normalizeRcSubscriber, buildCustomerRecord, isGrantActive } from './customer.js';
+import { normalizeRcSubscriber, mergeRcSubscribers, buildCustomerRecord, isGrantActive } from './customer.js';
 
 const settle = (p) => p.then((value) => ({ value }), (e) => ({ error: e?.message || String(e) }));
 
+const joinErrors = (byProject) => {
+  const parts = Object.entries(byProject).filter(([, e]) => e).map(([name, e]) => `${name}: ${e}`);
+  return parts.length ? parts.join('; ') : null;
+};
+
+/** Runs one RevenueCat step on both projects in sequence (iOS, then Android), each in its own try/catch. */
+async function onBothProjects(deps, step) {
+  const out = { ios: 'ok', android: 'ok' };
+  const errors = {};
+  for (const [key, name] of [['ios', 'iOS'], ['android', 'Android']]) {
+    try {
+      await step(deps.rc[key]);
+    } catch (e) {
+      out[key] = `error: ${e.message}`;
+      errors[name] = e.message;
+    }
+  }
+  return { revenuecat: out, errors, allFailed: Object.keys(errors).length === 2 };
+}
+
 export async function getCustomer(deps, q, now) {
   const { uid, authUser } = await resolveCustomerId(q, deps);
-  const [rc, windows, grant] = await Promise.all([
-    settle(deps.rc.getSubscriber(uid)),
+  const [ios, android, windows, grant] = await Promise.all([
+    settle(deps.rc.ios.getSubscriber(uid)),
+    settle(deps.rc.android.getSubscriber(uid)),
     settle(deps.store.getWindows(uid)),
     settle(deps.store.getGrant(uid)),
   ]);
   const record = buildCustomerRecord({
     uid,
     authUser,
-    rc: rc.value ? normalizeRcSubscriber(rc.value, now) : null,
+    rc: mergeRcSubscribers([ios, android].map((r) => (r.value ? normalizeRcSubscriber(r.value, now) : null))),
     windows: windows.value ?? null,
     grant: grant.value ?? null,
     now,
   });
   return {
     ...record,
-    errors: { revenuecat: rc.error ?? null, firestore: windows.error ?? grant.error ?? null },
+    errors: { revenuecat: joinErrors({ iOS: ios.error, Android: android.error }), firestore: windows.error ?? grant.error ?? null },
   };
 }
 
@@ -60,11 +81,11 @@ export async function grantPro(deps, { uid, duration, note, adminEmail, now }) {
     await writeLog(deps, { ...base, result: 'failed', error: e.message });
     throw new HttpError(502, `Could not check the customer account: ${e.message}`);
   }
-  try {
-    await deps.rc.grantPromotional(uid, endMs);
-  } catch (e) {
-    await writeLog(deps, { ...base, result: 'failed', error: e.message });
-    throw new HttpError(502, `RevenueCat grant failed: ${e.message}`);
+  const rc = await onBothProjects(deps, (client) => client.grantPromotional(uid, endMs));
+  if (rc.allFailed) {
+    const error = joinErrors(rc.errors);
+    await writeLog(deps, { ...base, result: 'failed', error, revenuecat: rc.revenuecat });
+    throw new HttpError(502, `RevenueCat grant failed: ${error}`);
   }
   let firestore = 'skipped';
   if (hasFirebaseUser) {
@@ -75,9 +96,9 @@ export async function grantPro(deps, { uid, duration, note, adminEmail, now }) {
       firestore = `error: ${e.message}`;
     }
   }
-  const partial = firestore.startsWith('error');
-  await writeLog(deps, { ...base, result: partial ? 'partial' : 'ok', firestore });
-  return { revenuecat: 'ok', firestore, partial, expiresAt };
+  const partial = Object.keys(rc.errors).length > 0 || firestore.startsWith('error');
+  await writeLog(deps, { ...base, result: partial ? 'partial' : 'ok', revenuecat: rc.revenuecat, firestore });
+  return { revenuecat: rc.revenuecat, firestore, partial, expiresAt };
 }
 
 export async function revokePro(deps, { uid, adminEmail, now }) {
@@ -90,11 +111,11 @@ export async function revokePro(deps, { uid, adminEmail, now }) {
     await writeLog(deps, { ...base, result: 'failed', error: e.message });
     throw new HttpError(502, `Could not check the customer account: ${e.message}`);
   }
-  try {
-    await deps.rc.revokePromotionals(uid);
-  } catch (e) {
-    await writeLog(deps, { ...base, result: 'failed', error: e.message });
-    throw new HttpError(502, `RevenueCat revoke failed: ${e.message}`);
+  const rc = await onBothProjects(deps, (client) => client.revokePromotionals(uid));
+  if (rc.allFailed) {
+    const error = joinErrors(rc.errors);
+    await writeLog(deps, { ...base, result: 'failed', error, revenuecat: rc.revenuecat });
+    throw new HttpError(502, `RevenueCat revoke failed: ${error}`);
   }
   let firestore = 'skipped';
   if (hasFirebaseUser) {
@@ -105,15 +126,15 @@ export async function revokePro(deps, { uid, adminEmail, now }) {
       firestore = `error: ${e.message}`;
     }
   }
-  const partial = firestore.startsWith('error');
-  await writeLog(deps, { ...base, result: partial ? 'partial' : 'ok', firestore });
-  return { revenuecat: 'ok', firestore, partial };
+  const partial = Object.keys(rc.errors).length > 0 || firestore.startsWith('error');
+  await writeLog(deps, { ...base, result: partial ? 'partial' : 'ok', revenuecat: rc.revenuecat, firestore });
+  return { revenuecat: rc.revenuecat, firestore, partial };
 }
 
 export async function refundPlay(deps, { uid, storeTransactionId, adminEmail, now }) {
   requireUid(uid);
   if (!storeTransactionId) throw new HttpError(400, 'Missing transaction id');
-  const sub = normalizeRcSubscriber(await deps.rc.getSubscriber(uid), now);
+  const sub = normalizeRcSubscriber(await deps.rc.android.getSubscriber(uid), now);
   const tx = sub.subscriptions.find((s) => s.storeTransactionId === storeTransactionId);
   if (!tx) throw new HttpError(400, 'That transaction does not belong to this customer');
   if (!tx.refundable) {
@@ -123,7 +144,7 @@ export async function refundPlay(deps, { uid, storeTransactionId, adminEmail, no
   }
   const base = { action: 'refund', targetUid: uid, adminEmail, at: new Date(now).toISOString(), details: { storeTransactionId, product: tx.product } };
   try {
-    await deps.rc.refundTransaction(uid, storeTransactionId);
+    await deps.rc.android.refundTransaction(uid, storeTransactionId);
   } catch (e) {
     await writeLog(deps, { ...base, result: 'failed', error: e.message });
     throw e;
@@ -143,9 +164,9 @@ async function emailsFor(auth, uids) {
   return new Map(users.map((u) => [u.uid, u.email ?? null]));
 }
 
-export async function listCustomers(deps, { source = 'revenuecat', cursor } = {}, now) {
-  if (source === 'revenuecat') {
-    const page = await deps.rc.listCustomers({ limit: PAGE, startingAfter: cursor });
+export async function listCustomers(deps, { source = 'ios', cursor } = {}, now) {
+  if (source === 'ios' || source === 'android') {
+    const page = await deps.rc[source].listCustomers({ limit: PAGE, startingAfter: cursor });
     const items = page.items ?? [];
     const emails = await emailsFor(deps.auth, items.map((c) => c.id));
     const rows = items.map((c) => {
@@ -192,25 +213,28 @@ export async function listCustomers(deps, { source = 'revenuecat', cursor } = {}
   throw new HttpError(400, `Unknown source "${source}"`);
 }
 
+function pickMetrics(rc) {
+  if (!rc.value) return null;
+  const metrics = {};
+  for (const id of OVERVIEW_METRICS) {
+    const m = rc.value.metrics?.find((x) => x.id === id);
+    metrics[id] = m ? { value: m.value, unit: m.unit } : null;
+  }
+  return { currency: rc.value.currency ?? null, metrics };
+}
+
 export async function getOverview(deps, now) {
   const d = new Date(now);
   const monthStart = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1)).toISOString();
-  const [rc, windows] = await Promise.all([
-    settle(deps.rc.metricsOverview()),
+  const [ios, android, windows] = await Promise.all([
+    settle(deps.rc.ios.metricsOverview()),
+    settle(deps.rc.android.metricsOverview()),
     settle(deps.store.countWindows({ monthStart })),
   ]);
-  let revenuecat = null;
-  if (rc.value) {
-    revenuecat = {};
-    for (const id of OVERVIEW_METRICS) {
-      const m = rc.value.metrics?.find((x) => x.id === id);
-      revenuecat[id] = m ? { value: m.value, unit: m.unit } : null;
-    }
-  }
   return {
-    currency: rc.value?.currency ?? null,
-    revenuecat,
+    ios: pickMetrics(ios),
+    android: pickMetrics(android),
     windows: windows.value ?? null,
-    errors: { revenuecat: rc.error ?? null, firestore: windows.error ?? null },
+    errors: { ios: ios.error ?? null, android: android.error ?? null, firestore: windows.error ?? null },
   };
 }

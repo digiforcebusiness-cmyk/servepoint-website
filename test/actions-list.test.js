@@ -3,20 +3,24 @@ import assert from 'node:assert/strict';
 import { listCustomers, getOverview } from '../api/_lib/actions.js';
 
 const now = Date.parse('2026-10-15T10:00:00Z');
+const wrong = { listCustomers: async () => { throw new Error('wrong project'); } };
 
-test('RevenueCat source: rows + emails from Firebase + cursor from next_page', async () => {
+test('Android source: rows + emails from Firebase + cursor from next_page', async () => {
   let asked;
   const deps = {
-    rc: { listCustomers: async () => ({
-      items: [
-        { id: 'u1', first_seen_at: 1767225600000, last_seen_at: 1767312000000, active_entitlements: { items: [{ expires_at: 1790000000000 }] } },
-        { id: '$RCAnonymousID:a', first_seen_at: 1767225600000, last_seen_at: 1767225600000, active_entitlements: { items: [] } },
-      ],
-      next_page: '/v2/projects/p/customers?limit=50&starting_after=%24RCAnonymousID%3Aa',
-    }) },
+    rc: {
+      android: { listCustomers: async () => ({
+        items: [
+          { id: 'u1', first_seen_at: 1767225600000, last_seen_at: 1767312000000, active_entitlements: { items: [{ expires_at: 1790000000000 }] } },
+          { id: '$RCAnonymousID:a', first_seen_at: 1767225600000, last_seen_at: 1767225600000, active_entitlements: { items: [] } },
+        ],
+        next_page: '/v2/projects/p/customers?limit=50&starting_after=%24RCAnonymousID%3Aa',
+      }) },
+      ios: wrong,
+    },
     auth: { getUsers: async (ids) => { asked = ids; return { users: [{ uid: 'u1', email: 'a@b.com' }] }; } },
   };
-  const r = await listCustomers(deps, { source: 'revenuecat' }, now);
+  const r = await listCustomers(deps, { source: 'android' }, now);
   assert.deepEqual(asked, [{ uid: 'u1' }]);
   assert.equal(r.nextCursor, '$RCAnonymousID:a');
   assert.deepEqual(r.rows[0], { uid: 'u1', email: 'a@b.com', isPro: true, plan: null, proUntil: new Date(1790000000000).toISOString(), firstSeen: new Date(1767225600000).toISOString(), lastSeen: new Date(1767312000000).toISOString() });
@@ -24,15 +28,20 @@ test('RevenueCat source: rows + emails from Firebase + cursor from next_page', a
   assert.equal(r.rows[1].isPro, false);
 });
 
-test('lifetime entitlement (expires_at null) → proUntil null but Pro', async () => {
+test('iOS source is the default; lifetime entitlement (expires_at null) → proUntil null but Pro', async () => {
   const deps = {
-    rc: { listCustomers: async () => ({ items: [{ id: 'u1', active_entitlements: { items: [{ expires_at: null }] } }], next_page: null }) },
+    rc: {
+      ios: { listCustomers: async () => ({ items: [{ id: 'u1', active_entitlements: { items: [{ expires_at: null }] } }], next_page: null }) },
+      android: wrong,
+    },
     auth: { getUsers: async () => ({ users: [] }) },
   };
   const r = await listCustomers(deps, {}, now);
   assert.equal(r.rows[0].isPro, true);
   assert.equal(r.rows[0].proUntil, null);
   assert.equal(r.nextCursor, null);
+  const explicit = await listCustomers(deps, { source: 'ios' }, now);
+  assert.deepEqual(explicit, r);
 });
 
 test('Windows source', async () => {
@@ -56,26 +65,42 @@ test('Grants source uses isGrantActive and Firebase emails', async () => {
   assert.equal(r.rows[1].plan, 'grant · lifetime');
 });
 
+test('legacy revenuecat source → 400', () =>
+  assert.rejects(listCustomers({}, { source: 'revenuecat' }, now), (e) => e.status === 400));
+
 test('unknown source → 400', () =>
   assert.rejects(listCustomers({}, { source: 'nope' }, now), (e) => e.status === 400));
 
-test('overview picks metrics and month start; one failing source does not break the other', async () => {
+const metrics = (currency, extra = 0) => async () => ({ currency, metrics: [
+  { id: 'active_subscriptions', value: 10 + extra, unit: '#' }, { id: 'mrr', value: 49.9, unit: '$' },
+  { id: 'active_trials', value: 4, unit: '#' }, { id: 'revenue', value: 120, unit: '$' }, { id: 'new_customers', value: 99, unit: '#' },
+] });
+
+test('overview: iOS fails, Android and Windows ok, errors reported per project', async () => {
   let monthStart;
   const deps = {
-    rc: { metricsOverview: async () => { throw new Error('RevenueCat 429: slow down'); } },
+    rc: { ios: { metricsOverview: async () => { throw new Error('RevenueCat 429: slow down'); } }, android: { metricsOverview: metrics('EUR', 5) } },
     store: { countWindows: async (a) => { monthStart = a.monthStart; return { monthly: 3, lifetime: 2, newThisMonth: 1 }; } },
   };
   const r = await getOverview(deps, now);
   assert.equal(monthStart, '2026-10-01T00:00:00.000Z');
-  assert.equal(r.revenuecat, null);
-  assert.match(r.errors.revenuecat, /429/);
+  assert.equal(r.ios, null);
+  assert.match(r.errors.ios, /429/);
+  assert.equal(r.errors.android, null);
+  assert.equal(r.errors.firestore, null);
+  assert.deepEqual(r.android, { currency: 'EUR', metrics: { active_subscriptions: { value: 15, unit: '#' }, active_trials: { value: 4, unit: '#' }, mrr: { value: 49.9, unit: '$' }, revenue: { value: 120, unit: '$' } } });
   assert.deepEqual(r.windows, { monthly: 3, lifetime: 2, newThisMonth: 1 });
+});
 
-  deps.rc.metricsOverview = async () => ({ currency: 'USD', metrics: [
-    { id: 'active_subscriptions', value: 10, unit: '#' }, { id: 'mrr', value: 49.9, unit: '$' },
-    { id: 'active_trials', value: 4, unit: '#' }, { id: 'revenue', value: 120, unit: '$' }, { id: 'new_customers', value: 99, unit: '#' },
-  ] });
-  const ok = await getOverview(deps, now);
-  assert.deepEqual(ok.revenuecat, { active_subscriptions: { value: 10, unit: '#' }, active_trials: { value: 4, unit: '#' }, mrr: { value: 49.9, unit: '$' }, revenue: { value: 120, unit: '$' } });
-  assert.equal(ok.currency, 'USD');
+test('overview: both projects ok, Windows failing', async () => {
+  const deps = {
+    rc: { ios: { metricsOverview: metrics('USD') }, android: { metricsOverview: metrics('EUR') } },
+    store: { countWindows: async () => { throw new Error('firestore down'); } },
+  };
+  const r = await getOverview(deps, now);
+  assert.equal(r.ios.currency, 'USD');
+  assert.equal(r.android.currency, 'EUR');
+  assert.deepEqual(r.ios.metrics.active_subscriptions, { value: 10, unit: '#' });
+  assert.equal(r.windows, null);
+  assert.deepEqual(r.errors, { ios: null, android: null, firestore: 'firestore down' });
 });

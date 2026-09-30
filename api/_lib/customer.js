@@ -47,6 +47,19 @@ export function normalizeRcSubscriber(sub, now) {
   };
 }
 
+/** Merges normalized RevenueCat results from several projects into one; null if there are none. */
+export function mergeRcSubscribers(list) {
+  const present = list.filter(Boolean);
+  if (!present.length) return null;
+  const seen = present.map((r) => r.firstSeen).filter(Boolean).sort();
+  return {
+    firstSeen: seen[0] ?? null,
+    email: present.map((r) => r.email).find(Boolean) ?? null,
+    entitlementActive: present.some((r) => r.entitlementActive),
+    subscriptions: present.flatMap((r) => r.subscriptions),
+  };
+}
+
 export function isGrantActive(grant, now) {
   return !!grant && grant.active === true && (grant.expiresAt == null || Date.parse(grant.expiresAt) > now);
 }

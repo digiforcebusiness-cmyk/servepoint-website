@@ -68,7 +68,8 @@
         <input type="search" id="q" placeholder="Search by email, Firebase UID or $RCAnonymousID:…" />
         <button class="btn primary">Look up</button>
         <select id="source">
-          <option value="revenuecat">App Store + Play (RevenueCat)</option>
+          <option value="ios">App Store (iOS)</option>
+          <option value="android">Google Play + Amazon (Android)</option>
           <option value="windows">Windows (Microsoft Store)</option>
           <option value="grants">Admin grants</option>
         </select>
@@ -158,21 +159,23 @@
     // ─── Overview ───────────────────────────────────────────
     const card = (label, value) => `<div class="card"><div class="label">${esc(label)}</div><div class="value">${esc(value)}</div></div>`;
     const metric = (m, cur) => (m == null ? '—' : m.unit === '#' ? m.value.toLocaleString() : `${m.value.toLocaleString(undefined, { maximumFractionDigits: 2 })} ${cur ?? ''}`);
+    const rcSection = (title, p, err) => `
+          <h2>${esc(title)}</h2>
+          ${err ? banner(`RevenueCat: ${err}`) : ''}
+          <div class="cards">
+            ${card('Active subscriptions', metric(p?.metrics.active_subscriptions, p?.currency))}
+            ${card('Active trials', metric(p?.metrics.active_trials, p?.currency))}
+            ${card('MRR', metric(p?.metrics.mrr, p?.currency))}
+            ${card('Revenue (28 days)', metric(p?.metrics.revenue, p?.currency))}
+          </div>`;
     async function loadOverview() {
       const el = $('tab-overview');
       el.innerHTML = '<p class="muted">Loading…</p>';
       try {
         const { data } = await api('overview');
-        const rc = data.revenuecat;
         el.innerHTML = `
-          <h2>App Store + Google Play (RevenueCat)</h2>
-          ${data.errors.revenuecat ? banner(`RevenueCat: ${data.errors.revenuecat}`) : ''}
-          <div class="cards">
-            ${card('Active subscriptions', metric(rc?.active_subscriptions, data.currency))}
-            ${card('Active trials', metric(rc?.active_trials, data.currency))}
-            ${card('MRR', metric(rc?.mrr, data.currency))}
-            ${card('Revenue (28 days)', metric(rc?.revenue, data.currency))}
-          </div>
+          ${rcSection('App Store (iOS)', data.ios, data.errors.ios)}
+          ${rcSection('Google Play + Amazon (Android)', data.android, data.errors.android)}
           <h2>Microsoft Store (reported by the Windows app)</h2>
           ${data.errors.firestore ? banner(`Firestore: ${data.errors.firestore}`) : ''}
           <div class="cards">
@@ -290,7 +293,11 @@
       try {
         const { status, data } = await api(action, { method: 'POST', body });
         if (status === 207) {
-          msg.innerHTML = banner(`RevenueCat updated, but the Windows grant record failed (${data.firestore}). Retry to fix Windows.`);
+          const failed = [];
+          if (data.revenuecat?.ios?.startsWith('error')) failed.push(`iOS: ${data.revenuecat.ios}`);
+          if (data.revenuecat?.android?.startsWith('error')) failed.push(`Android: ${data.revenuecat.android}`);
+          if (data.firestore?.startsWith('error')) failed.push(`Firestore (Windows): ${data.firestore}`);
+          msg.innerHTML = banner(`Partly done — ${failed.join('; ') || 'one step failed'}. Try again to finish.`);
           return;
         }
         await openCustomer(uid);
