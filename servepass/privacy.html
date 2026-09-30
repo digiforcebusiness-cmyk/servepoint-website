@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — ServePass</title>
+  <meta name="description" content="Privacy policy for ServePass — the Apple Wallet and Google Wallet pass maker. Use it without an account, passes are kept on your phone, no analytics or advertising SDKs, and account deletion from inside the app." />
+  <link rel="canonical" href="https://www.servepointpos.com/servepass/privacy" />
+  <link rel="icon" type="image/png" href="/servepass/icon.png" />
+  <link rel="apple-touch-icon" href="/servepass/icon.png" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #1772FD; --blue-soft: #5B9CFF;
+      --bg: #07090f; --card: #11131a; --border: #1d2230;
+      --text: #ffffff; --muted: #8a92a8;
+      --gradient: linear-gradient(135deg,#1772FD,#5B9CFF);
+    }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 64px; background: rgba(7,9,15,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    @media (max-width: 540px) { nav { padding: 0 16px; } }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 16px; text-decoration: none; color: var(--text); }
+    .logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-icon { width: 32px; height: 32px; border-radius: 8px; }
+    .back { color: var(--muted); text-decoration: none; font-size: 14px; }
+    .back:hover { color: var(--text); }
+    .container { max-width: 760px; margin: 0 auto; padding: 120px 24px 80px; }
+    h1 { font-size: 36px; font-weight: 900; margin-bottom: 8px; letter-spacing: -1px; }
+    .updated { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .summary { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px 24px; margin-bottom: 40px; }
+    .summary strong { color: var(--blue-soft); }
+    h2 { font-size: 20px; font-weight: 700; margin: 36px 0 12px; color: var(--blue-soft); }
+    h3 { font-size: 16px; font-weight: 700; margin: 20px 0 8px; color: var(--text); }
+    p, li { color: #c2c7d6; font-size: 15px; margin-bottom: 12px; }
+    ul { padding-left: 22px; }
+    a { color: var(--blue-soft); }
+    footer { border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; color: var(--muted); font-size: 13px; }
+    footer a { color: var(--muted); text-decoration: none; margin: 0 10px; }
+    footer a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/servepass/support" class="logo">
+    <img src="/servepass/icon.png" alt="" class="nav-icon" />
+    <span>ServePass</span>
+  </a>
+  <a href="/servepass/support" class="back">← Support</a>
+</nav>
+
+<div class="container">
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: September 30, 2026</p>
+
+  <div class="summary">
+    <p style="margin:0;">
+      <strong>The short version.</strong> You can use ServePass
+      without an account. The passes and drafts you design are saved
+      <strong>on your phone</strong>. When you add a pass to Apple
+      Wallet or Google Wallet, its contents are sent to our pass service
+      so it can be signed, and to Google if you choose Google Wallet.
+      We have no analytics or advertising SDKs, we don't sell your data,
+      and you can delete your account from inside the app.
+    </p>
+  </div>
+
+  <p>
+    ServePass ("we", "our", or "us") is operated by ServePoint /
+    DigiForce Business. This Privacy Policy explains what information
+    ServePass handles, why, and the choices you have. It applies to
+    the ServePass iOS and Android apps and the pass service they use.
+  </p>
+
+  <h2>1. Information Stored Only on Your Device</h2>
+  <ul>
+    <li><strong>Passes and drafts.</strong> Everything you design
+        (text fields, colours, barcode values, logos and photos,
+        dates and locations) is saved in the app's local storage on
+        your phone. It stays there until you delete it or uninstall
+        the app.</li>
+    <li><strong>Camera.</strong> If you scan an existing card, the
+        camera image is processed on your device to read the barcode.
+        Camera images are not saved or uploaded; only the barcode
+        value you keep becomes part of your pass.</li>
+    <li><strong>Photos.</strong> If you pick a logo or photo from your
+        library, only the image you choose is used, and only as part
+        of the pass you are designing.</li>
+  </ul>
+
+  <h2>2. Information We Process</h2>
+
+  <h3>Account information (optional)</h3>
+  <ul>
+    <li>Signing in is optional. If you sign in with Google, Apple or
+        email, Firebase Authentication gives us your email address,
+        your display name (if your provider shares it) and a
+        Firebase user identifier.</li>
+    <li>Guest use makes no authentication calls.</li>
+  </ul>
+
+  <h3>Passes you add to a wallet</h3>
+  <ul>
+    <li><strong>Apple Wallet:</strong> When you tap "Add to Apple
+        Wallet", the pass contents are sent to our pass service,
+        which signs them and returns the finished pass file. If
+        automatic updates are off (the default), the service does not
+        keep a copy after the pass is returned.</li>
+    <li><strong>Automatic updates (optional):</strong> If you turn on
+        automatic updates for a pass, we store that pass's contents,
+        a random serial number and an access token so we can send it
+        new versions. When the pass is in Apple Wallet, your device
+        registers with our service using a device library identifier
+        and a push token issued by Apple. These records are linked to
+        the pass, not to your account.</li>
+    <li><strong>Google Wallet:</strong> When you tap "Add to Google
+        Wallet", the pass contents are sent to our pass service and
+        then to Google's Wallet API, which stores the pass so it can
+        appear in your Google Wallet. Google's handling is covered by
+        the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>.</li>
+    <li><strong>Locations:</strong> If you add locations to a pass so
+        it can appear on your lock screen nearby, those coordinates
+        become part of the pass. ServePass does not track your
+        device's location.</li>
+  </ul>
+
+  <h3>Technical logs</h3>
+  <ul>
+    <li>Our hosting provider (Google Cloud / Firebase) keeps standard
+        request logs, such as IP address, time and error details, to
+        run and secure the service.</li>
+  </ul>
+
+  <h2>3. What We Do Not Do</h2>
+  <ul>
+    <li>We do not use third-party analytics or advertising SDKs.</li>
+    <li>We do not track you across other apps or websites.</li>
+    <li>We do not sell or rent your personal data, or share it for
+        marketing.</li>
+    <li>We do not access your contacts, browsing history or device
+        location.</li>
+  </ul>
+
+  <h2>4. How We Use Information</h2>
+  <ul>
+    <li>To sign and deliver the passes you create.</li>
+    <li>To send updates to passes where you turned updates on.</li>
+    <li>To let you sign in and manage your account.</li>
+    <li>To keep the service secure and fix problems.</li>
+  </ul>
+
+  <h2>5. Service Providers</h2>
+  <ul>
+    <li><strong>Google Firebase / Google Cloud:</strong> authentication,
+        hosting of the pass service and storage of update-enabled
+        passes.</li>
+    <li><strong>Google Wallet API:</strong> storage and display of
+        passes you add to Google Wallet.</li>
+    <li><strong>Apple:</strong> Sign in with Apple, Apple Wallet and
+        push notifications that deliver pass updates.</li>
+    <li><strong>Google Sign-In:</strong> signing in with a Google
+        account.</li>
+  </ul>
+
+  <h2>6. Retention</h2>
+  <ul>
+    <li>Local passes and drafts stay on your phone until you delete
+        them or uninstall ServePass.</li>
+    <li>Update-enabled pass records and device registrations are kept
+        while the pass can still receive updates. A device's
+        registration is removed when you delete the pass from Apple
+        Wallet. You can ask us to delete any of these records at any
+        time (see below).</li>
+    <li>Account information is kept until you delete your account.</li>
+  </ul>
+
+  <h2>7. Deleting Your Data</h2>
+  <p>
+    Open ServePass → Settings → <strong>Delete account</strong> and
+    confirm. This permanently deletes your sign-in account. Passes on
+    your phone and in your wallet are separate: remove them in the app
+    and in Apple Wallet or Google Wallet.
+  </p>
+  <p>
+    To delete update-enabled pass records we hold on our servers, email
+    <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a>
+    with a description of the pass. We will handle the request within
+    7 business days.
+  </p>
+
+  <h2>8. Your Rights (GDPR / CCPA)</h2>
+  <p>
+    Depending on where you live, you may have the right to access,
+    correct, delete or export your personal data, to object to or
+    restrict processing, and to complain to your local data protection
+    authority. We do not sell personal information. To exercise any
+    of these rights, email
+    <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a>.
+  </p>
+
+  <h2>9. Children's Privacy</h2>
+  <p>
+    ServePass is not directed at children under 13, and we do not
+    knowingly collect personal information from them. If you believe
+    a child has created an account, email us and we will delete it.
+  </p>
+
+  <h2>10. International Transfers</h2>
+  <p>
+    Our service providers may process data in the United States or
+    other countries. Where data leaves your region, we rely on
+    standard contractual clauses or equivalent safeguards.
+  </p>
+
+  <h2>11. Changes to This Policy</h2>
+  <p>
+    We may update this policy as ServePass changes. The date at the
+    top of this page shows the latest revision. We will announce
+    material changes in the app.
+  </p>
+
+  <h2>12. Contact</h2>
+  <p>
+    Questions? Email
+    <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a>
+    or visit the <a href="/servepass/support">Support page</a>.
+  </p>
+</div>
+
+<footer>
+  <p style="margin-bottom:12px;">© 2026 ServePass</p>
+  <a href="/servepass/support">Support</a>
+  <a href="/servepass/privacy">Privacy Policy</a>
+</footer>
+</body>
+</html>
