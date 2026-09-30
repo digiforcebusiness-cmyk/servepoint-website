@@ -2,3 +2,6 @@
 
 # Marketing lead lists — NEVER deploy scraped contact data to the public site
 leads/
+node_modules/
+.env*.local
+.vercel
