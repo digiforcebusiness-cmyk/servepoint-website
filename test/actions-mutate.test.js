@@ -7,13 +7,13 @@ const now = Date.parse('2026-10-01T00:00:00Z');
 const DAY = 86400000;
 const notFound = () => Object.assign(new Error('nf'), { code: 'auth/user-not-found' });
 
-function makeDeps({ firebaseUser = true, rcFails = false, storeFails = false, subscriber = {} } = {}) {
+function makeDeps({ firebaseUser = true, rcFails = false, storeFails = false, authError = null, subscriber = {} } = {}) {
   const log = [];
   const calls = [];
   return {
     log,
     calls,
-    auth: { getUser: async (uid) => { if (!firebaseUser) throw notFound(); return { uid }; } },
+    auth: { getUser: async (uid) => { if (authError) throw authError; if (!firebaseUser) throw notFound(); return { uid }; } },
     rc: {
       grantPromotional: async (uid, end) => { calls.push(['grant', uid, end]); if (rcFails) throw new HttpError(502, 'RevenueCat 500: down'); },
       revokePromotionals: async (uid) => { calls.push(['revoke', uid]); if (rcFails) throw new HttpError(502, 'RevenueCat 500: down'); },
@@ -72,11 +72,27 @@ test('grant: Firestore fails after RC → partial with error text', async () => 
 test('grant: missing uid → 400', () =>
   assert.rejects(grantPro(makeDeps(), { duration: 'week', adminEmail: 'a@x.com', now }), (e) => e.status === 400));
 
+test('grant: account lookup fails → 502, RC untouched, failure logged', async () => {
+  const authDown = Object.assign(new Error('auth down'), { code: 'auth/internal-error' });
+  const d = makeDeps({ authError: authDown });
+  await assert.rejects(grantPro(d, { uid: 'u1', duration: 'week', adminEmail: 'a@x.com', now }), (e) => e.status === 502);
+  assert.equal(d.calls.some((c) => c[0] === 'grant'), false);
+  assert.equal(d.log[0].result, 'failed');
+});
+
 test('revoke: RC then Firestore', async () => {
   const d = makeDeps();
   const r = await revokePro(d, { uid: 'u1', adminEmail: 'a@x.com', now });
   assert.deepEqual(r, { revenuecat: 'ok', firestore: 'ok', partial: false });
   assert.deepEqual(d.calls[1], ['revokeGrant', 'u1', { revokedBy: 'a@x.com', revokedAt: new Date(now).toISOString() }]);
+});
+
+test('revoke: account lookup fails → 502, RC untouched, failure logged', async () => {
+  const authDown = Object.assign(new Error('auth down'), { code: 'auth/internal-error' });
+  const d = makeDeps({ authError: authDown });
+  await assert.rejects(revokePro(d, { uid: 'u1', adminEmail: 'a@x.com', now }), (e) => e.status === 502);
+  assert.equal(d.calls.some((c) => c[0] === 'revoke'), false);
+  assert.equal(d.log[0].result, 'failed');
 });
 
 const playSub = {

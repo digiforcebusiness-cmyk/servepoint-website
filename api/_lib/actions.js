@@ -53,7 +53,13 @@ export async function grantPro(deps, { uid, duration, note, adminEmail, now }) {
   requireUid(uid);
   const { endMs, expiresAt } = grantEnd(duration, now);
   const base = { action: 'grant', targetUid: uid, adminEmail, at: new Date(now).toISOString(), details: { duration, note: note ?? '' } };
-  const hasFirebaseUser = await userExists(deps.auth, uid);
+  let hasFirebaseUser;
+  try {
+    hasFirebaseUser = await userExists(deps.auth, uid);
+  } catch (e) {
+    await writeLog(deps, { ...base, result: 'failed', error: e.message });
+    throw new HttpError(502, `Could not check the customer account: ${e.message}`);
+  }
   try {
     await deps.rc.grantPromotional(uid, endMs);
   } catch (e) {
@@ -77,7 +83,13 @@ export async function grantPro(deps, { uid, duration, note, adminEmail, now }) {
 export async function revokePro(deps, { uid, adminEmail, now }) {
   requireUid(uid);
   const base = { action: 'revoke', targetUid: uid, adminEmail, at: new Date(now).toISOString(), details: {} };
-  const hasFirebaseUser = await userExists(deps.auth, uid);
+  let hasFirebaseUser;
+  try {
+    hasFirebaseUser = await userExists(deps.auth, uid);
+  } catch (e) {
+    await writeLog(deps, { ...base, result: 'failed', error: e.message });
+    throw new HttpError(502, `Could not check the customer account: ${e.message}`);
+  }
   try {
     await deps.rc.revokePromotionals(uid);
   } catch (e) {
