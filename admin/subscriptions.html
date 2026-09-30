@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subscriptions — ServePoint Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="/icon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg:#0D2137; --card:#132A45; --card2:#0F2236; --accent:#E94560; --green:#22C55E; --yellow:#F59E0B; --blue:#60A5FA; --text:#F0F4F8; --muted:#7A8FA6; --border:rgba(255,255,255,0.07); --radius:12px; }
+    body { background:var(--bg); color:var(--text); font-family:'Inter',system-ui,sans-serif; min-height:100vh; font-size:14px; }
+    a { color:var(--blue); }
+    .header { background:var(--card); border-bottom:1px solid var(--border); padding:14px 24px; display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+    .header h1 { font-size:18px; font-weight:700; } .header h1 span { color:var(--accent); }
+    .header nav { display:flex; gap:8px; } .header .me { margin-left:auto; color:var(--muted); font-size:12px; }
+    .btn { padding:8px 14px; border-radius:8px; border:1px solid var(--border); background:var(--card2); color:var(--text); font-weight:600; font-size:13px; cursor:pointer; }
+    .btn:hover { border-color:var(--blue); } .btn.primary { background:var(--accent); border-color:var(--accent); }
+    .btn.danger { color:var(--accent); } .btn[disabled] { opacity:.5; cursor:not-allowed; }
+    .tab.active { border-color:var(--accent); color:var(--accent); }
+    main { max-width:1200px; margin:0 auto; padding:24px 16px; }
+    #gate { max-width:400px; margin:80px auto; padding:32px; background:var(--card); border:1px solid var(--border); border-radius:var(--radius); text-align:center; }
+    #gate p { color:var(--muted); margin:8px 0 20px; } #gate .err { color:var(--accent); margin-top:12px; }
+    .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin-bottom:12px; }
+    .card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:16px; }
+    .card .label { color:var(--muted); font-size:12px; } .card .value { font-size:26px; font-weight:700; margin-top:6px; }
+    h2 { font-size:15px; margin:20px 0 10px; color:var(--muted); font-weight:600; }
+    .banner { background:rgba(233,69,96,.12); border:1px solid var(--accent); color:var(--text); padding:10px 14px; border-radius:8px; margin:10px 0; }
+    .banner.ok { background:rgba(34,197,94,.12); border-color:var(--green); }
+    .toolbar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+    input, select { background:var(--card2); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:8px 12px; font:inherit; }
+    input[type=search] { flex:1; min-width:220px; }
+    .table-wrap { overflow-x:auto; background:var(--card); border:1px solid var(--border); border-radius:var(--radius); }
+    table { width:100%; border-collapse:collapse; } th, td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--border); white-space:nowrap; }
+    th { color:var(--muted); font-weight:600; font-size:12px; } tbody tr { cursor:pointer; } tbody tr:hover { background:var(--card2); }
+    .pill { display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:700; background:var(--card2); }
+    .pill.pro { background:rgba(34,197,94,.18); color:var(--green); } .pill.warn { background:rgba(245,158,11,.18); color:var(--yellow); }
+    #detail { position:fixed; inset:0 0 0 auto; width:min(560px,100%); background:var(--bg); border-left:1px solid var(--border); overflow-y:auto; padding:20px; box-shadow:-10px 0 30px rgba(0,0,0,.4); }
+    #detail .close { float:right; } .kv { display:grid; grid-template-columns:130px 1fr; gap:6px 12px; margin:12px 0; word-break:break-all; }
+    .kv dt { color:var(--muted); } .actions { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:8px 0; }
+    .muted { color:var(--muted); } .small { font-size:12px; }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>ServePoint <span>Subscriptions</span></h1>
+    <nav id="tabs" hidden>
+      <button class="btn tab active" data-tab="overview">Overview</button>
+      <button class="btn tab" data-tab="customers">Customers</button>
+    </nav>
+    <a href="/admin/feedback" class="small">Feedback admin</a>
+    <span class="me" id="me"></span>
+    <button class="btn" id="signout" hidden>Sign out</button>
+  </header>
+
+  <div id="gate">
+    <h2 style="color:var(--text);font-size:20px;margin:0">Admin sign-in</h2>
+    <p>Sign in with an admin Google account.</p>
+    <button class="btn primary" id="signin">Sign in with Google</button>
+    <div class="err" id="gate-err"></div>
+  </div>
+
+  <main id="app" hidden>
+    <section id="tab-overview"></section>
+    <section id="tab-customers" hidden>
+      <form class="toolbar" id="search-form">
+        <input type="search" id="q" placeholder="Search by email, Firebase UID or $RCAnonymousID:…" />
+        <button class="btn primary">Look up</button>
+        <select id="source">
+          <option value="revenuecat">App Store + Play (RevenueCat)</option>
+          <option value="windows">Windows (Microsoft Store)</option>
+          <option value="grants">Admin grants</option>
+        </select>
+      </form>
+      <div id="list-msg"></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Email</th><th>Status</th><th>Plan</th><th>Pro until</th><th>First seen</th><th>Last seen</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table></div>
+      <div class="toolbar" style="margin-top:12px"><button class="btn" id="more" hidden>Load more</button></div>
+    </section>
+  </main>
+
+  <aside id="detail" hidden></aside>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut }
+      from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+
+    // Public web config (same as admin/feedback.html). The real access check is server-side.
+    const auth = getAuth(initializeApp({
+      apiKey: 'AIzaSyAAIJ8bI66QDixcj5-f4CnuGvosu_R6Mz0',
+      authDomain: 'servepoint-16302.firebaseapp.com',
+      projectId: 'servepoint-16302',
+      appId: '1:984531213248:web:3487ca37bd57cddd568625',
+    }));
+    const ADMIN_EMAILS = ['mobilestudio66@gmail.com', 'digiforcebusiness@gmail.com']; // UI only
+    const PLAY_REFUNDS = 'https://play.google.com/console';
+    const APPLE_CONSOLE = 'https://appstoreconnect.apple.com/';
+    const PARTNER_CENTER = 'https://partner.microsoft.com/dashboard/home';
+    const STORE_NAMES = { app_store: 'App Store', play_store: 'Google Play', windows: 'Microsoft Store', grant: 'Admin grant', promotional: 'Admin grant' };
+
+    const $ = (id) => document.getElementById(id);
+    const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const date = (v) => (v ? new Date(v).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }) : '—');
+    const banner = (msg, ok = false) => `<div class="banner ${ok ? 'ok' : ''}">${esc(msg)}</div>`;
+
+    async function api(path, { method = 'GET', body } = {}) {
+      const token = await auth.currentUser.getIdToken();
+      const res = await fetch(`/api/admin/${path}`, {
+        method,
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: body ? JSON.stringify(body) : undefined,
+      });
+      const data = await res.json().catch(() => ({ error: `HTTP ${res.status}` }));
+      if (!res.ok && res.status !== 207) throw new Error(data.error || `HTTP ${res.status}`);
+      return { status: res.status, data };
+    }
+
+    // ─── Auth ───────────────────────────────────────────────
+    $('signin').onclick = async () => {
+      $('gate-err').textContent = '';
+      try { await signInWithPopup(auth, new GoogleAuthProvider()); }
+      catch (e) { $('gate-err').textContent = e.message; }
+    };
+    $('signout').onclick = () => signOut(auth);
+    onAuthStateChanged(auth, (user) => {
+      const admin = !!user && ADMIN_EMAILS.includes((user.email || '').toLowerCase());
+      $('gate').hidden = admin; $('app').hidden = !admin; $('tabs').hidden = !admin; $('signout').hidden = !user;
+      $('me').textContent = user ? user.email : '';
+      if (user && !admin) $('gate-err').textContent = `${user.email} is not an admin account.`;
+      if (admin) { loadOverview(); loadList(true); }
+    });
+
+    // ─── Tabs ───────────────────────────────────────────────
+    document.querySelectorAll('.tab').forEach((b) => b.onclick = () => {
+      document.querySelectorAll('.tab').forEach((x) => x.classList.toggle('active', x === b));
+      $('tab-overview').hidden = b.dataset.tab !== 'overview';
+      $('tab-customers').hidden = b.dataset.tab !== 'customers';
+    });
+
+    // ─── Overview ───────────────────────────────────────────
+    const card = (label, value) => `<div class="card"><div class="label">${esc(label)}</div><div class="value">${esc(value)}</div></div>`;
+    const metric = (m, cur) => (m == null ? '—' : m.unit === '#' ? m.value.toLocaleString() : `${m.value.toLocaleString(undefined, { maximumFractionDigits: 2 })} ${cur ?? ''}`);
+    async function loadOverview() {
+      const el = $('tab-overview');
+      el.innerHTML = '<p class="muted">Loading…</p>';
+      try {
+        const { data } = await api('overview');
+        const rc = data.revenuecat;
+        el.innerHTML = `
+          <h2>App Store + Google Play (RevenueCat)</h2>
+          ${data.errors.revenuecat ? banner(`RevenueCat: ${data.errors.revenuecat}`) : ''}
+          <div class="cards">
+            ${card('Active subscriptions', metric(rc?.active_subscriptions, data.currency))}
+            ${card('Active trials', metric(rc?.active_trials, data.currency))}
+            ${card('MRR', metric(rc?.mrr, data.currency))}
+            ${card('Revenue (28 days)', metric(rc?.revenue, data.currency))}
+          </div>
+          <h2>Microsoft Store (reported by the Windows app)</h2>
+          ${data.errors.firestore ? banner(`Firestore: ${data.errors.firestore}`) : ''}
+          <div class="cards">
+            ${card('Active monthly', data.windows?.monthly ?? '—')}
+            ${card('Lifetime owners', data.windows?.lifetime ?? '—')}
+            ${card('New this month', data.windows?.newThisMonth ?? '—')}
+            <div class="card"><div class="label">Windows revenue</div><div class="small" style="margin-top:10px">Not available by API — <a href="${PARTNER_CENTER}" target="_blank" rel="noopener">open Partner Center</a></div></div>
+          </div>
+          <p class="small muted">Windows counts cover users on app versions with purchase reporting who are signed in.</p>`;
+      } catch (e) {
+        el.innerHTML = banner(e.message);
+      }
+    }
+
+    // ─── Customer list ──────────────────────────────────────
+    let cursor = null;
+    async function loadList(reset) {
+      if (reset) { cursor = null; $('rows').innerHTML = ''; }
+      $('list-msg').innerHTML = '';
+      $('more').hidden = true;
+      try {
+        const q = new URLSearchParams({ source: $('source').value });
+        if (cursor) q.set('cursor', cursor);
+        const { data } = await api(`customers?${q}`);
+        $('rows').insertAdjacentHTML('beforeend', data.rows.map((r) => `
+          <tr data-uid="${esc(r.uid)}">
+            <td>${r.email ? esc(r.email) : `<span class="muted small">${esc(r.uid)}</span>`}</td>
+            <td><span class="pill ${r.isPro ? 'pro' : ''}">${r.isPro ? 'PRO' : 'FREE'}</span></td>
+            <td>${esc(r.plan ?? '—')}</td>
+            <td>${r.isPro && !r.proUntil ? 'Lifetime' : date(r.proUntil)}</td>
+            <td>${date(r.firstSeen)}</td>
+            <td>${date(r.lastSeen)}</td>
+          </tr>`).join(''));
+        if (!data.rows.length && reset) $('list-msg').innerHTML = '<p class="muted">No customers in this list yet.</p>';
+        cursor = data.nextCursor;
+        $('more').hidden = !cursor;
+      } catch (e) {
+        $('list-msg').innerHTML = banner(e.message);
+      }
+    }
+    $('more').onclick = () => loadList(false);
+    $('source').onchange = () => loadList(true);
+    $('rows').onclick = (ev) => { const tr = ev.target.closest('tr'); if (tr) openCustomer(tr.dataset.uid); };
+    $('search-form').onsubmit = (ev) => { ev.preventDefault(); const q = $('q').value.trim(); if (q) openCustomer(q); };
+
+    // ─── Customer detail ────────────────────────────────────
+    function refundCell(s) {
+      if (s.refundable) return `<button class="btn danger small" data-refund="${esc(s.storeTransactionId)}">Refund…</button>`;
+      if (s.store === 'app_store') return `<a href="${APPLE_CONSOLE}" target="_blank" rel="noopener" class="small">Apple handles refunds</a>`;
+      return '';
+    }
+    async function openCustomer(q) {
+      const el = $('detail');
+      el.hidden = false;
+      el.innerHTML = '<p class="muted">Loading…</p>';
+      let c;
+      try { c = (await api(`customer?q=${encodeURIComponent(q)}`)).data; }
+      catch (e) { el.innerHTML = `<button class="btn close" id="x">Close</button>${banner(e.message)}`; $('x').onclick = () => (el.hidden = true); return; }
+      const sources = c.proSources.map((s) => STORE_NAMES[s] ?? s).join(', ');
+      el.innerHTML = `
+        <button class="btn close" id="x">Close</button>
+        <h2 style="color:var(--text);font-size:18px;margin-top:0">${esc(c.email ?? 'Anonymous customer')}</h2>
+        ${c.errors.revenuecat ? banner(`RevenueCat: ${c.errors.revenuecat}`) : ''}
+        ${c.errors.firestore ? banner(`Firestore: ${c.errors.firestore}`) : ''}
+        <dl class="kv">
+          <dt>Status</dt><dd><span class="pill ${c.isPro ? 'pro' : ''}">${c.isPro ? 'PRO' : 'FREE'}</span> ${esc(sources)}</dd>
+          <dt>ID</dt><dd class="small">${esc(c.uid)}</dd>
+          <dt>Signed up</dt><dd>${date(c.createdAt)}</dd>
+        </dl>
+        <h2>App Store + Google Play</h2>
+        ${c.subscriptions.length ? `<div class="table-wrap"><table><thead><tr><th>Product</th><th>Store</th><th>Status</th><th>Ends</th><th></th></tr></thead><tbody>
+          ${c.subscriptions.map((s) => `<tr style="cursor:default"><td>${esc(s.product)}${s.sandbox ? ' <span class="pill warn">TEST</span>' : ''}</td><td>${esc(STORE_NAMES[s.store] ?? s.store)}</td><td>${esc(s.status)}</td><td>${date(s.periodEnd)}</td><td>${refundCell(s)}</td></tr>`).join('')}
+        </tbody></table></div>` : '<p class="muted small">No RevenueCat purchases.</p>'}
+        <div id="refund-box"></div>
+        <h2>Microsoft Store</h2>
+        ${c.windows ? `<dl class="kv"><dt>Product</dt><dd>${esc(c.windows.product)}</dd><dt>Active</dt><dd>${c.windows.active ? 'Yes' : 'No'}</dd><dt>First seen</dt><dd>${date(c.windows.firstSeenAt)}</dd><dt>Last checked</dt><dd>${date(c.windows.lastCheckedAt)}</dd></dl>
+          <p class="small"><a href="${PARTNER_CENTER}" target="_blank" rel="noopener">Refunds and orders in Partner Center</a></p>` : '<p class="muted small">No Windows purchase reported.</p>'}
+        <h2>Admin grant</h2>
+        ${c.grant ? `<p class="small">${c.grant.isActive ? 'Active' : 'Inactive'} · ${c.grant.expiresAt ? `until ${date(c.grant.expiresAt)}` : 'lifetime'}${c.grant.note ? ` · “${esc(c.grant.note)}”` : ''} · by ${esc(c.grant.grantedBy ?? '—')}</p>` : '<p class="muted small">No grant.</p>'}
+        <div class="actions">
+          <select id="g-dur"><option value="week">1 week</option><option value="month" selected>1 month</option><option value="year">1 year</option><option value="lifetime">Lifetime</option></select>
+          <input id="g-note" placeholder="Note (why)" />
+          <button class="btn primary" id="g-go">Grant Pro</button>
+          <button class="btn danger" id="g-revoke">Revoke grant</button>
+        </div>
+        <div id="action-msg"></div>`;
+      $('x').onclick = () => (el.hidden = true);
+      $('g-go').onclick = () => mutate('grant', { uid: c.uid, duration: $('g-dur').value, note: $('g-note').value }, c.uid);
+      $('g-revoke').onclick = () => mutate('revoke', { uid: c.uid }, c.uid);
+      el.querySelectorAll('[data-refund]').forEach((b) => b.onclick = () => showRefund(c.uid, b.dataset.refund));
+    }
+
+    function showRefund(uid, tx) {
+      $('refund-box').innerHTML = `
+        <div class="banner">Refund Google Play transaction <b>${esc(tx)}</b>? This refunds the last payment and removes Pro immediately. It cannot be undone.
+          <div class="actions"><input id="r-confirm" placeholder="Type REFUND" /><button class="btn danger" id="r-go" disabled>Refund now</button></div></div>`;
+      $('r-confirm').oninput = (e) => ($('r-go').disabled = e.target.value !== 'REFUND');
+      $('r-go').onclick = () => mutate('refund', { uid, storeTransactionId: tx }, uid);
+    }
+
+    async function mutate(action, body, uid) {
+      const msg = $('action-msg') || $('refund-box');
+      msg.innerHTML = '<p class="muted small">Working…</p>';
+      try {
+        const { status, data } = await api(action, { method: 'POST', body });
+        if (status === 207) {
+          msg.innerHTML = banner(`RevenueCat updated, but the Windows grant record failed (${data.firestore}). Retry to fix Windows.`);
+          return;
+        }
+        await openCustomer(uid);
+        $('action-msg').innerHTML = banner(
+          action === 'refund' ? `Refunded ${data.product}.` : action === 'grant' ? 'Pro granted.' : 'Grant revoked.', true);
+      } catch (e) {
+        msg.innerHTML = banner(e.message);
+      }
+    }
+  </script>
+</body>
+</html>
