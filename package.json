@@ -1,0 +1,8 @@
+{
+  "name": "sp-website",
+  "private": true,
+  "type": "module",
+  "engines": { "node": "22.x" },
+  "scripts": { "test": "node --test \"test/**/*.test.js\"" },
+  "dependencies": { "firebase-admin": "^13.4.0" }
+}
