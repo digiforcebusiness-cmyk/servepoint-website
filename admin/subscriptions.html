@@ -105,6 +105,13 @@
     const $ = (id) => document.getElementById(id);
     const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
     const date = (v) => (v ? new Date(v).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }) : '—');
+    const proUntilLabel = (r) => {
+      if (r.proUntil) return date(r.proUntil);
+      if (!r.isPro) return '—';
+      if (r.plan === 'windows · monthly') return 'Renews monthly';
+      if (r.plan === 'windows · other') return 'Active';
+      return 'Lifetime';
+    };
     const banner = (msg, ok = false) => `<div class="banner ${ok ? 'ok' : ''}">${esc(msg)}</div>`;
 
     async function api(path, { method = 'GET', body } = {}) {
@@ -188,7 +195,7 @@
             <td>${r.email ? esc(r.email) : `<span class="muted small">${esc(r.uid)}</span>`}</td>
             <td><span class="pill ${r.isPro ? 'pro' : ''}">${r.isPro ? 'PRO' : 'FREE'}</span></td>
             <td>${esc(r.plan ?? '—')}</td>
-            <td>${r.isPro && !r.proUntil ? 'Lifetime' : date(r.proUntil)}</td>
+            <td>${proUntilLabel(r)}</td>
             <td>${date(r.firstSeen)}</td>
             <td>${date(r.lastSeen)}</td>
           </tr>`).join(''));
