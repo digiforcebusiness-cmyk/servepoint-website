@@ -1,6 +1,6 @@
 import { HttpError } from './http.js';
 import { resolveCustomerId, userExists } from './resolve.js';
-import { normalizeRcSubscriber, buildCustomerRecord } from './customer.js';
+import { normalizeRcSubscriber, buildCustomerRecord, isGrantActive } from './customer.js';
 
 const settle = (p) => p.then((value) => ({ value }), (e) => ({ error: e?.message || String(e) }));
 
@@ -130,4 +130,87 @@ export async function refundPlay(deps, { uid, storeTransactionId, adminEmail, no
   }
   await writeLog(deps, { ...base, result: 'ok' });
   return { refunded: true, product: tx.product };
+}
+
+const PAGE = 50;
+const isoMs = (v) => (v == null ? null : new Date(v).toISOString());
+const OVERVIEW_METRICS = ['active_subscriptions', 'active_trials', 'mrr', 'revenue'];
+
+async function emailsFor(auth, uids) {
+  const real = uids.filter((u) => !u.startsWith('$RCAnonymousID:'));
+  if (!real.length) return new Map();
+  const { users } = await auth.getUsers(real.map((uid) => ({ uid })));
+  return new Map(users.map((u) => [u.uid, u.email ?? null]));
+}
+
+export async function listCustomers(deps, { source = 'revenuecat', cursor } = {}, now) {
+  if (source === 'revenuecat') {
+    const page = await deps.rc.listCustomers({ limit: PAGE, startingAfter: cursor });
+    const items = page.items ?? [];
+    const emails = await emailsFor(deps.auth, items.map((c) => c.id));
+    const rows = items.map((c) => {
+      const ents = c.active_entitlements?.items ?? [];
+      const lifetime = ents.some((e) => e.expires_at == null);
+      const latest = ents.length && !lifetime ? Math.max(...ents.map((e) => e.expires_at)) : null;
+      return {
+        uid: c.id,
+        email: emails.get(c.id) ?? null,
+        isPro: ents.length > 0,
+        plan: null,
+        proUntil: isoMs(latest),
+        firstSeen: isoMs(c.first_seen_at),
+        lastSeen: isoMs(c.last_seen_at),
+      };
+    });
+    const nextCursor = page.next_page
+      ? new URL(page.next_page, 'https://api.revenuecat.com').searchParams.get('starting_after')
+      : null;
+    return { rows, nextCursor };
+  }
+  if (source === 'windows') {
+    const { items, nextCursor } = await deps.store.listWindows({ limit: PAGE, after: cursor });
+    return {
+      rows: items.map((w) => ({
+        uid: w.uid, email: w.email ?? null, isPro: w.active === true, plan: `windows · ${w.product}`,
+        proUntil: null, firstSeen: w.firstSeenAt ?? null, lastSeen: w.lastCheckedAt ?? null,
+      })),
+      nextCursor,
+    };
+  }
+  if (source === 'grants') {
+    const { items, nextCursor } = await deps.store.listGrants({ limit: PAGE, after: cursor });
+    const emails = await emailsFor(deps.auth, items.map((g) => g.uid));
+    return {
+      rows: items.map((g) => ({
+        uid: g.uid, email: emails.get(g.uid) ?? null, isPro: isGrantActive(g, now),
+        plan: `grant · ${g.expiresAt ? 'timed' : 'lifetime'}`, proUntil: g.expiresAt ?? null,
+        firstSeen: g.grantedAt ?? null, lastSeen: null,
+      })),
+      nextCursor,
+    };
+  }
+  throw new HttpError(400, `Unknown source "${source}"`);
+}
+
+export async function getOverview(deps, now) {
+  const d = new Date(now);
+  const monthStart = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1)).toISOString();
+  const [rc, windows] = await Promise.all([
+    settle(deps.rc.metricsOverview()),
+    settle(deps.store.countWindows({ monthStart })),
+  ]);
+  let revenuecat = null;
+  if (rc.value) {
+    revenuecat = {};
+    for (const id of OVERVIEW_METRICS) {
+      const m = rc.value.metrics?.find((x) => x.id === id);
+      revenuecat[id] = m ? { value: m.value, unit: m.unit } : null;
+    }
+  }
+  return {
+    currency: rc.value?.currency ?? null,
+    revenuecat,
+    windows: windows.value ?? null,
+    errors: { revenuecat: rc.error ?? null, firestore: windows.error ?? null },
+  };
 }
