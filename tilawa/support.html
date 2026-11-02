@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support — Tilawa</title>
+  <meta name="description" content="Tilawa support: help with voice following, hidden-verse memorization, Hafs and Warsh, audio recitations, and contact." />
+  <link rel="canonical" href="https://www.servepointpos.com/tilawa/support" />
+  <link rel="icon" type="image/png" href="/tilawa/icon.png" />
+  <link rel="apple-touch-icon" href="/tilawa/icon.png" />
+  <link rel="stylesheet" href="/tilawa/style.css" />
+</head>
+<body>
+
+<nav>
+  <a href="/tilawa" class="brand"><img src="/tilawa/icon.png" alt="" class="icon" /><strong>Tilawa</strong></a>
+  <div class="links">
+    <a href="/tilawa/support" aria-current="page">Support</a>
+    <a href="/tilawa/privacy" class="optional">Privacy</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>How can we help?</h1>
+  <p>Support for Tilawa, the Quran reader for Hafs and Warsh with voice following and memorization practice.</p>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <h2>Contact support</h2>
+    <p class="lead">Send us a message and we usually reply within 48 hours. You can also write directly to <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a>. Arabic, English and French are welcome.</p>
+    <form id="contact-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cf-name">Name</label>
+          <input type="text" id="cf-name" name="name" autocomplete="name" required />
+        </div>
+        <div class="form-group">
+          <label for="cf-email">Email</label>
+          <input type="email" id="cf-email" name="email" autocomplete="email" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cf-subject">Subject</label>
+        <select id="cf-subject" name="subject">
+          <option>Voice following or memorization</option>
+          <option>Error in the Quran text or a translation</option>
+          <option>Audio recitations</option>
+          <option>Suggestion</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" placeholder="Describe the problem: surah and verse, riwayah, device and system version, screenshots if possible…" required></textarea>
+      </div>
+      <button type="submit" class="button">Send</button>
+    </form>
+  </div>
+
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+
+    <details>
+      <summary>How do I follow my recitation by voice?</summary>
+      <div class="answer">Open the page you want to recite, tap the microphone and allow Microphone (and Speech Recognition on iPhone). Start from the beginning of the page. The word you are reciting is highlighted and the page follows you.</div>
+    </details>
+
+    <details>
+      <summary>How do I test my memorization?</summary>
+      <div class="answer">Turn on hidden verses, then tap the microphone and recite from memory. Each word appears as you say it. Press and hold a hidden word to peek at it if you get stuck.</div>
+    </details>
+
+    <details>
+      <summary>Voice following does not react or stops.</summary>
+      <div class="answer">Check that you have an internet connection and that Arabic is available in your device’s speech recognition settings (on Android, in the Google speech services or dictation settings). Recite clearly from the start of the visible page. Tap the microphone notice to see what your device heard, and include a screenshot of it if you contact us.</div>
+    </details>
+
+    <details>
+      <summary>Does Tilawa grade my tajweed?</summary>
+      <div class="answer">No. Voice following recognizes which words you recite. It does not assess pronunciation, tajweed rules or harakat.</div>
+    </details>
+
+    <details>
+      <summary>Which riwayat are available?</summary>
+      <div class="answer">Hafs ʿan ʿAsim and Warsh ʿan Nafiʿ, each with its own text, verse numbering and King Fahd Complex font. Switch between them from the app’s menu; bookmarks and reading positions are kept separately for each.</div>
+    </details>
+
+    <details>
+      <summary>Does the app work offline?</summary>
+      <div class="answer">Yes. The Quran text, translations, search and bookmarks work without internet. Streaming recitations and, on most devices, voice following need a connection.</div>
+    </details>
+
+    <details>
+      <summary>I found an error in the text or a translation.</summary>
+      <div class="answer">Please tell us using the form above (subject “Error in the Quran text or a translation”), with the riwayah, surah and verse.</div>
+    </details>
+
+    <details>
+      <summary>How do I delete my data?</summary>
+      <div class="answer">Tilawa has no account and sends no personal data to us. Your bookmarks and settings are stored only on your device; deleting the app removes them. See the <a href="/tilawa/privacy">privacy policy</a>.</div>
+    </details>
+  </div>
+</div>
+
+<footer>
+  <p style="margin-bottom:10px;">© 2026 Tilawa</p>
+  <a href="/tilawa">Home</a>
+  <a href="/tilawa/support">Support</a>
+  <a href="/tilawa/privacy">Privacy</a>
+</footer>
+
+<script>
+  // Same form backend as the rest of the site (Web3Forms).
+  (function () {
+    const KEY = "e157f175-3a00-429c-98a8-5f525134f5ac";
+    const APP_NAME = "Tilawa";
+    const TO_EMAIL = "digiforcebusiness@gmail.com";
+    const form = document.getElementById("contact-form");
+    function showStatus(ok, text) {
+      let el = form.querySelector("[data-form-status]");
+      if (!el) {
+        el = document.createElement("div");
+        el.setAttribute("data-form-status", "");
+        el.style.cssText = "margin-top:14px;padding:10px 14px;border-radius:10px;font-size:14px;";
+        form.appendChild(el);
+      }
+      el.style.background = ok ? "#ECFDF3" : "#FEF2F2";
+      el.style.color = ok ? "#15803D" : "#B91C1C";
+      el.textContent = text;
+    }
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const fd = new FormData(form);
+      fd.append("access_key", KEY);
+      fd.set("subject", "[" + APP_NAME + "] " + (fd.get("subject") || "Contact"));
+      fd.append("from_name", APP_NAME + " — support");
+      if (fd.get("email")) fd.append("replyto", fd.get("email"));
+      const btn = form.querySelector("button[type=submit]");
+      btn.disabled = true;
+      btn.textContent = "Sending…";
+      try {
+        const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: fd });
+        const j = await res.json().catch(function () { return {}; });
+        if (!res.ok || j.success === false) throw new Error(j.message || "Network error");
+        showStatus(true, "Thank you, your message was sent. We will reply soon.");
+        form.reset();
+      } catch (err) {
+        showStatus(false, "Could not send. Please write to " + TO_EMAIL + ".");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Send";
+      }
+    });
+  })();
+</script>
+</body>
+</html>
