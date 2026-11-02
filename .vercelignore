@@ -1,2 +1,7 @@
 test
 docs
+scripts
+seo-data
+test-results
+playwright-report
+playwright.config.mjs

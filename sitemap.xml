@@ -5,59 +5,59 @@
   <url>
     <loc>https://www.servepointpos.com/</loc>
     <xhtml:link rel="alternate" hreflang="en"        href="https://www.servepointpos.com/"/>
-    <xhtml:link rel="alternate" hreflang="fr"        href="https://www.servepointpos.com/fr/"/>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://www.servepointpos.com/es/"/>
-    <xhtml:link rel="alternate" hreflang="ar"        href="https://www.servepointpos.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://www.servepointpos.com/fr"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://www.servepointpos.com/es"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://www.servepointpos.com/ar"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.servepointpos.com/"/>
-    <lastmod>2026-04-17</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://www.servepointpos.com/fr/</loc>
+    <loc>https://www.servepointpos.com/fr</loc>
     <xhtml:link rel="alternate" hreflang="en"        href="https://www.servepointpos.com/"/>
-    <xhtml:link rel="alternate" hreflang="fr"        href="https://www.servepointpos.com/fr/"/>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://www.servepointpos.com/es/"/>
-    <xhtml:link rel="alternate" hreflang="ar"        href="https://www.servepointpos.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://www.servepointpos.com/fr"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://www.servepointpos.com/es"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://www.servepointpos.com/ar"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.servepointpos.com/"/>
-    <lastmod>2026-04-17</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://www.servepointpos.com/es/</loc>
+    <loc>https://www.servepointpos.com/es</loc>
     <xhtml:link rel="alternate" hreflang="en"        href="https://www.servepointpos.com/"/>
-    <xhtml:link rel="alternate" hreflang="fr"        href="https://www.servepointpos.com/fr/"/>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://www.servepointpos.com/es/"/>
-    <xhtml:link rel="alternate" hreflang="ar"        href="https://www.servepointpos.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://www.servepointpos.com/fr"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://www.servepointpos.com/es"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://www.servepointpos.com/ar"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.servepointpos.com/"/>
-    <lastmod>2026-04-17</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://www.servepointpos.com/ar/</loc>
+    <loc>https://www.servepointpos.com/ar</loc>
     <xhtml:link rel="alternate" hreflang="en"        href="https://www.servepointpos.com/"/>
-    <xhtml:link rel="alternate" hreflang="fr"        href="https://www.servepointpos.com/fr/"/>
-    <xhtml:link rel="alternate" hreflang="es"        href="https://www.servepointpos.com/es/"/>
-    <xhtml:link rel="alternate" hreflang="ar"        href="https://www.servepointpos.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://www.servepointpos.com/fr"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://www.servepointpos.com/es"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://www.servepointpos.com/ar"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.servepointpos.com/"/>
-    <lastmod>2026-04-17</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://www.servepointpos.com/privacy.html</loc>
+    <loc>https://www.servepointpos.com/privacy</loc>
     <lastmod>2026-05-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/zh/privacy.html</loc>
+    <loc>https://www.servepointpos.com/zh/privacy</loc>
     <lastmod>2026-05-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
@@ -65,7 +65,7 @@
 
   <!-- App landing pages -->
   <url>
-    <loc>https://www.servepointpos.com/mental-maths/</loc>
+    <loc>https://www.servepointpos.com/mental-maths</loc>
     <lastmod>2026-05-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -77,7 +77,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/elastic-face/</loc>
+    <loc>https://www.servepointpos.com/elastic-face</loc>
     <lastmod>2026-05-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -91,19 +91,19 @@
 
   <!-- App privacy policies -->
   <url>
-    <loc>https://www.servepointpos.com/elastic-face/privacy.html</loc>
+    <loc>https://www.servepointpos.com/elastic-face/privacy</loc>
     <lastmod>2026-05-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/mental-maths/privacy.html</loc>
+    <loc>https://www.servepointpos.com/mental-maths/privacy</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/brainhook/privacy.html</loc>
+    <loc>https://www.servepointpos.com/brainhook/privacy</loc>
     <lastmod>2026-05-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
@@ -111,7 +111,7 @@
 
   <!-- Blog index -->
   <url>
-    <loc>https://www.servepointpos.com/blog/</loc>
+    <loc>https://www.servepointpos.com/blog</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -119,385 +119,385 @@
 
   <!-- Original article -->
   <url>
-    <loc>https://www.servepointpos.com/blog/logiciel-caisse-restaurant-2026.html</loc>
-    <lastmod>2026-04-17</lastmod>
+    <loc>https://www.servepointpos.com/blog/logiciel-caisse-restaurant-2026</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Month 1 — April 2026 -->
   <url>
-    <loc>https://www.servepointpos.com/blog/best-pos-app-small-restaurant.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://www.servepointpos.com/blog/best-pos-app-small-restaurant</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/ar-pos-restaurant-guide.html</loc>
-    <lastmod>2026-04-22</lastmod>
+    <loc>https://www.servepointpos.com/blog/ar-pos-restaurant-guide</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/software-punto-venta-restaurante.html</loc>
-    <lastmod>2026-04-24</lastmod>
+    <loc>https://www.servepointpos.com/blog/software-punto-venta-restaurante</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/affichage-cuisine-restaurant.html</loc>
+    <loc>https://www.servepointpos.com/blog/affichage-cuisine-restaurant</loc>
     <lastmod>2026-04-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/kitchen-display-system-app.html</loc>
-    <lastmod>2026-04-28</lastmod>
+    <loc>https://www.servepointpos.com/blog/kitchen-display-system-app</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/cloud-pos-system-restaurant.html</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://www.servepointpos.com/blog/cloud-pos-system-restaurant</loc>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/tpv-para-restaurante.html</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://www.servepointpos.com/blog/tpv-para-restaurante</loc>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/restaurant-management-software.html</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://www.servepointpos.com/blog/restaurant-management-software</loc>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/bar-pos-system.html</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://www.servepointpos.com/blog/bar-pos-system</loc>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/caisse-enregistreuse-tactile-restaurant.html</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://www.servepointpos.com/blog/caisse-enregistreuse-tactile-restaurant</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/software-hosteleria-tpv.html</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://www.servepointpos.com/blog/software-hosteleria-tpv</loc>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/restaurant-billing-software.html</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://www.servepointpos.com/blog/restaurant-billing-software</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/loyverse-alternative.html</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://www.servepointpos.com/blog/loyverse-alternative</loc>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/qr-code-menu.html</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://www.servepointpos.com/blog/qr-code-menu</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/pos-system-for-food-truck.html</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://www.servepointpos.com/blog/pos-system-for-food-truck</loc>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/pos-system-dubai-uae.html</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://www.servepointpos.com/blog/pos-system-dubai-uae</loc>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/coffee-shop-profit-margins.html</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://www.servepointpos.com/blog/coffee-shop-profit-margins</loc>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/ar-kitchen-display-restaurant.html</loc>
-    <lastmod>2026-04-30</lastmod>
+    <loc>https://www.servepointpos.com/blog/ar-kitchen-display-restaurant</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/pantalla-cocina-restaurante.html</loc>
-    <lastmod>2026-05-02</lastmod>
+    <loc>https://www.servepointpos.com/blog/pantalla-cocina-restaurante</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Month 2 — May 2026 -->
   <url>
-    <loc>https://www.servepointpos.com/blog/application-caisse-cafe-android.html</loc>
-    <lastmod>2026-05-06</lastmod>
+    <loc>https://www.servepointpos.com/blog/application-caisse-cafe-android</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/restaurant-inventory-management-app.html</loc>
+    <loc>https://www.servepointpos.com/blog/restaurant-inventory-management-app</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/ar-free-pos-app.html</loc>
-    <lastmod>2026-05-10</lastmod>
+    <loc>https://www.servepointpos.com/blog/ar-free-pos-app</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/gestion-inventario-restaurante.html</loc>
+    <loc>https://www.servepointpos.com/blog/gestion-inventario-restaurante</loc>
     <lastmod>2026-05-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/gestion-stock-restaurant.html</loc>
-    <lastmod>2026-05-18</lastmod>
+    <loc>https://www.servepointpos.com/blog/gestion-stock-restaurant</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/pos-cafe-android-2026.html</loc>
-    <lastmod>2026-05-20</lastmod>
+    <loc>https://www.servepointpos.com/blog/pos-cafe-android-2026</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/ar-restaurant-management-software.html</loc>
-    <lastmod>2026-05-22</lastmod>
+    <loc>https://www.servepointpos.com/blog/ar-restaurant-management-software</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/app-caja-registradora-cafeteria.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <loc>https://www.servepointpos.com/blog/app-caja-registradora-cafeteria</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Month 3 — June 2026 -->
   <url>
-    <loc>https://www.servepointpos.com/blog/logiciel-caisse-snack-bar.html</loc>
+    <loc>https://www.servepointpos.com/blog/logiciel-caisse-snack-bar</loc>
     <lastmod>2026-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/free-restaurant-pos-android.html</loc>
-    <lastmod>2026-06-06</lastmod>
+    <loc>https://www.servepointpos.com/blog/free-restaurant-pos-android</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/ar-inventory-management.html</loc>
+    <loc>https://www.servepointpos.com/blog/ar-inventory-management</loc>
     <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/sistema-pos-cafeteria.html</loc>
-    <lastmod>2026-06-10</lastmod>
+    <loc>https://www.servepointpos.com/blog/sistema-pos-cafeteria</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/application-prise-commande-serveur.html</loc>
+    <loc>https://www.servepointpos.com/blog/application-prise-commande-serveur</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/waiter-ordering-app-restaurant.html</loc>
-    <lastmod>2026-06-19</lastmod>
+    <loc>https://www.servepointpos.com/blog/waiter-ordering-app-restaurant</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/ar-waiter-ordering-app.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <loc>https://www.servepointpos.com/blog/ar-waiter-ordering-app</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/app-tomar-pedidos-camarero.html</loc>
-    <lastmod>2026-06-23</lastmod>
+    <loc>https://www.servepointpos.com/blog/app-tomar-pedidos-camarero</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Month 4 — July 2026 -->
   <url>
-    <loc>https://www.servepointpos.com/blog/imprimante-thermique-bluetooth-restaurant.html</loc>
+    <loc>https://www.servepointpos.com/blog/imprimante-thermique-bluetooth-restaurant</loc>
     <lastmod>2026-07-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/bluetooth-thermal-printer-pos.html</loc>
+    <loc>https://www.servepointpos.com/blog/bluetooth-thermal-printer-pos</loc>
     <lastmod>2026-07-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/ar-thermal-printer-restaurant.html</loc>
+    <loc>https://www.servepointpos.com/blog/ar-thermal-printer-restaurant</loc>
     <lastmod>2026-07-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/impresora-termica-bluetooth-restaurante.html</loc>
+    <loc>https://www.servepointpos.com/blog/impresora-termica-bluetooth-restaurante</loc>
     <lastmod>2026-07-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/synchronisation-temps-reel-pos.html</loc>
-    <lastmod>2026-07-14</lastmod>
+    <loc>https://www.servepointpos.com/blog/synchronisation-temps-reel-pos</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/real-time-sync-restaurant-pos.html</loc>
+    <loc>https://www.servepointpos.com/blog/real-time-sync-restaurant-pos</loc>
     <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/ar-real-time-sync-pos.html</loc>
-    <lastmod>2026-07-18</lastmod>
+    <loc>https://www.servepointpos.com/blog/ar-real-time-sync-pos</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/sincronizacion-tiempo-real-restaurante.html</loc>
-    <lastmod>2026-07-20</lastmod>
+    <loc>https://www.servepointpos.com/blog/sincronizacion-tiempo-real-restaurante</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Month 5 — August 2026 -->
   <url>
-    <loc>https://www.servepointpos.com/blog/servepoint-vs-square-pos.html</loc>
-    <lastmod>2026-08-06</lastmod>
+    <loc>https://www.servepointpos.com/blog/servepoint-vs-square-pos</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/servepoint-vs-square-comparison.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <loc>https://www.servepointpos.com/blog/servepoint-vs-square-comparison</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/ar-pos-apps-comparison.html</loc>
-    <lastmod>2026-08-10</lastmod>
+    <loc>https://www.servepointpos.com/blog/ar-pos-apps-comparison</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/comparativa-pos-restaurante.html</loc>
-    <lastmod>2026-08-12</lastmod>
+    <loc>https://www.servepointpos.com/blog/comparativa-pos-restaurante</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/rapports-ventes-restaurant.html</loc>
-    <lastmod>2026-08-18</lastmod>
+    <loc>https://www.servepointpos.com/blog/rapports-ventes-restaurant</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/restaurant-sales-reports-pos.html</loc>
-    <lastmod>2026-08-20</lastmod>
+    <loc>https://www.servepointpos.com/blog/restaurant-sales-reports-pos</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/ar-sales-reports-restaurant.html</loc>
-    <lastmod>2026-08-22</lastmod>
+    <loc>https://www.servepointpos.com/blog/ar-sales-reports-restaurant</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/informes-ventas-restaurante.html</loc>
-    <lastmod>2026-08-24</lastmod>
+    <loc>https://www.servepointpos.com/blog/informes-ventas-restaurante</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Month 6 — September 2026 -->
   <url>
-    <loc>https://www.servepointpos.com/blog/ouvrir-restaurant-logiciel-caisse.html</loc>
-    <lastmod>2026-09-05</lastmod>
+    <loc>https://www.servepointpos.com/blog/ouvrir-restaurant-logiciel-caisse</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/restaurant-pos-setup-guide.html</loc>
+    <loc>https://www.servepointpos.com/blog/restaurant-pos-setup-guide</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/ar-restaurant-pos-complete-guide.html</loc>
+    <loc>https://www.servepointpos.com/blog/ar-restaurant-pos-complete-guide</loc>
     <lastmod>2026-09-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/como-elegir-pos-restaurante.html</loc>
+    <loc>https://www.servepointpos.com/blog/como-elegir-pos-restaurante</loc>
     <lastmod>2026-09-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/meilleur-pos-restaurant-2026.html</loc>
-    <lastmod>2026-09-16</lastmod>
+    <loc>https://www.servepointpos.com/blog/meilleur-pos-restaurant-2026</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/best-pos-system-restaurant-2026.html</loc>
-    <lastmod>2026-09-18</lastmod>
+    <loc>https://www.servepointpos.com/blog/best-pos-system-restaurant-2026</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/ar-best-pos-2026.html</loc>
-    <lastmod>2026-09-20</lastmod>
+    <loc>https://www.servepointpos.com/blog/ar-best-pos-2026</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/blog/mejor-sistema-pos-restaurante-2026.html</loc>
-    <lastmod>2026-09-22</lastmod>
+    <loc>https://www.servepointpos.com/blog/mejor-sistema-pos-restaurante-2026</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/macfree/</loc>
+    <loc>https://www.servepointpos.com/macfree</loc>
     <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.servepointpos.com/macfree/contact.html</loc>
+    <loc>https://www.servepointpos.com/macfree/contact</loc>
     <lastmod>2026-07-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>

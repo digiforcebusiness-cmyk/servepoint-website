@@ -2,7 +2,20 @@
   "name": "sp-website",
   "private": true,
   "type": "module",
-  "engines": { "node": "22.x" },
-  "scripts": { "test": "node --test \"test/**/*.test.js\"" },
-  "dependencies": { "firebase-admin": "^13.4.0" }
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "test": "node --test \"test/**/*.test.js\"",
+    "preview": "node scripts/preview.mjs",
+    "check:seo": "node scripts/check-seo.mjs",
+    "gsc:export": "node scripts/gsc-export.mjs",
+    "test:browser": "playwright test"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.4.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  }
 }

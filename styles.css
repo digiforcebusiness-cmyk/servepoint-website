@@ -345,6 +345,7 @@ body {
   pointer-events: none;
   border-radius: 50%;
 }
+@media (max-width: 760px) { .phone-wrap::before { inset: -20px; } }
 .phone-wrap img {
   width: 100%;
   max-width: 480px;
@@ -607,7 +608,9 @@ body {
 }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
 .footer-brand p { font-size: 13px; color: var(--text-muted); margin-top: 8px; }
-.footer-links { display: flex; gap: 24px; }
+.footer-links { display: flex; gap: 16px 24px; flex-wrap: wrap; max-width: 100%; }
+.footer-brand { min-width: 0; max-width: 100%; }
+.footer-brand p { overflow-wrap: anywhere; }
 .footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; transition: color .2s; }
 .footer-links a:hover { color: var(--text); }
 .footer-copy { font-size: 12px; color: var(--border); }

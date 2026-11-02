@@ -8,13 +8,12 @@
   <title>Contact ServePoint — Get in Touch</title>
   <meta name="description" content="Contact the ServePoint team. We're happy to help with questions about our POS system for restaurants and cafés." />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://www.servepointpos.com/contact.html" />
-  <link rel="icon" href="icon.png" type="image/png" />
-  <link rel="apple-touch-icon" href="icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="canonical" href="https://www.servepointpos.com/contact" />
+  <link rel="icon" href="/icon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/icon.png" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/guide.css">
+  <script src="/site.js" defer></script>
 </head>
 <body>
 
@@ -31,12 +30,12 @@
         <a href="/#features">Features</a>
         <a href="/#how-it-works">How it works</a>
         <a href="/#pricing">Pricing</a>
-        <a href="/contact.html" style="color:var(--text);">Contact</a>
+        <a href="/contact" style="color:var(--text);">Contact</a>
         <div class="lang-picker">
-          <a href="/contact.html" class="lang-active">EN</a>
-          <a href="/fr/contact.html">FR</a>
-          <a href="/es/contact.html">ES</a>
-          <a href="/ar/contact.html">AR</a>
+          <a href="/contact" class="lang-active">EN</a>
+          <a href="/fr/contact">FR</a>
+          <a href="/es/contact">ES</a>
+          <a href="/ar/contact">AR</a>
         </div>
         <a href="https://play.google.com/store/apps/details?id=com.app.servepoint" class="nav-cta" target="_blank" rel="noopener">Get the app</a>
       </div>
@@ -47,7 +46,7 @@
   <section class="contact-hero">
     <div class="container">
       <h1>Get in Touch</h1>
-      <p>Have a question or need help? Send us a message — we typically reply within 24 hours.</p>
+      <p>Tell us about your restaurant, devices or printer. We can help you choose the right setup.</p>
     </div>
   </section>
 
@@ -74,7 +73,7 @@
         </div>
         <div class="contact-info-text">
           <strong>Response Time</strong>
-          <span>Within 24 hours</span>
+          <span>We reply by email</span>
         </div>
       </div>
 
@@ -84,7 +83,7 @@
         </div>
         <div class="contact-info-text">
           <strong>Available on</strong>
-          <span>Android · iOS coming soon</span>
+          <span>Android · iPhone &amp; iPad · Windows</span>
         </div>
       </div>
 
@@ -100,15 +99,15 @@
     <div class="contact-form-card">
       <h2>Send a Message</h2>
 
-      <form id="contact-form" action="#" method="POST">
+      <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
         <div class="form-row">
           <div class="form-group">
             <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" placeholder="Your name" required />
+            <input type="text" id="name" name="name" placeholder="Your name" autocomplete="name" required />
           </div>
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+            <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required />
           </div>
         </div>
 
@@ -116,6 +115,7 @@
           <label for="subject">Subject</label>
           <select id="subject" name="subject" required>
             <option value="" disabled selected>Select a topic…</option>
+            <option value="Help choosing my setup">Help choosing my setup</option>
             <option value="General Question">General Question</option>
             <option value="Technical Support">Technical Support</option>
             <option value="Billing & Subscription">Billing &amp; Subscription</option>
@@ -130,19 +130,16 @@
           <textarea id="message" name="message" placeholder="Describe your question or issue…" required></textarea>
         </div>
 
-        <input type="hidden" name="_subject" value="New contact from ServePoint website" />
-        <input type="text" name="_gotcha" style="display:none" />
+        <input type="hidden" name="access_key" value="e157f175-3a00-429c-98a8-5f525134f5ac">
+        <input type="hidden" name="from_name" value="ServePoint POS contact form">
+        <input type="checkbox" name="botcheck" hidden tabindex="-1" aria-hidden="true">
 
         <button type="submit" class="form-submit">Send Message →</button>
+      <div data-form-status role="status" aria-live="polite"></div>
+      <noscript><p>You can send this form directly or email <a href="mailto:digiforcebusiness@gmail.com">digiforcebusiness@gmail.com</a>.</p></noscript>
       </form>
 
-      <div class="form-success" id="form-success">
-        <div class="form-success-icon">
-          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
-        <h3>Message Sent!</h3>
-        <p>Thanks for reaching out. We'll get back to you within 24 hours.</p>
-      </div>
+
     </div>
   </div>
 
@@ -159,108 +156,18 @@
         <p>Professional POS for restaurants &amp; cafés.</p>
       </div>
       <div class="footer-links">
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms of Use</a>
-        <a href="contact.html">Contact</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Use</a>
+        <a href="/contact">Contact</a>
         <a href="https://play.google.com/store/apps/details?id=com.app.servepoint" target="_blank" rel="noopener">Google Play</a>
       </div>
       <div class="footer-copy">© 2026 ServePoint. All rights reserved.</div>
     </div>
   </footer>
 
-  <script>
-    const form = document.getElementById('contact-form');
-    const success = document.getElementById('form-success');
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const btn = form.querySelector('.form-submit');
-      btn.textContent = 'Sending…';
-      btn.disabled = true;
-      try {
-        const res = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { 'Accept': 'application/json' }
-        });
-        if (res.ok) {
-          form.style.display = 'none';
-          success.style.display = 'block';
-        } else {
-          btn.textContent = 'Send Message →';
-          btn.disabled = false;
-          alert('Something went wrong. Please email us directly at digiforcebusiness@gmail.com');
-        }
-      } catch(err) {
-        btn.textContent = 'Send Message →';
-        btn.disabled = false;
-        alert('Something went wrong. Please email us directly at digiforcebusiness@gmail.com');
-      }
-    });
-  </script>
 
-  <script>
-    // Auto-injected Web3Forms submission handler. Wired by
-    // _inject-web3forms.js so every contact form across the site goes
-    // through the same backend.
-    (function () {
-      const KEY = "e157f175-3a00-429c-98a8-5f525134f5ac";
-      const APP_NAME = "ServePoint POS";
-      const TO_EMAIL = "digiforcebusiness@gmail.com";
-      const form = document.getElementById("contact-form") || document.querySelector("form");
-      if (!form) return;
 
-      // Drop any legacy action so a JS failure can't redirect to a dead
-      // Formspree / FormSubmit endpoint.
-      form.removeAttribute("action");
 
-      function showStatus(form, ok, text) {
-        let el = form.querySelector("[data-form-status]");
-        if (!el) {
-          el = document.createElement("div");
-          el.setAttribute("data-form-status", "");
-          el.style.cssText = "margin-top:14px;padding:10px 14px;border-radius:8px;font-size:0.9rem;";
-          form.appendChild(el);
-        }
-        el.style.background = ok ? "rgba(48,209,88,0.10)" : "rgba(255,59,48,0.10)";
-        el.style.color = ok ? "#30d158" : "#FF3B30";
-        el.style.border = ok ? "1px solid rgba(48,209,88,0.30)" : "1px solid rgba(255,59,48,0.30)";
-        el.textContent = text;
-      }
-
-      form.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        const fd = new FormData(form);
-        fd.append("access_key", KEY);
-        const userSubject = fd.get("subject") || fd.get("topic") || "Contact form";
-        fd.set("subject", "[" + APP_NAME + "] " + userSubject);
-        fd.append("from_name", APP_NAME + " contact form");
-        const emailVal = fd.get("email");
-        if (emailVal) fd.append("replyto", emailVal);
-
-        const btn = form.querySelector('button[type=submit], input[type=submit]');
-        let originalLabel = "";
-        if (btn) {
-          originalLabel = btn.tagName === "INPUT" ? btn.value : btn.textContent;
-          btn.disabled = true;
-          if (btn.tagName === "INPUT") btn.value = "Sending\u2026"; else btn.textContent = "Sending\u2026";
-        }
-
-        try {
-          const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: fd });
-          const j = await res.json().catch(function () { return {}; });
-          if (!res.ok || j.success === false) throw new Error(j.message || "Network error");
-          showStatus(form, true, "Thanks \u2014 your message has been sent. We'll reply within 7 business days.");
-          form.reset();
-        } catch (err) {
-          showStatus(form, false, "Couldn't send the message \u2014 please email " + TO_EMAIL + " directly.");
-        } finally {
-          if (btn) {
-            btn.disabled = false;
-            if (btn.tagName === "INPUT") btn.value = originalLabel; else btn.textContent = originalLabel;
-          }
-        }
-      });
-    })();
-  </script>
+  <script src="/contact.js" defer></script>
 </body>
 </html>
